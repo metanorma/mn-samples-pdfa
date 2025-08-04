@@ -24,3 +24,9 @@ and guidelines
 * [[[ISO_14289-1,ISO 14289-1]]], Document management applications — Electronic
 document file format enhancement for accessibility — Part 1: Use of ISO 32000‑1
 (PDF/UA‑1)
+
+* [[[ISO_14289-2,ISO 14289-2]]], Document management applications — Electronic
+document file format enhancement for accessibility Part 2: Use of ISO 32000-2
+(PDF/UA-2)
+
+* [[[ISO_14289_all,hidden(ISO 14289 (all parts))]]]

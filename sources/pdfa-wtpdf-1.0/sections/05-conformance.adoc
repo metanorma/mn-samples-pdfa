@@ -130,7 +130,7 @@ forbidden by this document;
 *[Conformance level for accessibility]* — an embedded file, if necessary to the
 understanding of the containing file, shall be accessible according to
 objectively verifiable standards, e.g., <<W3C-wcag>>. If such an embedded file is
-a PDF file, it shall conform to <<ISO_14289>> and/or to this document's conformance
+a PDF file, it shall conform to <<ISO_14289_all>> and/or to this document's conformance
 level for accessibility.
 
 NOTE: Embedded files referenced from the containing file, for use by a human
