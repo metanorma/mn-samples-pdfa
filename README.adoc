@@ -7,17 +7,26 @@ These documents belong to the PDF Association.
 `sources/`::
 Source of the documents.
 
-`sources/pdfa-wtpdf-1.0/`::
-PDFA WTPDF 1.0
+`sources/pdfa-an-hdr-faq/`::
+Application Note: FAQ on HDR in PDF: Focus on PDF/A and PDF/X.
 
-`sources/pdfa-pdf20-an001/`::
-PDFA PDF 2.0 Application Note 001
+`sources/pdfa-an-pdf20-001/`::
+Application Note: PDF 2.0 001 Usage of Black Point Compensation
 
-`sources/pdfa-pdf20-an002/`::
-PDFA PDF 2.0 Application Note 002
+`sources/pdfa-an-pdf20-002/`::
+Application Note: PDF 2.0 002 Associated Files
 
-`sources/pdfa-pdf20-an003/`::
-PDFA PDF 2.0 Application Note 003
+`sources/pdfa-an-pdf20-003/`::
+Application Note: PDF 2.0 003 Clarification on locations for object metadata streams
+
+`sources/pdfa-an-ppm/`::
+Application Note: Use of standard Print Product Metadata (PPM) with PDF
+
+`sources/pdfa-bp-pdfa-pdfua-conform/`::
+Best Practice: Conforming to both PDF/A & PDF/UA
+
+`sources/pdfa-spec-wtpdf-1.0/`::
+Specification: Well-Tagged PDF (WTPDF) 1.0
 
 `reference-docs/`::
 Reference documents.
