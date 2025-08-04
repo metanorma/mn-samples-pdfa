@@ -1,0 +1,313 @@
+= Conforming to both PDF/A & PDF/UA
+:docnumber: 4
+:edition: 1
+:revdate: 2025-06-10
+:copyright-year: 2025
+:language: en
+:title-main-en: Conforming to both PDF/A & PDF/UA
+:technical-committee: PDF/A TWG and PDF/UA TWG
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: best-practice
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/bp-pdfa-ua-1.0.0:2025
+:imagesdir: images
+:document-scheme: 2024
+:local-cache-only:
+
+
+.Foreword
+
+This document provides guidance and recommendations for application developers
+who want to create PDF files that conform to more than one ISO-standardized
+subset of PDF, specifically PDF/A (ISO 19005) and PDF/UA (ISO 14289). This
+guidance applies to developers using either PDF 1.7 or PDF 2.0.
+
+This document is informative – it does not change the meaning of ISO standards.
+When in doubt, consult the text of the respective ISO standard(s).
+
+== Scope
+
+This document provides guidance and recommendations for application developers
+who want to create PDF files that conform to more than one ISO-standardized
+subset of PDF, specifically PDF/A (ISO 19005) and PDF/UA (ISO 14289). This
+guidance applies to developers using either PDF 1.7 or PDF 2.0.
+
+This document is informative – it does not change the meaning of ISO standards.
+When in doubt, consult the text of the respective ISO standard(s).
+
+
+[bibliography]
+== Normative references
+
+* [[[ISO_32000-2_2020,ISO 32000-2:2020]]], Document management -- Portable
+document format -- Part 2: PDF 2.0 (PDF 2.0),
+https://www.iso.org/standard/63534.html
+
+
+== Terms and definitions
+
+
+== Background
+
+Modern regulations increasingly specify requirements for accessible documents.
+Consequently, many applications add PDF/UA support to existing PDF/A output
+capabilities. These existing capabilities may have been implemented many years
+ago based on references to old PDF specifications that lack guidance on modern
+features. For example, PDF/A-1 doesn’t allow transparency, a basic feature of
+modern documents. This, and other limitations, prompted the development of
+PDF/A-2 and PDF/A-3, which are based on the ISO standard for PDF 1.7 (
+<<ISO_32000-1_2008>>).
+
+The advent of PDF 2.0 (<<ISO_32000-2_2020>>) and its “companion” subsets, PDF/A-4
+(archival) and PDF/UA-2 (accessibility), has raised the need for industry
+guidance on using PDF/A and PDF/UA together.
+
+== Compatibility guide
+
+The following table summarises the PDF Association’s compatibility
+recommendations for the various editions of PDF/A and PDF/UA. The rest of the
+document provides technical details and additional guidance.
+
+[cols="1,1,1,2",options="header"]
+|===
+| PDF/A part | PDF/UA part | PDF version | Additional requirements and recommendations
+
+| PDF/A-1
+| Not recommended
+| 1.4
+| -
+
+| PDF/A-2 or PDF/A-3
+| PDF/UA-1
+| 1.7
+| The XMP Extension Schema for PDF/UA-1 metadata must be included. PDF/A
+conformance Level A is recommended.
+
+| PDF/A-4
+| PDF/UA-2
+| 2.0
+| -
+|===
+
+
+== Reference specification
+
+Regardless of the PDF version targeted, any PDF development effort should refer
+to <<ISO_32000-2_2020>> (PDF 2.0). This document,
+https://pdfa.org/sponsored-standards/[available at no cost], corrects
+long-standing errors and resolves many ambiguities in the specification of PDF
+1.7 and earlier features while keeping track of the differences between PDF 2.0
+and earlier versions.
+
+
+== Technical details
+
+Application software should specify either PDF 1.7 or PDF 2.0 as the version in
+output files. PDF 2.0 is required if PDF 2.0-specific features (as defined by
+ISO 32000-2:2020) or PDF 2.0 extensions (as defined by various ISO Technical
+Specifications) are used.
+
+* WHY: Helps simplify application output code that creates PDFs, as PDF 1.7
+includes features defined in earlier PDF 1.x versions. By versioning as PDF 1.7,
+developers can generally avoid implementing additional complex logic to
+correctly juggle included feature sets and PDF versions for each specific PDF
+file.
+
+* WHY: Assists end-users using outdated software since such software should warn
+users when encountering documents with unsupported PDF versions (such warnings
+are not guaranteed!). This helps avoid situations where outdated PDF software or
+assistive technology (AT) might incorrectly process a document because of a
+newer PDF version or feature mismatch.
+
+The only defined mechanism by which all PDF files indicate conformance to PDF/A
+and PDF/UA is via the document catalog’s XMP Metadata key.
+
+* DETAIL: A single PDF may declare conformance to multiple ISO PDF subset
+standards; however, some combinations are invalid. Even for valid combinations,
+some software may become confused when encountering multiple conformance claims
+or may not consistently report these claims to users.
+
+* DETAIL: PDF/A-1, PDF/A-2, and PDF/A-3 require the inclusion of XMP Extension
+Schema for the additional metadata required in documents that conform to any
+other ISO-standardized subset of PDF (such as PDF/UA-1). This requires adding an
+XMP Extension Schema defining the XMP metadata fields identifying PDF/UA-1
+conformance. The PDF Association publishes a free
+https://pdfa.org/resource/xmp-extension-schema-templates/#iso[PDF/UA-1 XMP Extension Schema]
+that can be included in PDF/A-1, PDF/A-2, and PDF/A-3 files to meet this
+requirement.
+
+Combining PDF/A-1 and PDF/UA-1 is NOT RECOMMENDED.
+
+* WHY: PDF/A-1 (ISO 19005-1:2005) is based on an older specification (Adobe’s
+PDF 1.4), which significantly predates ISO 32000-1:2008, the ISO-standardized
+PDF 1.7, which is the basis for PDF/UA-1 (ISO 14289-1:2014).
+
+When creating PDF/UA-1 files, the PDF Association RECOMMENDS using PDF/A-2 or
+PDF/A-3, but not PDF/A-1.
+
+* WHY: PDF/A-2 and PDF/A-3 include all of the preservation capabilities defined
+in PDF/A-1, and like PDF/UA-1, are based on the ISO standard for PDF 1.7.
+PDF/A-3 includes additional capabilities beyond PDF/A-2 related to embedding
+(attaching) non-PDF documents.
+
+* DETAIL: When PDF/UA-1 is used with PDF/A-2 or PDF/A-3, an
+https://pdfa.org/resource/xmp-extension-schema-templates/[XMP Extension Schema]
+for PDF/UA-1 metadata must be included.
+
+* DETAIL: The PDF Association RECOMMENDS using PDF/A conformance Level A for
+documents that comply with both PDF/UA-1 and PDF/A-2 or PDF/A-3 to accommodate
+workflows that use conformance level A for classification purposes.
+
+* WHY: PDF/UA-1 requires certain PDF features that were introduced after PDF
+1.4. Thus, by ensuring PDF/UA-1 documents are always versioned as PDF 1.7, PDF
+software (and other downstream software, such as assistive technology) is
+thereby prompted to expect such features and can warn users
+appropriately if the software only supports earlier PDF versions.
+
+* DETAIL: PDF/A-3 requires conforming software to also support PDF/A-1 and
+PDF/A-2.
+
+PDF 1.x documents must NOT use PDF/UA-2 or PDF/A-4.
+
+* WHY: Claiming conformance to PDF/UA-2 or PDF/A-4 is invalid for PDF 1.x
+documents, as these ISO- standardized subsets of PDF are designed exclusively
+for PDF 2.0. Validators are obliged to fail such documents.
+
+PDF 2.0 documents must NOT use PDF/UA-1 or PDF/A-1, PDF/A-2, and PDF/A-3
+
+* WHY: Subsets of PDF that are based on PDF 1.7 are inapplicable to PDF 2.0,
+which includes new features. Instead, PDF 2.0 documents can comply with PDF/UA-2
+and/or PDF/A-4. Validators are obliged to fail PDF 2.0 documents that claim
+conformance to PDF 1.x based standards,
+
+* DETAIL: PDF 2.0 documents may use the PDF 1.7 standard structure tag set when
+conforming to PDF/UA-2.
+
+* DETAIL: Due to PDF/A-4’s relaxed provisions regarding XMP metadata, if a
+PDF/UA-2 document also conforms to PDF/A-4, an XMP extension schema for PDF/UA-2
+is not required. Instead, PDF/A-4 documents may include RELAX-NG schema (see
+https://pdfa.org/resource/iso-16684-2/[ISO 16684-2]) as an Associated File of
+metadata streams.
+
+PDF 2.0 documents must only use PDF/UA-2 and / or PDF/A-4
+
+NOTE: For guidance on how to ensure PDF/UA-2 conformance while also ensuring
+optimal content reuse in PDF 2.0, refer to the PDF Association’s
+“https://pdfa.org/wtpdf[Well-Tagged PDF Specification]”.
+
+Ensure that the PDF version is appropriate to the features included in the PDF
+file.
+
+
+* WHY: A mismatched PDF version and feature set (where the PDF version is too
+low) may confuse the end-user experience with certain software or AT.
+
+* DETAIL: For PDF/UA-1, the PDF Association RECOMMENDS always using PDF 1.7.
+
+* DETAIL: For PDF/A-1, the PDF Association RECOMMENDS using PDF 1.4 and NOT
+declaring conformance to PDF/UA-1 as PDF/UA-1 files commonly include features
+not defined in PDF 1.4.
+
+* DETAIL: For PDF/A-2 and PDF/A-3, the PDF Association RECOMMENDS always using
+PDF 1.7. Some validation software (e.g., those based on the
+https://pdfa.org/resource/arlington-pdf-model/[Arlington PDF Model])
+can verify PDF versions and feature sets in detail. Always use up-to-date PDF
+validation software.
+
+* WHY: Out-of-date validation software lacks the latest industry-agreed
+clarifications arising from discussions within the PDF Association’s technical
+working groups.
+
+* WHY: Some validators may only check a single ISO-standardized subset of PDF at
+a time, so be sure that all declared conformance statements are individually
+validated.
+
+PDF/A (all parts) and PDF/UA-1 define the concept of a “conforming viewer” or
+“conforming processor”. Thus, each standard defines its own requirements for
+software needed to support these ISO-standardized subsets of PDF.
+
+NOTE: Use the appropriate conforming software for the use case to ensure a
+correct (conforming) experience.
+
+When validating documents, ensure that results include all conformance
+statements in the file.
+
+* WHY: Some validation software checks only a single standard at a time and may
+need to be manually configured or run multiple times to validate each
+conformance claim.
+
+* WHY: Conforming PDF files can always be used with generic (non-conforming) PDF
+software, but the user’s experience may not include complete and correct support
+for all features required of a conforming viewer by the applicable ISO
+standard(s).
+
+Use appropriate software for assurance of appropriate performance.
+
+* WHY: For PDF/A documents, using generic non-conforming PDF/A software may
+result in pages that look (render) differently and do not accurately reflect the
+document’s content.
+
+* WHY: For PDF/UA documents, using generic PDF software may result in a partial
+or complete failure to deliver the document’s content in an accessible manner
+(e.g., text being read in an incorrect order).
+
+Some PDF viewers and application software may not inform the user when
+encountering a document that conforms to multiple ISO PDF subset standards.
+
+* WHY: Some PDF viewers and applications may be incapable of displaying all
+conformance statements present in the file, while other PDF viewers may not
+process XMP metadata at all. This behavior does not impact the document's
+conformance but may impact its display or available interactions.
+
+* CONTEXT: Such behaviors are due to the limitations of specific software
+implementations and do not impact the document's conformance. Contact your
+vendor for more information.
+
+Some PDF viewers and application software may not correctly process or report
+the PDF file’s version number.
+
+* DETAIL: The version of a PDF file is determined by examining *_both_* the file
+header (ISO 32000, §7.5.2) *_and_* the *Version* entry (if any) in the document
+catalog (ISO 32000, §7.7.2). However, outdated or unmaintained software may
+incorrectly ignore the *Version* entry, which was added to Adobe’s PDF Reference
+1.4 in 2001.
+
+Some PDF viewers and application software may not yet support PDF 2.0 and thus cannot
+function as conforming processors for PDF/A-4 or PDF/UA-2.
+
+NOTE: PDF Association members can indicate on the
+https://pdfa.org/support-for-pdf-features-and-subsets/[Feature Support page]
+if their software supports PDF/UA-2 or PDF 2.0. Otherwise, check with your
+vendor to see if their software is compatible with PDF 2.0, PDF/A-4, or
+PDF/UA-2.
+
+
+[bibliography]
+== Bibliography
+
+* [[[ISO_32000-1_2008,ISO 32000-1:2008]]]
+
+* [[[ISO_16684-2,ISO 16684-2:2019]]]
+
+* [[[pdf-archival,1]]],
+span:organization[PDF Association]
+span:title[PDF/A information]
+span:citation:uri[https://pdfa.org/archival-pdf/]
+
+* [[[pdf-accessibility,2]]],
+span:organization[PDF Association]
+span:title[PDF/UA information]
+span:citation:uri[https://pdfa.org/accessibility/]
+
+* [[[pdf-cheat-sheets,3]]],
+span:organization[PDF Association]
+span:title[PDF Cheat Sheets]
+span:citation:uri[https://pdfa.org/resource/pdf-cheat-sheets/]
+
+* [[[xmp-templates,4]]],
+span:organization[PDF Association]
+span:title[XMP Extension Schema Templates]
+span:citation:uri[https://pdfa.org/resource/xmp-extension-schema-templates/]
