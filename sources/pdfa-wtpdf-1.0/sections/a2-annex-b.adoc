@@ -1,0 +1,346 @@
+[[annex-b]]
+[appendix,obligation=informative]
+== Examples of attribute usage
+
+=== Standard layout attributes
+
+Examples of semantic significance for standard layout attributes for
+inline-level structure element (ILSE) types in accordance with ISO 32000-2:2020,
+Tables 377 and 378 are provided in <<table-b-1>>.
+
+[[table-b-1]]
+.Examples of semantic significance for standard layout attributes common to all structure types
+[cols="1,1,3a"]
+|===
+| Structure elements | Attribute | Examples
+
+.8+| Any structure element
+
+|Placement
+|A *Figure* that is a child of a *P* has a default *Placement* value of
+_Inline_. If a *Figure* breaks the flow of the paragraph's block, the
+*Placement* value is explicitly set to _Block_ to be semantically
+correct.
+
+|Writing Mode
+|Text written from right to left.
+
+|BackgroundColor
+| Background colour of a *TD* structure element identifying a group of cells.
+
+|BorderColor
+| The border of a box in which the box's appearance denotes the significance of
+the content (such as an alert).
+
+|BorderStyle
+| Lines used to represent relationships in an organization chart.
+
+|BorderThickness
+| A table cell where thicker lines are used to denote that the cell contains a
+summation of other cells' values.
+
+|Padding
+| Spacing around text columns to disambiguate the columns.
+
+|Color
+| Use of colour in a chart legend.
+
+|===
+
+Examples of semantic significance for standard layout attributes for block-level structure
+element (BLSE) types in accordance with ISO 32000-2:2020, Tables 377 and 379 are described in
+<<table-b-2>>.
+
+[[table-b-2]]
+.Examples of semantic significance for additional standard layout attributes specific to block level structure types
+[cols="1,1,3a"]
+|===
+| Structure elements | Attribute | Examples
+
+.4+| Any BLSE; ILSEs with Placement other than Inline
+
+| SpaceBefore
+| Spacing used to enhance readability.
+
+| SpaceAfter
+| Spacing used to enhance readability.
+
+| StartIndent
+| Levels of indentation for lines for code in a programming language.
+
+| EndIndent
+| Lines of code.
+
+.2+| BLSEs containing text
+
+| TextIndent
+| Poetry
+
+| TextAlign
+| Music showing chords and lyrics.
+
+
+.3+| *Figure, Form, Formula and Table* elements
+
+| BBox
+| A formula that lies on a single page and occupies a single rectangle.
+
+NOTE: When present, the rectangle defined by the BBox encloses all of the
+element's visible content.
+
+NOTE: Current-generation assistive technology often relies on this attribute.
+
+|Width
+|A form using a certain amount of space to allow for input.
+
+|Height
+|Two figures with different-sized content are represented with the same height
+on the page.
+
+.6+|
+*TH* (Table header);
+*TD* (Table data)
+
+|Width
+|
+* A table cell whose width is important and differs from the
+content width.
+* A header cell (TH) that should have a specific width, but whose
+content is much smaller.
+* An empty cell that maintains a certain width, contributing to the
+layout.
+
+|Height
+|A set of table cells of consistent height but containing addresses of
+three or four lines.
+
+|BlockAlign
+|A table cell in which alignment denotes a totalling or other
+meaning.
+
+|InlineAlign
+|A table cell containing a right-aligned number indicating that the
+cell contains the total of the values in the cells above it.
+
+|TBorderStyle
+|A table cell with a specific border styling indicating that the cell
+contains the total of the values in the cells above it.
+
+|TPadding
+|A table cell with specific padding indicating that the cell contains
+the total of the values in the cells above it.
+
+|===
+
+Examples of semantic significance for standard layout attributes for inline-level structure
+element (ILSE) types in accordance with ISO 32000-2:2020, Tables 377 and Table 380 are
+described in <<table-b-3>>.
+
+[[table-b-3]]
+.Examples of semantic significance for standard layout attributes specific to inline-level structure types
+[cols="1,1,3a"]
+|===
+| Structure elements | Attribute | Examples
+
+.6+|
+Any ILSE; BLSEs containing ILSEs or containing direct or nested content items
+
+|BaselineShift
+|To allow the LATEX logo to be used in reflow applications,
+the *BaselineShift* for the “a” and “e” is specified.
+
+|LineHeight
+|(No semantic intent identified)
+
+|TextPosition
+|An ordinal suffix such as 21st has the *TextPosition* value of _Sup_.
+
+|TextDecorationColor
+|Text decorations such as strikeouts and carets that are colour-coded by author.
+
+|TextDecorationThickness
+|(No semantic intent identified)
+
+|TextDecorationType
+|Text to be struck from the document has the attribute with
+a value of _LineThrough_.
+
+.2+|*RB, RT, RP*
+
+|RubyAlign
+|(no semantic intent identified)
+
+|RubyPosition
+|Some authors vary ruby positioning conventions to
+disambiguate between different kinds of ruby annotation
+within the same document. The RubyPosition attribute can
+be used to preserve that semantic intent.
+
+|Any structure element containing text whose inline- progression direction is
+top to bottom or bottom to top.
+
+|GlyphOrientationVertical
+|The preferred orientation of alphabetic (non-ideographic)
+text within a vertically typeset Japanese document content
+can depend on what that text represents. In this context,
+initialisms like “PDF” are usually set with an orientation
+angle of 0, while the expanded form “Portable Document
+Format” is rotated 90 degrees.
+
+|===
+
+Examples of semantic significance for standard layout attributes specific to content in columns
+(see ISO 32000-2:2020, Tables 377 and 381) are described in <<table-b-4>>.
+
+[[table-b-4]]
+.Examples of semantic significance for standard layout attributes specific to content in columns
+[cols="1,1,3a"]
+|===
+| Structure elements | Attribute | Examples
+
+.3+| Grouping structure types containing columns
+
+|ColumnCount | (No semantic intent identified)
+|ColumnGap | (No semantic intent identified)
+|ColumnWidths | (No semantic intent identified)
+
+|===
+
+=== Standard list attributes
+
+Examples of semantic significance for standard list attributes (see ISO
+32000-2:2020, Table 382) are described in <<table-b-5>>.
+
+NOTE: Structure types for lists have special requirements for attributes, see <<file-format-list>>.
+
+[[table-b-5]]
+.Examples of semantic significance for standard list attributes
+[cols="1,4a"]
+|===
+| Attribute | Examples
+
+|ListNumbering
+|A list that uses decimal Arabic numerals as labels has the attribute's value
+set to _Decimal_.
+
+|ContinuedList
+|For a semantic list whose items are separated into two lists due to other
+content in between list-items, the second list's *L* structure element, has the
+attribute present and set to _true_.
+
+|ContinuedFrom
+|For a semantic list whose items are separated into two lists due to other
+content in between list-items, the second list's *L* structure element, has the
+attribute present and identifies the first list as the one it continues from.
+
+|===
+
+[[annex-b-3]]
+=== PrintField attributes
+
+Examples of semantic significance for the use of PrintField attributes (see ISO
+32000-2:2020, 14.8.5.6) are described in <<table-b-6>>.
+
+[[table-b-6]]
+.Examples of semantic significance for PrintField attributes
+[cols="1,4a"]
+|===
+| Attribute | Examples
+
+|Role
+|Page content representing a non-interactive radio button has the attribute set
+to _rb_.
+
+|Checked, checked
+|Page content representing the state of a non-interactive checkbox that is
+checked has the attribute value of _on_.
+
+|Desc
+|For page content representing a non-interactive form field whose purpose is not
+clear from the content has an attribute value describing the context of the
+content.
+
+|===
+
+[[annex-b-table]]
+=== Attributes specific to table structure types
+
+Examples of semantic significance for table attributes (see ISO 32000-2:2020,
+14.8.5.7) are described in <<table-b-7>>. See <<file-format-table>> for
+requirements for the attributes defined in <<table-b-7>>.
+
+[[table-b-7]]
+.Examples of semantic significance for attributes specific to table structure types
+[cols="1,4a"]
+|===
+|Attribute |Examples
+
+|RowSpan
+|A cell that vertically spans two rows has the attribute with value of _2_.
+
+|ColSpan
+|A cell that horizontally spans three columns has the attribute with value of _3_.
+
+|Headers
+|A cell whose header cell(s) cannot be determined by the algorithm defined for
+this purpose in ISO 32000-2:2020, 14.8.4.8.3.
+
+|Scope
+|A row of header cells that is not the first row of a table all have *Scope*
+attributes with a value of _Row_.
+
+|Summary
+|A complex table whose structure is not easily understood without a short
+explanation which is then provided by a summary.
+
+|Short
+|See ISO 32000-2:2020, Table 384.
+
+|===
+
+=== Attributes specific to the Artifact structure type
+
+Examples of semantic significance for artifact attributes (see ISO 32000-2:2020,
+14.8.5.8) are described in <<table-b-8>>.
+
+See <<file-format-artifacts>> for requirements related to artifact attributes.
+
+[[table-b-8]]
+.Examples of semantic significance for attributes specific to the Artifact structure type
+[cols="1,4a"]
+|===
+| Attribute | Examples
+
+|Type
+|See ISO 32000-2:2020, Table 385
+
+|BBox
+|A redacted figure for which the redaction occurs on a single page and occupies
+a single rectangle.
+
+NOTE: When present, the rectangle defined by the *BBox* encloses all of the
+element's visible content.
+
+|Subtype
+|
+* A page header is tagged with an *Artifact* structure element with a *Subtype*
+attribute with a value of _Header_. A page footer is tagged with an *Artifact*
+structure element with a *Subtype* attribute with a value of _Footer_.
+
+* A watermark is tagged with an *Artifact* structure element with a *Subtype*
+attribute with a value of _Watermark_.
+
+* A document's page number is tagged with an *Artifact* structure element with a
+*Subtype* attribute with a value of _PageNum_.
+
+* A Bates number in a legal filing is tagged with an *Artifact* structure element
+with a *Subtype* attribute with a value of _Bates_.
+
+* A line number in a contract is tagged with an *Artifact* structure element with
+a *Subtype* attribute with a value of _LineNum_.
+
+* A redaction indicator (e.g. a black box) is tagged with an *Artifact* structure
+element with a *Subtype* attribute with a value of _Redaction_.
+
+|===
+

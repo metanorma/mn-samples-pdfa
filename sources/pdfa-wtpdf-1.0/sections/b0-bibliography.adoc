@@ -1,0 +1,26 @@
+[bibliography]
+== Bibliography
+
+* [[[ISO_19005-4,ISO 19005-4]]], Document management — Electronic document file
+format for long-term preservation — Part 4: Use of ISO 32000‑2 (PDF/A‑4)
+
+* [[[ISO_15930-9,ISO 15930-9]]], Graphic technology — Prepress digital data
+exchange using PDF — Part 9: Complete exchange of printing data (PDF/X‑6) and
+partial exchange of printing data with external profile reference (PDF/X-6p and
+PDF/X-6n) using PDF 2.0
+
+* [[[ISO_9241-171,ISO 9241-171:2008]]], Ergonomics of human-system interaction —
+Part 171: Guidance on software accessibility
+
+* [[[ISO_24495-1,ISO 24495-1]]], Plain language — Part 1: Governing principles
+and guidelines
+
+* [[[W3C-wcag,W3C WCAG22]]], W3C, Web Content Accessibility Guidelines (WCAG)
+2.2, W3C Recommendation, https://www.w3.org/TR/WCAG22/
+
+* [[[ISO_32000-1,ISO 32000-1]]], Document management — Portable document format
+— Part 1: PDF 1.7
+
+* [[[ISO_14289-1,ISO 14289-1]]], Document management applications — Electronic
+document file format enhancement for accessibility — Part 1: Use of ISO 32000‑1
+(PDF/UA‑1)

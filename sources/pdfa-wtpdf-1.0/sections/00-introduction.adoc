@@ -1,0 +1,43 @@
+== Introduction
+
+PDF is a digital format for representing documents. PDF files may be created
+natively in PDF form, converted from other electronic formats, or digitized from
+paper. Businesses, governments, libraries, archives, and other institutions and
+individuals around the world use PDF to represent considerable bodies of
+important information. Beyond representing documents in their conventional
+paginated form, PDF files should ensure that their content is reusable in
+various settings, such as non-paginated experiences, text-extraction,
+accessibility and so on.
+
+There is a large overlap between the requirements for reuse and accessibility.
+However, some requirements are critical for reuse whereas others are critical
+for accessibility. This document clearly identifies the requirements for each
+use-case via a conformance level mechanism.
+
+The reusability and accessibility of a PDF file depends on the inclusion of a
+variety of semantic information such as:
+
+* machine-readable text presented in a declared language;
+
+* appropriate semantic structures for elements such as paragraphs, lists, tables
+and headings;
+
+* the organization of semantic structures in a logical reading order;
+
+* accurate representation of the content's stylistic properties;
+
+* descriptive metadata, such as alternate descriptions for images.
+
+The primary purpose of this specification is to define how to represent
+electronic documents in the PDF format in a manner that allows the file to be
+reusable and accessible across a wide spectrum of possible use-cases.
+
+Tagged PDF is the mechanism by which semantic and stylistic information is
+included and made interoperable within a PDF. Including semantic and styling
+information in PDF is accomplished by identifying the set of PDF components that
+shall, should or may be used, as well as restrictions on the form of their use.
+
+This specification describes a usage of PDF 2.0 (ISO 32000-2) that is compatible
+with PDF/UA-2 (ISO 14289-2). Other specifications and standards may apply to the
+objectives of reusing PDF content and ensuring its accessibility. These other
+specifications and standards may be used in conjunction with this specification.

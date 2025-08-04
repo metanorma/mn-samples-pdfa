@@ -1,0 +1,25 @@
+
+[[annex-c]]
+[appendix,obligation="normative"]
+== Declaring conformance with PDF/UA-2
+
+A file that is conformant with the conformance level for accessibility as
+defined in 6.1.3 that also declares itself as conformant with ISO 14289-2
+(PDF/UA-2) shall include in its document level metadata the PDF/UA-2
+identification schema as defined in ISO 14289-2:2024, Table 1.
+
+[example]
+====
+Snippet of PDF/UA identification schema for PDF/UA-2
+
+[source,xml]
+----
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about=""
+    xmlns:pdfuaid="http://www.aiim.org/pdfua/ns/id/">
+    <pdfuaid:part>2</pdfuaid:part>
+    <pdfuaid:rev>2024</pdfuaid:rev>
+  </rdf:Description>
+</rdf:RDF>
+----
+====

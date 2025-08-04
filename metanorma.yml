@@ -1,0 +1,9 @@
+---
+metanorma:
+  source:
+    files:
+      - sources/pdfa-wtpdf-1.0/document.adoc
+
+  collection:
+    name: PDFA Documents
+    organization: PDF Association

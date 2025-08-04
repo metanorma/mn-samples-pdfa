@@ -1,0 +1,57 @@
+== Terms and definitions
+
+=== artifact marked content sequence
+
+artifact defined solely by a marked content sequence, and not defined by a
+structure element
+
+=== assistive technology
+
+hardware or software added to, or incorporated within, a system that increases
+accessibility for an individual
+
+[.source]
+<<ISO_9241-171,clause=3.5>>
+
+=== AT
+
+{{assistive technology}}
+
+=== PDF 1.7 namespace
+
+standard structure namespace for PDF 1.7
+
+[.source]
+<<ISO_TS_32005,clause=3.1>>
+
+=== PDF 2.0 namespace
+
+standard structure namespace for PDF 2.0
+
+[.source]
+<<ISO_TS_32005,clause=3.2>>
+
+=== real content
+
+graphics objects, annotations and form fields representing material
+intentionally introduced by a document's author and necessary for an {{assistive
+technology}} user to understand that document's content
+
+NOTE: Text, images and paths are all examples of “graphics objects” in PDF
+files.
+
+NOTE: The purpose of distinguishing between real and other content is to
+identify specific objects that the author intended for consumption by a human.
+
+=== structure attribute
+
+entry containing additional information contained within an attribute object
+
+NOTE: This term is introduced in <<ISO_32000-2,clause=14.7.6>>.
+
+=== unique PDF 1.7 element
+
+standard structure element whose type is defined solely in the {{PDF 1.7 namespace}}
+
+[.source]
+<<ISO_TS_32005,clause=3.5>>

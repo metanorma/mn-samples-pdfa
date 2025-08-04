@@ -1,0 +1,19 @@
+.Foreword
+
+The PDF Association was formed with the primary intent of developing and
+promoting the use of the Portable Document Format (PDF) for the benefit of
+content creators and consumers worldwide.
+
+The PDF Association is a membership-based organization that brings together
+implementers, solution providers, and users to advance the capabilities of PDF
+technology. The Association develops technical specifications, best practices,
+and educational resources to ensure PDF remains a robust, accessible, and
+interoperable format.
+
+This specification was developed by the PDF Reuse Technical Working Group (TWG)
+and the PDF/UA Technical Working Group (TWG) of the PDF Association. These
+working groups comprise experts from various industries including software
+development, accessibility, publishing, and document management.
+
+The PDF Association acknowledges the contributions of all working group members
+and the broader PDF community in the development of this specification.

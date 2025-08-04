@@ -1,0 +1,87 @@
+[[reusable-pdf]]
+== Reusable PDF
+
+[[reusable-pdf-general]]
+=== General
+
+In PDF, reuse of, and access to, content is provided by the structures of the
+file and the software consuming the file. The content of a file is considered
+reusable if its real content, as specified in ISO 32000-2:2020, 14.8.2.2, is
+represented with text or has a text-based equivalent presented in logical
+reading order with appropriate semantics. This document establishes how to apply
+these principles to a PDF file; it addresses the way content is encoded within a
+conforming file but does not regulate that file's content, as seen in the
+following examples.
+
+[example]
+The maximum number of characters in a line of text is unregulated.
+
+[example]
+Specific colours, colour-combinations, or contrast ratios are unregulated.
+
+[example]
+The choice to use plain language or other language is unregulated.
+
+[example]
+The size of fonts is unregulated.
+
+=== Using other specifications and standards
+
+==== General
+
+Requirements pertaining to content (e.g. the examples provided in
+<<reusable-pdf-general>>) are commonly addressed through other specifications
+and standards. <<reusable-pdf-declarations>> describes a means of claiming
+conformity with one or more such specifications or standards.
+
+[[reusable-pdf-declarations]]
+==== Declarations
+
+A file conforming with the requirements of this document may declare conformance with any
+other specification or standard by using the PDF Declarations mechanism.
+
+[example]
+====
+A PDF Declaration can serve as the author's statement attesting that:
+
+* all of the file's content conforms to a specific accessibility standard (such
+as WCAG 2.2, Level AA);[5]
+
+* all images and figures have been checked for appropriate alternate
+descriptions;
+
+* the file has been certified reusable when using specific software;
+
+* the file has been validated by a remediator.
+====
+
+NOTE: A detailed example of a PDF Declaration and its syntax is provided in
+<<annex-a>>.
+
+Files in conformity with this document may leverage the PDF Declarations
+mechanism to include claims pertaining to the entire file, to portions of the
+file (even specific objects), or both.
+
+[example]
+A PDF Declaration can serve as the author's statement attesting that an
+individual movie embedded in a file conforms to WCAG 2.2 Level AA.[5]
+
+NOTE: It is expected that the file, portion, or object to which a PDF
+Declaration applies fully conforms to the specification or standards to which
+they are declaring conformity.
+
+NOTE: The PDF Association's list of PDF Declarations is fully extensible. Other
+PDF Declarations can be defined there and elsewhere.
+
+*[Conformance level for accessibility]* — An embedded file that is not a PDF
+file, if necessary to the understanding of the document, shall have an
+associated PDF Declaration in accordance with PDF Declarations, indicating its
+conformance to an appropriate accessibility standard. The PDF Declaration, as
+specified in PDF Declarations, shall be included through the *Metadata* entry in
+the embedded file's file specification dictionary.
+
+==== ISO PDF subset standards
+
+A file in conformity with this document may also conform to ISO standards based
+on <<ISO_32000-2>> (PDF 2.0) including, but not limited to, <<ISO_14289-2>>
+(PDF/UA-2), <<ISO_19005-4>> (PDF/A-4) and <<ISO_15930-9>> (PDF/X-6).

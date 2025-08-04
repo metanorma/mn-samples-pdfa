@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="PDF_Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 710 400">
+  <desc>PDF Association logo</desc>
+  <defs>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3");
+      .pdf {
+        font-family: SourceSans3-Bold, 'Source Sans 3', sans-serif;
+        font-kerning: normal;
+        letter-spacing: -0.3rem;
+        font-size: 250px;
+        font-weight: 700;
+      }
+      .association {
+        font-family: SourceSans3-SemiBold, 'Source Sans 3', sans-serif;
+        font-kerning: normal;
+        letter-spacing: -0.4rem;
+        font-size: 140px;
+        font-weight: 600;
+      }
+      .logo_yellow {
+        fill: #ca9831;
+      }
+      .logo_blue {
+        fill: #4891af;
+      }
+      .logo_green {
+        fill: #8b985b;
+      }
+      .logo_red {
+        fill: #d03f4e;
+      }
+    </style>
+    <style media="(prefers-color-scheme: light)">
+      svg { fill: black; background-color: white; }
+    </style>
+    <style media="(prefers-color-scheme: dark)">
+      svg { fill: white; background-color: black; }
+    </style>
+  </defs>
+  <text class="pdf"         transform="translate(200 228)">
+    <tspan x="0" y="0">PDF</tspan>
+  </text>
+  <text class="association" transform="translate(-5 351)">
+    <tspan x="0" y="0">association</tspan>
+  </text>
+  <rect class="logo_yellow" x="123" y="49"  width="60" height="60"/>
+  <rect class="logo_green"  x="63"  y="109" width="60" height="60"/>
+  <rect class="logo_red"    x="3"   y="169" width="60" height="60"/>
+  <rect class="logo_blue"   x="123" y="169" width="60" height="60"/>
+</svg>

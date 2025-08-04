@@ -1,0 +1,22 @@
+[bibliography]
+== Normative references
+
+[.boilerplate]
+The following documents are referred to in the text in such a way that some or
+all of their content constitutes requirements of this document. For dated
+references, only the edition cited applies. For undated references, the latest
+edition of the referenced document (including any amendments) applies.
+
+* [[[ISO_32000-2,ISO 32000-2:2020]]], Document management — Portable document
+format — Part 2: PDF 2.0. https://pdfa.org/resource/iso-32000-pdf/
+
+* [[[ISO_TS_32005,ISO/TS 32005:2023]]], Document management — Portable Document
+Format — PDF 1.7 and 2.0 structure namespace inclusion in ISO 32000-2.
+https://pdfa.org/resource/iso-32005/
+
+* [[[W3C_DPUB_ARIA,W3C dpub-aria-1.0]]], Digital Publishing WAI‑ARIA Module
+1.0 (DPUB‑ARIA), W3C Recommendation, 14 December 2017,
+https://www.w3.org/TR/dpub-aria-1.0/
+
+* [[[PDFA_pdf-declarations,PDFA PDF declarations]]], PDF Association, PDF
+Declarations, September 5, 2019, https://www.pdfa.org/resource/pdf-declarations/

@@ -1,0 +1,42 @@
+= Well-Tagged PDF (WTPDF): Using Tagged PDF for Accessibility and Reuse in PDF 2.0
+:docnumber: 1
+:edition: 1
+:revdate: 2024-02-01
+:copyright-year: 2024
+:language: en
+:title-intro-en: Well-Tagged PDF (WTPDF)
+:title-main-en: Using Tagged PDF for Accessibility and Reuse in PDF 2.0
+:technical-committee: PDF Reuse TWG & PDF/UA TWG
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: specification
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/WTPDF-1.0.0:2024
+:imagesdir: images
+:local-cache-only:
+
+include::sections/00-introduction.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normref.adoc[]
+
+include::sections/03-termdef.adoc[]
+
+include::sections/04-notation.adoc[]
+
+include::sections/05-conformance.adoc[]
+
+include::sections/06-reusable-pdf.adoc[]
+
+include::sections/07-file-format.adoc[]
+
+include::sections/a1-annex-a.adoc[]
+
+include::sections/a2-annex-b.adoc[]
+
+include::sections/a3-annex-c.adoc[]
+
+include::sections/b0-bibliography.adoc[]

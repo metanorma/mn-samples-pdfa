@@ -1,0 +1,27 @@
+== Scope
+
+This document describes how to create reusable and accessible documents using
+the Portable Document Format (PDF). It builds on the Tagged PDF features defined
+in PDF 2.0, extending their requirements for the purposes of reuse and
+accessibility. This document focuses primarily on the document format (syntax),
+not the content itself, and does not mandate or restrict processing of the
+document in any manner. This document does not specify:
+
+* processing requirements, including processes for utilizing the PDF to enable
+reuse or accessibility;
+
+* processes for achieving conformance with this specification from source
+digital or paper documents;
+
+* technical design, user interface, implementation, or operational details;
+
+* physical methods of storing these documents such as media and storage
+conditions;
+
+* required computer hardware and/or operating systems;
+
+* provisions specific to content (beyond programmatic access and textual
+representation);
+
+* provisions applying to specific classes (e.g. invoices, reports, etc.) of
+documents.

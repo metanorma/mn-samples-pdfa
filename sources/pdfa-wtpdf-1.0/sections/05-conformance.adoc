@@ -1,0 +1,175 @@
+== Conformance
+
+=== Conformance levels
+
+==== General
+
+To address the key differences between requirements for accessibility, content
+extraction, reflow and general reuse, this document defines conformance levels.
+
+A file conforming with this document shall identify conformance with at least
+one of the conformance levels defined in the following subclauses.
+
+Conformance levels are not mutually exclusive. A file may conform to multiple
+conformance levels.
+
+As specified in the following subclauses, applicable conformance level(s) shall
+be indicated using the appropriate PDF Declaration(s).
+
+NOTE: The conformance levels defined in this document never specify requirements
+that contradict the requirements of another conformance level in this document,
+so it is always possible to conform to all conformance levels within the same
+file.
+
+==== Conformance level for reuse
+
+A file declaring conformance with the conformance level for reuse shall conform to all the
+general provisions of this document along with those identified as requirements for the
+conformance level for reuse.
+
+This document identifies requirements specific to the conformance level for
+reuse by including *[Conformance level for reuse]* at the start of each
+paragraph or clause containing that requirement. Such provisions are also
+highlighted.
+
+Files conforming to the conformance level for reuse shall include a PDF
+Declaration with the URI identifier
+`http://pdfa.org/declarations/wtpdf/#reuse1.0` as its `pdfd:conformsTo` entry.
+The PDF Declaration may provide additional claim information using the
+`pdfd:claimData` entry.
+
+[example]
+====
+PDF Declaration for the conformance level for reuse
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="" xmlns:pdfd="http://pdfa.org/declarations/">
+    <pdfd:declarations>
+      <rdf:Bag>
+        <!-- Usage of Tagged PDF: conformance level for reuse -->
+        <rdf:li rdf:parseType="Resource">
+          <pdfd:conformsTo>
+            http://pdfa.org/declarations/wtpdf/#reuse1.0
+          </pdfd:conformsTo>
+        </rdf:li>
+      </rdf:Bag>
+    </pdfd:declarations>
+  </rdf:Description>
+</rdf:RDF>
+----
+====
+
+==== Conformance level for accessibility
+
+A file declaring conformance with the conformance level for accessibility shall
+conform to all the general provisions of this document along with those
+identified as requirements for the conformance level for accessibility.
+
+This document identifies requirements specific to the conformance level for
+accessibility by including *[Conformance level for accessibility]* at the start
+of each paragraph or clause containing that requirement. Such provisions are
+also highlighted.
+
+A file that conforms to this document and to the conformance level for
+accessibility also meets all the requirements for ISO 14289-2 (PDF/UA-2) and, as
+such, may include the PDF/UA identification schema (see <<annex-c>>) to indicate
+its conformance with ISO 14289-2.
+
+Files conforming to the conformance level for accessibility shall include a PDF
+Declaration with the URI identifier
+`http://pdfa.org/declarations/wtpdf/#accessibility1.0` as its `pdfd:conformsTo`
+entry. The PDF Declaration may provide additional claim information using the
+`pdfd:claimData` entry.
+
+[example]
+====
+PDF Declaration for the conformance level for accessibility
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="" xmlns:pdfd="http://pdfa.org/declarations/">
+    <pdfd:declarations>
+      <rdf:Bag>
+        <!-- Usage of Tagged PDF: conformance level for accessibility -->
+        <rdf:li rdf:parseType="Resource">
+          <pdfd:conformsTo>
+            http://pdfa.org/declarations/wtpdf/#accessibility1.0
+</pdfd:conformsTo>
+        </rdf:li>
+      </rdf:Bag>
+    </pdfd:declarations>
+  </rdf:Description>
+</rdf:RDF>
+----
+====
+
+
+=== Conformance requirements
+
+Beyond the requirements in this document, conformance with this document
+requires that:
+
+* a file shall adhere to all requirements of <<ISO_32000-2>>;
+
+* a file shall adhere to all requirements of <<ISO_TS_32005>>;
+
+* a file should not contain any feature that is deprecated in <<ISO_32000-2>>;
+
+* a file may include any valid <<ISO_32000-2>> feature that is not explicitly
+forbidden by this document;
+
+* a file should not contain features described in specifications prior to
+<<ISO_32000-2>> which are not explicitly defined or identified in
+<<ISO_32000-2>>, <<ISO_TS_32005>> or this document.
+
+*[Conformance level for accessibility]* — an embedded file, if necessary to the
+understanding of the containing file, shall be accessible according to
+objectively verifiable standards, e.g., <<W3C-wcag>>. If such an embedded file is
+a PDF file, it shall conform to <<ISO_14289>> and/or to this document's conformance
+level for accessibility.
+
+NOTE: Embedded files referenced from the containing file, for use by a human
+reader, can be necessary to the understanding of the document. See
+<<file-format-embedded-files>>.
+
+NOTE: Discouraging deprecated features aligns this document with <<ISO_19005-4>>.
+
+NOTE: Conformance with <<ISO_TS_32005>> is required because, although <<ISO_32000-2>>
+did not deprecate any structure types defined in PDF 1.7, <<ISO_32000-2:2020>>,
+Annex L provided containment rules only for structure types defined in the PDF
+2.0 namespace. <<ISO_TS_32005>> expands these containment rules to cover both the
+PDF 2.0 namespace and those elements unique to the PDF 1.7 namespace. By
+adhering to the requirements of <<ISO_TS_32005>> it is possible to include both PDF
+2.0 and PDF 1.7 structure types in files that conform to this document.
+
+A file may declare its support for, and conformity with, PDF extensions to
+<<ISO_32000-2>> by use of an Extensions dictionary, as specified in ISO
+32000-2:2020, 7.12.
+
+NOTE: Use of extensions can potentially negatively impact accessibility,
+compatibility and consistency of files when consumed by different processors.
+
+Although other accessibility standards provide guidance for accessible content,
+this document deliberately avoids requirements related to content. Conformity to
+this document alone does not ensure that the content of a file is accessible.
+Examples of cases not covered by this document include:
+
+* where authors have used colour or contrast in an inaccessible manner;
+
+* where ECMAScript present in the file can generate inaccessible results;
+
+* where text content is potentially inaccessible to those with certain cognitive
+impairments;
+
+* whether a particular content item is real content or artifact content.
+
+NOTE: Requirements governing author's creative choices, (e.g. requirements for
+plain language), or the use of specific degrees of colour-contrast, are out of
+scope for this document. For such requirements, authors can refer to <<W3C-wcag>>
+and other applicable standards such as <<ISO_24495-1>>.
+

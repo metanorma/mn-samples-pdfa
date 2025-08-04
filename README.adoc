@@ -1,0 +1,65 @@
+= PDFA Metanorma Documents
+
+These documents belong to the PDF Association.
+
+== Structure
+
+`sources/`::
+Source of the documents.
+
+`sources/pdfa-wtpdf-1.0/`::
+PDFA WTPDF 1.0
+
+`reference-docs/`::
+Reference documents.
+
+`_site/`::
+(automatically generated) published documents.
+
+== Usage (general)
+
+=== Quick start
+
+The easy way if you install locally:
+
+[source,sh]
+----
+git clone https://github.com/metanorma/mn-samples-icc/
+bundle
+bundle exec metanorma sources/pdfa-wtpdf-1.0//document.adoc
+# => sources/pdfa-wtpdf-1.0//document.{html,xml,pdf}
+----
+
+=== Installing Metanorma
+
+See https://www.metanorma.org
+
+=== Building a single document
+
+[source,sh]
+----
+bundle exec metanorma sources/pdfa-wtpdf-1.0//document.adoc
+# or
+# bundle exec metanorma sources/icc-votable-proposal-adgc/document.adoc
+# or
+# bundle exec metanorma sources/icc-tn-04-2018/document.adoc
+----
+
+This command outputs the built document at:
+
+* `sources/{document-dir}/document.{html,pdf,xml}`
+
+=== Building the full site
+
+[source,sh]
+----
+bundle exec metanorma site generate
+----
+
+This command creates `_site/`. The HTML entry point is at `_site/index.html`.
+
+== License and copyright
+
+Content: PDF Association.
+
+Code and others: Ribose.
