@@ -1,0 +1,324 @@
+
+== Encoding PPM
+
+PPM is encoded within a PDF file using Document Part Metadata (DPM) as defined
+in PDF/VT and PDF 2.0 (clause 14.12). The definition of DPM in PDF 2.0 is less
+prescriptive than its use in PDF/VT.
+
+
+=== DPart structure and DPM overview
+
+The DPM associates metadata PPM to the various pages of the PDF document using
+the document part (DPart) node hierarchy. The DPart node hierarchy subdivides
+the PDF document into a set of (nested) page ranges for which DPM can be
+supplied.
+
+The root of the DPart node hierarchy is referenced from the catalog dictionary
+of a PDF file as the dictionary value of the DPartRoot key using the following
+keys:
+
+* *DPartRootNode* — an indirect reference to the DPart dictionary that is the
+root of the document part node hierarchy.
+
+* *NodeNameList* — encodes an array of names for each level in the document part
+node hierarchy. The first entry is for the root node, the second entry for the
+direct children of the root node, etc.
+
+* *RecordLevel* — optionally encodes the level in the document part hierarchy
+that corresponds to the pages for an individual recipient.
+
+Each DPart dictionary represents a node in the document part node hierarchy and
+includes the following keys:
+
+* *Parent* — an indirect reference to the dictionary that references this DPart dictionary. For
+the root node this is an indirect reference for the DPartRoot dictionary.
+
+* *DPM* — a dictionary value with metadata that applies to the pages covered by
+this node.
+
+For each intermediate DPart node, the DPart dictionary includes a *DParts* key
+with a value that is an array of arrays containing one or more indirect
+references to the DPart dictionaries of child DPart nodes. The DPM specified
+within an intermediate DPart node is associated with the sequence of pages
+referenced by its child leaf DPart node(s).
+
+NOTE: The value of the *DParts* key is an array of arrays used to work around
+the array length limits of some PDF processors. For compatibility with ISO
+16612-2 conforming PDF/VT-2 processors, all but the last entry in the *DParts*
+array are required to be an array containing exactly 8192 elements. The last
+entry in the *DParts* array is required to be an array containing at least one
+element. If more than 64 million children are needed an extra level of DPart
+nodes is therefore required to work around these array size limitations. This
+may occur, for example, when creating output from VDP jobs with a very large
+number of recipients.
+
+For each leaf DPart node, the *DPart* dictionary provides additional data to
+explicitly identify its unique range of related pages using the following keys:
+
+* *Start* — an indirect reference to the page object of the first page belonging
+to this leaf node.
+
+* *End* — an indirect reference to the page object of the last page belonging to
+this leaf node.
+
+The End key is omitted for single page leaf nodes.
+
+The document part node hierarchy must reference all of the pages in the PDF file
+and must reference them in the same order as does the PDF page tree. Each page
+object must have a *DPart* key whose value is an indirect reference to the DPart
+dictionary leaf node that references that page. The DPart and Parent keys
+therefore provide two ways to retrieve DPM related to a given page; either
+relative to the DPart hierarchy or the Page dictionary.
+
+The interpretation of the key-value pairs in the DPM is determined by other
+specifications (e.g., the PPM standard). As required by PDF 2.0, all DPM
+metadata keys must use a registered second class name as a prefix so that the
+metadata relevant to a particular specification can be easily identified.
+
+
+=== Encoding PPM within DPM
+
+PPM is encoded as the values of metadata keys present in the DPM using the
+“CIP4_” prefix. The PPM that applies to a particular DPart is encoded as a
+dictionary under the *CIP4_Root* metadata key within the *DPM* dictionary of
+that DPart.
+
+<<annex-a>> contains an example of a complex print product with all the relevant
+PPM.
+
+The core of PPM uses a subset of CIP4 XJDF 2.1 product intent definitions
+encoded in the DPM as the value of the CIP4_Intent metadata key. Each product
+intent definition is encoded as the value of a metadata key named after the XJDF
+element name of the product intent prefixed with the CIP4 second class name. For
+example, the XJDF product intent element named BindingIntent is encoded in PPM
+as CIP4_BindingIntent. The value of a PPM product intent metadata key is a PDF
+dictionary encoding of the XJDF attributes of the product intent. Each attribute
+is encoded using a key with the attribute name prefixed with the “CIP4_" second
+class name prefix. The attribute value is represented as a PDF value based on
+the XJDF schema type of the attribute value. Detailed encoding rules are
+described in section 6 of the PPM specification. The following rules apply:
+
+* Basic type values (integer, float, boolean, string) are converted to their
+corresponding PDF primitive object values.
+
+* Enumeration values, NMTOKEN and ID are encoded as a PDF name beginning with a
+slash ‘/’ character.
+
+* List type values (anything encoded in XJDF as a whitespace separated array)
+are encoded as an array of values.
+
+* Enumerations and NMTOKENS are encoded as an array of PDF names.
+
+* Range type values are encoded as an array with two elements (begin value, end
+value).
+
+* Date type values (date, dateTime) are encoded as a PDF date string (see
+section 7.9.4 of the PDF 2.0 specification).
+
+* If none of the above rules apply then the value is encoded as a PDF text
+string (encoded as specified in the respective PDF specification, e.g. in
+"_7.9.2.2 Text string type_" of PDF 2.0).
+
+Product intent definitions that contain other XJDF elements are encoded as the
+value of an additional metadata key with the element name prefixed with the CIP4
+second class name prefix. The value of that key is a single dictionary if that
+element may occur at most once as a child (a maximum cardinality of 1) or is an
+array of dictionaries otherwise. The content of each dictionary follows the same
+encoding rules for attributes and nested elements.
+
+All dictionaries defined within PPM require the inclusion of a *_Type_* key. In
+general the value of the *Type* key matches the key name associated with the
+dictionary unless otherwise noted (e.g. the dictionary value of the *CIP4_Root*
+key has _CIP4_Root_ as the value for its *Type* key).
+
+Product intent definitions should include a *CIP4_ProductType* key that is a
+machine readable identifier of what the document part is intended to represent.
+
+The product intent definitions and product type information together define the
+intended appearance of the print product represented by each DPart node; see
+<<encode-print-product-appearance-rules>>.
+
+PPM can also provide additional metadata for each individual document part:
+
+* *CIP4_DescriptiveName* — a human readable description that includes more
+details of what is represented by the machine readable *CIP4_ProductType*
+identifier. For example, noting more specifically that the print product is an
+invoice when the *CIP4_ProductType* identifier is _Letter_.
+
+* *CIP4_ExternalID* — a reference value to link the document part to a
+definition present on an external system. For example, the ID of the document
+template originally used in the creation of the document part.
+
+Additional metadata for the document as a whole is encoded into the top level
+document part node (the DPart node referenced from DPartRootNode) as the value
+of the *CIP4_Metadata* key.
+
+The value of the *CIP4_Metadata* key is encoded as a PDF dictionary with the
+following required information:
+
+* *CIP4_Conformance* — a list of names identifying the conformance levels the
+PPM adheres to. The value _CIP4_IntentBase_2.0_ can be used if no other more
+restrictive conformance level applies.
+
+* *CIP4_Creator* — a string value identifying the software application that
+generated the PPM.
+
+* *CIP4_ModificationDate* — a PDF date string indicating the date and time the
+metadata was modified (if any). The value of this key can be used to detect when
+a software application that does not understand PPM has modified the PDF and may
+have invalidated the metadata. The typical best practice in such a case is for
+the receiver of the file to contact the document originator for clarification.
+
+PPM permits inclusion of the following optional information:
+
+* *CIP4_Accounting* — a CIP4_Contact dictionary containing contact information
+for billing purposes.
+
+* *CIP4_Administrator* — a CIP4_Contact dictionary containing contact
+information for the individual(s) responsible for the PDF document data.
+
+* *CIP4_Author* -a CIP4_Contact dictionary containing contact information for
+the author of the PDF document.
+
+* *CIP4_Sender* — a CIP4_Contact dictionary containing contact information for
+the sender or originator of the PDF document.
+
+* *CIP4_JobID* — a reference to the job as used in the external system.
+
+* *CIP4_ProjectID* — a reference to the project as used in an external system.
+
+PPM also provides a mechanism to identify the intended recipient of the print
+product (or part of the print product). The DPart nodes for which recipient
+information may be specified depends on the *RecordLevel* key in the *DPartRoot*
+dictionary of the PDF. If the *RecordLevel* value is zero then only a single
+recipient can be specified. If the *RecordLevel* value is greater than zero then
+each DPart node at the indicated level may specify a separate recipient. The
+*CIP4_Recipient* key specifies the intended recipient using a dictionary where:
+
+* *CIP4_ExternalID* — provides an external unique reference to the recipient.
+
+* *CIP4_Contact* — provides the contact information of the recipient
+
+PPM encodes contact information as a *CIP4_Contact* dictionary, see <<encode-contact-information>> for more details.
+
+
+[[encode-contact-information]]
+=== Providing Contact Information
+
+The *CIP4_Contact* dictionary provides contact information for various purposes
+via these keys:
+
+* *CIP4_ContactTypes* — an array of names that identify the purpose of the
+contact. Each name identifies a specific purpose such as _Recipient_, _Editor_,
+_Owner_, etc. The full list of purposes can be found in Table 25 of the PPM
+specification.
+
+* *CIP4_DescriptiveName* — a human readable string representing the role of the
+contact.
+
+This should be used in the case that a standard purpose listed in the PPM
+specification is not applicable, or additional information is required.
+
+* *CIP4_ComChannel* — an array of dictionaries representing information on the
+method that may be used to communicate with the contact.
+
+* *CIP4_Person* — a dictionary representing information regarding the person
+(such as name) to contact.
+
+* *CIP4_Company* — a dictionary representing information regarding the contact’s
+organization.
+
+* *CIP4_Address* — a dictionary representing the contact’s address.
+
+The following keys are available in a *CIP4_ComChannel* dictionary:
+
+* *CIP4_ChannelType* — a name that identifies the method of communication such
+as _Email_, _Fax_, _Phone_, _Mobile_ and _WWW_ (for a web URL).
+
+* *CIP4_DescriptiveName* — a human readable string representing the method
+and/or location if the standard values do not apply or need additional
+clarification.
+
+* *CIP4_Locator* — a string that provides the locator of the channel such as the
+phone number or email address to use.
+
+* *CIP4_ChannelUsage* — a name that defines the purpose of the channel, such as
+_Business_, _Private_, _DayTime_, _NightTime_, or _Weekend_.
+
+The following keys can be used in a *CIP4_Person* dictionary:
+
+* *CIP4_FirstName* — a string representing the person’s first name.
+
+* *CIP4_FamilyName* — a string representing the person’s family name.
+
+* *CIP4_AdditionalNames* — a string representing the person’s middle names if
+any.
+
+* *CIP4_FullName* — a string representing the person’s full name.
+
+* *CIP4_DescriptiveName* — a human readable string representing additional
+information about the person that is not already covered by the other keys.
+
+* *CIP4_JobTitle* — a string representing the person’s organizational role.
+
+* *CIP4_NamePrefix* — a string representing a prefix to the person’s name such
+as Mr., Ms., Dr., etc.
+
+* *CIP4_NameSuffix* — a string representing a suffix to the person’s name such
+as Jr., Sr., etc.
+
+Where possible the above information about a person should be provided in the
+most specific keys that are applicable. However, sometimes this breakdown of
+information is not available then at least the *CIP4_FullName* should be
+provided.
+
+The following keys can be used in a *CIP4_Company* dictionary:
+
+* *CIP4_OrganizationName* — a string representing the name of the organization
+to which a contact belongs.
+
+* *CIP4_DescriptiveName* — a human readable string representing the contact’s
+organization.
+
+* *CIP4_OrganizationalUnit* — an array of strings representing the name(s) of
+the organizational unit to which the contact belongs.
+
+The following keys can be used in a *CIP4_Address* dictionary:
+
+* *CIP4_AddressUsage* — a name identifying the intended usage of the address.
+Predefined usages are Business and Residential.
+
+* *CIP4_AddressLines* — an array of strings representing the complete formatted
+address, with one string per line.
+
+* *CIP4_City* — a string representing the name of the city in which the address
+is located.
+
+* *CIP4_CivicNumber* — a string representing the civic number of the address.
+
+* *CIP4_Country* — a string representing the country in which the address is
+located.
+
+* *CIP4_CountryCode* — a string representing the ISO 3166-1 alpha-2 code of the
+country in which the address is located.
+
+* *CIP4_PostalCode* — a string representing the postal code of the address.
+
+* *CIP4_PostBox* — a string representing the postal box identifier of the
+address.
+
+* *CIP4_Region* — a string representing the region (state or province) in which
+the address is located.
+
+* *CIP4_Street* — a string representing the complete street address which is a
+combination of the values of CIP4_StreetName and CIP4_CivicNumber when they are
+not available separately.
+
+* *CIP4_StreetName* — a string representing the street name for the address.
+
+The address for a contact is not always available in its individual components
+as described above. The *CIP4_AddressLines* key should always be filled to
+ensure that the whole address is available. Where possible the more detailed
+fields should be included to simplify post-processing tasks such as postal
+sorting. Many postal sorting tools have the capability to use a pre-formatted
+address but this process is generally less reliable.

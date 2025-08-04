@@ -1,0 +1,114 @@
+
+== Introduction
+
+=== Overview
+
+This document provides an overview and technical introduction to the Print
+Product Metadata (PPM) ISO Standard (ISO 21812-1) which makes use of PDF
+features introduced in ISO PDF/VT and natively supported in PDF 2.0
+
+PPM is structured machine readable information stored within a PDF file that is
+used to describe the characteristics of a finished print product in relation to
+the PDF pages. PPM can be used to describe finished print products to the level
+of detail necessary to convey print product requirements for common use cases
+
+Using PDF with PPM to describe the finished print product along with its page
+content in a single PDF file, provides a concrete way to communicate print
+product design requirements among the various stake-holders involved in the
+print ecosystem — from print product designers, print buyers through to prepress
+and the various print production processes
+
+In the case of variable data printing (e.g. ISO PDF/VT), PPM can be used to
+describe both uniform or varied finished print product requirements per
+recipient, along with the varied page content
+
+It is expected that graphic design, MIS, prepress and production workflow tools
+that already support PDF, or make use of proprietary formats for describing
+print products for various purposes, will be extended to support this ISO
+standard and interoperable PPM format
+
+=== Audience
+
+* Print providers — Commercial and Variable data printers
+
+* Print Stakeholders — Brand owners, publishers, print buyers and print brokers
+
+* Print product originators — Content creators, Marketers
+
+* Solution developers, integrators
+
+* Educational Institutions
+
+=== Introduction
+
+This Application Note is intended to provide guidance to software solution
+developers and stakeholders interested in understanding the purpose and high
+level technical details of the ISO PPM standard. This document is not intended
+as a substitute for the ISO PPM standard
+
+PDF is commonly used today for specifying final form page content for print
+applications and products. The format’s ability to represent pages from simple
+black and white graphical content to fully color-managed page designs is well
+known and supported by most page design and layout applications, prepress
+workflow and production printing systems available today
+
+The expressiveness, flexibility and reliability of PDF, especially ISO’s PDF/X,
+has led to its use as the preferred and universal file format for communicating
+graphical page content independent of proprietary formats supported by page
+layout applications
+
+Although standards, such as PDF and PDF/X, and related best practices have been
+in common use for exchanging color page content among print stakeholders, PDF
+and PDF/X alone cannot represent the detailed requirements of finished print
+products due to limitations of the format
+
+Typically such details would be stored outside of the PDF file using JDF or
+XJDF, or some proprietary and application-specific method. ISO 32000-2 (PDF 2.0)
+introduced a standard way to specify structured relationships among the pages of
+a PDF file as well as a way to embed specialized metadata within that structure.
+
+Based on CIP4’s XJDF the PPM standard, defines a set of machine readable
+metadata definitions that can be embedded within a PDF 2.0, (including PDF/X-6)
+or PDF/VT file to specify the details of the finished print product(s) in
+relation to its PDF pages.
+
+Prior to PPM’s introduction, the common way to communicate finished print
+product requirements was either through ad-hoc methods such as a written
+description within an email, a Customer Service Representative (CSR), or perhaps
+through the use of an online portal’s print product catalog or order entry form.
+
+The use of PPM in PDF creates an opportunity for the print industry to modernize
+and improve communication of finished print product details among participants
+in the print ecosystem, with the potential to reduce effort and costs.
+
+Conforming PDF files that include PPM will be readable, viewable and editable by
+any supporting graphic design applications and, of course, usable by downstream
+preflight, prepress and automated print production workflow software.
+
+For example, a finished print product, such as a bound book, may be represented
+using PPM as a hierarchical assembly of print product parts such as its
+cover(s), body section(s), folded pages, etc. Specific content pages of the PDF
+file are mapped to the finished pages of each well defined part. The finished
+pages of a part might have specific paper type requirements, and the overall
+print product would have a defined binding style.
+
+It is important to note that PPM is only used in the definition of the finished
+print product and makes no assumptions about any specific print manufacturing
+process or printing method.
+
+It is normally the responsibility of the print provider to determine an
+appropriate print manufacturing process based on their available print
+production capability.
+
+The PPM standard was created as a non-proprietary means of specifying finished
+print product definitions that are portable and interoperable among software
+systems from different vendors.
+
+The PPM standard is based on the subset of the CIP4 XJDF specification known as
+Product Intent, an existing print industry specification capable of describing
+the requirements of finished print products to various degrees of detail. More
+specifically, the PPM standard specifies the use of a subset of XJDF Product
+Intent properties and defines the technical details of how they are encoded for
+use within the internal document part structure of a PDF 2.0 or PDF/VT
+conformant file.
+

@@ -1,0 +1,255 @@
+
+== Describing Print Products
+
+This section provides a conceptual overview of the basic information that can be
+used in describing finished print products and their parts. The actual encoding
+and semantics of PPM are specified in sections 7 and 8.
+
+PPM describes a print product as a sequence of one or more print product part
+definitions. Each print product part may itself be further described as a
+sequence of one or more part definitions.
+
+Each part describes one or more finished pages whose content is provided by the
+associated PDF pages (logical pages). The appearance of each part is specified
+using document part metadata associated with those logical pages.
+
+PPM can be used to describe a complete or partial print product. PPM allows for
+a varying degree of specificity in terms of the completeness of the description
+of the print product. For example, specific attributes of the print product
+description may be left unspecified, allowing their values to be chosen later
+during the production preparation phase, perhaps based on availability of
+materials or equipment as well as additional out-of-band communication with
+stakeholders. In all cases, such out-of-band communication with stakeholders may
+influence the requirements of the print product that will ultimately be
+produced. In the absence of additional communication, the specified attributes
+in the print product description are expected to be honored. It is worth noting
+that the obligation to fully honor the print product definition as presented
+using PPM depends on the agreements between participating stakeholders.
+
+=== Product Type
+
+The product type of a part identifies or classifies the intended use of the
+print product (e.g. a book) or part of a print product (e.g. a front cover, body
+pages, or back cover, etc…). The following common product types are included in
+the PPM standard:
+
+* _BackCover_
+* _Body_
+* _Book_
+* _BookBlock_
+* _BookCase_
+* _Booklet_
+* _Box_
+* _Brochure_
+* _BusinessCard_
+* _Cover_
+* _CoverLetter_
+* _Envelope_
+* _FrontCover_
+* _Insert_
+* _Jacket_
+* _Label_
+* _Leaflet_
+* _Letter_
+* _Map_
+* _Newspaper_
+* _Notebook_
+* _Postcard_
+* _Poster_
+* _ResponseCard_
+* _Section_
+* _SelfMailer_
+* _Spine_
+* _WrapAroundCover_
+
+NOTE: The list of product types defined by the PPM standard should be used where
+possible even if this implies using a more generic product type (e.g. use
+“Letter” even when producing an “invoice”).
+
+Although specifying the product type is optional, including this information in
+the PPM definition is strongly recommended.
+
+=== Layout Intent
+
+The layout intent is used to specify how pages are imaged onto the sides of the
+finished pages of a part. It specifies whether the finished pages will have
+content on the front side only, back side only or on both sides.
+
+If both sides of the finished pages are to be imaged, the layout intent can also
+specify whether the content on the back side should be rotated.
+
+The layout intent can also be used to specify that the PDF page content is for a
+spread, where spreads are used to specify the content for a wrap-around cover, a
+center page of a book, a fold- out page, or an envelope (prior to cutting,
+folding and gluing into the final form).
+
+The layout intent can also specify the size of the finished part typically
+derived from or accommodates the dimensions defined by the pdf page.
+
+In the case of folding, the size of the unfolded finished page is larger than
+that of the folded finished page. In this case, the size of the folded finished
+page is specified in the layout intent while the size of the unfolded finished
+page is taken from the definition of the PDF page.
+
+Layout intent can also specify the thickness of the print product part using the
+Z dimension of the finished dimensions property. The Z dimension can be set to
+zero if a specific thickness of the print product is not required.
+
+=== Media Intent
+
+The media intent is used to specify the properties of the media (e.g. paper) of
+the finished pages of a part.
+
+Properties of the media that can be specified such as:
+
+* Weight
+
+* Color
+
+* Grade
+
+* Front and/or back coating
+
+* Media type details (e.g. pre-cut tabs, envelope, labels, …)
+
+* Media quality
+
+The use of pre-printed media is considered as an aspect of a print production
+process, and is therefore out of scope for PPM.
+
+The PDF content used for producing pre-printed media may be included in the PDF
+and marked (e.g. as optional content / layers representing the static page
+content background) in such a way that the production process can either print
+it inline or omit it when the content has already been printed and included as
+pre-printed media.
+
+NOTE: Any holes in the printed product are specified by hole making intent; when
+and how the holes are made — such as pre-punched paper or drilling — is part of
+the production process, and is not defined by PPM.
+
+NOTE: The dimensions of the media used during production must (of course)
+accommodate the print product dimensions as specified in layout intent but are
+not specified in PPM, and depend on the print production process.
+
+
+=== Hole Making Intent
+
+Hole making intent specifies the hole pattern and placement of holes for a
+finished part.
+
+Whether the holes are implemented in production through using pre-drilled media
+or added by drilling holes during the production process is up to the print
+service provider.
+
+It is possible to specify hole making requirements for the overall finished
+print product, one or more finished parts, or just a single finished page. If
+hole making is specified on a child part as well as its parent part, both the
+holes specified on the parent part and the child part will apply to the child
+part.
+
+PPM allows for specifying hole patterns for common use cases:
+
+* No holes
+* Ring binding — 2, 3, 4, 5, 6, 7 and 11 holes
+* Plastic comb binding
+* Wire comb binding
+* Coil binding
+* Spiral binding
+
+In some cases of binding intent (e.g. ring binding, spiral/comb binding), hole
+making is implied, in which case, no explicit hole making intent is necessary.
+
+
+=== Binding Intent
+
+The binding intent is used to specify how and what part(s) should be bound
+together and in what order. This specification includes the binding side and
+method.
+
+The following binding methods can be specified:
+
+* _AdhesiveNote_
+* _ChannelBinding_
+* _CoilBinding_
+* _CornerStitch_
+* _EdgeGluing_
+* _HardCover_
+* _LooseBinding_
+* _None_
+* _PlasticComb_
+* _RingBinding_
+* _SaddleStitch_
+* _SideStitch_
+* _SoftCover_
+* _StripBind_
+* _Tape_
+* _Wirecomb_
+
+If the binding involves stitching or stapling (e.g. SaddleStitch or SideStitch)
+then the number of stitches or staples can be specified. The exact location of
+the stitches or staples along the binding side cannot be specified as this is
+considered a production decision. Similarly, for other forms of binding, such as
+coil binding, the exact number of holes cannot be specified.
+
+
+=== Folding Intent
+
+The folding intent can specify that a part should be folded. Folds implied by
+the binding method are not specified as they are part of the production process
+(e.g. folds required for a given binding style, such as folding of gathered
+signatures for saddle stitch binding, do not apply here).
+
+The types of folds that can be specified are:
+
+* _F2-1_: No fold
+* _F4-1_: Single fold
+* _F6-1_: Zigzag fold
+* _F6-3_: Alter fold
+* _F6-4_: Tri fold
+* _F6-7_: Z-fold
+* _F8-2_: Parallel fold
+* _F8-4_: Gate fold
+
+Production oriented folds used with impositioning and trimming are not included
+as they do not influence the definition of the intended final product.
+
+The fold illustrations shown in Table 17 of the PPM standard depict single
+product folds and do not necessarily represent that part’s orientation when
+combined with other parts, e.g. as a fold out page bound into a book. To achieve
+the folded sheet orientation as depicted in the illustrations in Table 17, the
+*CIP4_Orientation* property requires a non-default setting. See section
+<<print-product-folding-intent>> of this document.
+
+
+=== Colour Intent
+
+Colour intent in PPM does not replace or supplement the use of conventional
+colour- management profiles present in the PDF file. Thus PPM is only used to
+specify coatings to be applied to identified finished pages.
+
+NOTE: The spectral properties of the coating may require the colour management
+process to compensate for unwanted colour shifts.
+
+NOTE: As stated in the PPM standard, “Information about printing colour printing
+conditions is out of scope of the PPM standard. This information shall be
+provided using the standard methods defined for PDF, e.g. output profiles.”
+Accordingly, PPM cannot be used to specify the colour space in which PDF page
+content is defined. Everything related to color management can only be specified
+in the PDF data, not in the PPM.
+
+
+=== Assembling Intent
+
+The assembly intent is used to define a print product that is an assembly of
+related print product parts.
+
+PPM defines three different types of assembling methods to specify how certain
+other part(s) may be inserted into or attached to a specified container:
+
+* _BindIn_ — each part is glued into the container,
+* _BlowIn_ — each part is loosely inserted into the container,
+* _StickOn_ — each part is glued onto the container, such as a label.
+
+Assembling intent can be used to describe a complete mail piece consisting of a
+letter part that is folded and inserted into an envelope part. Assembly implied
+by binding need not be specified.
