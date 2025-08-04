@@ -1,0 +1,225 @@
+= FAQ on HDR in PDF: Focus on PDF/A and PDF/X
+:docnumber: 5
+:edition: 1
+:revdate: 2025-07-18
+:copyright-year: 2025
+:language: en
+:title-main-en: FAQ on HDR in PDF: Focus on PDF/A and PDF/X
+:technical-committee: PDF Imaging Model TWG
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: application-note
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/an-hdr-faq-1.0.0:2025
+:imagesdir: images
+:document-scheme: 2024
+:local-cache-only:
+
+
+.Foreword
+
+This document provides guidance and recommendations for application developers
+who want to create PDF files that conform to more than one ISO-standardized
+subset of PDF, specifically PDF/A (ISO 19005) and PDF/UA (ISO 14289). This
+guidance applies to developers using either PDF 1.7 or PDF 2.0.
+
+This document is informative – it does not change the meaning of ISO standards.
+When in doubt, consult the text of the respective ISO standard(s).
+
+== Scope
+
+Many modern imaging devices can capture or display high dynamic range (HDR)
+content. As a result, HDR images and color data can now be included in PDF
+files, including the ISO- standardized subsets for archival and production-print
+applications, PDF/A and PDF/X, respectively.
+
+To ensure a consistent visual experience, the PDF/A (ISO 19005) and PDF/X (ISO
+15930) series of standards both define a “conforming processor” – software that
+follows the respective standards’ rules for displaying PDF files. While HDR
+technology continues to evolve, it is important to understand the acceptable
+uses of HDR images and color data in terms of existing PDF/A and PDF/X
+standards.
+
+
+[bibliography]
+== Normative references
+
+* [[[ISO_32000-2_2020,ISO 32000-2:2020]]], Document management -- Portable
+document format -- Part 2: PDF 2.0 (PDF 2.0),
+https://www.iso.org/standard/63534.html
+
+
+== Terms and definitions
+
+=== HDR
+
+High Dynamic Range
+
+[.source]
+<<https://en.wikipedia.org/wiki/High_dynamic_range>>
+
+=== ICC.1
+
+The International Color Consortium’s color profile format (ISO 15076-1) used by
+PDF’s ICCBased color space.
+
+NOTE: https://color.org/icc_specs2.xalter[ICC.1 v4.4 color profiles] can include
+HDR information.
+
+=== JPEG 1
+
+JPEG 1 (ISO/IEC 10918-1) is a common bitmap (raster) color image format
+supported in PDF via the DCTDecode filter. JPEG 1 images can include various HDR
+tags and information.
+
+=== JPEG 2000
+
+JPEG 2000 (ISO/IEC 15444) is an advanced bitmap (raster) color image format
+supported in PDF via the JPXDecode filter. JPEG 2000 images can include HDR
+information.
+
+=== PDF/A
+
+An ISO-standardized subset of
+https://pdfa.org/archival-pdf/[PDF for long-term archiving],
+defined by the ISO 19005 series of standards.
+This includes PDF/A-1, PDF/A-2, PDF/A-3, and PDF/A-4.
+
+=== PDF/X
+
+An ISO-standardized subset of PDF supporting blind exchange in the graphic arts, defined
+by the ISO 15930 series of standards. This includes all PDF/X parts and conformance levels
+up to and including PDF/X-6.
+
+=== SDR
+
+Standard Dynamic Range
+
+[.source]
+<<https://en.wikipedia.org/wiki/Standard-dynamic-range_video>>
+
+
+== FAQ
+
+=== Is it valid for JPEG 1, JPEG 2000, or ICC.1 color profiles with HDR data to be present in PDF/A or PDF/X files?
+
+Yes – however, the HDR data in such images and profiles is considered private,
+and is therefore ignored by viewing software that conforms to the respective
+standard (a.k.a. “conforming processors”). See our publication
+https://pdfa.org/resource/understanding-private-data-in-pdf-a/[“Understanding Private Data in PDF/A”].
+
+
+=== Will PDF/A or PDF/X files that include HDR data display as HDR by “conforming processor” software?
+
+No. The underlying core PDF specifications do not define rules for rendering HDR
+data. Therefore, all current-generation PDF/A and PDF/X standards likewise do
+not address HDR data. Accordingly, PDF/A and PDF/X conforming processors are
+obliged to ignore HDR data.
+
+=== My PDF/A or PDF/X file displays as HDR – what does that mean?
+
+HDR rendering of current-generation PDF/A or PDF/X files means that your PDF
+software is not currently functioning as a PDF/A or PDF/X conforming processor.
+Activate this feature in order to get a rendering that conforms to the
+respective standard. If the ability to turn off the HDR rendering is not
+available, check with your PDF software vendor.
+
+As of early 2025, any display of HDR data is implementation-dependent and not
+portable.
+
+=== Can a PDF/A or PDF/X conforming processor work on an HDR display?
+
+Yes – HDR-capable systems include full SDR support. However, the operating
+system, display driver, and/or PDF software can all influence on-screen
+appearance, so it may be necessary to check with vendors for specific details.
+
+=== Will PDF/A or PDF/X validators fail files that include HDR data?
+
+No. As mentioned above and described in
+https://pdfa.org/resource/understanding-private-data-in-pdf-a/[Understanding Private Data in PDF/A],
+it is acceptable for PDF/A and PDF/X files to include private data such as HDR
+data. However, these standards prohibit using private data for rendering when
+the viewing software is operating as a PDF/A or PDF/X conforming processor.
+
+=== Can ICC profiles used by OutputIntents include HDR information?
+
+Yes, but the HDR information must not be used by PDF/A or PDF/X conforming
+software. PDF/A and PDF/X utilize output intents (ISO 32000-2:2020, clause
+14.11.5) to ensure reliable appearance by providing a means for matching the
+colour characteristics of page content in a PDF document with those of a target
+output device. Using HDR data in PDF OutputIntents will result in an
+implementation- dependent appearance.
+
+=== How can I know if my PDF includes HDR data?
+
+Software can thoroughly analyze files and report the presence of any HDR
+information – check your documentation or with the vendor to determine whether
+your software supports the detection and reporting of HDR data. Such checks
+require a detailed analysis of all image and color data and may be quite slow.
+Additionally, as specifications for HDR are still emerging, the reliability of
+these reports will depend on each implementation – please consult your vendor
+for more information.
+
+=== If I extract images that include HDR information from PDF files, is the HDR data retained?
+
+This depends entirely on the software used and whether the extracted images are
+transcoded upon extraction. Please check your software documentation or with
+your PDF software vendor.
+
+=== Can I use JPEG XL images in PDF files?
+
+Not directly. To conform to current PDF, PDF/A, and PDF/X requirements,
+https://jpegxl.info/[JPEG XL]
+images need to be converted to existing PDF image formats (such as JPEG 1, which
+is compatible with the DCTDecode filter).
+
+=== Does PDF support HDR content?
+
+Not today. PDF allows HDR information to be present as private data in JPEG 1
+images, JPEG 2000 images, ICC.1 v4.4 color profiles, or in other ways. However,
+today’s PDF specifications and standards don’t define interoperable (portable)
+HDR rendering. Any current HDR rendering of PDF content is entirely
+implementation-dependent; such renderings may not match future specifications.
+
+=== Will PDF support HDR in the future?
+
+Yes. Through the PDF Association’s Imaging Model Technical Working Group,
+industry stakeholders are actively developing new PDF specifications for
+interoperable (portable) HDR rendering and related capabilities (including
+adding support for additional image formats, such as JPEG XL). However, as of
+early 2025, any HDR rendering of PDF content is entirely
+implementation-dependent, not portable, and may not conform to the final
+specifications and standards.
+
+=== Will PDF/A and PDF/X support HDR in the future?
+
+Once HDR support is specified for core PDF, next-generation PDF/A and PDF/X
+standards may be needed to support the interoperable use of HDR data in
+long-term preservation and graphic arts applications.
+
+
+
+[bibliography]
+== Bibliography
+
+* [[[pdf-archival,1]]],
+span:organization[PDF Association]
+span:title[PDF/A information]
+span:uri[https://pdfa.org/archival-pdf/]
+
+* [[[pdf-pdfx,1]]],
+span:organization[PDF Association]
+span:title[PDF/X information]
+span:uri[https://pdfa.org/resource/iso-15930-pdfx/]
+
+* [[[pdfa-imaging-twg,1]]],
+span:organization[PDF Association]
+span:title[PDFA Imaging Model Technical Working Group]
+span:uri[https://pdfa.org/community/imaging-model-twg/]
+
+* [[[pdfa-pdfa-twg,1]]],
+span:organization[PDF Association]
+span:title[PDF/A Technical Working Group]
+span:uri[https://pdfa.org/community/pdf-a-twg/]
