@@ -3,6 +3,9 @@ metanorma:
   source:
     files:
       - sources/pdfa-wtpdf-1.0/document.adoc
+      - sources/pdfa-pdf20-an001/document.adoc
+      - sources/pdfa-pdf20-an002/document.adoc
+      - sources/pdfa-pdf20-an003/document.adoc
 
   collection:
     name: PDFA Documents

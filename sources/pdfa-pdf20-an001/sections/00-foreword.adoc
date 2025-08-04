@@ -1,0 +1,11 @@
+.Foreword
+
+This Application Note was produced by the PDF Association’s PDF Technical
+Working Group (TWG) to explain the use of the *UseBlackPtComp* flag, a new
+feature in PDF 2.0.
+
+It provides interpretation of the existing specifications; it does not change
+the text of those specifications.
+
+The principal authors of this document are Martin Bailey (Global Graphics) and
+Peter Wyatt (consultant, ISO 32000 co Project Leader).
