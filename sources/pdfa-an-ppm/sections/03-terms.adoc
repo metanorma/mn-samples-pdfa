@@ -1,0 +1,111 @@
+
+== Terms and definitions
+
+=== Logical page
+
+individual page definition of the PDF file (not to be confused with “logical
+order” as used in Tagged PDF).
+
+=== Finished page
+
+physical page of the print product (from the print product user’s perspective)
+that is a trimmed sheet of paper or print substrate that has two sides.
+
+=== Spread
+
+single logical page that has content typically representing two finished pages
+
+[example]
+a center spread would represent a pair of facing pages.
+
+=== Part
+alt:[Print Product Part]
+
+represents one or more finished pages that are part of a print product such as a
+book cover, book block or folded finished pages.
+
+=== Print product
+
+sequence of one or more print product parts where each part can itself be
+subdivided into a sequence of one or more parts.
+
+=== Product Intent
+
+specifies the creator’s view of a finished print product.
+
+=== Product Assembly
+
+defines a print product where one or more parts are inserted into another part,
+
+[example]
+a letter into an envelope.
+
+=== Document Part Metadata
+alt:[DPM]
+
+set of PDF key value pairs defining the metadata associated with a Document
+Part.
+
+=== Document Part
+
+set of related consecutive pages and/or related sets of pages of a PDF.
+
+=== Document Part Hierarchy
+
+hierarchical PDF data structure that specifies the organization of document
+parts. The Document Part (DPart) hierarchy consists of a tree of nodes. Each
+page of the PDF refers to exactly one leaf node.
+
+=== Print Product Metadata
+alt:[PPM]
+
+Document Part metadata whose key value pairs are defined in the ISO standard
+21812-1.
+
+=== Root node
+
+parent node for all DPart nodes in the Document Part Hierarchy which also
+declares compliance to the PPM standard.
+
+=== Print Product Metadata (PPM)
+
+metadata model for use in DPM as specified in the PPM standard.
+
+=== Leaf node
+
+node in the Document Part Hierarchy that has no child nodes. Multiple
+consecutive PDF pages may refer to a single leaf node.
+
+=== Intermediate node
+
+node of the Document Part Hierarchy that is neither the root node nor a leaf
+node.
+
+=== Cover
+
+finished page visible from the outside of a finished print product
+
+[example]
+a book.
+
+=== Body
+
+those pages of a finished print product that are not the cover.
+
+=== Front Cover
+
+cover that is read before the body pages.
+
+=== Back Cover
+
+cover that is read after the body pages.
+
+=== Wraparound Cover
+
+single folded sheet of media into which the finished pages of the corresponding
+body part are inserted. Since in PDF it is defined by a single page it allows
+for printing on the side of the finished print product
+
+[example]
+the spine of a book.
+

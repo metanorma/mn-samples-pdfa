@@ -1,0 +1,536 @@
+
+[[encode-print-product-appearance-rules]]
+== Print Product Appearance Rules
+
+=== Concepts
+
+A print product is defined using PPM as an arrangement of one or more related
+parts. An example of a simple print product would be a book with a two-sided
+cover and body parts.
+
+Other print products, however, have more complex features requiring greater
+definition. Such print products can utilize a larger variety of PPM intent
+definitions, such as a case bound book with a fold-out page and sections
+requiring different paper types.
+
+Most print products can be represented using some combination of PPM intent
+definitions positioned within a DPart hierarchy, with one or more leaf DPart
+nodes mapping logical pages to finished pages. The purpose of this structure is
+to express the relationship of the parts of the finished print product.
+
+A given DPart node along with any child DPart nodes typically defines a complete
+or part of a print product.
+
+The sequence of logical pages referenced by a leaf DPart node defines the
+content to be imaged onto the sides of a sequence of one or more finished pages
+of a part.
+
+A finished page:
+
+* is produced on a single media,
+* has a front and back side,
+* each side may either be empty or shows the content of all or part of a PDF
+page,
+* may be bound to other finished pages,
+* may be folded,
+* may have holes.
+
+NOTE: A single physical sheet may contain multiple finished pages.
+
+
+[example]
+====
+A wraparound cover consists of two finished pages. One of those finished pages
+from the front cover and the other from the back cover:
+
+image::figure-01.png[]
+====
+
+The purpose of *CIP4_LayoutIntent* is to define how a sequence of one or more
+logical pages is mapped to specific sides of a sequence of one or more finished
+pages.
+
+For example, where the *CIP4_Sides* key has a value of _OneSided_ or
+_OneSidedBack_ specified for a logical page, this implies a single finished page
+is to be imaged with the content from that logical page but for one side only.
+Accordingly, a sequence of four such logical pages implies a sequence of four
+one-sided finished pages.
+
+If the *CIP4_Sides* key has a value of _TwoSidedHeadToHead_ or
+_TwoSidedHeadToFoot_ a logical page is expected for each side of the implied
+two-sided finished page. If an expected logical page is missing then the
+associated finished page side is presumed blank.
+
+If two consecutive logical pages within a single DPart have different page sizes
+(explicit or implied *TrimBox*) then each of them are expected to be imaged onto a
+side of separate finished pages.
+
+[example]
+====
+A two logical page DPart node of a Letter print product definition that includes
+a LayoutIntent with *CIP4_Sides* set to the value of _TwoSidedHeadToHead_ where
+each page has a different orientation such as:
+
+* Page 1 A4 Portrait
+* Page 2 A4 Landscape
+====
+
+
+In this case the two incompatible logical page sizes implies that the print
+product must have two finished pages where:
+
+* Finished page 1 front gets logical page 1,
+* Finished page 1 back gets an implied blank logical page,
+* Finished page 2 front gets logical page 2,
+* Finished page 2 back gets an implied blank logical page.
+
+Any product intent that implies an operation be applied to a DPart node only
+applies to the part defined by that DPart node as a whole. In general, this rule
+implies that the finished pages of that part are first gathered together and
+then the specified operation is performed on the gathered pages as a whole.
+
+
+[example]
+A folding intent on the root DPart node implies that all the finished pages are
+first gathered together and then folded as a whole. If each finished page should
+first be folded and then gathered together then a DPart node for each finished
+page would be needed with a folding intent for each DPart node.
+
+
+=== Product Type
+
+The *CIP4_ProductType* key specifies the product type of a DPart node. The
+product type defines the purpose of the part defined by that DPart node.
+Although optional, providing such metadata is strongly recommended as the
+product type may help in making production decisions.
+
+Some of the defined product types also imply specific handling conventions:
+
+* A _Body_ part is implicitly inserted into a _Cover_ part. Thus the finished
+pages of the _Body_ part are intended to be inserted between the finished pages
+of the _Cover_ part.
+
+* A _FrontCover_ part defines a finished page that comes before the finished
+pages of a corresponding _Body_ part. If a _BackCover_ is defined but the
+_FrontCover_ is not explicitly defined then an empty finished page is presumed
+for the _FrontCover_.
+
+* A _BackCover_ part defines a finished page that comes after the finished pages
+of a corresponding _Body_ part. If a _FrontCover_ is defined but the _BackCover_
+is not explicitly defined then an empty finished page is presumed for the
+_BackCover_.
+
+* A _WrapAroundCover_ is a single folded sheet of media into which the finished
+pages of the corresponding _Body_ part are inserted. If the DPart node also
+includes a *CIP4_LayoutIntent* resource with a *CIP4_SpreadType* key with a
+value of _Spread_ then the logical page content for the front side specifies the
+outside of the cover as a whole and the back side specifies the inside of the
+cover. Otherwise the _WrapAroundCover_ implies the same behavior as a _Cover_
+product type.
+
+* A _Book_, _Booklet_ or _Notebook_ part implies that a binding is expected. The
+*CIP4_BindingIntent* resource is used to specify the exact details of the type
+of binding.
+
+* A _Jacket_ part implies a _WrapAroundCover_ and the correct folding is implied.
+
+* An _Envelope_ part is typically used as the container for a finished mail piece.
+
+[example]
+====
+Book with/without wrap-around cover:
+
+image::figure-02.png[]
+====
+
+A part with a product type that implies a limit on the number of finished pages
+(e.g. _FrontCover_, _BackCover_, _WrapAroundCover_) that references logical
+pages that imply more finished pages than the part’s limit will lead to an
+undefined result.
+
+For a part with *CIP4_ProductType* with a value of _Envelope_ the *CIP4_LayoutIntent* determines
+how the referenced PDF page content is used:
+
+If *CIP4_SpreadType* has a value of _SinglePage_ (i.e. folding not required)
+then the size of the PDF page (i.e. its TrimBox) determines the size of the
+finished envelope. Any PDF page content is printed on the front and back of the
+finished envelope (depending on the *CIP4_Sides* setting) and the inside is
+blank.
+
+[example]
+====
+Envelope with Spread:
+
+image::figure-03.png[]
+====
+
+If *CIP4_SpreadType* has a value of _Spread_ then it is presumed that a single
+sheet will be cut/ folded into the envelope form. The PDF page content intended
+for the front of the sheet therefore specifies the content for the outside of
+the envelope, and the PDF content intended for the back of the sheet specifies
+the content on the inside of the envelope (similar to a wraparound cover). The
+size of the envelope must be specified using *CIP4_FinishedDimensions*. The
+center of the PDF page content for the part will be imaged such that it ends up
+at the center of the finished envelope.
+
+Any special features of the envelope such as the exact envelope contour (size,
+location, and form of the flaps) and window location cannot be specified in PPM,
+and must be specified for instance using the Processing Steps specification
+(ISO 19593-1). Typically the opening of an envelope can be presumed to be at the
+top. In practice the location of the opening is important, for example, for the
+physical insertion process that places printed matter inside the envelope.
+
+
+=== Layout Intent
+
+The *CIP4_LayoutIntent* key specifies the layout intent of a print product part
+using a set of keys.
+
+The *CIP4_FinishedDimensions* key specifies the finished dimensions (width,
+height, and thickness) of the finished part. The finished dimensions specify the
+intended size of the part after any folding, trimming and binding operations
+have been applied. The thickness of the specified finished dimensions (Z
+dimension) is set to _0_ if the exact thickness is unknown.
+
+If *CIP4_FinishedDimensions* is not explicitly specified then the finished
+dimensions for a part is the aggregate of the finished dimensions of the part’s
+finished pages taking into account the relative alignment of those finished
+pages. If the part’s *CIP4_FinishedDimensions* are smaller than the calculated
+finished dimensions then trimming of the part to the specified size is implied.
+
+The definition of layout intent requires a specification of the finished
+dimensions of each finished page of a part in order to determine the intended
+behavior for a part. If the finished dimensions for a finished page are not
+explicitly specified then the finished dimensions are presumed equal to the
+dimensions specified by the *TrimBox* of each of the PDF pages intended to be
+imaged onto that finished page. As the *TrimBox* only specifies width and
+height, the thickness (Z dimension) of the finished dimensions is left
+unspecified, and is therefore set to _0_.
+
+If the PDF page’s *TrimBox* and the specified finished dimensions are not the
+same then the *TrimBox* defines the dimensions of the finished page prior to
+folding. The specified finished dimensions for a finished page should match the
+finished page size after folding. For spreads, it is necessary to explicitly
+specify finished dimensions using *CIP4_FinishedDimensions*.
+
+The *CIP4_Sides* key in the layout intent specifies which sides of a finished
+page will have content imaged onto it. The following values are available:
+
+* _OneSided_ — implies that only the front side of the finished page has
+content.
+
+* _OneSidedBack_ — implies that only the back side of the finished page has
+content.
+
+* _TwoSidedHeadToHead_ — implies that both sides of the finished page have
+content.
+
+* _TwoSidedHeadToFoot_ — implies that both sides of the finished page have
+content. The content for the back side of the finished page is rotated by 180
+degrees before being imaged. The binding edge is typically expected to be either
+the top or bottom. However there are less common uses for combining top/bottom
+with a left or right binding edge, for example in dual language text books.
+
+The *CIP4_SpreadType* key in the layout intent specifies whether the content is
+a _Spread_ or _SinglePage_. A layout intent should only specify a
+*CIP4_SpreadType* value of _Spread_ for logical content that will be used for a
+cover, an envelope, a folded page or a center page of a book. The results are
+undefined in all other cases.
+
+NOTE: For wraparound covers and center spreads, the content of each logical page
+defines the content used for two finished pages.
+
+NOTE: The actual size of the print media used in production may be larger than
+the specified finished dimension in order to accommodate production specific
+needs such as sheet marks, quality control marks and printing device
+limitations.
+
+
+=== Media Intent
+
+The *CIP4_MediaIntent* key specifies the Media Intent which is used to provide
+the characteristics of the media to be used for a print product part using keys
+in a PDF dictionary. A complete list of characteristics that can be specified
+can be found in Table 21 of the PPM Standard.
+
+Since a *CIP4_MediaIntent* definition does not imply an operation to be
+performed, the scope of the specified *CIP4_MediaIntent* definition covers all
+finished pages contained within the print product part. This includes all child
+part definitions unless an overriding *CIP4_MediaIntent* definition is specified
+for a child part.
+
+The PPM standard does not specify partial inheritance of a product intent
+definition, therefore each product intent definition fully defines all the
+characteristics. Accordingly, when specifying the same product intent resource
+on a part and a child part, only the characteristics specified on the child part
+apply; any characteristics specified on the parent part are ignored.
+
+[example]
+====
+A job with a root DPart node specifying the default MediaIntent with an
+exception for a particular finished page.
+
+* Root DPart node for all pages: _/CIP4_MediaColor (Blue) /CIP4_Weight 80_
+* Leaf DPart node for page 1: _/CIP4_Weight 100_
+
+This implies that all but the first page will be Blue while the first page has
+an undefined (presumably white) color, as the *CIP4_MediaColor* from the root
+DPart is not inherited.
+====
+
+NOTE: *CIP4_MediaIntent* does not include a key specifying the size of the media
+to be used as the size is derived from the PDF page size and the associated
+*CIP4_LayoutIntent*.
+
+NOTE: *CIP4_MediaIntent* does not include a key to specify pre-punched media as
+this is defined with the use of *CIP4_HoleMaking*.
+
+
+[[print-product-folding-intent]]
+=== Folding Intent
+
+The *CIP4_FoldingIntent* key specifies the Folding Intent which is used to
+define the folding characteristics of a _print product part_ using keys in a PDF
+dictionary.
+
+Folding is applied to the part as a whole. This implies that the finished pages
+of the part are first gathered/collected and then folded rather than each
+finished page being folded and then gathered.
+
+The *CIP4_FoldCatalog* key defines the folding pattern as a sequence of folds.
+The key’s value is a name from the folding catalog as defined in the XJDF
+specification. Only a subset of folds are included, see section 7.6.6 of the PPM
+standard.
+
+The folding pattern uses the bottom left corner of the finished page as the
+reference location called the _sheet lay_. Each fold catalog entry in XJDF
+specifies how much to advance the page in the feeding direction specified by the
+sheet lay (e.g. for bottom left the feeding direction is left and for upper left
+the feeding direction is up) and if the fold direction is up, the advanced
+portion is folded over the remaining portion. Otherwise the advanced portion is
+folded under the remaining portion.
+
+The F6-3, F6-4, F7-7, F8-2, F8-4 pictures in Table 17 of the PPM standard are
+shown in a manner to more clearly illustrate the folded print product, and do
+not appear with the default orientation of _Rotate0_.
+
+The *CIP4_Orientation* key specifies the reference location and direction of the
+folds as defined in the fold catalog. This enables the specification of variants
+of the same basic fold patterns.
+
+[cols="1,1,1,1",options="header"]
+|===
+|CIP4_Orientation value |Reference location |Folding location |Feeding direction
+
+|_Rotate0_ |bottom left |default |left
+|_Rotate90_ |upper left |default |up
+|_Rotate180_ |upper right |default |right
+|_Rotate270_ |bottom right |default |bottom
+|_Flip0_ |bottom left |inverted |left
+|_Flip90_ |upper left |inverted |up
+|_Flip180_ |upper right |inverted |right
+|_Flip270_ |bottom right |inverted |down
+
+|===
+
+Changing the reference location and folding direction does not alter the
+physical orientation of the finished page, but only influences the location,
+orientation, and folding direction of the folds specified in the fold catalog.
+
+
+[example]
+====
+_F6-3_ with _Rotate0_:
+
+image::figure-04.svg[]
+====
+
+[example]
+====
+_F6-3_ with _Flip0_:
+
+image::figure-05.svg[]
+====
+
+[example]
+====
+_F8-4_ with _Rotate90_:
+
+image::figure-06.svg[]
+====
+
+If both binding and folding intent applies then the binding edge refers to the
+corresponding edge of the folded part after folding. The results are undefined
+for certain folding types when saddle or side stitching is requested due to the
+binding edge being physically connected to another finished page to form a
+single sheet where the folding would require a “flap” to be somehow attached.
+Similarly, the results are undefined when requesting folding on an axis
+perpendicular to the binding edge (e.g. binding edge left and using _Rotate90_,
+_Rotate270_, _Flip90_, _Flip270_).
+
+
+=== Hole making Intent
+
+The *CIP4_HoleMakingIntent* key specifies any holes that should be made in a
+print product part using keys in a PDF dictionary. A complete list of
+characteristics that can be specified can be found in Table 19 of the PPM
+Standard.
+
+The *CIP4_HoleReferenceEdge* key specifies the edge of the print product where
+the holes are placed. The *CIP4_Pattern* key specifies a pattern id from the
+Hole Pattern Catalog in the XJDF specification. The pattern defines the number,
+shape and distribution of the holes along the reference edge. The center of the
+pattern of the specified physical hole locations is aligned with the center of
+the reference edge of the print product part. The specified axis offset of the
+pattern indicates the distance from the reference edge. The pattern geometry
+specifies the spacing between the center of the holes along the reference edge.
+
+Logically, hole making is an operation applied to the physical print product
+part as a whole.
+
+Since only the desired end result can be specified by product intent, the actual
+production order of a hole making process is not specified. Using pre-drilled
+media that meets the intended hole requirements for the part is therefore
+considered equivalent to drilling holes after printing. If
+
+hole making is specified on a child part as well as its parent part, both the
+holes specified on the parent part and the child part will apply to the child
+part.
+
+
+=== Binding Intent
+
+The *CIP4_BindingIntent* key specifies the binding for a print product part
+using keys in a PDF dictionary. A complete list of characteristics that can be
+specified can be found in Table 12 of the PPM Standard.
+
+Binding is applied to the part as a whole. This implies that the finished pages
+of the part are first gathered/collected and then bound.
+
+The *CIP4_BindingSide* key identifies the binding edge of the bound print
+product part. The binding edge determines how child parts or finished pages are
+aligned to form a stack with the binding edges. If the finished pages or parts
+are of different sizes along the binding edge then the parts are aligned along
+the center of each part:
+
+image::figure-07.svg[]
+
+If no binding intent is specified then the child parts are aligned along the
+left edge. Alignment is always based on the child part after folding is applied.
+
+The *CIP4_BindingType* key defines the binding method for the print product
+part. If the binding method is _SaddleStitch_ then the *CIP4_SaddleStitching*
+key can be used to provide additional detail of the required stitching using
+keys in a PDF dictionary. If the binding method is _SideStitch_ then the
+*CIP4_SideStitching* key can be used to provide additional details of the
+required stitching if necessary. In each case the *CIP4_StitchNumber* key
+defines the number of required stitches. In the absence of a *CIP4_StitchNumber*
+key any number of stitches are permitted. For the binding method _CornerStitch_
+the number of stitches cannot be explicitly specified.
+
+A part for which a binding method of _SaddleStitch_ or _SideStitch_ is specified
+requires an even number of finished pages. If the number of finished pages is
+odd then an additional blank finished page is implicitly exists at the end of
+the part.
+
+[example]
+====
+SaddleStiched booklet with fold out:
+
+image::figure-08.svg[]
+====
+
+Neither folding nor holemaking implied by the binding method should be specified.
+
+For back covers with no inside back content the *CIP4_Sides* should specify
+_OneSidedBack_ to ensure that the single logical page content is imaged on the
+outside.
+
+[example]
+====
+Calendar:
+
+image::figure-09.svg[]
+====
+
+=== Assembling Intent
+
+The *CIP4_AssemblingIntent* key specifies an assembly of product parts using
+keys in its PDF dictionary. The assembly intent specifies that in the assembled
+print product the child parts are placed inside a container without changing the
+orientation. The resulting part is the specified container.
+
+If the finished dimensions of the part to be inserted into the container are
+equal to or exceed the finished dimensions of the container it is inserted into
+(i.e. doesn’t fit) then the results are undefined.
+
+NOTE: Some clearance on the inside will generally be necessary to allow the
+insertion process to succeed.
+
+The *CIP4_Container* key specifies an indirect reference to the DPart dictionary
+that defines the container for the other referenced print product parts.
+
+The *CIP4_AssemblyItem* key specifies an array of dictionaries, each of which
+define a print product part to be inserted into the container in the order
+specified.
+
+image::figure-10.png[]
+
+The *CIP4_BindIn* key specifies an array of dictionaries, each of which refers
+to a print product part that is glued into the container in the order specified.
+
+The *CIP4_BlowIn* key specifies an array of dictionaries, each of which refers
+to a print product part that is loosely inserted into the container in the order
+specified.
+
+The *CIP4_StickOn* key specifies an array of dictionaries, each of which refers
+to a print product part that is glued onto the container in the order specified.
+The exact location of where a print product is stuck onto the container cannot
+be specified via the current PPM standard.
+
+Each dictionary of the arrays contains a *CIP4_Child* key which is an indirect
+reference to the DPart dictionary that defines the print product part to be used
+in the assembly.
+
+The DPart dictionary on which assembly intent is defined shall not reference one
+of its parent DPart dictionaries.
+
+NOTE: The direct descendent DPart dictionaries of the DPart on which
+*CIP4_AssemblingIntent* is specified are typically used for defining the print
+product part for the container and any print product parts that are inserted or
+attached to the container.
+
+A print product part with a *CIP4_ProductType* with value of Envelope can be
+referenced as a container and is used for describing the appearance of the
+envelope itself. The assembly intent may use an envelope as a container in its
+specification of a finished mail piece.
+
+[example]
+====
+complete mail piece:
+
+image::figure-11.svg[]
+====
+
+
+=== Extensions
+
+The PPM standard permits use of private extensions as allowed by the XJDF
+specification.
+
+The use of private extensions, however, will generally limit interoperability
+among products and solutions beyond a possible subset of cooperating vendors. As
+per Annex E of the PDF specification, private extensions require the use of a
+registered second class name prefix (see the PDF Names List at
+https://github.com/adobe/pdf-names-list).
+
+Before using a private extension in PPM, vendors should check whether the XJDF
+specification already has a method of specifying the desired attributes of the
+print product. In such cases the encoding rules of section 6.2 to map XJDF to
+PDF must be applied and should use the second class name prefix “CIP4_”. In
+situations where the XJDF specification does not have a way to express an
+equivalent intent property, it is recommended that a new intent be defined and
+proposed as an addition to the XJDF specification using CIP4’s registration
+process.
+
+

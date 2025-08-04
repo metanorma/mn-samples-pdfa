@@ -1,0 +1,38 @@
+= Use of standard Print Product Metadata (PPM) with PDF
+:docnumber: 5
+:edition: 1
+:revdate: 2024-05-23
+:copyright-year: 2024
+:language: en
+:title-main-en: Use of standard Print Product Metadata (PPM) with PDF
+:technical-committee: Print Product Metadata LWG
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: best-practice
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/an-ppm-1.0.0:2024
+:imagesdir: images
+:document-scheme: 2024
+:local-cache-only:
+
+include::sections/00-foreword.adoc[]
+
+include::sections/00-introduction.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normrefs.adoc[]
+
+include::sections/03-terms.adoc[]
+
+include::sections/04-describe.adoc[]
+
+include::sections/05-encode.adoc[]
+
+include::sections/06-appearance-rules.adoc[]
+
+include::sections/a1-example.adoc[]
+
+include::sections/b1-bibliography.adoc[]

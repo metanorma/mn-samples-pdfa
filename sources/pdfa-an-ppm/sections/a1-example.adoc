@@ -1,0 +1,243 @@
+
+[[annex-a]]
+[appendix,obligation=informative]
+== Romantic Koosbania example
+
+This appendix contains a description of final print products using PPM. The PDF
+snippets containing PPM in this appendix are PDF objects allowing pages with the
+same requirements to share the DPM information. The example consists of a
+complex bound book and an accompanying poster.
+
+*Final print products*
+
+.Complete book
+image::figure-12.png[]
+
+.Poster
+image::figure-13.png[]
+
+.Page Content
+[cols="a,a",options="header"]
+|===
+| Content | Description
+
+| image::figure-14.png[]
+| Book cover: A single page representing the
+imposed back, spine, and front of the book’s
+cover as a spread to be printed on book cover
+cloth material.
+
+| image::figure-15.png[]
+| Text pages: Multiple pages representing text
+pages of this book, printed on white, coated
+text paper, monochrome only.
+
+| image::figure-16.png[]
+| Illustration pages: Multiple pages within the
+book containing high quality imagery printed
+on coated, heavy, glossy paper using process
+CMYK.
+
+| image::figure-17.png[]
+| Map pages: Multiple pages within the book
+containing maps on fold-in pages simplex
+printed on coated, heavy, glossy paper using
+process CMYK.
+
+| image::figure-18.png[]
+| Poster page: A single page representing the
+content to be printed as a poster on coated,
+very heavy, glossy paper.
+
+|===
+
+*PPM*
+
+.Complete book
+[source,pdf]
+----
+1100 obj <<
+  /CIP4_Root
+  <<
+    /Type /CIP4_Root
+    /CIP4_DescriptiveName (Romantic Koosbania)
+    /CIP4_Intent <<
+      /Type /CIP4_Intent
+      /CIP4_ProductType /Book
+    >>
+  >>
+>> endobj
+----
+
+.Book cover
+[source,pdf]
+----
+1101 obj <<
+  /CIP4_Root <<
+  /Type /CIP4_Root
+  /CIP4_DescriptiveName (book cover)
+  /CIP4_Intent <<
+    /Type /CIP4_Intent
+      /CIP4_LayoutIntent 1283 0 R
+      /CIP4_MediaIntent 1284 0 R
+      /CIP4_ProductType /WrapAroundCover
+    >>
+  >>
+>> endobj
+
+1283 0 obj <<
+  /Type /CIP4_LayoutIntent
+  /CIP4_Sides /OneSided
+  /CIP4_SpreadType /Spread
+  /CIP4_FinishedDimensions [ 595 842 10 ]
+>> endobj
+
+1284 0 obj <<
+  /Type /CIP4_MediaIntent
+  /CIP4_MediaQuality (RuggedCloth)
+  /CIP4_MediaTypeDetails /Cloth
+>> endobj
+----
+
+.Text pages
+[source,pdf]
+----
+1101 obj <<
+  /CIP4_Root <<
+    /Type /CIP4_Root
+    /CIP4_DescriptiveName (text pages)
+    /CIP4_Intent <<
+      /Type /CIP4_Intent
+      /CIP4_LayoutIntent 1285 0 R
+      /CIP4_MediaIntent 1286 0 R
+      /CIP4_ProductType /Body
+    >>
+  >>
+>> endobj
+
+1285 obj <<
+  /Type /CIP4_LayoutIntent
+  /CIP4_Sides /TwoSidedHeadToHead
+>> endobj
+
+1286 obj <<
+  /Type /CIP4_MediaIntent
+  /CIP4_Coating /Matte
+  /CIP4_ISOPaperSubstrate /PS2
+  /CIP4_MediaQuality (Text100)
+  /CIP4_Weight 100
+>> endobj
+----
+
+.Illustration pages
+[source,pdf]
+----
+1103 obj <<
+  /CIP4_Root
+  <<
+    /Type /CIP4_Root
+    /CIP4_DescriptiveName (color text)
+    /CIP4_Intent <<
+      /Type /CIP4_Intent
+      /CIP4_LayoutIntent 1287 0 R
+      /CIP4_MediaIntent 1288 0 R
+      /CIP4_ProductType /Body
+    >>
+  >>
+>> endobj
+
+1287 obj <<
+  /Type /CIP4_LayoutIntent
+  /CIP4_Sides /TwoSidedHeadToHead
+>> endobj
+
+1288 obj <<
+  /Type /CIP4_MediaIntent
+  /CIP4_Coating /Gloss
+  /CIP4_ISOPaperSubstrate /PS1
+  /CIP4_MediaQuality (Text120)
+  /CIP4_Weight 120
+>> endobj
+----
+
+.Map pages
+[source,pdf]
+----
+1104 obj <<
+  /CIP4_Root <<
+    /Type /CIP4_Root
+    /CIP4_DescriptiveName (foldout map)
+    /CIP4_Intent <<
+      /Type /CIP4_Intent
+      /CIP4_ColorIntent 1292 0 R
+      /CIP4_FoldingIntent 1291 0 R
+      /CIP4_LayoutIntent 1289 0 R
+      /CIP4_MediaIntent 1290 0 R
+      /CIP4_ProductType /Map
+    >>
+  >>
+>> endobj
+
+1292 obj <<
+  /Type /CIP4_ColorIntent
+  /CIP4_Coatings [/Varnish]
+>> endobj
+
+1291 obj <<
+  /Type /CIP4_FoldingIntent
+  /CIP4_FoldCatalog /F6-7
+>> endobj
+
+1289 obj <<
+  /Type /CIP4_LayoutIntent
+  /CIP4_Sides /OneSided
+  /CIP4_SpreadType /Spread
+  /CIP4_FinishedDimensions [ 595 842 0 ]
+>> endobj
+
+1290 obj <<
+  /Type /CIP4_MediaIntent
+  /CIP4_Coating /Gloss
+  /CIP4_ISOPaperSubstrate /PS1
+  /CIP4_MediaQuality (Special150)
+  /CIP4_Weight 150
+>> endobj
+----
+
+.Poster page
+[source,pdf]
+----
+1105 obj <<
+  /CIP4_Root
+  <<
+    /CIP4_DescriptiveName(additional poster)
+    /CIP4_Intent <<
+      /Type /CIP4_Intent
+      /CIP4_ColorIntent 846 0 R
+      /CIP4_LayoutIntent 844 0 R
+      /CIP4_MediaIntent 845 0 R
+      /CIP4_ProductType /Poster
+    >>
+    /Type /CIP4_Root
+  >>
+>> endobj
+
+846 0 obj <<
+  /Type /CIP4_ColorIntent
+  /CIP4_Coatings [/Varnish]
+>> endobj
+
+844 0 obj <<
+  /Type /CIP4_LayoutIntent
+  /CIP4_Sides /OneSided
+>> endobj
+
+845 0 obj <<
+  /Type /CIP4_MediaIntent
+  /CIP4_Coating /Gloss
+  /CIP4_ISOPaperSubstrate /PS1
+  /CIP4_MediaQuality (Special140)
+  /CIP4_Weight 150
+>> endobj
+----
+

@@ -1,0 +1,30 @@
+
+[bibliography]
+== Normative references
+
+* [[[xjdf_spec,CIP4 XJDF Specification]]],
+span:organization[CIP4 Organization]
+span:title[XJDF Specification]
+span:edition[Release 2.0]
+span:date.release[2018]
+span:uri[https://www.CIP4.org]
+
+* [[[ISO 21812-1,ISO 21812-1]]],
+Graphic technology — Print product metadata for PDF files — Part 1:
+Architecture and core requirements for metadata
+
+* [[[ISO 16612-2,ISO 16612-2]]],
+Graphic technology — Variable data exchange —
+Part 2: Using PDF/X-4 and PDF/X-5 (PDF/VT-1 and PDF/VT-2)
+
+* [[[ISO_16612-3,ISO 16612-3]]],
+Graphic technology — Variable data exchange —
+Part 3: Using PDF/X-6 (PDF/VT-3)
+
+* [[[ISO_32000-2_2020,ISO 32000-2:2020]]],
+Document management -- Portable document format -- Part 2: PDF 2.0 (PDF 2.0),
+https://www.iso.org/standard/63534.html
+
+* [[[ISO_19593-1,ISO 19593-1]]],
+Graphic technology — Use of PDF to associate processing steps and content data —
+Part 1: Processing steps for packaging and labels
