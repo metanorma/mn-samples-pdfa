@@ -1,0 +1,15 @@
+.Foreword
+
+In most cases metadata is all about interoperability: It is only useful if
+creator and processor agree on syntax and semantics. In the context of PDF this
+also means that creator and processor must agree on where metadata is present in
+the often-complex internal PDF structure.
+
+Metadata locations are well defined for XMP metadata on the PDF document level
+and for some PDF objects, but not for all objects where metadata can occur (e.g.
+pages, page level objects and resources such as fonts or ICC profiles). However,
+in almost all cases sufficient guidance can be derived from the PDF
+specification, albeit sometimes in an indirect way.
+
+The principal authors of this document are Boris Doubrov (Dual Lab) and Dietrich
+von Seggern (callas software).

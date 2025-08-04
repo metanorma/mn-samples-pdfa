@@ -10,6 +10,15 @@ Source of the documents.
 `sources/pdfa-wtpdf-1.0/`::
 PDFA WTPDF 1.0
 
+`sources/pdfa-pdf20-an001/`::
+PDFA PDF 2.0 Application Note 001
+
+`sources/pdfa-pdf20-an002/`::
+PDFA PDF 2.0 Application Note 002
+
+`sources/pdfa-pdf20-an003/`::
+PDFA PDF 2.0 Application Note 003
+
 `reference-docs/`::
 Reference documents.
 
@@ -24,7 +33,7 @@ The easy way if you install locally:
 
 [source,sh]
 ----
-git clone https://github.com/metanorma/mn-samples-icc/
+git clone https://github.com/metanorma/mn-samples-pdfa/
 bundle
 bundle exec metanorma sources/pdfa-wtpdf-1.0//document.adoc
 # => sources/pdfa-wtpdf-1.0//document.{html,xml,pdf}
@@ -40,9 +49,9 @@ See https://www.metanorma.org
 ----
 bundle exec metanorma sources/pdfa-wtpdf-1.0//document.adoc
 # or
-# bundle exec metanorma sources/icc-votable-proposal-adgc/document.adoc
+bundle exec metanorma sources/pdfa-pdf20-an001/document.adoc
 # or
-# bundle exec metanorma sources/icc-tn-04-2018/document.adoc
+# bundle exec metanorma sources/pdfa-tn-04-2018/document.adoc
 ----
 
 This command outputs the built document at:

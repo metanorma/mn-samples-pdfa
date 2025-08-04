@@ -1,0 +1,120 @@
+= PDF Association PDF 2.0 Application Note 001
+:docnumber: 1
+:edition: 1
+:revdate: 2018-09-17
+:copyright-year: 2018
+:language: en
+:title-intro-en: PDF 2.0 Application Note 001
+:title-main-en: Usage of Black Point Compensation
+:technical-committee: PDF Technical Working Group (TWG)
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: application-note
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/PDF2.0/001-1.0.0:2018
+:imagesdir: images
+:document-scheme: 2024
+:local-cache-only:
+
+include::sections/00-foreword.adoc[]
+
+== Introduction
+
+This Application Note was produced by the PDF Association’s PDF Technical
+Working Group (TWG) to explain the use of the *UseBlackPtComp* flag, a new feature
+in PDF 2.0. It provides interpretation of the existing specifications; it does
+not change the text of those specifications. The principal authors of this
+document are Martin Bailey (Global Graphics) and Peter Wyatt (consultant, ISO
+32000 co Project Leader).
+
+
+== Scope
+
+This document explains the use of the *UseBlackPtComp* flag, a new feature in
+PDF 2.0. It provides interpretation of the existing specifications; it does not
+change the text of those specifications.
+
+
+[bibliography]
+== Normative references
+
+* [[[ISO_32000-2,ISO 32000-2:2017]]], Document management -- Portable document format -- Part 2: PDF 2.0 (PDF
+2.0), https://www.iso.org/standard/63534.html
+
+* [[[ISO_18619,ISO 18619:2015]]], Image technology colour management -- Black point compensation,
+https://www.iso.org/standard/63033.html
+
+
+== Terms and definitions
+
+== What is Black Point Compensation?
+
+=== General
+
+Black point compensation (BPC) is a technique used in colour management. It
+adjusts the colour transformation that will be applied, especially towards the
+shadow end of the tone scale, by aligning the darkest colour that could be
+described by the colour space of the data to be displayed with the darkest
+colour that the output profile for the display device (screen or print) can
+produce. It’s therefore very similar to what switching between absolute and
+relative colorimetric rendering intents does at the highlight end of the tone
+scale. That aligns the lightest colour in the colour space in the PDF file to
+the lightest colour that the output device can produce, on a printing device
+that usually means the underlying substrate.
+
+image::black-point.svg[]
+
+Black point compensation as used in PDF is formally defined in <<ISO_18619>>.
+
+=== Circumstances and use cases
+
+Black point compensation is already widely used in production printing,
+especially in situations where the combination of the substrate, colourants
+(e.g. inks) and printing process cannot achieve a very high density for blacks.
+
+As of this writing it is typical to turn BPC on or off for the whole job.
+
+=== What does the new flag do?
+
+The new *UseBlackPtComp* key in a graphics state parameter dictionary allows BPC
+to be turned on or off for different graphics objects in a PDF. The key can take
+three states: _ON_, _OFF_ and _Default_ (note that these must be exactly as
+shown here). The default value is _Default_, which means that whether BPC should
+be turned on or off is up to the PDF processor.
+
+=== Why might you want to use it?
+
+Turning on BPC will often increase the perceived quality of graphical elements
+such as natural photographic images because they may achieve a higher contrast
+and more ‘punch’.
+
+But if turned on for the whole of a print job it may also be applied to
+graphical elements in colours that should be reproduced as accurately as
+possible, such as brand colours. Whether brand colours will be affected by BPC
+depends on:
+
+* How those brand colours are specified in the PDF file using process colours or
+spot separations, and
+
+* The configuration of the workflow used to prepare, colour manage and render
+the file.
+
+Applying BPC to sensitive colours such as brand colours risks reproducing them
+incorrectly.
+
+The *UseBlackPtComp* entry in a graphics state parameter dictionary may
+therefore be used to enable BPC for those elements that would benefit from black
+point compensation, such as natural images, while preventing BPC from being
+applied to sensitive colours.
+
+=== What risks are associated with using *UseBlackPtComp*?
+
+Some PDF workflows that were designed to accept PDF 1.7 files will accept many
+PDF 2.0 files without triggering any errors. If a file using *UseBlackPtComp* is
+submitted through a PDF 1.7 workflow then the flag will be ignored. This is by
+design to ensure backwards compatibility of PDF 2.0 with PDF 1.7. However, this
+can cause a difference in the visual appearance of output produced with a PDF
+1.7 workflow vs. a PDF 2.0 workflow.
+

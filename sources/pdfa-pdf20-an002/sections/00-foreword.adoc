@@ -1,0 +1,12 @@
+.Foreword
+
+This Application Note was produced by the PDF Association’s PDF Technical
+Working Group (TWG) to explain the use of the Associated Files feature defined
+in ISO 32000-2 (PDF 2.0).
+
+This document provides interpretation of the existing specifications, and does
+not change the text of those specifications.
+
+The principal authors of this document are Dietrich von Seggern (callas
+software), Boris Doubrov (Dual Lab) and Duff Johnson (PDF Association, ISO 32000
+co-Project Leader).
