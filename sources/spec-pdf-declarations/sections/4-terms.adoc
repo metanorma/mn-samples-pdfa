@@ -1,0 +1,11 @@
+== Terms and definitions
+
+For this document, the following terms and definitions apply.
+
+=== author
+
+entity responsible for creating the PDF file. The term deliberately encompasses human author(s) as well as the software used to generate the PDF file. In actual usage, the term may be restricted to referencing the human or software component
+
+=== PDF Declaration
+
+machine-readable assertion that the PDF file conforms to or otherwise exhibits the relevant properties of an orthogonal specification or profile (e.g., pertaining to accessibility, privacy or workflow status)

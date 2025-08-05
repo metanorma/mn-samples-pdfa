@@ -1,0 +1,58 @@
+== PDF Declaration syntax
+
+=== General
+
+PDF Declarations are represented as machine-readable XMP metadatacontained within a PDF document's *Metadata* entry in its catalog dictionary or in other XMP metadata included elsewhere in the document (see <<OBJECT_METADATA>>).
+
+=== Declaration mechanism
+
+The primary mechanism for declaring conformance is to include a PDF Declaration utilizing a URL to identify the standard to which the document conforms. In addition to the claim of conformance, properties pertaining to the claim may also be included. Such properties are generally defined as optional but may be mandatory for a specific PDF Declaration.
+
+The scope of a claim is defined by the location of the metadata (document or object-level). Claims made at the document-level apply to the entire document, but not to any embedded or referenced content. Claims made at the object-level are limited the data within that specific object.
+
+A document may contain multiple claims at both the document- and object-level.
+
+=== Namespace information
+
+The namespace URI for a PDF Declaration is `\https://pdfa.org/declarations/`.
+
+The preferred schema namespace prefix is *pdfd*.
+
+[[DeclarationExample]]
+=== PDF Declaration example
+
+.Example PDF Declaration
+[example]
+====
+A document for which an author or other responsible entity wishes to declare that the document does not contain information covered by the HIPAA privacy regulations could include the following XMP metadata:
+
+// Errata from https://pdf-issues.pdfa.org/pdf-declarations/clause07.html has been applied in this example (so `#` not `/#`)
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="" xmlns:pdfd="http://pdfa.org/declarations/">
+    <pdfd:declarations>
+      <rdf:Bag>
+        <!-- Declaration for conformance with standard “hipaa” -->
+        <rdf:li rdf:parseType="Resource">
+          <pdfd:conformsTo>http://pdfa.org/declarations#hipaa</pdfd:conformsTo>
+          <!-- Optional entries permitted by the Declaration mechanism -->
+          <pdfd:claimData>
+            <rdf:Bag>
+              <rdf:li rdf:parseType="Resource">
+                <!-- Optional properties of an individual claim -->
+                <pdfd:claimBy>Validator company</pdfd:claimBy>
+                <pdfd:claimDate>2019-01-17</pdfd:claimDate>
+                <pdfd:claimCredentials>Validation credentials</pdfd:claimCredentials>
+                <pdfd:claimReport>http://pdfa.org/report67890.html</pdfd:claimReport>
+              </rdf:li>
+            </rdf:Bag>
+          </pdfd:claimData>
+        </rdf:li>
+      </rdf:Bag>
+    </pdfd:declarations>
+  </rdf:Description>
+</rdf:RDF>
+----
+====

@@ -1,0 +1,71 @@
+[[Annex-B]]
+[appendix,obligation=informative]
+== PDF 2.0
+
+=== General
+
+Although intended for implementers of PDF 1.7 and PDF/UA-1, this Annex provides limited guidance for implementers looking forward to PDF 2.0 (<<ISO_32000_2>>) and PDF/UA-2 (<<ISO_14289_2>>). This Annex is not intended as a guide to Tagged PDF syntax in PDF 2.0 and cannot be used as a substitute for <<ISO_32000_2>> (PDF 2.0).
+
+=== Differences between PDF 1.7 and PDF 2.0
+
+The basic data model for Tagged PDF remain unchanged between PDF 1.7 and PDF 2.0. However, there are many changes in the use of objects defined in Tagged PDF, including, but not limited to:
+
+* A new namespace mechanism allows for the specification of tag sets, including sets external to ISO 32000
+* Introduces a new PDF 2.0 namespace:
+** New standard structure types
+** Certain standard structure types defined in PDF 1.7 are not present in the PDF 2.0 namespace
+** Changed definitions for many standard structure elements
+** Possible hierarchical relationships between standard structure elements are precisely identified
+* Defines the PDF 1.7 namespace:
+** Based on the PDF 1.7 tagset defined in <<ISO_32000_1>>
+** Allows usage of PDF 1.7 elements in PDF 2.0
+* The PDF 1.7 namespace is the default namespace for PDF 2.0 documents
+* Introduces MathML as a first-class namespace for PDF 2.0
+* Concepts such as artifacts, alternate descriptions and replacement text are improved
+* New artifact types and subtypes are added
+* Pronunciation hints may be added
+
+=== Namespaces and standard structure types
+
+Many PDF documents are authored by conversion from other formats, many of which have rich structures and content with their own structures. the namespace mechanism introduced in PDF 2.0 allows one or more of these externally-defined namespaces to be specified as being used within the document (see <<ISO_32000_2, clause="14.7.4.2, Namespace dictionary">>).
+
+Examples of such namespaces that might be used in a PDF file include, among others:
+
+* Chemical Markup Language (CML)
+* Standard Music Description Language (SMDL)
+
+=== Investing in PDF 2.0 while supporting PDF 1.7
+
+==== General
+
+The PDF 1.7 tagset is fully available in PDF 2.0; rules for using PDF 1.7 tags in a PDF 2.0 context are defined in PDF 2.0.
+
+PDF 2.0 includes complete information on the allowable parent-child relationships between all structure element types. Although these rules apply to PDF 2.0, they also represent best-practice for PDF 1.7 implementations. Accordingly, it is strongly recommended that developers implementing PDF 1.7 also avail themselves of PDF 2.0, and especially <<ISO_32000_2, clause="Annex L, Parent-child relationships between the standard structure elements in the standard structure namespace for PDF 2.0">> therein.
+
+==== Some changes in common structure element types
+
+For those implementers considering extending their support for Tagged PDF to PDF 2.0, changes to some standard structure element types may affect choices made when implementing Tagged PDF according to <<ISO_32000_1>>. The set of structure element types discussed in this subclause is not intended to be exhaustive.
+
+==== `<H1>` -- `<H6>`
+
+Since headings commonly appear in Tables of Contents, and since document titles do not normally appear in Tables of Contents, a PDF 2.0-safe approach would be to use `<Title>` (which is defined in PDF 2.0) mapped to the <<SE_P,`<P>`>> structure type. Upgrading this document to PDF 2.0, therefore, would simply require deletion of this role map.
+
+NOTE: PDF 2.0 adds a `<Title>` structure type for the purpose of tagging document titles, and so this guidance will change substantially for PDF 2.0 and PDF/UA-2. This implies that a document prepared for conformance with PDF/UA-1 will be difficult to convert to PDF/UA-2 if `<H1>` is used for the document's title. If a `<Title>` structure element encloses the title content as a custom structure element, role-mapped to <<SE_P,`<P>`>>, then conversion to PDF/UA-2 can be achieved by simply removing the role-mapping.
+
+==== `<Caption>`
+
+PDF 2.0 updates the description of <<SE_Caption,`<Caption>`>> as follows:
+
+For lists and tables, a <<SE_Caption,`<Caption>`>> structure element may be used as defined for the `<L>` (list) and `<Table>` structure elements. In addition, a <<SE_Caption,`<Caption>`>> may be used for a structure element or several structure elements.
+
+A structure element is understood to be "captioned" when a <<SE_Caption,`<Caption>`>> structure element exists as an immediate child of that structure element. The <<SE_Caption,`<Caption>`>> shall be the first or the last structure element inside its parent structure element. The number of captions cannot exceed 1.
+
+While captions are often used with figures or formulas, they may be associated with any type of content.
+
+==== `<Note>` and `<Reference>`
+
+PDF 2.0 makes it possible to explicitly associate references with notes via the new *Ref* key in the structure element dictionary. Additionally, structure destinations on link annotations are also possible in PDF 2.0.
+
+Although the standard structure namespace for PDF 2.0 does not define a <<SE_Reference,`<Reference>`>> standard structure element, PDF 2.0 readers supporting Tagged PDF are required to support the PDF 1.7 structure element set as the default namespace.
+
+By combining the <<SE_Reference,`<Reference>`>> structure element with the *Ref* key introduced in PDF 2.0 it is possible to create hybrid elements that work in both standard structure namespaces defined in PDF 2.0.

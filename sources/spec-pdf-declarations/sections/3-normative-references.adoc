@@ -1,0 +1,4 @@
+[bibliography,normative=true]
+== Normative references
+
+* [[[ISO_32000_2, ISO 32000-2]]]

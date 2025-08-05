@@ -1,0 +1,61 @@
+[[SE_Lbl]]
+==== `<Lbl>`
+
+`<Lbl>` encloses content that labels other content. Although described as a BLSE in PDF 1.7, this structure element is always an ILSE in practice (this error in the 1.7 specification is corrected in PDF 2.0).
+
+The concept of "label" differs in tagged PDF compared to HTML:
+
+* In tagged PDF, `<Lbl>` elements are not limited to lists, and are always explicitly contained. `<Lbl>` structure elements may be used whenever content serves as a label for some other content, for example, "Fig: 123" in a caption for a <<SE_Figure,`<Figure>`>>.
+
+* In HTML, labels for list items are implied by the list structure elements, and (possibly) by CSS. The `<label>` structure element in HTML only applies to labels for an item in a user-interface (e.g., form-fields or buttons).
+
+===== Examples
+
+.Bullet list
+[source,taggedpdf]
+----
+<L> {
+   <LI> {
+      <Lbl> [bullet]
+      <LBody> {content}
+   }
+}
+----
+
+.Numbered list
+[source,taggedpdf]
+----
+<L> {
+   <LI> {
+      <Lbl> [list item number]
+      <LBody> {content}
+   }
+}
+----
+
+.Table of Contents
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {
+      <Lbl> [chapter number]
+      <P> {content}
+   }
+}
+----
+
+.Labels in notes
+[example]
+====
+See the <<SE_Note,`<Note>`>> element.
+====
+
+The above are examples; other variations are also possible.
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+No specific guidance provided.

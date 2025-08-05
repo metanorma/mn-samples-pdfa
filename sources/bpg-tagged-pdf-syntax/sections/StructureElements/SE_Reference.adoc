@@ -1,0 +1,79 @@
+[[SE_Reference]]
+==== `<Reference>`
+
+`<Reference>` structure elements encompass content that refers to other content, typically, the contents of respective <<SE_Note,`<Note>`>> structure elements (see <<SE_Note,`<Note>`>> for additional guidance in that context) or within an <<SE_Index,`<Index>`>> or <<SE_TOC_TOCI,`<TOC>`>>. It is mostly often used as an inline element.
+
+`<Reference>` elements do not, by themselves, imply any specific interactivity. If interactivity is desired, Link annotations (and their respective <<SE_Link,`<Link>`>> structure elements) are needed. See <<LinkWithReference>> in this subclause.
+
+===== Examples
+
+.Usage within a paragraph
+[source,taggedpdf]
+----
+<P> [content] {
+   <Reference> [content of reference, e.g. "1"]
+}
+possible more content
+----
+
+.Usage within a `<TOC>`
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {
+      <Reference> {T!he content of a headline}
+   }
+}
+----
+
+.Usage within a `<TOC>` including `<Reference>` and `<Link>`
+[example]
+====
+This example is copied from clause 4.1.4.
+
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {
+      <P> {
+         <Reference> {
+            <Link> {
+               <Link-OBJR>
+               <Lbl> [In cases where the TOCI is numbered] {
+                  1.
+               }
+               <Span> {
+                  Introduction .................. page 5
+               }
+            }
+         }
+      }
+   }
+}
+----
+====
+
+===== Creation
+
+Whether a `<Reference>` structure element is used in the context of a cross-reference or in the context of a footnote or endnote may be distinguished by the presence of a <<SE_Lbl,`<Lbl>`>> structure element as follows:
+
+* A `<Reference>` structure element containing a <<SE_Lbl,`<Lbl>`>> structure element is assumed to point to a footnote / endnote, bibliography reference or other such target. In such cases, the contents of the <<SE_Lbl,`<Lbl>`>> structure elements in both the originating and target structure elements exactly match, and in addition, there is no footnote / endnote present between a `<Reference>` structure element and its corresponding footnote / endnote with the same <<SE_Lbl,`<Lbl>`>>.
+
+* A Reference structure element not containing a <<SE_Lbl,`<Lbl>`>> structure element is assumed to be a cross-reference. This also applies to `<Reference>` structure elements contained in <<SE_TOC_TOCI,`<TOCI>`>> or <<SE_Index,`<Index>`>> structure elements as defined in <<ISO_32000_1, table="333 -- Standard structure types for grouping elements">>.
+
+===== Consumption
+
+Based on the creation practice proposed above it is always possible to determine the <<SE_Note,`<Note>`>> corresponding to a given footnote or endnote's `<Reference>` structure element, as follows:
+
+* When encountering a footnote or endnote `<Reference>` structure element, use the contents of the <<SE_Lbl,`<Lbl>`>> structure element as an identifier. Search forward for the first <<SE_Note,`<Note>`>> structure element containing the identifier as the content of its <<SE_Lbl,`<Lbl>`>> structure element.
+
+* It is possible to find the originating `<Reference>` from a given <<SE_Note,`<Note>`'s>> <<SE_Lbl,`<Lbl>`>> by means of scanning backwards in the document to find the matching <<SE_Lbl,`<Lbl>`>> in a `<Reference>` structure element.
+
+NOTE: `<Reference>` and <<SE_Note,`<Note>`>> structure elements do not exist in HTML.
+
+An AT wishing to take advantage of `<Reference>` can offer a means of round-trip navigation from a `<Reference>` structure element to the matching <<SE_Note,`<Note>`>> structure element. It is recommended that such implementations take into account that more than one `<Reference>` may point to the same <<SE_Note,`<Note>`>> structure element.
+
+[[LinkWithReference]]
+====== `<Link>` within `<Reference>`
+
+`<Reference>` elements can include <<SE_Link,`<Link>`>> structure elements. The nesting of <<SE_Link,`<Link>`>> elements within `<Reference>` elements is expressed by some APIs with two announcements of a link instead of one. This behavior is semantically inappropriate.

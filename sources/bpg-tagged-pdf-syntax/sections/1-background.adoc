@@ -1,0 +1,23 @@
+// HACK: for now, call this Background section Scope since MN-ISO flavor awlays requires a Scope
+== Scope
+
+=== Background
+
+This Best Practice Guide is intended to help developers understand the syntactical characteristics of tagged PDF files required for an accessible experience. Other Best Practice Guides will address other aspects of accessible PDF content.
+
+=== Use of the term "tagged PDF"
+
+"Tagged PDF" is the title of 14.8, the clause defining PDF's accessibility mechanism in <<ISO_32000_1>>. This term may be somewhat confusing, as ISO 32000 uses the term "structure element" instead. A "tagged" PDF is one which meets the requirements in <<ISO_32000_1, clause="14.8, Tagged PDF">>, which includes structure element types, structure attributes and word disambiguation.
+
+This document uses the term "tagged PDF" to refer to PDF documents that include structures enabling accessibility. It uses the more technically-correct term "structure element" to refer to the <<SE_P,`<P>`>>, <<SE_Figure,`<Figure>`>> and other container objects that are known to most users as "tags".
+
+=== Document history
+
+.Document history
+[cols="a,a,a",options="header",]
+|===
+| *Version* | *Date* | *Change*
+| *1.1* | 2025-07-16 | Version 1.1, converted to Metanorma
+| *1.0* | 2019-06-07 | Version 1.0 released
+| *0.1* | 2015-12-22 | Initial pre-release
+|===

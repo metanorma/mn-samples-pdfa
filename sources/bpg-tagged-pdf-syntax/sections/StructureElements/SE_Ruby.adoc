@@ -1,0 +1,6 @@
+[[SE_Ruby]]
+==== `<Ruby>`, `<RB>`, `<RT>`, `<RP>`, `<Warichu>`, `<WT>`, `<WP>`
+
+These structure elements represent specific cases in Japanese typography.
+
+NOTE: No guidance is provided at this time.

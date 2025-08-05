@@ -1,0 +1,43 @@
+= Tagged PDF Best Practice Guide: Syntax
+:docnumber: 11
+:edition: 1.1
+:revdate: 2023-07-06
+:copyright-year: 2023
+:language: en
+:title-main-en: Tagged PDF Best Practice Guide: Syntax
+:title-complementary-en: For developers implementing ISO 14289-1 (PDF/UA)
+:technical-committee: PDF/UA TWG
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: best-practice-guide
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFa BPG tagged-pdf-syntax:2023 (1.1.0)
+:imagesdir: images
+:document-scheme: 2024
+:plantuml-image-format: svg
+:icons: font
+:local-cache-only:
+
+include::sections/1-background.adoc[]
+
+include::sections/2-introduction.adoc[]
+
+include::sections/3-general-provisions.adoc[]
+
+include::sections/4-guidance-for-standard-structure-types.adoc[]
+
+include::sections/5-attribute-and-properties.adoc[]
+
+include::sections/6-text-characteristics.adoc[]
+
+include::sections/7-other-features.adoc[]
+
+include::sections/8-editing-tagged-pdf-files.adoc[]
+
+include::sections/AnnexA-pdfua-flag.adoc[]
+
+include::sections/AnnexB-pdf2.adoc[]
+
+include::sections/bibliography.adoc[]

@@ -1,0 +1,18 @@
+== Introduction
+
+The PDF Declarations mechanism allows creation and editing software to declare, via a PDF Declaration, a PDF file to be in conformance with a 3^rd^ party specification or profile that may not be related to PDF technology. The 3rd party specification or profile may describe or require properties specific to some or all content in the PDF document. Cases include, but are not limited to specifications or profiles that:
+
+* Mandate properties (e.g., accessibility specifications).
+* Mandate degree of accuracy (e.g., engineering specifications).
+* Set limits on content types (e.g., that all images use a specific encoding).
+* Make an accountable statement regarding document content (e.g., pertaining to privacy regulations).
+* Profile PDF for specific purposes (e.g., to archive email).
+
+By itself, the presence of a PDF Declaration does not guarantee that the document conforms to the 3rd party specification or profile.
+
+Cases beyond the scope of this document include, but are not limited to:
+
+* A malicious PDF Declaration (e.g., to access a targeted workflow).
+* An inaccurate PDF Declaration (e.g., that does not reflect the intent of the creation software or human author making the PDF Declaration).
+* A PDF Declaration that cannot be usefully applied (e.g., pertaining to content that is not present in the PDF file).
+* Formalisms such as certification, that are a matter of policy.

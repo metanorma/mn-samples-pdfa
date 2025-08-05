@@ -1,0 +1,11 @@
+== Relationship with PDF specifications and features
+
+=== General
+
+PDF Declarations is intended as a companion specification in conjunction with ISO 32000-conforming files, and other standards, profiles, guidelines, or best practices as may apply.
+
+=== Regarding Extensions and Document Parts
+
+PDF Declarations have no specific relationship with PDF Extensions (<<ISO_32000_2, clause=7.12>>), but may be used in conjunction with this feature.
+
+PDF Declarations have no specific relationship with Document Parts (<<ISO_32000_2, clause=14.12>>), but may be used in conjunction with this feature.

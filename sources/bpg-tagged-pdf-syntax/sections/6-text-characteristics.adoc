@@ -1,0 +1,16 @@
+
+== Text characteristics
+
+=== Superscripts and subscripts
+
+For text-to-speech, text customization and text repurposing applications, the superscript or subscript aspect of characters may be critical to distinguishing the contents of a reference's label from the surrounding text, and for other purposes.
+
+Tagged PDF in PDF 1.7 does not include an explicit mechanism to express superscript or subscript semantics. Although the *BaselineShift* attribute may be used as a substitute, it cannot be considered a fully reliable mechanism, as text could be shifted for other reasons.
+
+=== Symbolic characters
+
+It is semantically appropriate for consuming software to take advantage of Unicode encoding, and be prepared to present Unicode code points beyond the predominant script or language used. This includes, for example, mathematical symbols, ZapfDingbats, Wingdings.
+
+Where symbolic characters (such as Wingdings glyphs) are used, use ToUnicode table entries, or *ActualText*, where the *ActualText* would contain the appropriate Unicode. Where no Unicode code point is available, use appropriate text conveying the meaning within an *ActualText* attribute. The use of the Unicode PUA is discouraged, as no predefined meaning is associated with Unicode values in the PUA.
+
+Where symbolic characters are used as a figure, use the <<SE_Figure,`<Figure>`>> structure element with appropriate alternate text.

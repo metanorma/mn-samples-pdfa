@@ -1,0 +1,34 @@
+[[SE_Formula]]
+==== `<Formula>`
+
+Encloses content normally perceived as a formula or equation, whether used inline or as a display formula (block level). The use of `<Formula>` is not limited to math; it may (in principle) be applied in other areas of science such as chemistry or physics.
+
+Individual symbols may or may not be enclosed in a `<Formula>` based on context.
+
+.Formula as Text
+[source,taggedpdf]
+----
+<Formula> {2 + 2 = 4}
+----
+
+.Formula as a Figure
+[source,taggedpdf]
+----
+<Formula> {
+   <Span ActualText="2 + 2 = 4">
+}
+----
+
+===== Creation
+
+For formulas represented with raster, vector images or a combination, it is semantically appropriate to use `<Formula>` rather than a <<SE_Figure,`<Figure>`>> structure element since these objects, whatever their encoding, are in a semantic sense, formulas, not figures.
+
+Consider using MathML as (in PDF 1.7) custom structure types mapped to `<Span>`. For table-like structures, consider leveraging *Table* structure elements. Map the `<Math>` structure element to `<Formula>`.
+
+Note that PDF/UA requires that a `<Formula>` structure element include an *Alt* attribute (see <<ISO_14289_1, clause="7.7, Mathematical expressions">>).
+
+It is recommended that although content inside a `<Formula>` structure element may make use of an *ActualText* property, it's preferred to do so only on very small pieces of content, such as ligatures. It is recommended that the *ActualText* property be on the respective <<SE_Span,`<Span>`>> structure element, not the `<Formula>` structure element.
+
+===== Consumption
+
+Due to ambiguities in English, where "figure" may be understood to refer to a mathematical formula, quite often the <<SE_Figure,`<Figure>`>> structure element is used to enclose math, which is semantically incorrect. It is recommended that processors be prepared to encounter this case.

@@ -1,0 +1,40 @@
+// Each structure element is documented in a separate AsciiDoc file.
+// The name of the file is Case Sensitive.
+// The anchor is the Case Sensitive file name (no extension)
+// When creating a link to a structure element, the 2nd parameter is formatted as code with back ticks and the tag inside angle brackets.
+
+== Guidance for the standard structure types
+
+=== Grouping elements 
+
+include::StructureElements/SE_Part_Art_Sect_Div.adoc[]
+include::StructureElements/SE_BlockQuote.adoc[]
+include::StructureElements/SE_Caption.adoc[]
+include::StructureElements/SE_TOC_TOCI.adoc[]
+include::StructureElements/SE_Index.adoc[]
+include::StructureElements/SE_Private.adoc[]
+include::StructureElements/SE_NonStruct.adoc[]
+
+=== Block level structure element types
+
+include::StructureElements/SE_P.adoc[]
+include::StructureElements/SE_H1_H6.adoc[]
+include::StructureElements/SE_H.adoc[]
+include::StructureElements/SE_Lbl.adoc[]
+include::StructureElements/SE_List.adoc[]
+include::StructureElements/SE_Table.adoc[]
+include::StructureElements/SE_Span.adoc[]
+include::StructureElements/SE_Note.adoc[]
+include::StructureElements/SE_Reference.adoc[]
+include::StructureElements/SE_BibEntry.adoc[]
+include::StructureElements/SE_Code.adoc[]
+include::StructureElements/SE_Link.adoc[]
+include::StructureElements/SE_Annot.adoc[]
+include::StructureElements/SE_Quote.adoc[]
+include::StructureElements/SE_Ruby.adoc[]
+
+=== Illustration elements
+
+include::StructureElements/SE_Figure.adoc[]
+include::StructureElements/SE_Formula.adoc[]
+include::StructureElements/SE_Form.adoc[]

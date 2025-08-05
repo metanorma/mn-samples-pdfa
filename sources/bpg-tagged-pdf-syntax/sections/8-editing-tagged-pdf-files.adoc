@@ -1,0 +1,10 @@
+
+== Editing tagged PDF files
+
+Consideration is due when merging PDF documents with different language settings, metadata, or other features.  
+
+Deleting pages, splitting documents, inserting pages and similar operations require that structure elements (as well as bookmarks or internal link destinations) connected with page content objects  be handled appropriately. 
+
+When inserting pages into a tagged PDF document, care must be taken to reconcile the structure elements associated with the inserted pages with that of the target document. 
+
+It is semantically appropriate to have the deletion of content result in the deletion of corresponding structure elements.

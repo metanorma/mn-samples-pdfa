@@ -1,0 +1,180 @@
+
+[[SE_Note]]
+==== `<Note>`
+
+`<Note>` structure elements encompass footnotes and endnotes, and typically operate in conjunction with <<SE_Reference,`<Reference>`>> structure elements.
+
+===== Examples
+
+.Footnote tagged inline
+[example]
+====
+
+A possible method for handling `<Note>` structure elements for which references exist is to locate the note directly following the reference in the logical reading order, as in the following (<<SE_Lbl,`<Lbl>`>> is most suitable to tag the reference symbol):
+
+[source,taggedpdf]
+----
+<P> {
+   <Reference> {
+      <Lbl>
+   }
+   <Note> {
+      <Lbl>
+      <P>
+   }
+}
+----
+====
+
+[example]
+====
+The following example includes a representation of a page-rendering followed by a representation of the structure appearing on the page. In this case the `<Note>` structure elements are located directly following their respective references in the text.
+
+The tagged content of the example:
+
+[source,taggedpdf]
+----
+<P> { The first reference {
+   <Reference> {
+      <Lbl> {1)}
+   }
+   <Note> {
+      <Lbl> {1)}
+      <P> {T!he first idea is to understand footnotes}
+   }
+}
+----
+
+for the first footnote on this page, the second reference
+
+[source,taggedpdf]
+----
+<Reference> {
+   <Lbl> {2)}
+}
+<Note> {
+   <Lbl> {2)}
+   <P> {for the second idea is to make them work in PDF}
+}
+----
+
+for the second footnote on this page, and so on.
+====
+
+
+.Commonly-encountered work-around
+[example]
+====
+
+WARNING: This approach is not official, but well-known and otherwise high-quality agents are known to use this work-around, so the ability to process this circumstance is recommended.
+
+Simply put, it is recommended that developers be prepared to process instances in which a `<Note>` structure element occurs immediately after the structure element containing the <<SE_Reference,`<Reference>`>> structure element that targets the `<Note>`.
+
+In the following extended example, the logical presentation (in the structure tree) of the footnotes is shown highlighted while the physical rendering remains at the bottom of the page. As in Example A, above, a representation of the structure follows.
+
+The tagged content of the example:
+
+[source,taggedpdf]
+----
+<P> { The first reference {
+   <Reference> {
+     <Lbl> {1}
+   }
+}
+----
+
+for the first footnote on this page, the second reference
+
+[source,taggedpdf]
+----
+<Reference> {
+   <Lbl> {2}
+}
+----
+
+for the second footnote on this page, and so on.
+
+[source,taggedpdf]
+----
+<Note> {
+   <Lbl> {1)}
+   <P> {T!he first idea is to understand footnotes}
+}
+<Note> {
+   <Lbl> {2)}
+   <P> {for the second idea is to make them work in PDF}
+}
+----
+====
+
+
+.Footnote with link
+[source,taggedpdf]
+----
+<P> [content] {
+   <Link> [Destination] {
+      <Link-OBJR>
+      <Lbl> {1}
+   }
+   {empty}[more possible content]
+   <Note> [the Destination of the Link] {
+      <Lbl> {1) }
+      <P> [content of the footnote] {
+         <Link> [Link back to the reference point]
+         <Link-OBJR>
+      }
+   }
+}
+----
+
+NOTE: Links for footnotes, in both directions, are not required by PDF/UA, but are recommended.
+
+
+.Footnotes / endnotes referenced from multiple locations
+[example]
+====
+Although <<ISO_32000_1>> does not describe an explicit mechanism to address endnotes referenced from multiple locations, the use case is readily resolved by taking advantage of the fact that the contents of a given footnote's <<SE_Lbl,`<Lbl>`>> structure element are typically also present inside the corresponding <<SE_Reference,`<Reference>`>> structure element.
+====
+
+===== Semantics of supplemental or explanatory content "notes" 
+
+The term "Note" in running text is commonly used to identify supplementary content for content contained within another element. It is semantically inappropriate to apply `<Note>` structure elements to such "notes". Instead, such cases are best distinguished by a grouping element, as in the following example:
+
+[source,taggedpdf]
+----
+<Part> [A grouping element] {
+   <P> [content]
+   <P> [A note pertaining to the content]
+}
+----
+
+Especially in the context of `<L>`, <<SE_Figure,`<Figure>`>>, <<SE_Formula>> or `<Table>` structure elements, <<SE_Caption,`<Caption>`>> is usually the semantically appropriate structure element rather than a `<Note>`.
+
+===== Creation
+
+It is strongly recommended that `<Note>` structure elements only be used for explicitly referenced content such as footnotes, endnotes, or table or figure notes (a type of footnote), irrespective of pagination.
+
+As shown in Example B, in PDF 1.7, association between a <<SE_Reference,`<Reference>`>> and its `<Note>` structure element may most readily be accomplished by ensuring that the <<SE_Lbl,`<Lbl>`>> in a <<SE_Reference,`<Reference>`>> structure element matches the <<SE_Lbl,`<Lbl>`>> in the corresponding `<Note>` structure element. However, this approach is only fully reliable when:
+
+* the label is not repeated elsewhere in the document, or
+* the same-labelled `<Note>` follows the <<SE_Reference,`<Reference>`>> in the logical reading order.
+
+Notes may be inline, block or grouping elements, and therefore may include substructures.
+
+===== Consumption
+
+Following Example B, to find notes for a given reference, from a <<SE_Reference,`<Reference>`>> structure element, search forward in the logical reading order for a `<Note>` structure element containing a <<SE_Lbl,`<Lbl>`>> structure element with the same content as the <<SE_Reference,`<Reference>`>> structure element's <<SE_Lbl,`<Lbl>`>>.
+
+Optionally, provide a mechanism to hide `<Note>` content unless visited from a <<SE_Reference,`<Reference>`>>. In general, AT conforming to PDF/UA is obliged to provide functionality that presents <<SE_Reference,`<Reference>`>> and `<Note>` structure elements in a suitable way, for example:
+
+* informing the user when a <<SE_Reference,`<Reference>`>> is encountered
+* providing navigation to the associated `<Note>` content
+* allowing a user to return to the <<SE_Reference,`<Reference>`>> after visiting the matching `<Note>`
+* skipping `<Note>` structure elements when reading text sequentially
+* handling `<Note>` structure elements as ILSE, BLSE or grouping elements, depending on usage.
+
+NOTE: <<SE_Reference,`<Reference>`>> and `<Note>` structure elements do not exist in HTML.
+
+NOTE: Due to limitations in the underlying PDF specification, although PDF/UA-1 requires ID attributes on `<Note>` structure elements, they provide no added value to consuming processors.
+
+A link on a reference may target a Destination (see <<ISO_32000_1, clause="12.3.2 Destinations">>), however, use of this feature by AT requires detailed session navigation. Absent such navigation, it is recommended to allow users to return to the <<SE_Reference,`<Reference>`>> structure element in the text (this applies to all document-internal links; not just in the Reference/Note context).

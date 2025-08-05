@@ -1,0 +1,67 @@
+[[SE_Table]]
+==== `<Table>`, `<TR>`, `<TH>`, `<TD>`, `<THead>`, `<TBody>`, `<TFoot>`
+
+Table structure types enclose content whose semantics are defined by representation in a matrix of rows and columns.
+
+===== Examples
+
+.Simple data table, without Headers and IDs
+[source,taggedpdf]
+----
+<Table> {
+   <TR> {
+      <TD>
+      <TD>
+   }
+   <TR> {
+      <TD>
+      <TD>
+   }
+}
+----
+
+.More complex table, with headers, additionally structured
+[source,taggedpdf]
+----
+<Table> {
+   <THead> {
+      <TR> {
+         <TH ID="R1C1_Table" Scope="Column">
+         <TH ID="R1C2_Table" Scope="Column">
+      }
+   }
+   <TBody> {
+      <TR> {
+         <TD>
+         <TD>
+      }
+      <TR> {
+         <TD ColSpan="2">
+      }
+      <TFoot> {
+         <TR> {
+            <TD>
+            <TD>
+         }
+      }
+   }
+}
+----
+
+===== Creation
+
+Semantic appropriateness requires that:
+
+* irrespective of the use of table authoring tools, table structure elements cannot be used to represent content that does not depend on a matrix of rows and columns for its meaning (e.g., it would be incorrect to use table structure elements in a case where an author has used a table authoring tool simply to align logos with text).
+* cells that span rows or columns include appropriate colspan and rowspan attributes.
+* tables spanning multiple pages are structured as a single table. `<TH>` cells in repeated header rows or columns (e.g., in the case of tables that span multiple pages) are marked as artifacts.
+* empty cells are always `<TD>` cells, never `<TH>` cells.
+* table cells are always part of semantic table structures. An example of a semantically impermissible use of table cells would be an empty row or column separating content that is semantically two (or more) tables.
+
+Rows and columns may use a mix of `<TH>` and `<TD>` cells to allow representation of complex tables.
+
+The primary function of the optional `<THead>`, `<TBody>` and `<TFoot>` structure element types is to aid consuming software in repurposing paginated tables.
+
+===== Consumption
+
+AT provides users with information about the relationship between `<TH>` and `<TD>` cells.

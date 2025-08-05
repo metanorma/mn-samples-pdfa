@@ -1,0 +1,28 @@
+// See https://www.relaton.org/guides/ for all the various citation guides from different SDOs.
+// To ensure correctness of each reference, rely on MN to construct the appropriate normative references whenever possible.
+// To test if a reference is working: `relaton fetch "ETSI EN 319 122-1 V1.3.1 (2023-06)"`
+//
+// See also https://www.metanorma.org/author/topics/sections/bibliography/
+
+[bibliography]
+== Bibliography
+
+* [[[ISO_32000_1,ISO 32000-1:2008]]]
+
+* [[[ISO_32000_2,ISO 32000-2:2020]]]
+
+* [[[ISO_14289_1,ISO 14289-1:2014]]]
+
+* [[[ISO_14289_2,ISO 14289-2:2024]]]
+
+* [[[WCAG22,W3C TR WCAG22]]]
+
+* [[[UA_1_UNDERSTANDING_PDFUA1,1]]] PDF/UA-1 Technical Implementation Guide: Understanding ISO 14289-1 (PDF/UA-1), http://www.aiim.org/Global/AIIM_Widgets/Community_Widgets/Technical-Implementation-Guide
+
+* [[[UA_1_UNDERSTANDING_PDF17,2]]] PDF/UA-1 Technical Implementation Guide: Understanding ISO 32000-1 (PDF 1.7), http://www.aiim.org/Global/AIIM_Widgets/Community_Widgets/Technical-Implementation-Guide-32000-1
+
+* [[[ACHIEVING_WCAG,3]]] Achieving WCAG 2.0 with PDF/UA, http://www.aiim.org/Global/AIIM_Widgets/Community_Widgets/Achieving_WCAG
+
+* [[[MATTERHORN,4]]] The Matterhorn Protocol, 2014, PDF Association, https://www.pdfa.org/working-group/pdfua-competence-center/
+
+* [[[PDFUA_REF_SUITE,5]]] PDF/UA Reference Suite, 2014, PDF Association, https://www.pdfa.org/working-group/pdfua-competence-center/

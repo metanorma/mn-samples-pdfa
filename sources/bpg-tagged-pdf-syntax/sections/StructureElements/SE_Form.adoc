@@ -1,0 +1,168 @@
+[[SE_Form]]
+==== `<Form>`
+
+`<Form>` structure elements are used to enclose form field widgets (see <<ISO_32000_1, clause="12.5.6.19, Widget Annotations">>), identifying and ordering them for consumption by AT. Some types of PDF form fields have a single interactive object (in PDF parlance, a "widget annotation") associated with them (e.g., pushbutton or text form field), others, as in the case of radio button groups, can have several interactive objects associated with them.
+
+===== Form fields vs. widget annotations
+
+Each `<Form>` element encloses a single widget annotation. This implies that for form fields with several widget annotations, several `<Form>` elements are necessary. There is no pre-defined element in the logical structure of the document that ties together widget annotations belonging to the same form field; instead, the data model relies on the *T* key (form field name).
+
+Regarding non-interactive forms, see <<PrintFieldAttributes>>.
+
+===== Labeling form fields
+
+ISO 32000 does not provide any specific mechanism for identifying form field labels in page content. Such association can only be provided by way of context and logical ordering (i.e., placement of a <<SE_Lbl,`<Lbl>`>> structure element next to the form field or the `<Form>` elements associated with it). Accessible PDF forms are those in which both logical and Acroform structures are in alignment.
+
+===== Radio button form fields
+
+A radio button form field contains widgets for each button within the radio button group. The `<Form>` structure element in the logical structure always points to widgets. For a form field with two radio buttons, two `<Form>` structure elements are required to link them to the logical structure.
+
+====== The Opt entry
+
+The optional *Opt* key accommodates cases where the value of each radio button is not suitable for presentation to human users. Using the *Opt* array, each radio button's value can be associated with a more human-readable version of that value. The example shown below uses "_F_" and "_H_" for the values; the *Opt* key provides more readable versions of these values in the form of "Frau" and "Herr".
+
+.A simple radio-button example
+[example]
+====
+.A simple radio-button 
+image::radio-button-ms-mr.png[Radio button for Ms and Mr prefixes,width=151,height=75]
+
+.Logical structure vs. AcroForm structure
+[cols="a,a",options="header",]
+|===
+| *Logical Structure* | *Acroform Structure*
+| 
+[source,taggedpdf]
+----
+<H2> {Prefix:}
+<P> {
+   <Form> {
+      widget
+      Ms.
+   }
+   <Form> {
+      widget
+      Mr.
+   }
+}
+----
+
+| 
+[source,postscript]
+----
+<<
+   /FT/Btn
+   /Ff 33603584 % - "radio button"
+   /T (Prefix)
+   /TU (Prefix)
+   /V /Ms
+   /Opt [ % - order must match that of the /Kids array*
+      (Ms.)
+      (Mr.)
+   ]
+   /Kids [
+      <<
+         /Type /Annot
+         /Subtype /Widget
+         /AS /*F*
+         /AP <<
+            /N <<
+               /Off << … >> % - Appearance of "off" state
+               /F   << … >> % - Appearance of "F" state
+            >>
+         >>
+         ...
+      >>
+      <<
+         /Type /Annot
+         /Subtype /Widget
+         /AS /Off
+         /AP <<
+            /N <<
+               /Off << … >>  % - Appearance of "off" state
+               /Mr << … >>   % - Appearance of "H" state
+            >>
+         >>
+         ...
+      >>
+   ]
+>>
+----
+
+| 
+[source,taggedpdf]
+----
+<H2> {Anrede:}
+<P> {
+   <Form> {
+      widget
+      Frau
+   }
+   <Form> {
+      widget
+      Herr
+   }
+}
+----
+
+| 
+[source,postscript]
+----
+<<
+   /FT/Btn
+   /Ff 33603584 % - "radio button"
+   /T (Anrede)
+   /TU (Anrede)
+   /V /Frau
+   /Kids [
+      <<
+         /Type /Annot
+         /Subtype /Widget
+         /AS /Frau
+         /AP <<
+            /N <<
+               /Off << … >>  % - Appearance of "off" state
+               /Frau << … >> % - Appearance of "Frau" state
+            >>
+         >>
+         ...
+      >>
+      <<
+         /Type /Annot
+         /Subtype /Widget
+         /AS /Off
+         /AP <<
+            /N <<
+               /Off << … >>  % - Appearance of "off" state
+               /Herr << … >> % - Appearance of "Herr" state
+            >>
+         >>
+         ...
+      >>
+   ]
+>>
+----
+
+|===
+
+====
+
+===== Creation
+
+Form field labels in page content will in many cases be the same as the content of the *TU* key. Although not strictly required under all circumstances, the most straightforward approach to providing an alternate description for form fields is to provide the *TU* entry in the form field dictionary, which is typically presented when the user has focus on the widget annotation.
+
+When "flattening" interactive form fields, use *PrintField* attributes to ensure the (now) non-interactive form is represented in an accessible fashion.
+
+===== Consumption
+
+It is recommended that interactive viewers encountering forms using *PrintField* attributes indicate that such forms are "read only".
+
+It is recommended that readers avoid an approach in which the user has only form fields presented, and by implication, may miss other content.
+
+====== How to find out the meaning of each radio button
+
+It is recommended that each widget in a radio button form field contain two entries in the appearance dictionary's *N* (normal) key in which one of these entries has the name "Off"; the other key has a name that represents the meaning of that radio button (e.g. "Frau" and "Herr" in the above example).
+
+====== How to get the current value of the current radio button form field
+
+The current value of a radio button form field is represented by the *V* key in the radio button form field. In the case of missing *V* key the value is "_Off_".

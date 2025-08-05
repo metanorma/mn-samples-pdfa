@@ -1,0 +1,9 @@
+== Foreword
+
+PDF is a digital format for representing documents. PDF files may be created natively in PDF form, converted from other electronic formats, or digitized from paper. Businesses, governments, libraries, archives, and other institutions and individuals around the world use PDF to represent considerable bodies of important information.
+
+ISO-standardized PDF and PDF subsets already include identification mechanisms. In many cases, however, users of PDF files wish to leverage 3^rd^ party standards or other profiles of PDF to meet specific needs. The PDF Declarations specification provides authors with a means of affiliating PDF documents with such standards or profiles in an interoperable manner.
+
+Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The PDF Association shall not be held responsible for identifying any or all such patent rights.
+
+Any trade name used in this document is information given for the convenience of users and does not constitute an endorsement.

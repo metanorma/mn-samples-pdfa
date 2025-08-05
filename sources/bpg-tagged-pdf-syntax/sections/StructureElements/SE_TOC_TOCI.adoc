@@ -1,0 +1,134 @@
+[[SE_TOC_TOCI]]
+==== `<TOC>` (table of contents) and `<TOCI>` (Table of contents item)
+
+Although `<TOC>` and `<TOCI`> structure element types are very similar to `<L>` and `<LI>` structure element types in structural terms, table of contents structure element types differ from conventional lists (`<L>` and `<LI>` structure element types) because they explicitly provide references into the document rather than semantically distinct content.
+
+It is recommended that `<TOC>` / `<TOCI>` structure element types be used for all types of tables of contents, including tables of figures or illustrations, etc. There is no restriction on the number of tables of contents within a document.
+
+===== Examples
+
+.Top-level structures usage of `<TOC>` and `<TOCI>` in a multilevel table of contents
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {Chapter 1}
+   <TOCI> {Chapter 2}
+   <TOC> {
+      <TOCI> {Chapter 2.1}
+      <TOCI> {Chapter 2.2}
+   }
+}
+----
+
+.Top-level structures usage of `<TOC>` and `<TOCI>` in a multilevel table of contents
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>TOC</b> | table of contents | .
+        ++ <b>TOCI</b> | table of contents item | "Chapter 1"
+        ++ <b>TOCI</b> | table of contents item | "Chapter 2"
+        ++ <b>TOC</b> | . | .
+        +++ <b>TOCI</b> | table of contents item | "Chapter 2.1"
+        +++ <b>TOCI</b> | table of contents item | "Chapter 2.2"
+    }
+}
+@endsalt
+....
+
+
+.Substructures in a `<TOC> and `<TOCI>` context containing `<Reference>` without a link
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {
+      <P> {
+         <Reference> {
+            <Lbl> [In cases where the TOCI is numbered] {
+                  1.    
+            }
+            <Span> {
+               Introduction .................. page 5
+            }
+         }
+      }
+   }
+}
+----
+
+.Substructures in a `<TOC> and `<TOCI>` context containing `<Reference>` without a link
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>TOC</b> | table of contents | .
+        ++ <b>TOCI</b> | table of contents item | .
+        ++ <b>P</b> | paragraph | .
+        +++ <b>Reference</b> | . | .
+        ++++ <b>Lbl</b> | label | In cases where the TOCI is numbered
+        ++++ <b>Span</b> | . | "Introduction .................. page 5"
+    }
+}
+@endsalt
+....
+
+If the table of contents uses link annotations it is recommended to use <<<SE_Link,`<Link>`>> structure elements within <<SE_Reference,`<Reference>`>> elements.
+
+.Substructures in a `<TOC>` and `<TOCI>` context containing `<Reference>` and `<Link>`
+[source,taggedpdf]
+----
+<TOC> {
+   <TOCI> {
+      <P> {
+         <Reference> {
+            <Link> {
+               <Link-OBJR>
+               <Lbl> [In cases where the TOCI is numbered] {
+                  1.    
+               }
+               <Span> {
+                  Introduction .................. page 5
+               }
+            }
+         }
+      }
+   }
+}
+----
+
+.Substructures in a `<TOC>` and `<TOCI>` context containing `<Reference>` and `<Link>`
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>TOC</b> | table of contents | .
+        ++ <b>TOCI</b> | table of contents item | .
+        ++ <b>P</b> | paragraph | .
+        +++ <b>Reference</b> | . | .
+        ++++ <b>Link</b> | . | .
+        +++++ <b>Link-OBJR</b> | . | .
+        +++++ <b>Lbl</b> | label | In cases where the TOCI is numbered, "1."
+        +++++ <b>Span</b> | . | "Introduction .................. page 5"
+    }
+}
+@endsalt
+....
+
+===== Links
+
+PDF 1.7 does not permit a <<SE_Link,`<Link>`>> element as a direct child of a `<TOCI>`, however, <<SE_Link,`<Link>`>> elements commonly do exist (even though they are not required or suggested by <<ISO_32000_1>> or <<ISO_14289_1>>) within `<TOCI>` elements.
+
+===== Creation
+
+Where a `<TOCI>` contains text beyond the reference to the respective chapter or other section of the document, the `<TOCI>` may contain one or more <<SE_P,`<P>`>> structure elements to enclose both the reference and the additional text. Since <<ISO_32000_1>> prohibits inline elements from containing block-level elements, <<SE_Link,`<Link>`>> elements within a `<TOCI>` are recommended to have the *Placement* attribute set with a value of _Block_.
+
+PDF 1.7 implies that the <<SE_NonStruct,`<NonStruct>`>> structure element type or Artifact marker for marked content sequences can be used to enclose dot leaders. Accordingly, it is recommended to avoid the <<SE_NonStruct,`<NonStruct>`>> element in this case, and simply mark dot leaders as Artifact instead.
+
+===== Consumption
+
+Irrespective of the definitions in PDF 1.7, it is recommended that processors expect to encounter <<SE_Link,`<Link>`>> structure elements within `<TOCI>` structure elements.
+
+It is recommended that processors expect to encounter documents containing multiple Tables of Contents.

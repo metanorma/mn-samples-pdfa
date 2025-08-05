@@ -1,0 +1,125 @@
+[[SE_List]]
+==== `<L>` (List), `<LI>` (List Item), `<LBody>` (List Body)
+
+The `<L>` (list) structure element encloses a sequence of one or more content items with `<LI>` structure elements enclosing each content item. <<SE_Lbl,`<Lbl>`>> encloses the list item marker for each content item, while `<LBody>` encloses the content item's content.
+
+For PDF 1.7 (and thus, PDF/UA-1) requires that if present, a list's caption is enclosed in a <<SE_Caption,`<Caption>`>> structure element and precedes the `<LI>` structure elements within the captioned `<L>`.
+
+===== Examples
+
+.A simple list
+[source,taggedpdf]
+----
+<L> {
+   <Caption>
+   <LI>
+   <LI> {
+      <Lbl>
+      <LBody>
+   }
+}
+----
+
+Although a canonical form can be derived from <<ISO_32000_1>>, the specification does not prohibit other parent-child relationships between the various standard structure elements in a list. As a result, it is recommended that processors be able to handle various forms of lists, including cases in which a `<LBody>` encapsulates another list that is structurally unrelated to the `<LBody>`'s parent `<L>`. Examples of acceptable list structures follow.
+
+.A canonical multilevel list
+[source,taggedpdf]
+----
+<L> {
+   <LI> {
+      <Lbl>
+      <LBody>
+   }
+   <LI> {
+      <Lbl>
+      <LBody>
+   }
+   <L> {
+      <LI> {
+         <Lbl>
+         <LBody>
+      }
+      <LI> {
+         <Lbl>
+         <LBody>
+      }
+      <LI> {
+         <Lbl>
+         <LBody>
+      }
+   }
+}
+----
+
+
+.Another commonly encountered, though incorrect, form of nested list
+[example]
+====
+This model (multilevel list) is borrowed from HTML.
+
+.Multilevel list in PDF 
+[source,taggedpdf]
+----
+<L> {
+   <LI> {
+      <L> […]
+   }
+}
+----
+
+.Corresponding multilevel list in HTML
+* `<ol>` or `<ul>` in HTML
+* `<li>` in HTML
+* `<ol>` or `<ul>` in HTML
+
+====
+
+
+.A list containing another, semantically unrelated list
+[example]
+====
+
+In this example the two `<L>` structure elements represent independent structures.
+
+[source,taggedpdf]
+----
+<L> {
+   <LI> {
+      <Lbl>
+      <LBody>
+   }
+   <LI> {
+      <Lbl>
+      <LBody> {
+         <P>
+         <P>
+         <L> {
+            <LI> {
+               <Lbl>
+               <LBody>
+            }
+            <LI> {
+               <Lbl>
+               <LBody>
+            }
+         }
+         <P>
+      }
+   }
+   <LI> {
+      <Lbl>
+      <LBody>
+   }
+}
+----
+====
+
+===== Creation
+
+For each content item that has a list item marker -- such as a bullet or list-numbering -- semantic appropriateness requires that the list item marker is enclosed in a <<SE_Lbl,`<Lbl>`>> structure element.
+
+Semantic appropriateness requires that, apart from the list-item's label itself, the semantic content of each list item be enclosed in an `<LBody>` structure element, including inline content or arbitrary complex structures.
+
+===== Consumption
+
+It is recommended that processors expect to encounter real content as the direct child of an `<LI>` structure element. In such cases, it is recommended that processors treat such content as if it were enclosed in an `<LBody>` structure element.
