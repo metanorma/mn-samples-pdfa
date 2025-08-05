@@ -10,7 +10,7 @@ metanorma:
       - sources/bpg-pdfua-conform/document.adoc
       - sources/bpg-tagged-pdf-syntax/document.adoc
       - sources/spec-pdf-declarations/document.adoc
-      - sources/spec-wtpdf-1.0/document.adoc
+      - sources/spec-wtpdf/document.adoc
       - sources/tn-0010/document.adoc
 
   collection:
