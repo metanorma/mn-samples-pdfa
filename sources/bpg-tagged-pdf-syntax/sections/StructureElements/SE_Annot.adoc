@@ -1,0 +1,44 @@
+[[SE_Annot]]
+==== `<Annot>`
+
+The `<Annot>` structure element encloses annotations other than links and widgets (see <<SE_Form,`<Form>`>>).
+
+There are two classes of annotations:
+
+* Markup annotations, or annotations used like markup annotations. The `<Annot>` structure element encloses the marked-up content and the object reference to the actual annotation. These may be nested.
+
+* Other annotations. The `<Annot>` structure element typically only encloses the reference to the actual annotation.
+
+===== Examples
+
+[example]
+====
+[source,taggedpdf]
+----
+<Annot> {
+   Content
+   OBJR [pointing to <Annot> of type "Highlight"]
+}
+----
+
+Annotations may contain video, 3D, and other non-PDF content, the accessibility of which is outside the scope of this Guide. It is recommended that developers seek out appropriate guidance on ensuring these formats are accessible.
+====
+
+===== Creation
+
+A challenge can arise when content to be marked up by a markup annotation is not already represented by a structure element, and thus cannot be directly associated with the annotation. In such a case it is often semantically appropriate to enclose the marked-up content in marked-content sequences which can then be associated with the `<Annot>` structure element together with the actual annotation.
+
+Some housekeeping might be necessary regarding other marked-content sequences and structure elements around the marked-up content.
+
+===== Consumption
+
+It's vital to avoid a case where consumers experience two renditions of the same alternative content. Accordingly, it is recommended that processors be sensitive to the use of the *Contents* key in the annotation as well as the use of the *Alt* property on the enclosing structure element.
+
+When presenting marked-up content to a user, it is recommended that the following aspects be included in that presentation:
+
+* The marked-up content
+* The fact that the content is marked-up, and the type of markup annotation
+* The contents of the Annotation's content entry
+* Any annotations that are replies to the Annotation
+
+While not mandated by conforming reader provisions in PDF/UA-1, it is recommended that processors also make available annotation properties, for example: author, subject, status, date/time, checkmark.

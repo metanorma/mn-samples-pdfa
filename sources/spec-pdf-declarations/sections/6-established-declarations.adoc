@@ -1,0 +1,15 @@
+== Established PDF Declarations
+
+=== General
+
+A list of industry-agreed PDF Declarations is published by the PDF Association at: https://pdfa.org/declarations/
+
+=== Additional Declarations
+
+The PDF Association's list is not exhaustive. Authors may define any PDF Declaration, but only PDF Declarations that appear on https://pdfa.org/declarations/ are likely to be application-independent.
+
+[EDITOR]
+----
+Add mention of the public repo https://github.com/pdf-association/pdf-declarations and to do PR for new JSON definitions??? 
+This will then auto-update https://pdfa.org/declarations/ 
+----

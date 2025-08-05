@@ -1,0 +1,57 @@
+[[SE_Link]]
+==== `<Link>`
+
+The `<Link>` structure element typically associates content and actionable link annotation(s).
+
+===== Examples
+
+[source,taggedpdf]
+----
+<P> { Visit the
+   <Link> {
+      {empty}[link text, eg. URL of the website]
+      OBJR-xxx (https://www.pdfa.org)
+   }
+   today!
+}
+----
+
+===== Creation
+
+PDF/UA-1 does not require that `<Link>` structure elements enclose content.
+
+====== Multiple link annotations enclosed in a single `<Link>` structure element
+
+To avoid ambiguity, it is recommended that link annotations enclosed by a single `<Link>` structure element have the same action.
+
+Support for QuadPoints allows for more reliable experiences with interactive viewers. Without QuadPoints, very common cases (e.g. URLs breaking across one or more lines) may lead to multiple annotations and undesirable user experiences.
+
+Although in general OBJRs may appear at any location within the `<Link>` element, for links that span pages, it is recommended that all OBJRs be next to each other in the logical order, as in the following example:
+
+[source,taggedpdf]
+----
+<P> {
+   <Link> {
+      {empty}[PAGE 7]
+      https://www
+      OBJR 1
+      {empty}[page break]
+      {empty}[PAGE 8, link continues]
+      OBJR 2
+      .pdfa.org
+   }
+}
+----
+
+====== The Contents key
+
+Although required by PDF/UA-1, in practice, many common tools do not provide easy access to the *Contents* key of link annotations. Many (or most) current-generation AT and other software do not process this key. Typical workarounds to achieve formal PDF/UA conformance include automated population of the *Contents* key from (for example) the *Alt* key in the `<Link>` structure element.
+
+NOTE: Relaxation of the *Contents* key requirement in PDF/UA-1 is anticipated in PDF/UA-2.
+
+===== Consumption
+
+As discussed above, it is recommended to be prepared for cases in which multiple links are encoded representing a single (logically speaking) link object (e.g., a single semantic link spanning two lines of text).
+
+In the case where a single `<Link>` structure element encloses multiple link annotations, and where all link annotations have identical targets, and if it is semantically correct to do so, representing a single link to the user is likely to deliver a better user experience.
+

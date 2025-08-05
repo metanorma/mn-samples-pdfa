@@ -1,0 +1,16 @@
+[[SE_H]]
+==== `<H>` (heading, strongly structured)
+
+Due to a lack of suitable tools, this structure element is impractical, and its use is not recommended.
+
+===== Examples
+
+None offered.
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+No specific guidance provided.

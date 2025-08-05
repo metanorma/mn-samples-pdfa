@@ -1,0 +1,3 @@
+== Best Practice Guide: Tagged PDF Best Practice Guide: Syntax
+
+2025-08-05:: This document was imported from https://github.com/pdf-association/bpg-tagged-pdf-syntax with minor changes (image paths, removal of cover)

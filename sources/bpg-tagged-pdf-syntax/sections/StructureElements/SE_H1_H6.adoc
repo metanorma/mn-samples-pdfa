@@ -1,0 +1,109 @@
+[[SE_H1_H6]]
+==== `<H1>` —- `<H6>` (headings)
+
+PDF/UA-1 requires heading-levels not be skipped (e.g., `<H1>`, `<H2>`, `<H4>`). However, otherwise well-structured documents exist in which heading-levels are skipped and where modification of the content is not an option. In such cases, although a PDF/UA flag cannot be used, it is recommended that the file to conform with PDF/UA in all other respects.
+
+PDF/UA-1 requires the use of `<H7>` and higher heading levels if semantically appropriate. Such structure types are undefined in PDF 1.7. PDF/UA requires a mapping for undefined elements; accordingly, in this case it is recommended that `<H7>` and higher levels of headings be role mapped to <<SE_P,`<P>`>> or `<H6>`, depending on the nature of the content and the heading structure in it. If it is more important to not mis-represent a heading of a nesting level higher than `<H6>` as `<H6>`, mapping to <<SE_P,`<P>`>> is recommended, whereas if it is more important to represent a heading of a higher nesting level than H6 as a heading, rather than turning it into a paragraph, mapping to `<H6>` is recommended.
+
+There is no structure element type or syntax for subheadings. Instead, use <<SE_P,`<P>`>>, <<SE_Span,`<Span>`>>, or both structure types.
+
+===== Examples
+
+.In a single paragraph
+[source,taggedpdf]
+----
+<H1> { The Mothers [e.g. huge, bold typeface] [line break]
+   <Span> {Fillmore East - June 1971 [e.g. small, regular typeface]
+   }
+}
+----
+
+.In two paragraphs
+[source,taggedpdf]
+----
+<H1> {T!he Mothers}
+<P> {Fillmore East - June 1971}
+----
+
+Headings are not to be confused with document titles, for which no structure type exists in <<ISO_32000_1>>.
+
+===== Talking about titles
+
+A title is information representing the normal means of referring to the document. Titles can be present as both metadata entry and page-content. In PDF:
+
+* The metadata entry for a PDF document's title is represented using XMP.
+* A document title appearing as page content is commonly tagged with `<H1>`.footnote:[The background of this unfortunate reality is complex; its discussion is out of scope for this document.]
+
+Since PDF/UA-1 does not require any specific structure type for title content, it is permissible to structure such content with either `<H1>` or other structure element types (typically, <<SE_P,`<P>`>> or structure element types mapped to <<SE_P,`<P>`>>).
+
+Page content representing the title can - especially in publications - appear several times in the document. If `<H1>` structure elements are used to enclose such content, it is recommended that only one such instance of the title be structured as `<H1>`.
+
+Since headings commonly appear in tables of contents, and since document titles do not normally appear in tables of contents, a future-proof (PDF 2.0) approach would be to use a `<Title>` structure type (which is defined in <<ISO_32000_2>> (PDF 2.0), see <<Annex-B>>) mapped to the <<SE_P,`<P>`>> structure type. Upgrading this document to PDF 2.0, therefore, would then simply require deletion of this role map.
+
+===== Sidebars
+
+Sidebar content offers challenges for implementers of tagged PDF in PDF 1.7, and especially, those sidebars that include content styled in a manner similar to that of headings in the main body of content.
+
+Since PDF 1.7 does not include a structure element type specific to sidebars or similar content, when heading structure elements are used in a sidebar, they must be semantically appropriate in the context of the document as a whole, that is, be consistent with the other heading structure elements in the document.
+
+As a work-around for cases in which sidebars include content that would (if tagged with heading structure elements) not be semantically appropriate in the context of the overall document, then <<SE_P,`<P>`>> structure elements are likely to be the most semantically appropriate structure type for the "headings" within the sidebar.
+
+Another workaround is to use a `<Div>` element with a layout attribute appropriate to the content. Although many AT implementations do not yet support such a construct, such `<Div>` elements can provide processors with a means of distinguishing such content.
+
+Another work-around is to linearize the structure entirely, eliminating the problem, but at the cost of being forced to include the sidebar's content within the overall document's logical structure.
+
+===== Examples
+
+.Example A:
+[source,taggedpdf]
+----
+<H1> [first heading, no title present]
+<P>
+<H2>
+<P>
+----
+
+.Example B:
+[source,taggedpdf]
+----
+<P> [encloses document title]
+<H1> [first main heading, e.g."1. Top level heading"]
+<P>
+<H2> [heading, 2nd level, e.g. "1.1 2nd level heading"]
+<P>
+----
+
+.Example C:
+[source,taggedpdf]
+----
+<Title> [encloses document title (role-mapped to `<P>`)]
+<H1> [first main heading]
+<P>
+<H2>
+<P>
+----
+
+[[SE_H1_H6_ExampleD]]
+.Example D:
+[source,taggedpdf]
+----
+<H1> [encloses document title]
+<H2> [first main heading]
+<P>
+<H2>
+<P>
+----
+
+In examples A, B and C, it is semantically acceptable to use the `<H1>` headings several times. Example D, a case of `<H1>` used for a title (which is not a violation of PDF/UA-1), is only semantically appropriate if there is only one `<H1>` in the document.
+
+===== Creation
+
+Even though ISO 32000-1 has no structure type matching the concept of "title", it is recommended that such content not be structured with `<H1>` or `<H>` unless it is the only `<H1>` in the document (as per <<SE_H1_H6_ExampleD>> above). If the creator chooses to create a `<Title>` (or similarly-intended) structure element type (which is acceptable), it is recommended to map such structure element types to <<SE_P,`<P>`>>.
+
+WARNING: Tools creating PDF/UA documents may insert empty heading structure element types to fill the gap that would otherwise be left by skipped heading levels. This behavior cannot result in conformance with PDF/UA or <<WCAG22>>.
+
+===== Consumption
+
+A common use of headings is to dynamically generate a table of contents (or other navigational mechanism).
+
+Since heading levels above 6 are explicitly permitted in PDF/UA, it is recommended that processors be prepared to encounter heading levels above 6 irrespective of mapping.

@@ -1,0 +1,530 @@
+
+== Attributes and properties
+
+=== Layout attributes
+
+Layout (position, color, etc.) is not encoded into PDF content streams in a way that strongly associates stylistic properties with content. It is semantically inappropriate to fail to include layout attributes necessary to convey the semantics of a given use of colour, contrast, format or layout.
+
+==== Standard layout attributes
+
+Exhaustive conformance requirements for the use of standard layout attributes (see <<ISO_32000_2, table="378, 379, and 380">>) are described in <<table1>> using the following terms:
+
+"Required":: The attribute always has a semantic purpose. Semantic appropriateness requires that it be present in all cases of applicable structure elements when the relevant semantic property is present in the content and differs from the default value (if any).
+
+"Required if semantic":: The attribute often has a semantic purpose. Semantic appropriateness requires that it be present in all cases of applicable structure elements when the relevant semantic layout property is present in the content; is intended to have semantic significance; and differs from the default value (if any).
+
+"Not required":: The attribute is optional, rarely has a semantic purpose and is never required to be present on any structure element.
+
+[[table1]]
+.Table 1: Requirements for standard layout attributes
+[cols="a,a,a",options="header",]
+|===
+| *Structure elements* | *Attribute* | *Conforming usage implied by PDF/UA-1*
+|Any structure element | Placement | Not required.
+
+Default value: _Inline_
+
+| | Writing Mode | Required.
+
+[example]
+====
+Text written from right to left.
+====
+
+Default value: _LrTb_
+
+| | BackgroundColor | Required if semantic.
+
+[example]
+====
+Background color of a *TD* structure element identifying a group of cells.
+====
+
+Default value: (none)
+
+| | BorderColor | Required if semantic.
+
+[example]
+====
+The border of a box in which the box's appearance denotes the significance of the content (such as an alert).
+====
+
+Default value: (Current text fill color in effect)
+
+| | BorderStyle | Required if semantic.
+
+[example]
+====
+Lines used to represent relationships in an organization chart.
+====
+
+Default value: _None_
+
+| | BorderThickness | Required if semantic.
+
+[example]
+====
+A table cell where thicker lines are used to denote that the cell contains a summation of other cells' values.
+====
+
+Default value: (none)
+
+| | Color | Required if semantic.
+
+[example]
+====
+Use of colour in a chart legend.
+====
+
+Default value: (Current text fill color in effect)
+
+NOTE: Despite the default value for Color, to facilitate access to this attribute, it is useful to set this value in all semantic cases.
+
+| | Padding | Not required.
+
+| Any BLSE; ILSEs with Placement other than Inline | SpaceBefore | Required if semantic.
+
+[example]
+====
+Visual grouping
+====
+
+Default value: _0_
+
+| | SpaceAfter | Required if semantic.
+
+[example]
+====
+Visual grouping
+====
+
+Default value: _0_
+
+| | StartIndent | Required if semantic.
+
+[example]
+====
+Different levels of indentation of lines for code in a programming language.
+====
+
+Default value: _0_
+
+| | EndIndent | Required if semantic.
+
+[example]
+====
+Lines of code.
+====
+
+Default value: _0_
+
+| BLSEs containing text | TextIndent | Not required.
+
+| | TextAlign | Not required.
+
+| Figure, Formula and Table | BBox | Required.
+
+[example]
+====
+A collection of paths whose semantic value arises from their consideration as a whole.
+====
+
+NOTE: Current-generation AT often relies on this attribute.
+
+| | Width | Not required.
+| | Height | Not required.
+| TH (Table header), TD (Table data) | Width | Not required.
+| | Height | Not required.
+| | BlockAlign | Not required.
+| | InlineAlign | Not required.
+| | TBorderStyle | Required if semantic.
+
+[example]
+====
+The border of a cell in which the cell's appearance denotes the significance of its content (such as distinguishing cells in certain AT applications).
+====
+
+Default value: _None_
+
+| | TPadding | Not required.
+| Any ILSE; BLSEs containing ILSEs or containing direct or nested content items | LineHeight | Not required.
+| | BaselineShift | Required if semantic.
+
+[example]
+====
+Superscripts or subscripts.
+====
+
+Default value: _0_
+
+| | TextDecorationColor | Required.
+
+[example]
+====
+Red underline used to indicate authorship of an edit.
+====
+
+Default value: (Current fill color in effect)
+
+NOTE: Despite the default value for *TextDecorationColor*, to facilitate access to this attribute, it is useful to set this value in all semantic cases.
+
+| | TextDecorationThickness | Required if semantic.
+
+[example]
+====
+Thick underline used to indicate misspelling.
+====
+
+Default value: (Current stroke thickness in effect)
+
+NOTE: Despite the default value for *TextDecorationThickness*, to facilitate access to this attribute, it is useful to set this value in all semantic cases.
+
+| | TextDecorationType | Required.
+
+[example]
+====
+Strikethrough.
+====
+
+Default value: _None_
+
+| | RubyAlign | Not required.
+| | RubyPosition | Not required.
+| | GlyphOrientationVertical | Required if semantic.
+
+[example]
+====
+Representation of portrait or landscape orientation using the letter "A".
+====
+
+Default value: _Auto_
+
+|===
+
+==== Standard layout attributes specific to inline-level structure elements
+
+Requirements for the use of standard layout attributes (see <<ISO_32000_2, table="381, 382, and 383">>) as described in <<table2>>.
+
+[[table2]]
+.Requirements for standard layout attributes specific to inline-level structure elements
+[cols="a,a,a",options="header",]
+|===
+| *Structure elements* | *Attribute* | *Conformance requirements*
+| Grouping elements containing columns | ColumnCount | Not required.
+|   | ColumnGap | Not required.
+|   | ColumnWidths | Not required.
+| L | ListNumbering | Required if the value is not _None_.
+
+[example]
+====
+Ordered lists.
+====
+
+Default value: _None_
+
+| PrintField | Role | Required
+
+[example]
+====
+A pre-filled (possibly flattened) form field.
+====
+
+Default value: None specified
+
+| | Checked, checked  | Required
+
+[example]
+====
+A pre-filled (possibly flattened) form field.
+====
+
+Default value: _off_
+
+| | Desc | Required.
+
+[example]
+====
+A pre-filled (possibly flattened) form field.
+====
+
+Default value: None specified
+
+|===
+
+=== List attributes
+
+==== ListNumbering
+
+<<ISO_32000_1>> does not address the concept of continued lists (multiple list fragments with other block level elements between fragments); semantic encoding of this construct is unavailable prior to <<ISO_32000_2>>.
+
+Arbitrary labels use the value _None_. Accordingly, it is recommended that processors intending conversion to HTML consider that a *ListNumbering* attribute value of _None_ strongly implies use of the contents of the <<SE_Lbl,`<Lbl>`>> structure elements in the list to represent the list's labels, akin to HTML's description lists (`<dl>`).
+
+==== Example
+
+[source,taggedpdf]
+----
+<Lbl> {Day 1:}
+<Lbl> {Day 2:}
+----
+
+[[PrintFieldAttributes]]
+=== PrintField attributes
+
+PrintField attributes define PDF's accessibility mechanism for non-interactive PDF forms (see <<ISO_32000_1, clause="12.7.9, Non-interactive forms">>). Such forms may have originally contained interactive fields such as text fields and radio buttons but were then converted into non-interactive PDF files, or they may have been designed to be printed out and filled in manually.
+
+Radio buttons and list boxes are not fully accommodated in <<ISO_32000_1>> definition of *PrintField* attributes. These attributes are entirely overhauled in <<ISO_32000_2>>.
+
+=== Table attributes
+
+==== Scope, Headers and IDs
+
+For ordinary tables the *Scope* attribute is generally the easiest approach to establishing the table's structure. In keyboard navigation, where *Scope* is sufficient, right arrow = _Row_, down arrow = _Column_
+
+.An ordinary table example
+[cols="a,a,a",options="header",]
+|===
+|*Column 1 header* |*Column 2 header* |*Column 3 header*
+|*Row 2 header* |Column 2, Row 2 data |Column 3, Row 2 data
+|*Row 3 header* |Column 2, Row 3 data |Column 3, Row 3 data
+|*Row 4 header* |Column 2, Row 4 data |Column 3, Row 4 data
+|===
+
+For complex table structures, including subdivisions within tables, *Headers* and *ID* attributes are generally necessary in order to correctly represent the table's structure by way of the *Headers* entry in each *TH* cell enumerating the **ID**s of the table cells (**TD**s and **TH**s) it heads.
+
+If occurring on a *TH,* the *Headers* entry implies that the *TH* points to some table cells, which allows for expression of nested hierarchies of headers. The use of Headers implies that the enumerated cells have an *ID* attribute.
+
+.A complex table example
+[cols="a,a,a",options="header",]
+|===
+| |*Column 2 header* | *Column 3 header*
+| *Row 2 header* | Column 2, Row 2 data | Column 3, Row 2 data
+| *Row 3 header* | Column 2, Row 3 data | Column 3, Row 3 data
+| *Row 4 header* | Column 2, Row 4 data | Column 3, Row 4 data
+| |*Column 2 subheader* | *Column 3 subheader*
+| *Row 6 header* | Column 2, Row 6 data | Column 3, Row 6 data
+| *Row 7 header* | Column 2, Row 7 data | Column 3, Row 7 data
+| *Row 8 header* | Column 2, Row 8 data | Column 3, Row 8 data
+|===
+
+==== Summary attribute
+
+It is recommended that use of this attribute be restricted to cases where visual information about the table would not be characteristically available to assistive technology.
+
+Where auxiliary information or guidance would be useful to any user it is recommended that such be provided in text, and not hidden in a *Summary* attribute which would only be available to those using certain AT.
+
+Providing a *Summary* is not precluded for specific target audiences, but it is recommended that the practice be limited to such cases.
+
+[[CommonlyUsedPropertiesOfContent]]
+=== Commonly-used properties of content
+
+PDF's content properties may be combined to accommodate a variety of use-cases.
+
+The four keys defining properties of content can appear in both the property list dictionary (for a marked content sequence with a *Span* tag) and the structure element dictionary (for structure elements).
+
+.Commonly-used properties of content
+[cols="a,a",options="header",]
+|===
+| *Property* |*Purpose*
+| *Lang* | (language) Defines the natural language of both the content and the values of the *E*, *Alt* and *ActualText* properties present in the same context.
+| *Alt* | (alternate description) Provides descriptive information for content with a substantial non-textual aspect.
+| *ActualText* | (replacement text) The text representation of text that is not encoded as text.
+| *E* | (expansion of abbreviations and acronyms) Provides expanded text.
+|===
+
+These properties are discussed in the following clauses.
+
+==== Lang
+
+The *Lang* property can be used to provide the assigned language of content. A language identifier is a language code whose specificity (e.g., _fr_ vs. _fr-ca_) may vary.
+
+Lang exists at four levels in a PDF document:
+
+* Document level: a *Lang* entry in the document's catalog dictionary
+* Logical structure level: a *Lang* property of a logical structure element
+* Content level: a *Lang* property of a marked content sequence
+* Text level: a Unicode escape sequence
+
+A *Lang* entry in the document's catalog dictionary establishes the default language for the entire document, including page content, metadata and text strings within annotations.
+
+A *Lang* property of a logical structure element or a marked content sequence can be used to override the default. It applies to all child elements unless overridden by a logical structure element or marked content sequence nested inside. Logical structure and marked content may be nested in any fashion.
+
+A Unicode escape sequence can be used to set the language inside any text string including entries in annotations and *Alt*, *ActualText* and *E* entries. Support for Unicode escape sequences is currently not available in existing PDF processors.
+
+For some XMP metadata fields of type *Lang Alt* (Language Alternate) it is possible to include language-specific instances in addition to a default instance.
+
+[example]
+====
+<<ISO_32000_1>> provides adequate examples.
+====
+
+===== Creation
+
+Although the *Contents* key in annotations is unevenly supported, it is the correct means of providing an alternate description for annotations.
+
+Placing the same description in both the *Contents* key and the *Alt* property is not recommended, as this can lead some implementations to present the same alternative description twice.
+
+===== Consuming
+
+*Lang* governs all attributes of the structure element on which it appears, and all enclosed content. When *Lang* occurs at a document level (i.e., as an entry in the catalog dictionary), it serves as the "base language" for the entire document, including outlines (bookmarks) and metadata, except were overridden by a content-specific (structure element or marked content sequence) use of *Lang*.
+
+==== Alt (alternate description)
+
+*Alt* provides descriptive information for content with a substantial non-textual aspect. The use of this property depends on the visual appearance of the content; it is not a function of the data object type used. For example, ASCII art consists of characters and yet, being a visual representation, nonetheless requires an *Alt* property.
+
+Text can be encoded as an image object. In such cases, the semantically appropriate property for accessibility purposes is *ActualText* providing the text represented by the image; the *Alt* property is semantically inappropriate in this case and should be not defined (See <<ActualText>>).
+
+===== Typical usage
+
+While most commonly used on the <<SE_Figure,`<Figure>`>> structure element, *Alt* is used with any content that is mostly not text-based, including cases where that content consists of several distinct graphics objects. Examples include:
+
+* Pie charts
+* Technical drawings and flow charts
+* Clip-art
+* Maps
+
+===== Nested structures
+
+Illustrations can include subdivisions that can be considered as individual illustrations in their own right. and for which. In such cases an *Alt* property is semantically appropriate for both the main illustration and its components. Examples include:
+
+* Diagrams of sub-assemblies
+* Building plans
+* Maps including countries and states
+
+===== Creation
+
+Although *Alt* is technically usable in both marked content and structure element contexts there are few (if any) use cases in which *Alt* would be appropriate on marked content.
+
+=====  Consuming
+
+In cases where *Alt* and *ActualText* properties both occur on the same structure element, both must be available to the user.
+
+[[ActualText]]
+==== ActualText
+
+For this clause, the term "text content" refers to content that is visually perceived as text regardless of the content's actual encoding as text, image or vector objects, clipping paths, masks, or any combination thereof.
+
+*ActualText* is used for content that is normally being perceived as text but is not encoded as text. Typical examples include a small image representing a single word, or a vector object representing a single character. *ActualText* makes it possible to associate the text that would normally be perceived by a sighted user with respective objects. By implication, this makes it possible to derive a text-only representation of the content, e.g., for use by a screen reader, search engine or other text-consuming technology.
+
+This property is useful in a variety of circumstances, including:
+
+* An image that represents text
+* In certain cases, hyphenation causes characters to change (example: "Drucker" -> "Druk-ker")
+* As a last resort only, when other approaches are not feasible:
+** To specify text directly (for example, to insert white space to separate words)
+** When deciding between applying *ActualText* in marked content vs. a structure element
+
+While it is technically acceptable to use *ActualText* as a property of any structure element, it is recommended to only use the *ActualText* property on structure elements of type <<SE_Span,`<Span>`>>, or for *Span* marked content sequences.
+
+[example]
+====
+*ActualText* property is associated with a <<SE_Span,`<Span>`>> structure element:
+
+[source,taggedpdf]
+----
+<P> {
+    <Span ActualText='T'> {{{image:images/T-image.png[Illuminated capital letter T,width=15,height=19]}}}
+    he PDF format
+}
+----
+
+*ActualText* property is associated with a Span marked content sequence:
+
+[source,postscript]
+----
+/P << /MCID 0 >> BDC
+    /Span << /ActualText (T) >> BDC
+        /Im1 Do
+    EMC
+    …
+    (he PDF format) Tj
+EMC
+----
+
+In all cases where a <<SE_Span,`<Span>`>> structure element is used, a Span marked content sequence is an acceptable substitute.
+====
+
+
+[example]
+====
+[source,taggedpdf]
+----
+<TR> {
+    <TD> {
+        <Span ActualText="1"> {
+            image of a numeral '1'
+        }
+    }
+    <TD> {2}
+}
+----
+
+NOTE: Widely used reading programs and ATs tend to present the first table cell in the alternative approach as just text, ignoring the fact that it is a table cell, and thus presenting a broken table structure.
+====
+
+[example]
+====
+[source,taggedpdf]
+----
+<P> { The German word for "printer" is:
+    "Dru {
+        <Span ActualText='ck'>{k-k}
+    }
+    er"
+}
+----
+
+NOTE: This example assumes a line-break in the middle of the word "Drucker", which implies that the "ck" must be written as "k-k".
+====
+
+===== Creation
+
+*ActualText* can be used on marked content sequences or on structure elements. When used on structure elements, it is recommended that the attribute not be used on structure element types such as <<SE_Figure,`<Figure>`>>, <<SE_Table,`<TH>` or `<TD>`>>. When the need arises to associate content in a<<SE_Figure,`<Figure>`>>, <<SE_Table,`<TH>` or `<TD>`>> with *ActualText*, it is recommended that a <<SE_Span,`<Span>`>> structure element be added inside the <<SE_Figure,`<Figure>`>>, <<SE_Table,`<TH>` or `<TD>`>> structure element, and the *ActualText* property be associated with that <<SE_Span,`<Span>`>> structure element.
+
+Although cases exist (for example, remediation) in which it may be easier to implement *ActualText* on a given structure element, it's frequently preferable to address *ActualText* via marked content (e.g., automated soft hyphens).
+
+In cases where it isn't possible to provide a ToUnicode table, the *ActualText* property is also useful for representing Unicode for characters that do not naturally map to Unicode (for example, bullets, or when associating a ligature with a sequence of separate characters).
+
+Whenever possible, it is recommended that software provide text content as text objects in the page description (including white-space characters). If this is not possible or excessively difficult, use (in the following order):
+
+. *ActualText* on the content, or
+. *ActualText* on an empty structure element. It is semantically appropriate to only use this approach for white-space characters.
+
+When the content is already contained within a structure element, and is the complete content of that element, then it is preferred to place *ActualText* on the structure element rather than on the marked content sequence.
+
+NOTE: For content exceeding short sequences of characters that cannot be encoded as text objects in the page description (such as a scanned and OCRed page), the text can be superimposed as text objects in render mode 3 (invisible text).
+
+NOTE: Use of *ActualText* is limited to text that would otherwise be contained within a single structure element.
+
+====== Scanned pages
+
+The use of either *Alt* or *ActualText* on a scanned page is almost always semantically inappropriate. In many cases, scanned pages are overlaid with invisible text where the text matches the position of the scanned text; these can be structured according to the rules of PDF/UA.
+
+As with any PDF/UA-1 conforming file, it is semantically appropriate to contain each semantically-significant figure on the scanned page within <<SE_Figure,`<Figure>`>> structure elements. This will necessitate some means of selective inclusion of that portion of the page in the page description.
+
+===== Consumption
+
+In the (inadvisable) case of an *ActualText* property on a <<SE_Table,`<TD>` or `<TH>`>> structure element, some popular APIs recognize an *ActualText* property by replacing the <<SE_Table,`<TD>` or `<TH>`>> structure element, respectively, with the *ActualText*'s property's value. However, semantic appropriateness requires that all semantics be retained, although the means of doing so are implementation-dependent.
+
+==== E
+
+PDF/UA-1 does not mandate use of the *E* property. However, in some cases, or for certain audiences, the *E* property can be useful (e.g., for providing fully spelled-out text for an abbreviation).
+
+In general, it is recommended that such fully spelled-out text be contained in the document as ordinary content in the vicinity of the abbreviation.
+
+[example]
+====
+[source,taggpdf]
+----
+<Span E='Portable Document Format'> {
+    PDF
+}
+----
+====
+
+===== Creation
+
+None provided.
+
+===== Consumption
+
+It is recommended that any viewer be able to indicate the presence of an *E* property, and -- at the discretion of the user -- present its contents.

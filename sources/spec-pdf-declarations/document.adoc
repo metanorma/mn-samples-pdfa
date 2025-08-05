@@ -1,0 +1,46 @@
+
+= PDF Declarations: A use of ISO 32000
+:icons: font
+:docnumber: 3
+:edition: 1.2
+:published-date: 2024-04-22
+:copyright-year: 2024
+:created-date: 2024
+:language: en
+:title-main-en: PDF Declarations: A use of ISO 32000
+:technical-committee: PDF Technical Working Group (TWG)
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: specification
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFa pdf-declarations:2024 (1.2.0)
+:imagesdir: images
+:document-scheme: 2024
+:plantuml-image-format: svg
+:local-cache-only:
+
+include::sections/0-foreword.adoc[]
+
+include::sections/1-introduction.adoc[]
+
+include::sections/2-scope.adoc[]
+
+include::sections/3-normative-references.adoc[]
+
+include::sections/4-terms.adoc[]
+
+include::sections/5-relationships.adoc[]
+
+include::sections/6-established-declarations.adoc[]
+
+include::sections/7-syntax.adoc[]
+
+include::sections/8-requirements.adoc[]
+
+include::sections/9-pdf-a-context.adoc[]
+
+include::sections/bibliography.adoc[]
+
+include::sections/change-history.adoc[]

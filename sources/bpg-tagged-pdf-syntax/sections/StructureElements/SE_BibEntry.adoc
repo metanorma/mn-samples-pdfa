@@ -1,0 +1,14 @@
+[[SE_BibEntry]]
+==== `<BibEntry>`
+
+Intended to semantically identify individual entries in a bibliography, this structure element simply serves to group content for reuse.
+
+Support for this structure element by AT is not anticipated.
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+No specific guidance provided.

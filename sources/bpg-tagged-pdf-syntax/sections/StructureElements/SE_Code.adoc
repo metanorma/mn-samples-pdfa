@@ -1,0 +1,14 @@
+[[SE_Code]]
+==== `<Code>`
+
+Intended to semantically identify code examples, this structure element serves to indicate that enclosed content would preferably be represented precisely; without further modification (for example: justification, cleanup of white space). However, use of this structure element does not imply that extraction would result in usable code.
+
+Support for this structure element by AT is not anticipated.
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consuming
+
+No specific guidance provided.

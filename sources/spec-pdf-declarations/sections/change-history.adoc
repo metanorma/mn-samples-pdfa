@@ -1,0 +1,17 @@
+== Change History
+
+.Change History
+[cols="a,a,a",options="header",]
+|===
+| *Version* | *Date* | *Substantive* *Changes*
+| 1.1 | April 19, 2024 | * Move XMP to the Bibliography and update to current (2019) edition +
+* Add ISO 32000-1 (PDF 1.7) as a normative reference
+* Add PDF 2.0 Application Note 3 to a Bibliography
+* Correct example to replace `/\#` with just `\#`
+* Added Notes to <<Table2>> `pdfd:conformsTo`
+* Addition of PDF/A extension schema
+
+| 1.2 | August, 2025 | * Converted to Metanorma
+
+|===
+

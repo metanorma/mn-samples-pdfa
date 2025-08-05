@@ -1,0 +1,31 @@
+
+== Other features of PDF
+
+=== Digital signatures
+
+Digital signatures in <<ISO_32000_1>> use a few conventions that do not lend themselves well to the tagged PDF paradigm. Accordingly, the PDF/UA requirements for digital signatures may trigger a few questions.
+
+For example: digital signatures are customarily not clearly "visible" or "invisible" -- they are often placed in a signature form field made functionally invisible by encoding with `/Rect [0 0 0 0]`. It's hard to know how such signatures are to be represented, or indicated in logical structure, or indeed, whether they need to be in the logical structure. Here we offer some general principles for handling such cases.
+
+==== Reading order of digital signatures
+
+Fields that are of zero size, or outside the *CropBox*, or are hidden are considered "invisible" and thus do not have to be included in the structure element tree as is otherwise required for <<SE_Annot,`<Annot>`>>.
+
+EDITOR: original sentence above used to end with "Annotations in 7.18" which was not hyperlinked, but where is this supposed to refer to???
+
+
+However, consistent with <<ISO_14289_1,clause="8.6, Digital Signatures">>, conforming readers are required to provide reasonable access to digital signatures irrespective of their visibility.
+
+The most appropriate way of representing invisible signatures to users with disabilities is generally via a separate user interface, not by artificially forcing the digital signature into the logical reading order.
+
+==== Requirements for field appearances
+
+Since objects within a digital signature appearance stream cannot be structured, 100 % compliance with 7.13 is impossible in cases where such appearance streams include logical substructure (such as a <<SE_Figure,`<Figure>`>>). In many cases an appropriate *Alt* property on the <<SE_Form,`<Form>`>> structure element for the digital signature suffices for PDF/UA-1 conformance.
+
+EDITOR: what is "7.13" in the above para supposed to be referring to???
+
+=== Page open options
+
+It is recommended that highly structured and longer documents include outlines (see <<ISO_32000_1, clause="12.3.3, Document Outline">>) and that outlines follow the headings present in the document. For documents including outlines, it is recommended that the default view of the document displays the outline entries.
+
+NOTE: Outlines are commonly known as "bookmarks" due to longstanding viewer conventions.

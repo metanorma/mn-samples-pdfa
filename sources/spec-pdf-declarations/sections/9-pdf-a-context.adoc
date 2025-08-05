@@ -1,0 +1,5 @@
+== PDF Declarations in a PDF/A context
+
+PDF/A-1, PDF/A-2, amd PDF/A-3 require that a PDF/A extension schema be present in the document's XMP metadata in order to use PDF Declarations in PDF/A-conforming documents.
+
+An <<PDFA_Extension_Schema,XMP PDF/A extension schema>> for use with PDF/A-1, PDF/A-2, and PDF/A-3 is embedded as both an associated file embedded in this document, and in this document's XMP metadata. An <<PDF-2AB_Example,example PDF/A-2b file>> is also embedded including a single PDF Declaration claim for "_foo_"and this XMP PDF/A Extension Schema.

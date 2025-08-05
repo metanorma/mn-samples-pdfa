@@ -1,0 +1,67 @@
+[[SE_Figure]]
+==== `<Figure>`
+
+A `<Figure>` element encloses content that, however encoded, represents non-textual visual content (e.g., a photograph, an illustration, etc.).
+
+PDF 1.7 does not specify a mechanism to associate `<Figure>` structure elements with their <<SE_Caption,`<Caption>`>> structure elements, or associate multiple figures together, or apply a caption to multiple figures.
+
+In the context of `<Figure>` structure elements, it is recommended to locate the <<SE_Caption,`<Caption>`>> structure element following the `<Figure>` structure element, as this practice ensures a reasonable context for the `<Caption>` is provided to users of relatively basic consumption software.
+
+NOTE: In principle, other grouping elements such as `<Part>`, `<Sect>`, etc. could be used. In most cases, however, these would be semantically inappropriate for the purpose of grouping `<Figure>` structure elements.
+
+===== Examples
+
+.A `<Figure>` with a `<Caption>` following the `<Figure>`
+[example]
+====
+[source,taggedpdf]
+----
+<Figure> [A structure element enclosing an actual image]
+{CONTENT} [The actual image or illustration]
+<Caption> [The Figure's caption]
+----
+====
+
+[example]
+====
+.A `<Figure>` with a `<Caption>` preceding the `<Figure>`
+[source,taggedpdf]
+----
+<Caption> [The Figure's caption]
+<Figure> [A structure element enclosing an actual image]
+{CONTENT} [The actual image or illustration]
+----
+====
+
+[example]
+====
+.Multiple `<Figure>` elements with `<Caption>` elements
+[source,taggedpdf]
+----
+<Figure> [A structure element enclosing an actual image]
+{CONTENT} [The actual image or illustration]
+<Caption> [The first figure's caption]
+<Figure> [A structure element enclosing an actual image]
+{CONTENT} [The actual image or illustration]
+<Caption> [The second figure's caption]
+----
+====
+
+.`<Figure>` without `<Caption>`
+[example]
+====
+While it's preferred for `<Figure>` structure elements to include <<SE_Caption,`<Caption>`>> elements there are many use cases where a `<Figure>` does not have a <<SE_Caption,`<Caption>`>> (e.g.: a logo, title-page image, in-line graphics such as smileys, symbols or other illustrative content). Such cases may be handled as in the example:
+
+[source,taggedpdf]
+----
+<Figure> {CONTENT} [The actual image or illustration]
+----
+====
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+In the case of a `<Figure>`'s <<SE_Caption,`<Caption>`>> element, it is recommended that both the <<SE_Caption,`<Caption>`>> and the *Alt* property for the `<Figure>` be presented to the user.

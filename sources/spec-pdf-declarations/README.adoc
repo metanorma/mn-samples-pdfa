@@ -1,0 +1,3 @@
+== Specification: PDF Declarations: A use of ISO 32000
+
+2025-08-05:: This document was imported from https://github.com/pdf-association/spec-pdf-declarations with minor changes (removal of cover, identifier encoding)

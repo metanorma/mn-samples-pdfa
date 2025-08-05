@@ -1,0 +1,28 @@
+// See https://www.relaton.org/guides/ for all the various citation guides from different SDOs.
+// To ensure correctness of each reference, rely on MN to construct the appropriate normative references whenever possible.
+// To test if a reference is working: `relaton fetch "ETSI EN 319 122-1 V1.3.1 (2023-06)"`
+//
+// See also https://www.metanorma.org/author/topics/sections/bibliography/
+
+[bibliography,normative=false]
+== Bibliography
+
+* [[[ISO_16684_1, ISO 16684-1]]]
+
+* [[[ISO_19005, ISO 19005 (all parts)]]]
+
+* [[[ISO_32000, ISO 32000 (all parts)]]]
+
+* [[[OBJECT_METADATA, PDF 2.0 Application Note 003: Use of object metadata streams]]], PDF Association, https://pdfa.org/resource/pdf-2-0-application-note-003-use-of-object-metadata-streams/
+
+// Bibliography is also needed to support attachments in Metanorma. These won't occur in the output.
+// See https://www.metanorma.org/author/topics/sections/attachments/
+
+* [[[PDF-2AB_Example,attachment:(./sections/attachments/PDF-2AB_Example.pdf)]]], span:classification.pdf-AFRelationship[Data], Example PDF/A-2b file including a declaration with the XMP PDF/A Extension Schema.
+
+* [[[PDFA_Extension_Schema,attachment:(./sections/attachments/PDF-A_Extension_Schema.xmp)]]], span:classification.pdf-AFRelationship[Schema], XMP PDF/A Extension Schema.
+
+[EDITOR]
+----
+A RELAX NG schema also needs to be provided for PDF/A-4 compatibility, as well as a PDF/A-4 example PDF.
+----

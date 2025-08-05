@@ -1,0 +1,27 @@
+[[SE_Span]]
+==== `<Span>`
+
+The primary purpose of `<Span>` is to demarcate content for the purpose of applying semantic and other attributes. Although the `<Span>` structure element type itself has no inherent semantics, semantic information is provided by attributes employed on a given instance of a `<Span>` structure element type.
+
+<Span> can serve in many capacities but is most useful for subdividing smaller regions of content, such as words within a <<SE_P,`<P>`>>. `<Span>` may be used as a vehicle for language (*Lang*), replacement content (*ActualText*), alternate description (*Alt*) and expansion (*E*) attributes, and various presentational, layout and other attributes documented in <<ISO_32000_1, clause="14.8.5.4 Layout Attributes">>.
+
+===== Examples
+
+[source,taggedpdf]
+----
+<P> { This is the {
+   <Span E='National Aeronautics and Space Administration'> {
+      NASA
+   }
+   press release.
+}
+}
+----
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+No specific guidance provided.

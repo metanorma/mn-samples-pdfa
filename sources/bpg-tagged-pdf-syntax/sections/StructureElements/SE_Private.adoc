@@ -1,0 +1,16 @@
+[[SE_Private]]
+==== `<Private>`
+
+Akin to <<SE_NonStruct,`<NonStruct>`>>, this element differs from <<SE_NonStruct,`<NonStruct>`>> insofar as not only the structure element itself, but the children of the structure element, including structure elements and content, are also ignored.
+
+===== Examples
+
+None provided.
+
+===== Creation
+
+This element is useful only for private purposes.
+
+===== Consumption
+
+Ignore the element and its contents.

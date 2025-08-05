@@ -1,0 +1,83 @@
+== PDF Declaration requirements
+
+=== General
+
+A PDF file containing one or more valid PDF Declarations shall:
+
+* adhere to all requirements of <<ISO_32000>> including any metadata additions as specified in this document;
+* include one or more PDF Declarations in the document catalog XMP metadata.
+
+A PDF Declaration is comprised of the fields and values defined in the following sub-clauses.
+
+=== PDF Declarations schema
+
+The PDF Declarations Schema provides a list of PDF Declarations asserting conformance with external standards or profiles.
+
+* The schema name is identifier:[http://pdfa.org/declarations/]
+* The preferred schema namespace prefix is *pdfd*
+
+<<Table1>> defines the field name for the *declarations* field.
+
+[[Table1]]
+.PDF Declarations field name.
+[cols="a,a,a",options="header",]
+|===
+| *Name* | *Type* | *Property content*
+
+| `pdfd:declarations` | Unordered array of "Declaration" | (_Required_) An unordered array of PDF Declaration entries, where each PDF Declaration represents a statement of conformance with an identified external standard or profile, along with optional information identifying the nature of the claim.
+
+|===
+
+=== PDF Declarations Property Value Types
+
+==== Declaration
+
+A structure describing a single PDF Declaration asserting conformance with an externally-identified standard or profile.
+
+* The field namespace URI is identifier:[http://pdfa.org/declarations/]
+* The preferred field namespace prefix is *pdfd*
+
+<<Table2>> defines the fields contained within a given PDF Declaration.
+
+[[Table2]]
+.PDF Declaration fields.
+[cols="a,a,a",options="header",]
+|===
+| *Name* | *Type* | *Property content*
+
+| `pdfd:conformsTo` | URI | (_Required_) A property containing a URI specifying the standard or profile referred to by the PDF Declaration. This property is intended to mirror the Dublin Core property *dc:conformsTo*.
+
+NOTE: the convention used by PDF Declarations is to use `#` as the _[.underline]#only#_ separator between the URI path and fragment components as shown in <<DeclarationExample>> above.
+
+NOTE: processing of the value of *pdfd:conformsTo* is a simple XMP Name comparison, as defined in <<ISO_16684_1, clause=6.2>>.
+
+| `pdfd:claimData` | Unordered array of ClaimData | (_Optional_) An unordered array of claim data, where each claim identifies the nature of the claim.
+
+|===
+
+==== `ClaimData`
+
+A structure describing properties of an individual claim.
+
+* The field namespace URI is identifier:[http://pdfa.org/declarations/]
+* The preferred field namespace prefix is *pdfd*
+
+<<Table3>> defines the fields comprising the claim.
+
+[[Table3]]
+.`ClaimData` fields.
+[cols="a,a,a",options="header",]
+|===
+| *Name* |*Type* |*Property content*
+
+| `pdfd:claimBy` | Text | (_Optional_) The name of the organization, individual, software, or any combination making the claim.
+
+| `pdfd:claimDate` | Date | (_Optional_) A date identifying when the claim was made.
+
+| `pdfd:claimCredentials` | Text |(_Optional_) The claimant's credentials.
+
+| `pdfd:claimReport` | URL | (_Optional_) A URL to a report containing details of the specific conformance claim.
+
+NOTE: <<ISO_32000_2,clause="Annex O">> introduces a fragment identifier mechanism that includes the capability to reference embedded files within the PDF file. To reference a report embedded as a file directly within the PDF file, include a URL solely comprised of a fragment identifier with the parameter _ef_ and the value of the name of the file.
+
+|===

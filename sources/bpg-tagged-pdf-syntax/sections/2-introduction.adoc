@@ -1,0 +1,79 @@
+
+== Introduction
+
+This document is intended for developers implementing tagged PDF and PDF/UA. Others (including authors with some technical knowledge of PDF's accessibility mechanisms) may also benefit from this document. For example, this Guide is intended to be useful for those performing detailed accessibility testing on PDF documents claiming conformance with PDF/UA, or on PDF documents claiming to be accessible according to some other specification.
+
+=== About PDF/UA (Universal Accessibility)
+
+Ensuring content is accessible to users with disabilities presents broad and complex challenges in any technology. <<ISO_14289_1>> (PDF/UA-1) specifies technical requirements for PDF 1.7 (<<ISO_32000_1>>) -conforming files to ensure a high-quality and consistent reading experience when used by a variety of PDF/UA-conforming processors and assistive technology.
+
+=== Accessibility vs. reuse
+
+Tagged PDF facilitates content reuse for many purposes; accessibility is one such purpose. Although tagging for certain reuse purposes might differ from tagging for accessibility purposes, in general, best practice for accessibility purposes is also best practice for typical reuse objectives.
+
+The focus of this guide is the establishment of the *best possible use of PDF 1.7 syntax for accessibility* in the form of guidance on translating common content organization and semantics into structure elements.
+
+=== What this Guide is not
+
+This Guide does not provide step-by-step guidance for achieving PDF/UA conformance, nor does it offer information specific to any particular software application. This Guide does not provide information on syntax validation against PDF 1.7 and does not claim to provide complete coverage of the use of structure elements.
+
+Although this document may be useful to technically-inclined authors, it is not intended as a guide for document authors seeking information on how to tag PDF files. It does not address <<WCAG22>> or https://www.section508.gov/manage/laws-and-policies/section-508-law/[Section 508 of the US Rehabilitation Act], but it can be used to inform activities intended to achieve conformance with such requirements.
+
+=== Syntax guidance vs. tagging guidance
+
+This Syntax guide does not address all issues of interest to developers, in particular, guidance on selecting tags in various circumstances.
+
+Typical creation software simply transfers the user's selection of structuring element (however chosen) to the corresponding output irrespective of actual semantic appropriateness. PDF/UA-aware software might offer advice if an incorrect or questionable usage occurs.
+
+Guidance in semantically-correct tagging will be addressed in other PDF Association publications.
+
+=== Looking towards PDF 2.0 and PDF/UA-2
+
+Although <<ISO_32000_2>> (PDF 2.0) makes many changes to tagged PDF, the basic principles are unchanged. See <<Annex-B>> for more information. PDF/UA-2 (<<ISO_14289_2>>) is based upon PDF 2.0. It is generally consistent with PDF/UA-1 (<<ISO_14289_1>>), but there are important differences, including newly-defined and revised structure elements and clarifications on nesting limitations.
+
+=== Use of normative language
+
+In ISO standards, these terms are considered "normative", in that they have specific, defined meanings:
+
+"shall":: required (to avoid confusion with the specifications, this term is not used in this Guide)
+"should":: strongly recommended
+"may":: permitted
+
+This Best Practice Guide cannot and does not substitute for PDF/UA-1 itself, and thus only uses ISO normative terms when quoting ISO or other third-party specifications.
+
+=== Notation
+
+The following conventions are used throughout:
+
+* In the document's text, key names are given in *boldface*
+
+* In example pseudo-code, standard structure element entries (e.g., for examples) are given with angled-brackets (e.g., `<Div>`). The elements are not closed; instead, items contained within structure elements are enclosed by `{ }`. Attributes are indicated using HTML conventions, e.g. `<P lang="en-us">`, remarks or special characters are shown by `[ ]`:
+
+
+.Example use of notation
+[source,taggedpdf]
+----
+<Figure alt="PDF icon"> [a captioned illustration with alternate text] {
+    <Caption> {
+        <P> [remark or notice]
+        <P lang="en-us"> {relevant content}
+    }
+}
+----
+
+* Standard structure element entries are shown in *boldface* in a hierarchical tree view representing the logical structure in the left most column. A description of the standard structure element is given in the second column. The third column contains comments, with example content shown in quotation marks `"..."`:
+
+.Example tree notation
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>Figure</b> alt="PDF icon" | . | a captioned illustration with alternate text
+        ++ <b>Caption</b> | . | .
+        +++ <b>P</b> | paragraph | remark or notice
+        +++ <b>P</b> lang="en-us" | paragraph | "relevant content"
+    }
+}
+@endsalt
+....

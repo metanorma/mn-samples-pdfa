@@ -1,0 +1,24 @@
+[[SE_P]]
+==== `<P>` (paragraph)
+
+Paragraphs comprise the most common content type in most documents. `<P>` generally encloses distinct portions of content that are not otherwise specified with other block level structure element types such as heading, table or list elements.
+
+`<P>` is often a good "backup" choice when no other structure type is semantically appropriate, or as a fallback in role-mapping.
+
+===== Example
+
+.Paragraph
+[source,taggedpdf]
+----
+<P> {content of the paragraph}
+----
+
+===== Creation 
+
+As <<ISO_32000_1>> prohibits content as a direct child of grouping structure element types (see <<ISO_32000_1, clause="14.8.4.2 Grouping elements">>), in the absence of other semantics, it is typically appropriate to write a `<P>` structure element inside a grouping element unless the content is a heading, table or list.
+
+`<P>` is used to identify individual paragraphs. It is not semantically appropriate to enclose several paragraphs with a single `<P>` structure element, or to directly nest `<P>` structure elements.
+
+===== Consumption
+
+Some viewers may wish to reflow text enclosed in `<P>` structure elements. In such cases a visible separation of the contents of individual `<P>` structure elements is conventional.

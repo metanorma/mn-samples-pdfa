@@ -1,0 +1,87 @@
+[[SE_Index]]
+==== `<Index>`
+
+`<Index>` is a grouping element for document indices. If present, it has a descriptive element and a reference element (i.e., referring into the body of the document).
+
+===== Examples 
+
+.Index with a nested list as contents, giving more information about relationships
+[source,taggedpdf]
+----
+<Index> {
+   <L> [index as a list] {
+      <LI> [index topic] {
+         <Lbl> [section identifier, e.g. "B"]
+         <L> [list containing entries relating the topic "B"] {
+            <LI> {
+               <Lbl> [first entry, e.g. "Beer"]
+               <LBody> [containing all references] {
+                  <Reference> [first page number, e.g. 20]
+                  <Reference> [second page number, e.g, 22-24]
+                  <Reference> [see also Food]
+                  <LI> {
+                     <Lbl> [numbering, if available, e.g. "Boy"]
+                     <LBody> [containing all references]
+                     <Reference> [first page number, e.g. 28]
+                     <Reference> [second page number, e.g, 29]
+                     <Reference> [see also Girl]
+                     <LI> [index topic] {
+                        <Lbl> [section identifier, e.g. "C"]
+                        <L> [list containing entries relating the topic "C"] {
+                           <LI> {…}
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+----
+
+.Without alphabetical structure
+[source,taggedpdf]
+----
+<Index> {
+   <L> [index as a list] {
+      <LI> [index topic] {
+         <Lbl> [section identifier, e.g. "appetizer"]
+         <L> [list containing entries relating the topic "appetizer"] {
+            <LI> {
+               <Lbl> [first entry, e.g. "bruschetta"]
+               <LBody> [containing all references] {
+                  <Reference> [first page number, e.g. 20]
+                  <Reference> [second page number, e.g, 22]
+               }
+            }
+            <LI> {
+               <Lbl> [numbering, if available, e.g. "Caesar Salad"]
+               <LBody> [containing all references]
+               <Reference> [first page number, e.g. 28]
+            }
+            <LI> [index topic] {
+               <Lbl> [section identifier, e.g. "main dishes"]
+               <L> [list containing entries relating the topic "main dishes"] {
+                  <LI> {
+                     …
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+----
+
+===== Creation
+
+In principle, any structure element type may be used inside an `<Index>` element.
+
+Typically, `<Index>` elements are organized as lists, and thus, in such cases, `<L>` and `<LI>` would be used. <<SE_P,`<P>`>> is often used, too. Although PDF/UA-1 does not forbid it, to avoid confusion with the main body of the document it is recommended to avoid the use of heading elements inside `<Index>` elements.
+
+Note that an index is often preceded by a heading (e.g. "Index").
+
+===== Consumption
+
+It is recommended that consuming software offer an optional mechanism to indicate the fact that an `<Index>` is present, and to provide such an Index as an available target of navigation (distinct from headings).

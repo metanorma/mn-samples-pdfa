@@ -1,0 +1,61 @@
+[[SE_Part_Art_Sect_Div]]
+[[SE_Part]]
+[[SE_Art]]
+[[SE_Sect]]
+[[SE_Div]]
+==== `<Part>`, `<Art>`, `<Sect>`, `<Div>`
+
+`<Part>` is intended to sub-divide a large document into smaller elements. `<Art>` identifies an article within a document or part. `<Sect>` identifies the sections of a document, part or article. `<Div>` is a division of a document without semantic intent.
+
+Nether <<ISO_32000_1>> nor PDF/UA provides detailed guidance on semantically appropriate use of these structure element types.
+
+[[GroupElementExample]]
+.Example of `<Part>`, `<Art>`, `<Sect>`, and `<Div>` nesting
+[source,taggedpdf]
+----
+<Part> [e.g. category of a magazine] {
+   <Art> [first article in a category] {
+      <H1> [main content of the article]
+      <P>
+      <Sect> [info box content] {
+         <P>
+         <Div lang="de-DE"> [passage of foreign language content, where a Lang attribute is assigned to <Div>] {
+            <P>
+            <P>
+         }
+      }
+   }
+   <Art>
+   …
+}
+----
+
+.Example of `<Part>`, `<Art>`, `<Sect>`, and `<Div>` nesting
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>Part</b> | . | e.g. category of a magazine
+        ++ <b>Art</b> | article | first article in a category
+        +++ <b>H1</b> | level 1 heading | main content of the article
+        +++ <b>P</b> | paragraph | .
+        +++ <b>Sect</b> | section | .
+        ++++ <b>P</b> | . | .
+        ++++ <b>Div</b> Lang="de-DE" | . | passage of foreign language content, where a Lang attribute is assigned to <Div>
+        +++++ <b>P</b> | paragraph | .
+        +++++ <b>P</b> | paragraph | .
+        ++ <b>Art</b> | article | .
+        ++ ... | . | .
+    }
+}
+@endsalt
+....
+
+===== Creation
+
+See <<GroupElementExample>> above.
+
+===== Consumption
+
+To adequately enable users to navigate larger documents it is strongly recommended that implementations be able to reflect the semantic grouping indicated by `<Part>`, `<Art>`, and `<Sect>` elements.

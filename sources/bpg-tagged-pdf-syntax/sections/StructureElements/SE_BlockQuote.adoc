@@ -1,0 +1,62 @@
+[[SE_BlockQuote]]
+==== `<BlockQuote>`
+
+`<BlockQuote>` encloses longer portions of quoted content and can be used as a block-level element or a grouping element, whereas <<SE_Quote,`<Quote>`>> encloses quoted content within a paragraph (inline element).
+
+===== Examples
+
+.A block-level quote used as a block level element
+[source,taggedpdf]
+----
+<P>
+<BlockQuote> {content}
+<P>
+----
+
+.A block-level quote used as a block level element
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>P</b> | paragraph | .
+        + <b>BlockQuote</b> | . | content
+        + <b>P</b> | paragraph | .
+    }
+}
+@endsalt
+....
+
+.A block-level quote -- used as a grouping element -- including substructure
+[source,taggedpdf]
+----
+<P>
+<BlockQuote> {
+   <P> {content}
+   <P> {content}
+}
+<P>
+----
+
+.A block-level quote -- used as a grouping element -- including substructure
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>P</b> | paragraph | .
+        + <b>BlockQuote</b> | . | .
+        ++ <b>P</b> | paragraph | content
+        ++ <b>P</b> | paragraph | content
+    }
+}
+@endsalt
+....
+
+===== Creation
+
+No specific guidance provided.
+
+===== Consumption
+
+It is recommended that quoted content be presented such that a consumer can distinguish between quoted and unquoted content. For example, text-to-speech (TTS) could use voicing changes or beeps to indicate a quote, whereas a visual presentation using text extraction / reflow may benefit from a text styling change.

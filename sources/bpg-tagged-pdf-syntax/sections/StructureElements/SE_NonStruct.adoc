@@ -1,0 +1,17 @@
+[[SE_NonStruct]]
+==== `<NonStruct>`
+
+Has no substantive role or meaning; interpretation is out of scope for consumers of tagged PDF. The value of `<NonStruct>` is primarily as a utility for role mapping custom structure element types for which no corresponding standard structure element type is suitable.
+
+===== Examples
+
+None provided.
+
+===== Creation 
+
+A document containing custom structure elements for which there is no corresponding standard structure type, but where the content and child elements are intended to be real content. In such a case appropriate semantics require a writer to role map the custom element type to NonStruct.
+
+===== Consumption
+
+`<NonStruct>` has no semantic significance, but its content and contained structure elements may well have significance. A consuming processor would be expected to pass these children to AT and other processors.
+

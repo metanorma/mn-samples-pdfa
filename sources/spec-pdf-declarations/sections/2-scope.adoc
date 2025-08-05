@@ -1,0 +1,12 @@
+== Scope
+
+This document specifies how to include machine-readable PDF Declarations in files conforming to any part of <<ISO_32000>>.
+
+This document does not specify:
+
+* Any specific PDF Declaration
+* Determination of PDF Declaration validity
+* Correct processing for PDF Declarations
+* Technical design, user interface, implementation, or operational details
+* Provisions specific to content or classes (e.g. invoices, reports, etc.) of documents
+* Provisions specific to accessibility

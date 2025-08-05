@@ -1,0 +1,146 @@
+== General provisions
+
+=== Scope
+
+The guidelines in this clause are generally applicable to all content within a PDF/UA-1 document.
+
+[[Fundamentals]]
+=== Fundamentals
+
+The most fundamental requirement for conformance with PDF/UA-1 is introduced clause 7.1, paragraph 2:
+
+"Content shall be marked in the structure tree with semantically appropriate tags in a logical reading order."
+
+This clause discusses the significance and application of PDF/UA's requirement.
+
+==== Semantic appropriateness
+
+From time to time, this document will use the term "semantically appropriate" to indicate a reference to <<ISO_14289_1, clause="7.1, General, paragraph 2">>.
+
+Ensuring correct semantics for structure element types makes it possible for assistive technology users to understand roles and relationships in the document. PDF/UA requires conforming software to generate tagged PDF in which the tags fully represent the author's semantic rather than literal intent.
+
+Examples demonstrating the requirements of PDF/UA-1 <<ISO_14289_1, clause="7.1, General, paragraph 2">> as applied to use cases:
+
+* Heading content must be tagged with the correct structure element (`<H1>` -- `<H6>`), to provide an unambiguous relationship between the heading content and other content in the document
+* It is semantically inappropriate to include list bullets inside `<LBody>` structure elements; semantic appropriateness requires that such content be tagged with `<Lbl>` structure elements within the same `<LI>` as the pertaining `<LBody>` element.
+* If Header and ID attributes are not provided, and do not adequately identify the header relationship, each table header cell (<<SE_Table,`<TH>`>>) requires the *Scope* attribute.
+* References for footnotes must be tagged to reflect all the appropriate semantics, e.g. (`<Reference><Lbl>1</Lbl></Reference>`)
+* Soft line-breaks (typically added by end users with Shift + Return) do not indicate creation of a new BLSE.
+
+
+[example]
+====
+
+NOTE: Line breaks are not a concept that can be expressed using PDF 1.7.
+
+Input in the application:
+
+----
+{Talking about [line break] titles}
+----
+
+.PDF logical structure
+[source,taggedpdf]
+----
+<H2> {Talking about titles}
+----
+
+.PDF logical structure
+[plantuml]
+....
+@startsalt
+{
+    {T!
+        + <b>H2</b> | . | "Talking about titles"
+    }
+}
+@endsalt
+....
+
+
+====
+
+In terms of correct use of semantic structures in word-processing applications, it's common for authors to make mistakes, e.g.:
+
+* A table was used to format some content, but semantically, the content is simply a set of paragraphs.
+* Tabular information is not structured with table structure elements
+* A heading is separated in two headings because the author added a line-break for layout purposes
+
+==== Reading order
+
+A fundamental requirement for accessibility is the ability to unambiguously understand the logical order and sequencing of text and other objects. In PDF, this information is often unavailable because PDF files are traditionally created with print and display as the primary goal.
+
+A logical reading-order established via a depth-first traversal of the structure tree is a critical feature of accessible PDF files.footnote:[Reading order is further addressed in the forthcoming Tagged PDF Best Practice Guide: Tagging.]
+
+==== Mapping text to Unicode
+
+Text (page content, metadata, annotations) must be mapped to Unicode in order to be accessible (see <<ISO_32000_1, clause-"14.8.2.4.2, Unicode mapping in Tagged PDF">>).
+
+In cases in which Unicode mappings are not available (e.g, a logo encoded as text), mapping to the Unicode private use area (PUA) is the only solution that facilitates conformance to encoding requirements in PDF/UA-1. However, this results in a loss of semantic information. In order to retain such information, *Alt* or *ActualText* properties can be used (see <<CommonlyUsedPropertiesOfContent>>).
+
+=== Document level attributes
+
+PDF/UA-1 regulates document level attributes as follows:
+
+* The document level XMP metadata must include the PDF/UA "flag" (see <<Annex-A>>).
+* The document level XMP metadata must contain a Title (`dc:title`) (see <<ISO_14289_1, clause="7.1, General">> and <<ISO_14289_1, clause="8.8, Metadata">>).
+* The document's View property must be set to display the Title (not the file name) (see <<ISO_14289_1, clause="7.1, General">>).
+
+PDF/UA-1 does not explicitly require specification of a document's language at the document level (via the *Lang* entry in the Catalog dictionary), but simply requires that all content have a declared language. Accordingly, instead of the *Lang* entry in the document's catalog dictionary, the document's content could be enclosed in structure elements or marked content sequences that have the correct *Lang* attribute. However, PDF/UA-1 implicitly requires a document-level language in order to indicate applicable language for metadata and outline entries on the document level. as otherwise the applicable language for the Title entry, or any other metadata fields or entries in the outline entries (commonly referred to as bookmarks) would not be known.
+
+=== Content that spans pages
+
+Logical structure is agnostic to pagination. Accordingly, content items that span two (or more) pages must each be linked to the logical structure, in the right order, without restarting the structure element.
+
+[example]
+====
+A paragraph starts at the bottom of page 4 and continues at the top of page 5. From a logical structure perspective, this paragraph is a single content item, and is enclosed by a single <<SE_P,`<P>`>> structure element. However, from the page description level, the same paragraph is encoded in two parts, each part a marked content sequence linked to the very same <<SE_P,`<P>`>> structure element.
+====
+
+=== Empty structure elements
+
+In PDF 1.7, structure elements may be "empty" in that they do not enclose content directly or indirectly. However, it is semantically appropriate that an empty structure element only be present if there is a semantic reason for its inclusion (e.g., an empty `<<SE_Table,<TD>`>> structure element within a table to ensure correct table structure). In general, and to minimize the chances for confusion, it is recommended that structure elements not be empty unless they serve a semantic role in a defined substructure such as a <<SE_Table,`<Table>`>> or <<SE_List,`<L>` (list)>>.
+
+It is important for consumer software to be able to represent empty structure elements to the user (e.g., an empty cell in a table still needs to be conveyed for correct semantics and table understanding).
+
+Certain structure element types (e.g., <<SE_Figure,`<Figure>`>> or <<SE_BlockQuote,`<BlockQuote>`>> elements) preclude (by nature of their semantics) usage without content.
+
+It is semantically acceptable for the following types to be empty:
+
+.Empty structure elements
+[cols="a,a",options="header",]
+|===
+|*Structure element type* | *Example (non-exhaustive) use cases*
+|*TD* | Maintain table structure.
+|*LI* | Maintain list structure.
+|*Span* | ActualText for white-space characters; metadata properties; attributes.
+|*Div* | Provide metadata properties, attributes, or both.
+|*Document* | A single-page document with no content.
+|*NonStruct* and *Private* | Inclusion of arbitrary tagsets.
+|===
+
+Empty heading structure elements (*H__n__*, *H*) are discussed in <<SE_H1_H6,`<H1>`--`<H6>`>> and <<SE_H,`<H>`>> respectively.
+
+It is semantically inappropriate for all other structure element types to be empty. However, empty structure elements are a reality in real-world documents whether permitted by PDF/UA or not. The ability to handle such cases is advised.
+
+=== Role maps
+
+Tagged PDF defines a set of standard structure types (see <<ISO_32000_1, clause="14.8.4, Standard Structure Types">>) to enable interchange of document semantics, but PDF creators are not limited to this base set, and may extend it through the use of custom structure types. In such cases, *RoleMap* entries (see <<ISO_32000_1, table="322 -- Entries in the structure tree root">>) are required that map these custom structure types (e.g., "<DataTable>") to semantically-appropriate standard structure types (e.g., <<SE_Table,`<Table>`>>). Accordingly, it would be incorrect to map `<DataTable>` to <<SE_H1_H6,`<H1>`>>.
+
+=== Artifacts
+
+The process of laying out and paginating content for display can lead to the introduction of additional display items (e.g. page numbers on each page or table borders). These items are not part of what <<ISO_32000_1>> defines as "real content"; they are considered artifacts of layout (see <<ISO_32000_1, clause="14.8.2.2, Real Content and Artifacts">>). A requirement for tagged PDF is to clearly distinguish "real" content from artifacts. PDF/UA also makes it clear that artifacts must be accessible, but it is less specific about precisely what is required for content marked as Artifact.
+
+Artifact content must be accessible, therefore the basic rules of accessibility (see <<Fundamentals>>) apply, including requirements for reading order and Unicode.
+
+It is semantically inappropriate to contain semantic content within a marked content sequence tagged as artifact.
+
+==== Header and footer content
+
+Page headers and footers are usually placed automatically as a function of pagination. As such this content is not part of the reading-order of the document and is not considered to be "real content".
+
+==== Page numbers
+
+Page numbers must be marked as artifacts in marked-content sequences with a property list entry *Pagination* (see <<ISO_32000_1, table="330 -- Property list entries for artifacts">>).
+
+Accessible page enumeration is enabled through use of the Page Labels (see <<ISO_32000_1, clause="12.4.2, Page labels">>). It is semantically appropriate to have Page Label values match the visible page number.

@@ -1,0 +1,28 @@
+[[SE_Quote]]
+==== `<Quote>`
+
+`<Quote>` encloses quoted content within a paragraph (inline element). See also <<SE_BlockQuote,`<BlockQuote>`>> a block-level element that encloses longer portions of quoted content.
+
+===== Examples
+
+.A quote within a paragraph
+[source,taggedpdf]
+----
+<P> { some text {
+   <Quote> {quoted text}
+   }
+   more text
+}
+----
+
+===== Creation
+
+Where quoted content exists inside a paragraph or other block-level structure element, the `<Quote>` structure element is used.
+
+Where quoted content does not exist inside a paragraph or other block-level structure element, the <<SE_BlockQuote,`<BlockQuote>`>> structure element is used.
+
+===== Consumption
+
+It is recommended to present quoted content such that a consumer can distinguish between quoted and unquoted content.
+
+For example, text-to-speech (TTS) could use voicing changes or beeps to indicate a quote, whereas a visual presentation using text extraction / reflow may benefit from a text styling change.
