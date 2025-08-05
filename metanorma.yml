@@ -2,13 +2,13 @@
 metanorma:
   source:
     files:
-      - sources/pdfa-an-hdr-faq/document.adoc
-      - sources/pdfa-an-pdf20-001/document.adoc
-      - sources/pdfa-an-pdf20-002/document.adoc
-      - sources/pdfa-an-pdf20-003/document.adoc
-      - sources/pdfa-an-ppm/document.adoc
-      - sources/pdfa-bp-pdfa-pdfua-conform/document.adoc
-      - sources/pdfa-spec-wtpdf-1.0/document.adoc
+      - sources/an-hdr-faq/document.adoc
+      - sources/an-pdf20-001/document.adoc
+      - sources/an-pdf20-002/document.adoc
+      - sources/an-pdf20-003/document.adoc
+      - sources/an-ppm/document.adoc
+      - sources/bpg-pdfa-pdfua-conform/document.adoc
+      - sources/spec-wtpdf-1.0/document.adoc
 
   collection:
     name: PDFA Documents
