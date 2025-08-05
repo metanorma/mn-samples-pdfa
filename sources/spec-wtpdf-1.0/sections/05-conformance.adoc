@@ -99,7 +99,7 @@ PDF Declaration for the conformance level for accessibility
         <rdf:li rdf:parseType="Resource">
           <pdfd:conformsTo>
             http://pdfa.org/declarations/wtpdf/#accessibility1.0
-</pdfd:conformsTo>
+          </pdfd:conformsTo>
         </rdf:li>
       </rdf:Bag>
     </pdfd:declarations>
