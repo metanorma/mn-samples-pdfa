@@ -1,0 +1,71 @@
+== Document conventions
+
+This document is written for preservationists, many of whom are not PDF
+technologists. Thus, the structure, layout, and style of writing differs from a
+traditional ISO PDF subset standard to support end users of the format.
+
+* Bold words indicate PDF dictionary key names (just like in other PDF ISO
+specifications). PDF keys are always case-sensitive. The leading SOLIDUS “/” is
+not used by convention in PDF specification documents or this document, but is
+always required in real PDF files.
+
+* Italic words indicate PDF key values (just like in other PDF ISO
+specifications). Sometimes a key value is the same as a key name and the
+formatting differences can help distinguish this usage.
+
+* Blue italic _formatting_ indicates a specific EA-PDF “term-of-art” that is
+defined and used consistently through this document.
+
+* The uppercase word “SHALL” indicates a mandatory technical requirement. It is
+always required to be done.
+
+* The uppercase word “SHOULD” indicates a recommendation. Whatever is stated is
+not mandatory but is recommended. There are no gradations, level of importance,
+or hierarchy associated to different “should” statements. A recommendation may
+be because of a technical reason (e.g., a corner case), because technical file
+format validation would require comparing with original source email assets,
+because it is “best practice”, or that it might enable a better experience with
+non-EA-PDF aware legacy software.
+
+* The phrase “_strongly recommended_” is used in this document to indicate
+something that is [underline]#very important#, but there may be a corner case
+which means the use of “SHALL” is not technically possible. These statements are
+intended as being [underline]#_more important_# than “SHOULD” statements.
++
+NOTE: Ignoring these statements in other than the corner case is to the
+potential detriment to the goals and end users of EA-PDF!
+
+* “Can” and “may” are permissive statements, meaning that something is allowed.
+
+* “Will” and “are” indicate factual statements, possibly because one or more
+other mandated requirements are necessary (ipso facto).
+
+* Many ISO PDF specifications do not mention features unless they are prohibited
+or constrained, whereas this document may reference PDF features that can be
+utilized by EA-PDF software but for which there are no associated formal “SHALL”
+requirements or “SHOULD” recommendations.
+
+* “Note” statements are intended as explanation. These occur [underline]#_below_#
+the relevant statements. They are meant to assist the reader and do not add any
+additional formal requirements.
+
+* “Reason” statements provide an explanation behind each technical statement.
+These occur [underline]#below# the relevant statements. They are meant to assist
+the reader and do not add any additional formal requirements.
+
+* “EA-PDF Writer”, “EA-PDF Creator” and “EA-PDF Reader” statements provide
+information and hints to implementers, possibly about details found in other PDF
+specifications or nuances of features. These occur [underline]#below# relevant
+statements.
+
+* Footnotes are also used to provide additional contextual information for those
+less versed in the details of PDF technology. They are meant to assist the
+reader and do not add any additional formal requirements.
+
+* EA-PDF profile identifiers are all lowercase letters and occur after the
+`PDF/mail-1` moniker. A set-like syntax using curly braces, such as
+`PDF/mail-1 {s,m}`, is used to indicate when multiple profiles are being
+referenced. This example is equivalent to “`PDF/mail-1s` and `PDF/mail-1m`”. If
+no profile identifiers are stated (as in `PDF/mail-1`), then all profiles are
+being referenced.
+
