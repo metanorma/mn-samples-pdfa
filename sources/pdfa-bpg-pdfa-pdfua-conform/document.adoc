@@ -9,7 +9,7 @@
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
-:doctype: best-practice
+:doctype: best-practice-guide
 :docstage: 60
 :docsubstage: 60
 :docidentifier: PDFA/bp-pdfa-ua-1.0.0:2025
