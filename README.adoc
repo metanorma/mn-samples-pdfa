@@ -1,6 +1,55 @@
-= PDFA Metanorma Documents
+= PDFa Metanorma documents
 
-These documents belong to the PDF Association.
+These documents belong to the PDF Association (PDFa).
+
+== Document identifiers
+
+The PDF Association utilize document identifiers in the following manner:
+
+[source]
+----
+PDFa {document-type-abbrev} {numeric-string-identifier}:{copyright-year} ({version})
+----
+
+Where,
+
+`{document-type-abbrev}`:: Abbreviation for the document type
+`AN`::: Application Note
+`BPG`::: Best Practice Guide
+`TN`::: Technical Note
+`{empty}`::: Specification
+
+`{numeric-string-identifier}`:: Numeric or string identifier, some documents are
+identified by numbers and some by unique short names.
++
+[example]
+====
+* `AN 003` is Application Note 003
+* `TN 0010` is Technical Note 0010
+* `BPG tagged-pdf-syntax` is Best Practice Guide for the Tagged PDF Syntax
+* `wtpdf` is the Specification for Well-Tagged PDF
+====
+
+`{copyright-year}`:: Copyright year in 4-digits.
+
+`{version}`:: Version of the document, in the format `{major}.{minor}.{patch}`.
++
+[example]
+====
+* `1.2.0` is version 1.2.0
+====
+
+Examples of document identifiers are given below:
+
+[example]
+====
+PDFa AN hdr-faq:2025 (1.0.0)
+PDFa AN 003:2021 (1.0.0)
+PDFa AN ppm:2024 (1.0.0)
+PDFa BPG tagged-pdf-syntax:2023 (1.1.0)
+PDFa wtpdf:2024 (1.0.0)
+PDFa TN 0010:2017 (1.0.0)
+====
 
 == Structure
 
@@ -8,33 +57,43 @@ These documents belong to the PDF Association.
 Source of the documents.
 
 `sources/an-hdr-faq/`::
+(PDFa AN hdr-faq:2025 (1.0.0))
 Application Note: FAQ on HDR in PDF: Focus on PDF/A and PDF/X.
 
 `sources/an-pdf20-001/`::
+(PDFa AN 001:2018 (1.0.0))
 Application Note: PDF 2.0 001 Usage of Black Point Compensation
 
 `sources/an-pdf20-002/`::
+(PDFa AN 002:2018 (1.0.0))
 Application Note: PDF 2.0 002 Associated Files
 
 `sources/an-pdf20-003/`::
+(PDFa AN 003:2021 (1.0.0))
 Application Note: PDF 2.0 003 Clarification on locations for object metadata streams
 
 `sources/an-ppm/`::
+(PDFa AN ppm:2024 (1.0.0))
 Application Note: Use of standard Print Product Metadata (PPM) with PDF
 
 `sources/bpg-pdfua-conform/`::
+(PDFa BPG pdfa-ua:2025 (1.0.0))
 Best Practice Guide: Conforming to both PDF/A & PDF/UA
 
 `sources/bpg-tagged-pdf-syntax/`::
+(PDFa BPG tagged-pdf-syntax:2023 (1.1.0))
 Best Practice Guide: Tagged PDF Best Practice Guide: Syntax
 
 `sources/spec-wtpdf/`::
+(PDFa wtpdf:2024 (1.0.0))
 Specification: Well-Tagged PDF (WTPDF) 1.0
 
 `sources/spec-pdf-declarations/`::
+(PDFa pdf-declarations:2024 (1.2.0))
 Specification: PDF Declarations: A use of ISO 32000
 
 `sources/tn-0010/`::
+(PDFa TN 0010:2017 (1.0.0))
 Technical Note 0010: Clarifications of ISO 19005, parts 1-3 for developers of PDF/A creators and validators
 
 `reference-docs/`::
