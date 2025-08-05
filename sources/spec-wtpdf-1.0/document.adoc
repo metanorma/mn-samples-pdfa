@@ -13,7 +13,7 @@
 :doctype: specification
 :docstage: 60
 :docsubstage: 60
-:docidentifier: PDFA/WTPDF-1.0.0:2024
+:docidentifier: PDFa wtpdf:2024 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

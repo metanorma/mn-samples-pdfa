@@ -12,7 +12,7 @@
 :doctype: application-note
 :docstage: 60
 :docsubstage: 60
-:docidentifier: PDFA/an-hdr-faq-1.0.0:2025
+:docidentifier: PDFa AN hdr-faq:2025 (1.0.0)
 :imagesdir: images
 :document-scheme: 2024
 :local-cache-only:
