@@ -13,7 +13,7 @@
 :doctype: application-note
 :docstage: 60
 :docsubstage: 60
-:docidentifier: PDFA/PDF2.0/001-1.0.0:2018
+:docidentifier: PDFa AN 001:2018 (1.0.0)
 :imagesdir: images
 :document-scheme: 2024
 :local-cache-only:
