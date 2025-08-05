@@ -9,6 +9,7 @@ metanorma:
       - sources/an-ppm/document.adoc
       - sources/bpg-pdfa-pdfua-conform/document.adoc
       - sources/spec-wtpdf-1.0/document.adoc
+      - sources/tn-0010/document.adoc
 
   collection:
     name: PDFA Documents

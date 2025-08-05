@@ -1,0 +1,40 @@
+== Foreword
+
+=== Preface
+
+This Technical Note was produced by the PDF Association’s PDF Validation
+Technical Working Group (TWG).
+
+The TWG developed this content in the context of an in-depth review of existing
+ISO 19005 (PDF/A) specifications conducted between October, 2014 and December,
+2016. Ambiguities were identified by:
+
+* Formally analyzing the PDF/A specifications in the process of implementing veraPDF
+* Reviewing the performance of existing PDF/A validators
+* Discussing the questions posted to the TWG mailing list
+
+Consistent with the work of the PDF Validation TWG, the understandings specified
+in this TechNote have been realized in test files produced as part of the
+veraPDF Test Suite. The test files pertinent to these resolutions are available
+in the veraPDF Test Corpus located on GitHub:
+https://github.com/veraPDF/veraPDF-corpus.
+
+=== ISO TC 171 SC 2 WG 5 review
+
+The current document provides interpretation of the existing specifications, and
+does not change the text of those specifications.
+
+In addition to the PDF Validation TWG’s review, each ambiguity identified by the
+TWG was reviewed by the ISO Working Group (WG) responsible for ISO 19005.
+Although the ISO WG has, at this time, decided not to update existing parts of
+ISO 19005, it has accepted many of the TWGs proposals as described herein.
+
+=== Enumeration
+
+A021’s enumeration was mistakenly duplicated in presentation to the ISO WG. A
+correction was applied in this document. Accordingly, the enumeration herein of
+A022 – A028 differs from the enumeration used in the TWG presentations to the
+ISO WG.
+
+A011 and A015, originally presented to the ISO WG as separate concerns, have
+been merged.

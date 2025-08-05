@@ -1,0 +1,1708 @@
+= PDF Association Technical Note 0010: Clarifications of ISO 19005, parts 1-3 for developers of PDF/A creators and validators
+:docnumber: 3
+:edition: 1
+:revdate: 2017-06-29
+:copyright-year: 2017
+:language: en
+:title-main-en: Clarifications of ISO 19005, parts 1-3 for developers of PDF/A creators and validators
+:technical-committee: PDF Validation Technical Working Group (TWG)
+:boilerplate-authority: ../_common/boilerplate.adoc
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: technical-note
+:docstage: 60
+:docsubstage: 60
+:docidentifier: PDFA/TN 0010:2017
+:imagesdir: images
+:document-scheme: 2024
+:local-cache-only:
+
+include::sections/00-foreword.adoc[]
+
+== Scope
+
+This document provides clarifications for developers of PDF/A creators and
+validators through an in-depth review of existing ISO 19005 (PDF/A)
+specifications conducted between October, 2014 and December, 2016.
+
+
+The clarifications are meant to address ambiguities identified by:
+
+* Formally analyzing the PDF/A specifications in the process of implementing veraPDF
+* Reviewing the performance of existing PDF/A validators
+* Discussing the questions posted to the TWG mailing list
+
+
+[bibliography]
+== Normative references
+
+* [[[ISO_19005,ISO 19005 (all parts)]]]
+
+* [[[ISO_32000-2,ISO 32000-2:2020]]], (PDF 2.0) https://www.iso.org/standard/75839.html
+
+
+== Terms and definitions
+
+
+== Implementation limits
+
+NOTE: PDF/A-next does not include implementation limits.
+
+
+=== Implementation limits for integers in PDF/A-1 (A001)
+
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.1.12
+
+==== Background
+
+The implementation limits for ISO 19005-1 files are specified in the PDF 1.4
+Reference, Appendix C.1. The limits for integers are given as from
+-2,147,483,648 to +2,147,483,648, and for reals; from - 32,767 to +32,767
+(approximate).
+
+However, PDF 1.4 allows specifying the object type as “number” meaning it can be
+either integer or real (see PDF 1.4 Reference, 3.2.2). It is thus unclear which
+implementation limits shall be effective.
+
+
+==== Precise formulation of the problem
+
+Tz operator arguments (and at least 30 other operators as well as 6 keys in the
+graphics state parameter dictionary, all keys in CalGray and CalRGB colour space
+dictionaries and so on) in the content stream are specified as “number
+throughout PDF 1.4. It is not clear whether the argument value 40,000 would
+violate the implementation limits of PDF 1.4, and, thus, the requirements of ISO
+19005-1.
+
+
+==== ISO WG Resolution
+
+The aim of implementation limits is to ensure that the document can be parsed.
+In this context, the semantic meaning of the Number object is irrelevant.
+
+If a Number is expected according to the PDF specification, then both Integer
+and Real are accepted and implementation limits apply separately to an Integer
+and a Real object type. But if a Real is specified as an object type, then only
+implementation limits for Real apply.
+
+[example]
+====
+According to the PDF 1.4 Reference, Table 5.2, the argument of the Tz operator is specified as:
+
+|===
+|Operands |Operator |Description
+
+|scale
+|Tz
+|Set the horizontal scaling, Th, to (scale ÷ 100). scale is a number
+specifying the percentage of the normal width. Initial value: 100
+(normal width).
+
+|===
+
+In the case of "40000 Tz", the operand "40000" is parsed as an Integer, and
+thus, does not violate the implementation limits of ISO 19005-1. However, in the
+case of "40000.0 Tz" the operand is parsed as Real and breaks the validation
+limits. It is also understood that any implicit conversion logic from Integer to
+Real is implementation-specific and is outside of the scope of normative
+requirements.
+====
+
+
+
+=== Nesting level of Q/q in case of Form XObjects (A004)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO
+19005-3, 6.1.13
+
+==== Background
+
+Operators q and Q are used to save and restore the current graphics state in the
+content stream. PDF 1.4 Reference, Annex C.1 limits the maximal number of nested
+q/Q pairs to 28.
+
+In addition, any use of a *Form XObject* via *Do* operator implicitly involves
+additional save and restore operations, as well as execution of all operators
+from the *Form XObject* content stream.
+
+
+==== Precise formulation of the problem
+
+It is not clear if the implementation limit or maximal number of nested q/Q
+pairs considers nested Form XObjects, or is applicable only to the q/Q pairs
+found within an isolated content stream.
+
+
+==== PDF Validation TWG proposal
+
+As each form XObject constitutes its own graphics context it must be considered
+in isolation. ISO 19005-1 6.1.2 should be read as if it included the following
+paragraph:
+
+[quote]
+____
+The implementation limits for the number of nested q/Q pairs assume that each
+content stream is considered in isolation, ignoring the potential cumulative
+effect of nesting form XObjects.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
+(above) was part of the specification.
+
+
+=== Definition of length for Name and String objects (A005)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO
+19005-3, 6.1.13
+
+==== Background
+
+PDF 1.4 Reference, Annex C.1 specifies the maximal allowed length of a Name
+object (127) and a String object (4095).
+
+However, there are several ways to encode the same byte sequence as a Name or
+String object using special escape sequences: #HH in case of Names and \ddd in
+case of Strings. Strings also can be encoded in a hexadecimal format, where each
+byte is represented as two hexadecimal characters.
+
+In addition, PDF 1.4 specifies how to encode Unicode strings as Name or String
+objects. Again, the byte sequence representing a Unicode string may have a
+length different from the length of the original Unicode string.
+
+PDF 1.4, 3.2.4, in the paragraph after Table 3.3, suggests a clarification of
+the Name object length:
+
+[quote]
+____
+The length of a name is subject to an implementation limit; see Appendix C. The
+limit applies to the number of characters in the name’s internal representation.
+For example, the name /A#20B has four characters (/, A, space, B), not six.
+____
+
+This clarification itself contains a typographical error, as the leading slash
+character (`/`) is not a part of the internal Name representation. This was
+corrected in ISO 32000-1, 7.3.5, in the paragraph following Note 3.
+
+
+==== Precise formulation of the problem
+
+It is not clear how the length of the Name and the String objects is defined with respect to the
+normative implementation limits.
+
+
+==== PDF Validation TWG proposal
+
+As suggested by ISO 32000-1, the length of a Name and a String object shall be
+defined as a length of its internal representation. Accordingly, ISO 19005-1,
+6.1.12 should be read as if it included the following paragraph at the end of
+the subclause:
+
+[quote]
+____
+The length of a Name or a String object is defined as the length of its internal
+byte representation resulting from decoding all escape sequences used to
+represent the Name or a String in the PDF file, or decoding the hexadecimal
+representation of a String.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
+(above) was part of the specification.
+
+=== Implementation limits for CIDs (A007)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+
+==== Background
+
+The implementation limits for ISO 19005-1 files are specified in PDF 1.4 Reference, Appendix C.1.
+
+The maximal value of a CID (character identifier) is specified as 65,535.
+
+The algorithm for decoding the argument of the text show operators into a sequence of CID
+values is defined by the CMap object associated with any Type0 (composite) font. The CMap
+specification itself does not limit the range of CID values. However, all commonly used glyph
+collections contain less than 65,535 glyphs
+
+==== Precise formulation of the problem
+
+It is not clear whether the implementation limit for CID values is applicable to the CID values of
+glyphs used in the content streams, or to CMap data itself independently of the arguments of text
+showing operators to which they apply. It is also not clear whether fonts used only in rendering
+mode 3 are exempt from this requirement.
+
+
+==== ISO WG Resolution
+
+The implementation limit for CID values is applied to a CMap syntax to guarantee that the CMap
+stream can be parsed.
+
+=== Minimal real values in PDF/A-2 and 3 (A018)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+
+
+
+==== Background
+
+ISO 19005-2, 6.1.13 states:
+
+[quote]
+____
+A conforming file shall not contain any real number closer to zero than ±1.175 x
+10-38.
+____
+
+However, in ISO 32000-1, Annex C, Table C.1. a similar implementation limit is
+formulated as:
+
+[quote]
+____
+±1.175 × 10-38 - Nonzero real values closest to 0 (approximate). Values closer
+than these
+are automatically converted to 0.
+____
+
+In other words, the clause should be interpreted as a precision recommendation
+in comparison of real values, rather than a ‘shall’ requirement. Converting real
+values that are too close to zero, to 0.0, does not normally lead to any
+ambiguities noticeable by a human eye. It is also a standard practice to use a
+certain precision in any implementation using real-valued arithmetic.
+
+
+==== Precise formulation of the problem
+
+The specification of a minimal possible non-zero absolute value of a real number
+is a specification of an acceptable precision in real value arithmetic rather
+than a ‘shall’ requirement.
+
+
+==== ISO WG Resolution
+
+Non-zero values between the positive and negative thresholds are not permitted
+in ISO 19005-2 and ISO 19005-3 since this is clearly defined in these standards.
+
+=== Maximal real values in PDF/A-2 and 3 (A019)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+
+==== Background
+
+ISO 19005-2, 6.1.13 copies the list of limits from ISO 32000-1 and lists them
+explicitly. The problem is that in ISO 32000 the maximum real value is "3.403 x
+10^38 (approximately)" whereas the "approximately" has been dropped in ISO
+19005-2.
+
+The value in question is likely to be 3.4028234 × 10^38, which is the maximum
+value that may be represented in 32-bit floating point (IEEE754). Larger values,
+including values allowed by ISO 19005-2, require 64-bit numbers for accurate
+representation. This example of a page content stream demonstrates the issue:
+
+[source]
+----
+1 0 0 1 340290000000000000000000000000000000000.0 0 cm
+1 0 0 1 -340290000000000000000000000000000000000.0 0 cm
+1 0 0 rg 32 32 531 778 re f
+----
+
+This is valid in ISO 32000-2, and should display a red rectangle on the page,
+but it cannot be correctly handled by any viewer that uses 32-bit floating point
+arithmetic.
+
+
+==== Precise formulation of the problem
+
+The maximal real value is given (slightly) incorrectly in the implementation
+limits of ISO 19005-2.
+
+
+==== ISO WG Resolution
+
+The requirement itself is unambiguous; implementation is outside the scope of
+the ISO WG.
+
+
+
+== Resources dictionary
+
+=== Explicitly defined named resources (A002)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.2 and PDF/A-3 - ISO 19005-3, 6.2.2
+
+==== Background
+
+The Resources dictionary is used to define the named resources, such as images
+and fonts, that are used in a content stream. However, ISO 32000-1, 7.8.3
+states:
+
+[quote]
+____
+PDF files written obeying earlier versions of PDF may have omitted the Resources
+entry in all form XObjects and Type 3 fonts used on a page. All resources that
+are referenced from those forms and fonts shall be inherited from the resource
+dictionary of the page on which they are used. This construct is obsolete and
+should not be used by conforming writers.
+____
+
+Both ISO 19005-2 and ISO 19005-3 forbid this practice, and require that any of
+the named resources used in the content stream be defined by the Resources
+dictionary explicitly associated with that content stream.
+
+NOTE: The Resources dictionary is not required if the content stream does not
+reference any named resources.
+
+
+==== Precise formulation of the problem
+
+The first sentence of the last paragraph of clause 6.2.2 states:
+
+[quote]
+____
+A content stream that references other objects, such as images and fonts that
+are necessary to fully render or process the stream, shall have an explicitly
+associated Resources dictionary as described in ISO 32000-1:2008, 7.8.3.
+____
+
+It does not mention whether the named resources shall be defined in this
+explicitly associated Resources dictionary, and is thus ambiguous.
+
+
+==== PDF Validation TWG proposal
+
+As the intention of both ISO 19005-2 and 19005-3 is to forbid the practice of
+defining resources implicitly, it would be better to clarify this explicitly.
+
+Accordingly, subclause 6.2.2 in ISO 19005-1 and ISO 19005-2 should be read as if
+it included the following sentence after the first sentence in the last
+paragraph of 6.2.2:
+
+[quote]
+____
+Such a Resources dictionary shall define all named resources referenced by this
+content stream.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part
+of the specification.
+
+NOTE: The ISO WG accepted the proposal for PDF/A-next.
+
+
+
+=== Inheritance of default colour spaces (A028)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.2, PDF/A-3 - ISO 19005-3, 6.2.2
+
+==== Background
+
+ISO 19005-2 and ISO 19005-3 include a clause specifying that each content stream
+shall define all required resources in an explicitly associated Resources
+dictionary:
+
+[quote]
+____
+A content stream that references other objects, such as images and fonts that
+are necessary to fully render or process the stream, shall have an explicitly
+associated Resources dictionary as described in ISO 32000-1:2008, 7.8.3.
+____
+
+However, it is not clear whether default colour spaces are also covered by this
+clause.
+
+
+==== Precise formulation of the problem
+
+It is not clear if subclause 6.2.2 is also applicable to the default colour
+spaces, or, in other words, if the default colour spaces, if used, shall always
+be defined in the explicitly associated Resources dictionary.
+
+
+==== PDF Validation TWG proposal
+
+ISO 19005-2 and ISO 19005-3 should be read as if the following text was added to the end of 6.2.2:
+
+[quote]
+____
+Any default colour space as specified in ISO 32000-1, 8.6.5.6 shall also be
+defined in the explicitly associated resources dictionary. A conforming reader
+shall ignore any resources not defined in this resources dictionary.
+
+NOTE 3: This provision explicitly prohibits an obsolete construct of inheriting
+the omitted Resources entry in form XObjects and Type3 fonts from the resources
+dictionary on the page where they are used.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part
+of the specification.
+
+=== Inheritance of Resource dictionaries (A003)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.2 and PDF/A-3 - ISO 19005-3, 6.2.2
+
+==== Background
+
+The inheritance mechanism for page Resources dictionaries has been a source of
+ambiguities in several implementations.
+
+ISO 32000-1, 7.8.3 describes several ways of associating the Resources
+dictionary with a content stream. In particular, the page tree defines a special
+inheritance mechanism (ISO 32000-1, 7.7.3.4) for associating Resources
+dictionaries with page content:
+
+[quote]
+____
+Some of the page attributes shown in Table 30 are designated as inheritable. If
+such an attribute is omitted from a page object, its value shall be inherited
+from an ancestor node in the page tree. If the attribute is a required one, a
+value shall be supplied in an ancestor node. If the attribute is optional and no
+inherited value is specified, the default value shall be used.
+____
+
+And, ISO 32000-1, Table 30:
+
+[quote]
+____
+Resources – dictionary – (Required, inheritable)
+____
+
+==== Precise formulation of the problem
+
+The term “explicitly associated Resources dictionary” in ISO 19005-2 and ISO
+19005-3, clause 6.2.2 is not defined in either PDF/A or PDF specifications. In
+particular, it is not clear whether the Resources dictionaries inherited via a
+Pages tree are considered “explicitly associated”, or not.
+
+
+==== ISO WG Resolution
+
+ISO 19005-2 and 19005-3 use the term “explicitly associated Resources
+dictionary” exclusively for *Resources* entry in a Page dictionary, a Tiling
+Pattern dictionary, a Form XObject dictionary (including Annotation appearance
+streams), or a Type3 font dictionary.
+
+NOTE: This requirement will be made more explicit in PDF/A-next.
+
+
+
+== Glyph metrics
+
+=== Width consistency for unused glyphs (A006)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1 (Cor. 2), 6.3.6
+
+==== Background
+
+ISO 19005-1 requires consistent glyph metrics to ensure predictable font
+rendering regardless of whether a given reader uses the metrics in the font
+dictionary or those in the font program. This requirement was clarified in
+Corrigendum 2 to be applicable only to fonts used for rendering:
+
+[quote]
+____
+For every font embedded in a conforming file and used for rendering, the glyph
+width information in the font dictionary and in the embedded font program shall
+be consistent.
+____
+
+The meaning of the term “used for rendering” is implicitly defined in subclause
+6.3.4 “Embedded font programs”, and includes fonts used in page content streams,
+Form XObject streams, appearance streams of annotations including forms, content
+streams of Type3 font glyphs and streams of tiling patterns. This subclause also
+explicitly states that if a font is used only in rendering mode 3, it may not be
+embedded.
+
+
+==== Precise formulation of the problem
+
+It is not clear if the glyphs not used for rendering (or used only in rendering
+mode 3) are subject to the width consistency requirement if other glyphs of the
+same font are used for rendering.
+
+
+==== PDF Validation TWG proposal
+
+Inconsistent metrics for font glyphs do not affect the visual appearance of the
+PDF document if the font glyphs in question are not used for rendering. The TWG
+proposed a clarification of this subclause to require consistent width
+information only for those font glyphs used for rendering, as defined by
+subclause 6.3.4. Further, the TWG proposed that font glyphs used only in
+rendering mode 3 be exempt from the widths consistency requirement, even if
+other glyphs of the same font are used for rendering with rendering modes other
+than 3.
+
+Accordingly, subclause 6.3.6 in ISO 19005-1 (Corr. 2) should be read as if it
+was replaced with:
+
+[quote]
+____
+For every font embedded in a conforming file, the glyph width information in the
+font dictionary and in the embedded font program shall be consistent for every
+glyph used for rendering with a rendering mode other than 3. Glyphs that are
+used only with rendering mode 3 are exempt from this requirement.
+____
+
+==== ISO WG Resolution
+
+ISO 19005-1 (Corr. 2) should be read as if the Proposal (above) was part of the specification.
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+=== Consistency of vertical font metrics (A008)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.3.6, PDF/A-2 – ISO 19005-2, 6.2.11.5, and PDF/A-3 – ISO
+19005-3, 6.2.11.5
+
+
+
+==== Background
+
+Although ISO 19005-1, 6.3.6 is called “Font metrics” it covers only glyph
+widths, which are horizontal metrics. However, vertical metrics may also be
+present in the embedded TrueType/OpenType programs, and their consistency with
+the information present in the font descriptor dictionary is equally important.
+
+
+==== Precise formulation of the problem
+
+The requirement for consistency of vertical metrics between font dictionary and
+the “fhea” and “fmtx” tables of embedded TrueType font program is not covered by
+ISO 19005-1, but is critical to ensuring predictability of font rendering in
+vertical mode.
+
+
+==== PDF Validation TWG proposal
+
+Add the following paragraph at the end of ISO 19005-1 6.3.6:
+
+[quote]
+____
+If a composite (Type0) font is used for rendering in vertical writing mode and
+if the associated embedded font program contains information about vertical
+metrics of the glyphs, this information shall also be consistent with values of
+the DW2 and W2 keys in the font descriptor dictionary.
+____
+
+
+==== ISO WG Resolution
+
+Consistency for glyph metrics in vertical writing mode is out of scope in ISO
+19005-1, ISO 19005-2 and ISO 19005-3. Accordingly, validators of these parts of
+ISO 19005 are not obliged to validate documents in this regard.
+
+NOTE: The proposed paragraph was accepted for PDF/A-next.
+
+
+
+== Private data
+
+=== Validation of private data (A009)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.1.1
+
+==== Background
+
+ISO 19005-1 documents may store private information under custom keys not
+specified by the PDF 1.4 Reference. Such data is for private use by specific
+applications and shall not be used for PDF rendering. However, as private data
+is still based on PDF object structures, it is subject to low-level syntax
+requirements described in ISO 19005-1, 6.1 “File structure”.
+
+In addition, all custom keys used to define private data should follow the
+requirements of PDF 1.4 Reference, Annex E “PDF Name Registry”. However, as
+these requirements are irrelevant for the visual appearance of PDF documents,
+they are outside of the scope of ISO 19005.
+
+Finally, ISO 19005-1, 6.1.4 states:
+
+[quote]
+____
+Any object whose offset is not referenced in the cross-reference table shall be
+exempt from all requirements of this part of ISO 19005.
+____
+
+Indirectly, this implies that any object referenced in the cross-reference table
+is subject to the requirements of clause 6.1.
+
+
+==== Precise formulation of the problem
+
+It is not clear whether objects referenced in the cross-reference table, but not
+reached from the document’s root dictionary via the first-class names defined in
+PDF 1.4 Reference are subject to the requirements of ISO 19005-1, 6.1.
+
+
+==== PDF Validation TWG proposal
+
+As the aim of ISO 19005-1, 6.1 is to ensure that the object structure of the PDF
+document can be parsed unambiguously, it is proposed that the specification be
+read as if it includes an explicit statement to the effect that private data is
+still subject to requirements of all subclauses of 6.1 including, in particular:
+
+* 6.1.6 String objects
+* 6.1.7 Stream objects
+* 6.1.8 Indirect objects
+* 6.1.10 Filters
+* 6.1.11 Embedded files
+* 6.1.12 Implementation limits
+
+Accordingly, ISO 19005-1 should be read as if it included the following sentence
+at the end of 6.1.4:
+
+[quote]
+____
+A conforming PDF/A-1 document may contain any custom data not specified by PDF
+Reference. However, this data shall not be used for rendering by a conforming
+reader and shall still comply to the requirements of clauses 6.1.2 - 6.1.11.
+____
+
+==== ISO WG Resolution
+
+ISO 19005-1 should be read as if the Proposal (above) was part of the
+specification.
+
+
+
+== Unreferenced resources
+
+=== Named resources not referenced in the content stream (A010)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1/Corr.2, 6.2.10, PDF/A-2 - ISO 19005-2, 6.2.2 and PDF/A-3 -
+ISO 19005-3, 6.2.2
+
+==== Background
+
+The resource dictionary of any content stream in the PDF document may contain
+resources that are not referenced within the content stream, and, thus, do not
+affect rendering of the content stream.
+
+Corrigendum 2 to ISO 19005-1 as well as ISO 19005-2 and 19005-3 contain a
+special clause to exclude such resources from further requirements:
+
+[quote]
+____
+Any named resource present in a resources dictionary, but whose name is not referenced
+from the associated content stream, is not used for rendering and therefore shall be
+exempt from all requirements of this part of ISO 19005.
+____
+
+
+==== Precise formulation of the problem
+
+Read literally, the paragraph added in Corrigendum 2 exempts the unreferenced
+resources from all requirements of ISO 19005-1, 6.1, thus permitting the use of
+LZW compression and violating implementation limits. As a side effect, this
+interpretation might introduce ambiguity in low-level parsing of the PDF
+document. The same clause (and thus, the same problem) occurs in ISO 19005- 2,
+6.2.2 and ISO 19005-3, 6.2.2.
+
+
+==== PDF Validation TWG proposal
+
+To ensure predictability in base object parsing of a conforming PDF document,
+ISO 19005-1/Corr.2 should be read as if this paragraph:
+
+[quote]
+____
+Any named resource present in a resources dictionary, but whose name is not
+referenced from the associated content stream, is not used for rendering and
+therefore shall be exempt from all requirements of this part of ISO 19005.
+____
+
+was replaced with this paragraph:
+
+[quote]
+____
+Any named resource present in a resources dictionary, but whose name is not
+referenced from the associated content stream, is not used for rendering and
+therefore shall be exempt from all requirements of this part of ISO 19005 except
+for clauses 6.1.2 to 6.1.11.
+____
+
+Similarly, ISO 19005-2 and ISO 19005-3 should read as if the same clause (the last sentence in
+6.2.2) was replaced with:
+
+[quote]
+____
+Any named resource present in a resources dictionary, but whose name is not
+referenced from the associated content stream, is not used for rendering and
+therefore shall be exempt from all requirements of this part of ISO 19005 except
+for clauses 6.1.2 to 6.1.13.
+____
+
+==== ISO WG Resolution
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
+(above) was part of the specification.
+
+In addition to clause 6.1, such unreferenced resources shall be compliant with
+the corresponding PDF specifications (ISO 32000-1 for ISO 19005-2 and ISO
+19005-3; ISO 32000-2 for PDF/A-Next).
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+
+=== Named resources not used for rendering (A011, A015)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1/Corr.2, 6.2.10
+
+==== Background
+
+ISO 19005-1/Corr. 2 contains a clause that excludes resources unreferenced from
+the corresponding content stream from further requirements:
+
+[quote]
+____
+Any named resource present in a resources dictionary, but whose name is not
+referenced from the associated content stream, is not used for rendering and
+therefore shall be exempt from all requirements of this part of ISO 19005.
+____
+
+However, some resources may be referenced from the content stream, but not
+actually used for rendering. For example, in a sequence of commands
+
+[source]
+----
+/CS1 cs %set colour space to the resource /CS1
+/CS2 cs %reset it to a different resource /CS2
+----
+
+the named colour space “CS1” is not actually used for rendering. Similarly,
+device colors can be set, but never used for rendering. For example, in a
+sequence of commands such as:
+
+[source]
+----
+1 0 0 0 k 1 0 0 rg
+----
+
+the DeviceCMYK color is not actually used for rendering.
+
+
+==== Precise formulation of the problem
+
+It is not clear if the named resources referenced from the associated content
+stream, but not used for rendering, are exempt from other requirements.
+Similarly, it is not clear if the requirements on the use of device colour
+spaces are applicable to device colour spaces referenced in the content stream,
+but not used for rendering.
+
+
+==== ISO WG Resolution
+
+Setting the resource in a current graphics state means it is already used and,
+thus, is subject to all requirements of ISO 19005-1.
+
+The colours shall also be specified (even if not used for rendering) in a
+device-independent manner according to 19005-1, 6.2.3.1; 19005-2, 6.2.4.1 and
+ISO 19005-3, 6.2.4.1.
+
+
+== Appearance streams of widget annotations
+
+=== Appearance streams for Button form fields (A012)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1/Corr.2, 6.5.3, PDF/A-2 - ISO 19005-2, 6.3.3 and PDF/A-2 -
+ISO 19005-2, 6.3.3
+
+==== Background
+
+Widget annotations are used to represent visual appearance and interactivity for
+PDF form fields.
+
+The PDF 1.4 Reference does not require appearance streams of Widget annotations
+to be present in the document, leaving it to PDF readers to generate this
+appearance based on the form field value and other properties. To avoid this
+ambiguity, ISO 19005 requires appearance streams of Widget annotations to be
+present and unambiguously defined via the *N* key in the annotation appearance
+dictionary (so-called normal appearance).
+
+This has been stated in the initial version of ISO 19005-1, 6.9:
+
+[quote]
+____
+Every form field shall have an appearance dictionary associated with the field's
+data. A conforming reader shall render the field according to the appearance
+dictionary without regard to the form data.
+____
+
+and in ISO 19005-1, 6.5.3:
+
+[quote]
+____
+If an annotation dictionary contains the *AP* key, the appearance dictionary
+that it defines as its value shall contain only the *N* key, whose value shall
+be a stream defining the appearance of the annotation.
+____
+
+As Widget annotations representing some form fields such as, for example, radio
+buttons, have several states and require a separate appearance stream for each
+state, the original text was corrected in ISO 19005-1/Corr. 2, 6.5.3:
+
+[quote]
+____
+For all annotation dictionaries containing an *AP* key, the appearance
+dictionary that it defines as its value shall contain only the *N* key. If an
+annotation dictionary’s *Subtype* key has a value of Widget and its *FT* key has a
+value of Btn, the value of the *N* key shall be an appearance subdictionary;
+otherwise the value of the *N* key shall be an appearance stream.
+____
+
+
+==== Precise formulation of the problem
+
+The change to ISO 19005-1, 6.5.3 introduced in Corrigendum 2 and integrated into
+ISO 19005-2 and ISO 19005-3 is not fully correct, as pushbutton fields, which
+also have Button field type (Btn value of the *FT* key), have no permanent value
+and, thus, only one appearance stream can be associated with them.
+
+
+==== ISO WG Resolution
+
+The button fields may also have multiple appearance states. Accordingly, the
+push button, as with any field of type _Btn_, shall always have an appearance
+subdictionary as the value of the *N* key, even if it has only a single entry.
+
+
+
+=== Appearance streams for Widget annotations (A022)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.9
+
+==== Background
+
+ISO 19005-1 does not require all annotations to have appearance streams.
+However, it does require that all form fields shall have an appearance stream
+(or streams) associated with the field:
+
+[quote]
+____
+Every form field shall have an appearance dictionary associated with the field's
+data. A conforming reader shall render the field according to the appearance
+dictionary without regard to the form data.
+____
+
+The PDF 1.4 Reference, 8.4.5 says that:
+
+[quote]
+____
+Interactive forms (see Section 8.6, “Interactive Forms”) use widget annotations
+(PDF 1.2) to represent the appearance of fields and to manage user interactions.
+____
+
+The PDF 1.4 Reference here implies that any Widget annotation is required to
+have an appearance dictionary, even though this is not stated in normative
+terms.
+
+
+==== Precise formulation of the problem
+
+It is not clear if any Widget annotation is required to have an annotation
+dictionary in 19005-1 compliant documents.
+
+
+==== PDF Validation TWG proposal
+
+Interpret ISO 19005-1, 6.9, 4th paragraph:
+
+[quote]
+____
+Every form field shall have an appearance dictionary associated with the field's
+data. A conforming reader shall render the field according to the appearance
+dictionary without regard to the form data.
+____
+
+as if it stated:
+
+[quote]
+____
+Every Widget annotation shall have an appearance dictionary. This guarantees
+that every form field has an appearance dictionary associated with the field's
+data. A conforming reader shall render the field according to the appearance
+dictionary without regard to the form data.
+____
+
+==== ISO 19005-1 validators
+
+An ISO 19005-1 validator shall FAIL otherwise conforming files in which a widget
+annotation lacks an appearance dictionary.
+
+
+==== ISO WG Resolution
+
+ISO 19005-1 should be read as if the Proposal (above) was part of the
+specification.
+
+
+
+=== Form fields with multiple Widgets (A023)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.5.3 (Corr. 2), PDF/A-2 - ISO 19005-2, 6.3.3 and PDF/A-3
+- ISO 19005-3, 6.3.3
+
+==== Background
+
+The requirement to have multiple appearance streams for all form fields of type
+Btn is formulated in Corrigendum 2 to ISO 19005-1 and copied to ISO 19005-2 and
+ISO 19005-3 as follows:
+
+[quote]
+____
+For all annotation dictionaries containing an *AP* key, the appearance
+dictionary that it defines as its value shall contain only the *N* key. If an
+annotation dictionary’s Subtype key has a value of Widget and its *FT* key has a
+value of Btn, the value of the *N* key shall be an appearance subdictionary,
+otherwise the value of the *N* key shall be an appearance stream.
+____
+
+This formulation does not address cases in which a form (such as a radio button)
+has both multiple widgets associated with it and is defined in the *Kids* array.
+In this case, the Widget dictionary and the Form field dictionary are not
+merged, and it doesn’t make sense to refer to the *FT* key of the annotation
+dictionary.
+
+
+==== Precise formulation of the problem
+
+This formulation misses the case when a form (such as a radio button) has
+multiple widgets associated to it and defined in the *Kids* array.
+
+
+==== PDF Validation TWG proposal
+
+The paragraph in question should be read as if it stated:
+
+[quote]
+____
+For all annotation dictionaries containing an *AP* key, the appearance
+dictionary that it defines as its value shall contain only the *N* key. If an
+annotation dictionary’s Subtype key has a value of Widget and its parent form
+field dictionary has the *FT* key value equal to Btn, the value of the *N* key
+shall be an appearance subdictionary, otherwise the value of the *N* key shall
+be an appearance stream.
+
+NOTE For Widget annotations, the parent form field dictionary may be merged with
+the annotation dictionary or, otherwise, is referenced by the *Parent* key in the
+annotation dictionary.
+____
+
+==== ISO 19005-1, -2 and -3 validators
+
+An ISO 19005-1, -2 or -3 validator shall PASS an otherwise valid ISO 19005
+document if it contains a Widget annotation dictionary with a *Parent* key
+referring to a parent form field of type Button, and if the value of the *N* key
+in this widget annotation dictionary refers to an appearance subdictionary.
+
+
+==== ISO WG Resolution
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part of
+the specification.
+
+
+
+== Colour spaces
+
+=== Version of the embedded ICC profile (A013)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.2.3.2
+
+==== Background
+
+Per ISO 19005-1, 6.2.3.2, ICC profiles embedded in ISO 19005-1 documents are
+subject to requirements of the PDF 1.4 Reference:
+
+[quote]
+____
+All ICCBased colour spaces shall be embedded as ICC profile streams as described
+in PDF Reference 4.5.
+
+NOTE: the reference to “PDF Reference 4.5” in ISO 19005-1 is a typo; “PDF
+Reference 1.4” is intended.
+____
+
+In its turn, the PDF 1.4 Reference, 4.5.4 restricts the versions of ICC profiles
+that can be used in the text after Table 4.16
+
+[quote]
+____
+The ICC specification is an evolving standard. The ICCBased colour spaces
+supported in PDF 1.3 are based on ICC specification version 3.3; those in PDF
+1.4 are based on the ICC specification ICC.1:1998-09 and its addendum
+ICC.1A:1999-04.
+____
+
+These ICC specifications are also identified by their so-called internal
+version, placed in the ICC profile header. This internal version is “2.1” for
+ICC specification version 3.3, “2.2” for ICC.1:1998- 09 and “2.3” for its
+addendum ICC.1A:1999-04. In 2001 ICC published also another standard
+ICC.1:2001-04, which has an internal version “2.4” and which is backward
+compatible with all earlier ICC specifications with major version 2.
+
+
+==== Precise formulation of the problem
+
+ISO 19005-1 does not allow the use of ICC.1:2001-04 (internal version 2.4),
+which is backward- compatible with any colour management system that supports
+ICC profiles of version 2.1-2.3.
+
+
+==== PDF Validation TWG proposal
+
+As any conforming ISO 19005-1 reader shall process ICC profiles with internal
+major version 2, such ICC profiles should be allowed in ISO 19005-1.
+
+ISO 19005-1 should be read as if this paragraph followed the first paragraph of
+ISO 19005-1 6.2.3.2:
+
+[quote]
+____
+In addition to the versions of ICC specifications supported by the PDF Reference
+1.4, 4.5.4, ICC profiles based on ICC.1:2001-04 (internal version 2.4.0) is also
+permitted.
+____
+
+==== ISO WG Resolution
+
+ISO 19005-1 should be read as if the Proposal (above) was part of the
+specification.
+
+
+
+=== Overprint mode for ICCBased CMYK (A024)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.4.3 and PDF/A-3 -ISO 19005-3, 6.2.4.3
+
+==== Background
+
+As a special use of ICCBased colour spaces, ISO 32000-1 specifies so-called
+implicit conversion of ICCBased colour spaces in 8.6.5.7 as follows:
+
+[quote]
+____
+In cases where a source colour space accurately represents the particular output
+device being used, a conforming reader should avoid converting the component
+colour values but use the source values directly as output values. … When this
+type of implicit conversion is done, all of the semantics of the device colour
+space shall also apply, even though they do not apply to CIE-based spaces in
+general. In particular, the nonzero overprint mode shall determine the
+interpretation of colour component values in the space.
+____
+
+As this interpretation of overprint mode output is device dependent, such a case
+is not permitted in ISO 19005-2 and ISO 19005-3, 6.2.4.3:
+
+[quote]
+____
+Overprint mode (as set by the OPM value in an ExtGState dictionary) shall not be
+one (1) when an ICCBased CMYK colour space is used and when overprinting for
+stroke or fill or both is set to true.
+____
+
+
+==== Precise formulation of the problem
+
+The wording of this clause is not precise. For example, it is not clear whether the use of ICCBased
+CMYK colour space for stroke is permitted in the case when overprinting for fill is set to true (and
+the OPM value is 1).
+
+
+==== PDF Validation TWG proposal
+
+ISO 19005-2 and ISO 19005-3, 6.2.4.3 should be read as if the paragraph stated:
+
+[quote]
+____
+Overprint mode (as set by the OPM value in an ExtGState dictionary) shall not be
+one (1) when an ICCBased CMYK colour space is used for stroke and overprinting
+for stroke is set to true, or when ICCBased CMYK colour space is used for fill
+and overprinting for fill is set to true, or both.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part
+of the specification.
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+=== Use of DeviceGray in soft masks (A026)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.4.3 and PDF/A-3 - ISO 19005-3, 6.2.4.3
+
+
+
+==== Background
+
+All parts of ISO 19005 prohibit the use of Device colour spaces without a
+well-defined mapping to a device-independent colour model, either via the use of
+default colour spaces or by specifying the document’s output intents, as
+specified in ISO 3200-1, 14.11.6.
+
+Soft mask image dictionaries are required to have DeviceGray as a value of the
+ColorSpace entry. However, in this case the colour values define shape rather
+than colour, and the use of DeviceGray in such a case does not introduce any
+device-dependency in PDF processing.
+
+
+==== Precise formulation of the problem
+
+The use of DeviceGray colour space in soft mask images should be allowed in ISO
+19005.
+
+
+==== PDF Validation TWG proposal
+
+ISO 19005-2 and ISO 19005-3, 6.2.4.3 should be read as if the 3rd paragraph:
+
+[quote]
+____
+DeviceGray shall only be used if a device independent DefaultGray colour space
+has been set when the DeviceGray colour space is used, or if a PDF/A
+OutputIntent is present.
+____
+
+was replaced with:
+
+[quote]
+____
+DeviceGray shall only be used if a device independent DefaultGray colour space
+has been set when the DeviceGray colour space is used, or if a PDF/A
+OutputIntent is present, or as a value of the ColorSpace entry in soft mask
+image dictionaries.
+____
+
+==== ISO WG Resolution
+
+ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part
+of the specification.
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+
+
+== Fonts
+
+=== Use of OpenType fonts in PDF/A-1 (A014)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.3.4
+
+==== Background
+
+Although OpenType fonts are not specified in the PDF 1.4 Reference, and are not
+permitted in documents conforming to ISO 19005-1 (see ISO 19005-1, 5.1
+“General”), the PDF 1.4 Reference, 5.8, Table 5.22 formally permits any type of
+font to be present in the PDF document:
+
+[quote]
+____
+Key – *FontFile3*
+
+Subtype – otherName
+
+Description – Font or CIDFont program represented in some future format, identified by
+otherName as the font file subtype.
+____
+
+
+==== Precise formulation of the problem
+
+A literal reading of ISO 19005-1 and the PDF 1.4 Reference does not forbid the
+use of OpenType fonts. Moreover, the use of “otherName” as a font type creates
+an ambiguity in specifying font types that are permitted in ISO 19005-1
+documents.
+
+==== ISO 19005-1, -2 and -3 validators
+
+An ISO 19005-1, -2 or -3 validator shall FAIL an otherwise valid ISO 19005
+document if it contains a Font or CIDFont program with a *Subtype* entry
+unsupported by the applicable PDF specification.
+
+
+==== ISO WG Resolution
+
+Although the PDF 1.4 Reference permits the use of _OpenType_ as a value in the
+*Subtype* entry, the OpenType file format is not recognized in the PDF 1.4
+Reference, and thus shall result in a ISO 19005-1 validation error due to an
+unsupported font file format.
+
+=== CharSet/CIDSet requirements (A016)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.11.4.2 and PDF/A-3 – 19005-3, 6.2.11.4.2
+
+==== Background
+
+Font subsets may have special entries in their font descriptor dictionaries that
+identify the glyph subsets: *CharSet* (for Type1 fonts), *CIDSet* (for CID
+fonts). Despite a clear requirement for these entries to...
+
+[quote]
+____
+…list the character names of all glyphs present in the font program, regardless
+of whether a glyph in the font is referenced or used by the PDF or not…
+____
+
+... confusion persists. Many authoring tools list only glyphs used for
+rendering, and no rendering systems tested by the veraPDF consortium between
+November 2014 and December 2016 used this entry to alter rendering logic.
+
+In addition, these entries are only optional in ISO 19005-2 and ISO 19005-3.
+
+
+==== Precise formulation of the problem
+
+Requirements on the use of *CharSet* and *CIDSet* entries in font dictionaries
+of subsetted fonts cause a lot of confusion and are not actually used in
+practice.
+
+
+==== ISO WG Resolution
+
+These keys are deprecated in PDF 2.0. However, existing standards unambiguously
+define *CharSet* and *CIDSet* entries; the text of these specifications does not
+change.
+
+
+=== Referencing non-predefined CMaps from other CMaps (A025)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.2.11.3.3 and PDF/A-3 - ISO 19005-3, 6.2.11.3.3
+
+==== Background
+
+As specified in ISO 32000-1, CMap streams may reference other CMaps, either
+predefined or embedded via the “usecmap” operator in the embedded CMap file. In
+this case this referenced CMap should be also specified as a value of the
+/UseCMap entry in the CMap dictionary.
+
+In addition, to avoid any device-specific behavior, ISO 19005-2 and ISO 19005-3
+require that any non-predefined CMap be embedded into the PDF document:
+
+[quote]
+____
+All CMaps used within a PDF/A-2 file, except those listed in ISO 32000-1:2008,
+9.7.5.2, Table 118, shall be embedded in that file as described in ISO
+32000-1:2008, 9.7.5.
+____
+
+However, ISO 19005-2 doesn’t seem to allow referencing one embedded CMap from
+another:
+
+[quote]
+____
+A CMap shall not reference any other CMap except those listed in ISO
+32000-1:2008, 9.7.5.2, Table 118.
+____
+
+
+==== Precise formulation of the problem
+
+The current wording in ISO 19005-2 and ISO 19005-3 does not allow referencing an
+embedded custom CMap from another CMap. It’s not clear if this is permitted or
+not.
+
+
+==== ISO WG Resolution
+
+The “usecmap” operator inside the embedded CMap shall only refer to the
+predefined CMaps.
+
+Referring to other embedded CMaps might cause ambiguities, and shall be avoided.
+
+
+
+== Metadata
+
+=== Compressed non-document Metadata in PDF/A-1 (A017)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.7.2
+
+==== Background
+
+All requirements in ISO 19005-1 pertaining to XMP metadata address only the
+document level XMP package (the *Metadata* entry in the document’s catalog), and
+font metadata. In addition, font metadata requirements contain only ‘should’
+clauses.
+
+However, the following sentence in ISO 19005-1, 6.7.2 seems to apply to all XMP
+Metadata streams in the PDF document:
+
+[quote]
+____
+Metadata object stream dictionaries shall not contain the Filter key.
+____
+
+
+==== Precise formulation of the problem
+
+It is not clear if ISO 19005-1 requires all XMP Metadata streams or just the
+document level Metadata stream in ISO 19005-1 documents to be uncompressed
+(i.e., contain no *Filter* key)
+
+==== PDF Validation TWG proposal
+
+ISO 19005-1, 6.7.2 should be read as if this sentence:
+
+[quote]
+____
+Metadata object stream dictionaries shall not contain the *Filter* key.
+____
+
+read as follows:
+
+[quote]
+____
+All Metadata object stream dictionaries in the PDF document, as defined in PDF
+Reference, 9.2.2, shall not contain the *Filter* key.
+____
+
+==== ISO 19005-1 validators
+
+ISO 19005-1 validators shall FAIL otherwise compliant 19005-1 files that include
+compressed metadata streams, and perform all other XMP-related checks only for
+document level metadata.
+
+==== ISO WG Resolution
+
+ISO 19005-1 should be read as if the Proposal (above) was part of the
+specification.
+
+NOTE: All other "shall" clauses of ISO 19005-1 concern only the document
+Metadata stream referenced from the Catalog dictionary. This has been changed in
+ISO 19005-2 and ISO 19005-3, which add additional requirements for non-document
+level Metadata streams.
+
+
+=== Validation of XMP properties (A020)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.7.2, PDF/A-2 - ISO 19005-2, 6.6.2.3.1 and PDF/A-3 - ISO
+19005-3, 6.6.2.3.1
+
+==== Background
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 require that all metadata properties
+shall use either predefined schemas from relevant XMP specifications or
+extension schemas defined in the XMP package.
+
+In ISO 19005-1, 6.7.2:
+
+[quote]
+____
+Properties specified in XMP form shall use either the predefined schemas defined
+in XMP Specification, or extension schemas that comply with XMP Specification,
+and 6.7.8.
+____
+
+In ISO 19005-2 and ISO 19005-3, 6.6.2.3.1:
+
+[quote]
+____
+All properties specified in XMP form shall use either the predefined schemas
+defined in the XMP Specification, ISO 19005-1 or this part of ISO 19005, or any
+extension schemas that comply with 6.6.2.3.2.
+____
+
+There are several issues:
+
+It is not clear what the term “shall use predefined schemas” means. Should only
+the type of the properties be correct? Or is it that any additional restrictions
+on the values of such properties shall also be honored? It should also be noted
+that all conditions imposed on values of predefined properties are given in
+textual form for humans, not in any kind of machine-readable form like an XML
+schema.
+
+As of now, extension schemas remain a very difficult technical mechanism of
+specifying the custom properties, and very few implementations can use them
+correctly.
+
+
+==== Precise formulation of the problem
+
+The “shall” requirement for any metadata property to comply with either
+predefined schemas from XMP specifications or with an extension schema, is
+itself ambiguous and causes substantial technical difficulties and questions in
+implementations.
+
+
+==== PDF Validation TWG proposal
+
+XMP values shall be validated by only considering their type. Other semantic
+meaning that can possibly inferred by the name or description of the property
+shall be disregarded.
+
+==== ISO 19005-1, -2 and -3 validators
+
+ISO 19005-1, -2 and -3 validators shall only validate XMP values based on their
+type. The exact validation rules for basic types are as follows:
+
+* Boolean – as defined in the XMP Specification
+* Integer – as defined in the XMP Specification
+* Real – as defined in the XMP specification
+* Text, ProperName, URI, URL, AgentName, Rational, RenditionClass, XPath – any string
+* MimeType – as defined in RFC 2046
+* Date – as defined by ISO 8601
+
+==== ISO WG Resolution
+
+ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
+(above) was part of the specification.
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+
+=== Validation of file provenance information (A021)
+
+==== Pertaining
+
+PDF/A-2 - ISO 19005-2, 6.6.6 and PDF/A-3 - ISO 19005-3, 6.6.6
+
+==== Background
+
+ISO 19005-2 and ISO 19005-3 include a “should” requirement for file provenance
+information as a sequence of user actions recorded in the xmpMM:History
+property.
+
+This “should” requirement, however, contains a “shall” requirement,
+specifically, that if such list of user actions is present, it shall specify
+action, parameters and when fields.
+
+In many cases user actions do not include parameters, and it is not clear why
+this field is always required.
+
+
+==== Precise formulation of the problem
+
+The “shall” requirement for any user actions recorded in xmpMM:History property
+to have the properties field seems to be both too restrictive and inherently
+confusing, as many user actions do not have any additional parameters.
+
+
+==== PDF Validation TWG proposal
+
+Requirements on the xmpMM:History property are application requirements, and are
+thus irrelevant to ISO 19005 validation.
+
+
+==== ISO WG Resolution
+
+ISO 19005-2 and ISO 19005-3 should be read as if the Proposal (above) was part
+of the specification.
+
+NOTE: This proposal was accepted in principle for PDF/A-next.
+
+=== Optional vs required valueType field in Extension schema (A029)
+
+==== Pertaining
+
+PDF/A-1 - ISO 19005-1, 6.7.8 / Corr. 2 (2nd sentence at the end of NOTE 1),
+PDF/A-2 - ISO 19005-2, 6.6.2.3.2 (last sentence in last paragraph) and PDF/A-3 -
+ISO 19005-3, 6.6.2.3.2 (last sentence in last paragraph)
+
+==== Background
+
+ISO 19005 allows the use of custom schemas in XML metadata to contain a list of
+custom properties along with a definition of custom value types. ISO 19005
+requires that these schemas are defined via the ISO 19005-specified extension
+schema syntax.
+
+Corrigendum 2 to ISO 19005-1 adds the following:
+
+[quote]
+____
+If a schema that is defined in 6.7.8 is used, all fields defined in that
+schema's definition in the respective table in 6.7.8 shall be present.
+____
+
+ISO 19005-2 and ISO 19005-3 reformulates the requirement as follows:
+
+[quote]
+____
+All fields described in each of the tables in 6.6.2.3.3 shall be present in any
+extension schema container schema.
+____
+
+Read literally, both formulations require that all entries for the ISO 19005
+schema value type, including pdfaSchema:valueType, to be present in an ISO 19005
+extension schema.
+
+NOTE: this field is not needed, if the Extension Schema uses only predefined
+value types.
+
+
+
+==== Precise formulation of the problem
+
+If the extension schema does not use custom value types it is unclear as to
+whether the schema structure is nonetheless required to contain (in this case)
+empty pdfaSchema:valueType fields.
+
+
+==== PDF Validation TWG proposal
+
+ISO 19005-1 Corr. 2, ISO 19005-2 and ISO 19005-3 should be as if the following
+text was present right before 6.6.2.3.3 (ISO 19005-2 and ISO 19005-3) or as a
+second paragraph in ISO 19005-1, 6.7.8:
+
+[quote]
+____
+If an Extension Schema does not define any custom value types, the field
+"pdfaSchema:valueType" in any instance of "PDF/A Schema value type” shall be
+either missing or empty, and no instance of "PDF/A ValueType value type" and/or
+"PDF/A Field value type” shall be present.
+
+If "pdfaSchema:valueType" is present and not empty, for each entry an instance
+of "PDF/A ValueType value type” with all fields shall be present and not empty
+with the exception of "pdfaType:field”, which may be present.
+
+If an Extension Schema does not define any custom fields, the field
+"pdfaType:field" in any instance of "PDF/A ValueType value type” shall be either
+missing or empty and no instance of "PDF/A Field value type” shall be present.
+
+If "pdfaType:field" is present and not empty, for each entry an instance of
+"PDF/A Field value type” with all fields shall be present and not empty.
+____
+
+==== ISO 19005-1, -2 and -3 validators
+
+In the cases described above, ISO 19005-1, -2 and -3 validators shall allow
+missing pdfaSchema:valueType and pdfaType:field properties in the Extension
+Schema definition, and in such cases, treat them as an equivalent of an empty
+array.
+
+
+==== ISO WG Resolution
+
+ISO 19005-1, -2 and -3 should be read as if the Proposal (above) was part of the
+specification.
+
+
+
+== Associated files
+
+=== Associated files in PDF/A-3 (A027)
+
+==== Pertaining
+
+PDF/A-3 - ISO 19005-3, E.2
+
+==== Background
+
+ISO 19005-3 allows embedded files that include a stated association and role
+with respect to an object in the PDF document (e.g., catalog, page, form
+XObject, annotation, structure element).
+
+The association occurs via an *AF* key as specified in ISO 19005-3, Annex E.
+However, the intention to require the *AF* key is not clearly present in Annex E.
+
+
+==== Precise formulation of the problem
+
+The intention to have each embedded file associated with at least one object in
+the PDF document is not clearly specified in ISO 19005-3.
+
+
+==== PDF Validation TWG proposal
+
+ISO 19005-3, E.2. should be read as if the first paragraph:
+
+[quote]
+____
+In order to enable identification of the relationship between the file
+specification dictionary and the content that is referring to it, a new
+(required) key has been defined and its presence (in the dictionary) is
+required.
+____
+
+is replaced with:
+
+[quote]
+____
+In order to enable identification of the relationship between the file
+specification dictionary and the content that is referring to it, a new
+(required) key, AFRelationship, has been defined (see ISO 32000-2, Table 43) and
+its presence in the file specification dictionary is required (see Table E.1).
+
+Each embedded file shall represent the data associated with the entire document
+or its parts. In particular, each file specification dictionary shall be present
+in at least one of the arrays referred by the *AF* key as specified in E.3-E.8.
+____
+
+In addition, the clause should be read as if it included a new Note 3 directly
+following Note 2:
+
+[quote]
+____
+Note 3. The same file specification dictionary may be present in multiple *AF*
+arrays, for example, when an embedded file is associated with a multipage table.
+____
+
+
+==== ISO WG Resolution
+
+ISO 19005-3 should be read as if the Proposal (above) was part of the
+specification.
+
+NOTE: As Associated Files are specified in ISO 32000-2, this text was rewritten
+in PDF/A-next.
+
