@@ -28,7 +28,7 @@ Best Practice Guide: Conforming to both PDF/A & PDF/UA
 `sources/bpg-tagged-pdf-syntax/`::
 Best Practice Guide: Tagged PDF Best Practice Guide: Syntax
 
-`sources/spec-wtpdf-1.0/`::
+`sources/spec-wtpdf/`::
 Specification: Well-Tagged PDF (WTPDF) 1.0
 
 `sources/spec-pdf-declarations/`::
