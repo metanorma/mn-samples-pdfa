@@ -410,7 +410,7 @@ element (or enclosing ancestor elements), a *P* structure element may be used to
 separate that content from surrounding content and to provide a base semantics
 for the text.
 
-NOTE: See examples in 4.6.
+NOTE: See examples in <<file-format-logical-structure-real-content>>.
 
 
 ===== Heading (Hn) and (H)
