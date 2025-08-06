@@ -1,2 +1,148 @@
 
-== Terms and definitions
+
+[heading="terms and definitions"]
+== Terms, definitions, and acronyms
+
+=== Asset
+admitted:[Original raw source email asset]
+
+An input file needed by _EA-PDF Creation Software_ when creating EA-PDF files, such as the original source email file(s) (EML, MSG, MBOX, NSF, PST/OST, etc.), a referenced image, or a file referred to by HTML, etc.
+
+There is no requirement in EA-PDF that the original raw source email asset only represents the email(s) that are rendered into EA-PDF files – additional information, including other emails, may get preserved.
+
+The phrase "original raw source email asset" is used in reference to the preservation of the original email data format (as a bitstream) in its unmodified (raw) state. [underline]#_Any_# change to the original format (for whatever reason) does not meet this definition as it could potentially impact the reliability and trustworthiness (verifiability) of the preservation and its associated renderings (as PDF/A pages).
+
+NOTE: the generic word "file" is avoided as it can get confusing with so many different files: email files, PDF files, embedded files, file attachments, the EA-PDF file, email attachments, files in a collection, etc.
+
+NOTE: this is an EA-PDF specific term and is independent from the use of "asset" in C2PA (https://c2pa.org/).
+
+=== Attachment
+admitted:[Embedded file]
+
+In the context of email, PDF and common usage, the terms "attachment" and "embedded file" are heavily overloaded and potentially ambiguous or confusing. To avoid ambiguities the follow clarified terms are always used in this document:
+
+* Email attachment – a file attached (embedded) in an email;
+* File attachment annotation – a specific user-visible PDF feature for visually referencing a file (see <<ISO_32000_2,clause=12.5.6.15>>) from PDF pages;
+* Embedded file – the technical PDF objects used to embed the contents of a file within a PDF via a File Specification dictionary and associated Embedded File stream object (see <<ISO_32000_2,clause=7.11.3 and 7.11.4>> );
+* *EmbeddedFiles* name tree – the PDF feature used to list [underline]#_some_# embedded files in a PDF (see <<ISO_32000_2,clause=7.7.4>>);
+* PDF Collection – see PDF Collection/PDF Portable Collection below. All files in a collection are required by ISO 32000-2 to be listed in the *EmbeddedFiles* name tree;
+* Associated File – a PDF feature that associates content in arbitrary formats with an object in a PDF file and to identify a basic semantic relationship between them via the *AFRelationship* key (see <<PDF_A_3>>, <<PDF_A_4f>> and <<ISO_32000_2,clause=14.13>>).
+
+=== Content Set
+
+EA-PDF specific term referring to a consecutive set of PDF page(s) associated with a common source (e.g., from the HTML body of an email, from the text body of an email, a list of email attachments, a conversion report, etc.).
+
+A content set will always be at least 1 page in an EA-PDF file, as page boundaries demarcate content sets.
+
+=== Core Fields
+
+EA-PDF specific term referring to a core set of email headers and related fields agreed by the EA-PDF LWG as highly relevant to the management and long-term reliable preservation of emails. Technically a few core fields are not email headers but calculated or derived from emails (e.g. the number of attachments).
+
+NOTE: Core Fields from email may not all have values – for example in draft, unsent, or corrupted emails. Some EA-PDF Core Fields are also derived (e.g. size of the email file in bytes) or calculated (e.g., number of attachments).
+
+=== DC
+admitted:[DCMI]
+
+Dublin Core Metadata Initiative, https://www.dublincore.org/
+
+=== DPart
+admitted:[DPM]
+
+Document Part / Document Part Metadata. See <<ISO_32000_2,clause=14.12>>.
+
+=== EA-PDF Creation Software
+
+Software that creates EA-PDF files according to this specification by reading and processing one or more email assets as input. This creation software may be interactive or non-interactive. A software application may have a mode of operation for EA-PDF Creation as well as other modes. EA-PDF creation software is not required to create all `PDF/mail-1` profiles.
+
+=== EML
+
+A text-based email file format representing a single email message, defined by <<RFC_822>> and various other RFCs. Most likely an email asset used with `PDF/mail-1{s, si}` files. See alsohttps://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml.
+
+=== FOAF
+
+Friend Of A Friend ontology. See <<FOAF>>.
+
+=== FOIA
+
+Freedom of Information Act. Used as a general term to refer to any workflow where redacted information of a preservation artifact may need to be disclosed.
+
+=== Isolated
+
+In an EA-PDF context, an "isolated" `PDF/mail` file refers to a file including an i profile identifier. This indicates that the file does [underline]#_not_# contain a trustworthy original raw source email asset and thus may not be appropriate for long-term verifiable preservation. Such files do contain the PDF/A reliable rendering of emails and associated metadata without a verifiable linkage to the original raw (unmodified) email assets.
+
+=== MBOX
+
+Text-based MailBox email file formats that support multiple emails in a single file. See https://en.wikipedia.org/wiki/Mbox. Most likely an email asset used with `PDF/mail-1m` files. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000383.shtml
+
+=== Media Type
+
+IANA Media Type. Previously referred to as MIME type. See https://www.iana.org/assignments/media-types/media-types.xhtml
+
+=== MSG
+
+Microsoft(TM) Outlook Item file format for a single email message, see https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsgM[https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg].
+
+Most likely an email asset used with `PDF/mail-1{s, si}` files.
+=== Non-EA-PDF aware legacy software
+
+This refers to a broad range of PDF software that does not implement any specific support for EA-PDF. This may range from software that is otherwise PDF/A compliant (_strongly recommended_!) to software that is neither PDF/A nor EA-PDF aware.
+
+=== NSF
+
+IBM Lotus Notes(TM) email file extension. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000433.shtml.
+
+=== OST, PST
+
+Microsoft(TM) proprietary binary file formats that can store multiple emails and other types of data (e.g. calendar entries) in hierarchical folder-like structures. Most likely an email asset used with `PDF/mail-1c` files so that the folder hierarchy can be represented and preserved. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000378.shtml.
+
+=== PDF Collection
+admitted:[PDF Portable Collection]
+
+The PDF feature supporting collections of files - as defined in <<ISO_32000_2,clause=12.3.5>> Collections. Originally introduced in PDF 1.7 and extended in PDF 2.0. Also known as "Portfolios", "Packages", or "Binders".
+
+NOTE: this PDF-specific term is completely independent from an "archival collection".
+
+=== `PDF/mail-1c`
+
+EA-PDF v1.0 container file format profile that contains other EA-PDF files arranged in hierarchical folder structures and where original raw source email assets are faithfully preserved. "Container". Based on PDF Collections.
+
+=== `PDF/mail-1ci`
+
+EA-PDF v1.0 container file format profile that contains other EA-PDF files arranged in hierarchical folder structures, but where some original raw source email assets are missing or modified. "Container, isolated". Based on PDF Collections.
+
+=== `PDF/mail-1m`
+
+EA-PDF v1.0 file format profile supporting multiple emails with embedded original raw source email assets. "Multiple".
+
+NOTE: this profile is unrelated to "multipart".
+
+=== `PDF/mail-1mi`
+
+EA-PDF v1.0 file format profile supporting multiple emails but [underline]#_without_# embedded original raw source email assets. "Multiple, isolated". Intended use is within `PDF/mail-1c` containers for complex email formats that contain internal folder-like hierarchies (such as OST/PST).
+
+NOTE: this profile is unrelated to "multipart".
+
+=== `PDF/mail-1s`
+
+EA-PDF v1.0 file format profile supporting a single email message with an embedded original raw source email asset. "Single".
+
+=== `PDF/mail-1si`
+
+EA-PDF v1.0 file format profile supporting a single email message but [underline]#_without_# the embedded original raw source email asset. "Single, isolated". Intended use is within `PDF/mail-1c` containers for complex email formats that contain internal folder-like hierarchies (such as OST/PST).
+
+=== `PREMIS`
+
+`PREMIS` is an international standard for preservation metadata to support the preservation of digital objects, https://www.loc.gov/standards/premis/. EA-PDF does not mandate the use of any PREMIS elements. See <<PREMIS>>.
+
+=== Profile
+
+The kind of `PDF/mail-1` file: `PDF/mail-1{s, si, m, mi, c, ci}`. This term was specifically chosen to avoid confusion and overlap with PDF/A "conformance levels", which are also highly relevant to EA-PDF.
+
+=== Render
+admitted:[Rendering]
+
+When referring to email, the term "render" in this document means the process by which an email (in an original source email format) is converted to one or more PDF pages for visualization. This document does not prescribe any specific conversion processes.
+
+=== XMP
+
+Extensible Metadata Platform. XML-based metadata used with PDF and other formats. Standardized by ISO 16684-1 – see <<XMP>>. Comprises both various XMP Standard Namespaces and XMP Specialized Namespaces – see https://developer.adobe.com/xmp/docs/XMPNamespaces/.
