@@ -55,7 +55,7 @@ the reader and do not add any additional formal requirements.
 
 * "EA-PDF Writer", "EA-PDF Creator" and "EA-PDF Reader" statements provide
 information and hints to implementers, possibly about details found in other PDF
-specifications or nuances of features. These occur [underline]#below# relevant
+specifications or nuances of features. These occur [underline]#_below_# relevant
 statements.
 
 * Footnotes are also used to provide additional contextual information for those

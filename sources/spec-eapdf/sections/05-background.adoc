@@ -147,7 +147,7 @@ scenarios and use-cases. All profiles are compliant with PDF/A and use one or
 more lowercase letters to indicate conformance:
 
 .EA-PDF profile indicators
-[cols="a,2a"]
+[cols="^a,2a"]
 |===
 |EA-PDF Profile identifier (lowercase letter)	|Meaning
 
@@ -166,13 +166,13 @@ missing, and the EA-PDF file is not a verifiable preservation asset.
 
 |===
 
-EA-PDF profiles [underline]#without# the "isolated" profile identifier `i` are
+EA-PDF profiles [underline]#_without_# the "isolated" profile identifier `i` are
 suitable as verifiable preservation assets as these files contain the original
 raw source email assets as well as PDF/A compliant renderings of the emails and
 related context.
 
-EA-PDF profiles [underline]#with# the "isolated" profile identifier `i` may be
-unsuitable as preservation assets as these files do [underline]#not# contain all
+EA-PDF profiles [underline]#_with_# the "isolated" profile identifier `i` may be
+unsuitable as preservation assets as these files do [underline]#_not_# contain all
 the original raw source email assets, or possibly contain modified or redacted
 versions of those original raw source email assets. However, "isolated" EA-PDF
 profiles may be smaller files as a result. Thus, the suitability of "isolated"
@@ -182,13 +182,14 @@ application of EA-PDF as shown in <<figure-01>>.
 
 === EA-PDF Profiles
 
-[[table-2]]
+[[table-02]]
 .Summary of EA-PDF profiles
 [cols="a,a,a"]
 |===
 h| `PDF/mail-1` Profile h| `PDF/A` Conformance Levels h| Description
 
-| `PDF/mail-1s` *"Single"*
+| `PDF/mail-1s` +
+*"Single"*
 a| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4f` +
@@ -207,7 +208,8 @@ support.
 NOTE: the embedded original raw email asset may contain additional emails or other
 information, but all PDF pages in `PDF/mail-1s` reflect only the single email message.
 
-| `PDF/mail-1si` *"Single, isolated"*
+| `PDF/mail-1si` +
+*"Single, isolated"*
 a| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4` +
@@ -226,7 +228,8 @@ NOTE: "isolated" means that this class of EA-PDF file is isolated from its origi
 raw source email asset and thus is not a self-contained preservation with the
 associated original raw source email assets.
 
-| `PDF/mail-1m` *"Multiple"*
+| `PDF/mail-1m` +
+*"Multiple"*
 
 NOTE: this is unrelated to the email term "multipart".
 
@@ -311,7 +314,7 @@ on the vendor neutral *Folders* feature of PDF Collections. *Folders* were initi
 defined as part of "Adobe Extension Level 3 to ISO 32000-1:2008 (PDF 1.7)" and thus
 can validly exist in `PDF/A-3` as they do not impact static rendering of the containers'
 page content. They were later adopted into PDF 2.0 with ISO 32000-2
-(see <<ISO_3200_2,clause=12.3.5>>). `PDF/A` standards do [underline]#_not_# define
+(see <<ISO_32000_2,clause=12.3.5>>). `PDF/A` standards do [underline]#_not_# define
 dynamic features such as interaction with PDF Collections. `PDF/mail-1c` files are
 not required to always use *Folders*. `PDF/A-4e` is not listed as there is no identified
 requirement for including JavaScript or 3D content into the container PDF.]
