@@ -182,7 +182,7 @@ application of EA-PDF as shown in <<figure-01>>.
 
 === EA-PDF Profiles
 
-[[table-2]]
+[[table-02]]
 .Summary of EA-PDF profiles
 [cols="a,a,a"]
 |===
@@ -311,7 +311,7 @@ on the vendor neutral *Folders* feature of PDF Collections. *Folders* were initi
 defined as part of "Adobe Extension Level 3 to ISO 32000-1:2008 (PDF 1.7)" and thus
 can validly exist in `PDF/A-3` as they do not impact static rendering of the containers'
 page content. They were later adopted into PDF 2.0 with ISO 32000-2
-(see <<ISO_3200_2,clause=12.3.5>>). `PDF/A` standards do [underline]#_not_# define
+(see <<ISO_32000_2,clause=12.3.5>>). `PDF/A` standards do [underline]#_not_# define
 dynamic features such as interaction with PDF Collections. `PDF/mail-1c` files are
 not required to always use *Folders*. `PDF/A-4e` is not listed as there is no identified
 requirement for including JavaScript or 3D content into the container PDF.]

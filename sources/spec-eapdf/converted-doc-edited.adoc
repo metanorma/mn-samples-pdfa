@@ -1,150 +1,4 @@
 
-[heading="terms and definitions"]
-== Terms, definitions, and acronyms
-
-=== Asset 
-admitted:[Original raw source email asset]
-
-An input file needed by _EA-PDF Creation Software_when creating EA-PDF files, such as the original source email file(s) (EML, MSG, MBOX, NSF, PST/OST, etc.), a referenced image, or a file referred to by HTML, etc.
-
-There is no requirement in EA-PDF that the original raw source email asset only represents the email(s) that are rendered into EA-PDF files – additional information, including other emails, may get preserved.
-
-The phrase "original raw source email asset" is used in reference to the preservation of the original email data format (as a bitstream) in its unmodified (raw) state. [underline]#_Any_# change to the original format (for whatever reason) does not meet this definition as it could potentially impact the reliability and trustworthiness (verifiability) of the preservation and its associated renderings (as PDF/A pages).
-
-NOTE: the generic word "file" is avoided as it can get confusing with so many different files: email files, PDF files, embedded files, file attachments, the EA-PDF file, email attachments, files in a collection, etc.
-
-NOTE: this is an EA-PDF specific term and is independent from the use of "asset" in C2PA (https://c2pa.org/).
-
-=== Attachment
-admitted:[Embedded file]
-
-In the context of email, PDF and common usage, the terms "attachment" and "embedded file" are heavily overloaded and potentially ambiguous or confusing. To avoid ambiguities the follow clarified terms are always used in this document:
-
-* Email attachment – a file attached (embedded) in an email;
-* File attachment annotation – a specific user-visible PDF feature for visually referencing a file (see <<ISO_32000_2,clause=12.5.6.15>>) from PDF pages;
-* Embedded file – the technical PDF objects used to embed the contents of a file within a PDF via a File Specification dictionary and associated Embedded File stream object (see <<ISO_32000_2,clause=7.11.3 and 7.11.4>> );
-* *EmbeddedFiles* name tree – the PDF feature used to list [underline]#_some_# embedded files in a PDF (see <<ISO_32000_2,clause=7.7.4>>);
-* PDF Collection – see PDF Collection/PDF Portable Collection below. All files in a collection are required by ISO 32000-2 to be listed in the *EmbeddedFiles* name tree;
-* Associated File – a PDF feature that associates content in arbitrary formats with an object in a PDF file and to identify a basic semantic relationship between them via the *AFRelationship* key (see <<PDF/A-3>>, <<PDF/A-4>> and <<ISO_32000_2,clause=14.13>>).
-
-=== Content Set
-
-EA-PDF specific term referring to a consecutive set of PDF page(s) associated with a common source (e.g., from the HTML body of an email, from the text body of an email, a list of email attachments, a conversion report, etc.).
-
-A content set will always be at least 1 page in an EA-PDF file, as page boundaries demarcate content sets. 
-
-=== Core Fields
-
-EA-PDF specific term referring to a core set of email headers and related fields agreed by the EA-PDF LWG as highly relevant to the management and long-term reliable preservation of emails. Technically a few core fields are not email headers but calculated or derived from emails (e.g. the number of attachments).
-
-NOTE: Core Fields from email may not all have values – for example in draft, unsent, or corrupted emails. Some EA-PDF Core Fields are also derived (e.g. size of the email file in bytes) or calculated (e.g., number of attachments).
-
-=== DC
-admitted:[DCMI]
-
-Dublin Core Metadata Initiative, https://www.dublincore.org/
-
-=== DPart
-admitted:[DPM]
-
-Document Part / Document Part Metadata. See <<ISO_32000_2,clause=14.12>>.
-
-=== EA-PDF Creation Software
-
-Software that creates EA-PDF files according to this specification by reading and processing one or more email assets as input. This creation software may be interactive or non-interactive. A software application may have a mode of operation for EA-PDF Creation as well as other modes. EA-PDF creation software is not required to create all `PDF/mail-1` profiles.
-
-=== EML
-
-A text-based email file format representing a single email message, defined by [RFC-822] and various other RFCs. Most likely an email asset used with `PDF/mail-1{s, si}` files. See alsohttps://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml.
-
-=== FOAF
-
-Friend Of A Friend ontology. See [FOAF].
-
-=== FOIA
-
-Freedom of Information Act. Used as a general term to refer to any workflow where redacted information of a preservation artifact may need to be disclosed.
-
-=== Isolated
-
-In an EA-PDF context, an "isolated" `PDF/mail` file refers to a file including an i profile identifier. This indicates that the file does [underline]#_not_# contain a trustworthy original raw source email asset and thus may not be appropriate for long-term verifiable preservation. Such files do contain the PDF/A reliable rendering of emails and associated metadata without a verifiable linkage to the original raw (unmodified) email assets.
-
-=== MBOX
-
-Text-based MailBox email file formats that support multiple emails in a single file. See https://en.wikipedia.org/wiki/Mbox. Most likely an email asset used with `PDF/mail-1m` files. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000383.shtml
-
-=== Media Type
-
-IANA Media Type. Previously referred to as MIME type. See https://www.iana.org/assignments/media-types/media-types.xhtml
-
-=== MSG
-
-Microsoft(TM) Outlook Item file format for a single email message, see https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsgM[https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg].
-
-Most likely an email asset used with `PDF/mail-1{s, si}` files. 
-=== Non-EA-PDF aware legacy software
-
-This refers to a broad range of PDF software that does not implement any specific support for EA-PDF. This may range from software that is otherwise PDF/A compliant (_strongly recommended_!) to software that is neither PDF/A nor EA-PDF aware.
-
-=== NSF
-
-IBM Lotus Notes(TM) email file extension. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000433.shtml.
-
-=== OST, PST
-
-Microsoft(TM) proprietary binary file formats that can store multiple emails and other types of data (e.g. calendar entries) in hierarchical folder-like structures. Most likely an email asset used with `PDF/mail-1c` files so that the folder hierarchy can be represented and preserved. See https://www.loc.gov/preservation/digital/formats/fdd/fdd000378.shtml.
-
-=== PDF Collection
-admitted:[PDF Portable Collection]
-
-The PDF feature supporting collections of files - as defined in <<ISO_32000_2,clause=12.3.5>> Collections. Originally introduced in PDF 1.7 and extended in PDF 2.0. Also known as "Portfolios", "Packages", or "Binders".
-
-NOTE: this PDF-specific term is completely independent from an "archival collection".
-
-=== `PDF/mail-1c`
-
-EA-PDF v1.0 container file format profile that contains other EA-PDF files arranged in hierarchical folder structures and where original raw source email assets are faithfully preserved. "Container". Based on PDF Collections.
-
-=== `PDF/mail-1ci`
-
-EA-PDF v1.0 container file format profile that contains other EA-PDF files arranged in hierarchical folder structures, but where some original raw source email assets are missing or modified. "Container, isolated". Based on PDF Collections.
-
-=== `PDF/mail-1m`
-
-EA-PDF v1.0 file format profile supporting multiple emails with embedded original raw source email assets. "Multiple".
-
-NOTE: this profile is unrelated to "multipart".
-
-=== `PDF/mail-1mi`
-
-EA-PDF v1.0 file format profile supporting multiple emails but [underline]#_without_# embedded original raw source email assets. "Multiple, isolated". Intended use is within `PDF/mail-1c` containers for complex email formats that contain internal folder-like hierarchies (such as OST/PST).
-
-NOTE: this profile is unrelated to "multipart".
-
-=== `PDF/mail-1s`
-
-EA-PDF v1.0 file format profile supporting a single email message with an embedded original raw source email asset. "Single".
-
-=== `PDF/mail-1si`
-
-EA-PDF v1.0 file format profile supporting a single email message but [underline]#_without_# the embedded original raw source email asset. "Single, isolated". Intended use is within `PDF/mail-1c` containers for complex email formats that contain internal folder-like hierarchies (such as OST/PST). 
-
-=== `PREMIS`
-
-`PREMIS` is an international standard for preservation metadata to support the preservation of digital objects, https://www.loc.gov/standards/premis/. EA-PDF does not mandate the use of any PREMIS elements. See [PREMIS].
-
-=== Profile
-
-The kind of `PDF/mail-1` file: `PDF/mail-1{s, si, m, mi, c, ci}`. This term was specifically chosen to avoid confusion and overlap with PDF/A "conformance levels", which are also highly relevant to EA-PDF.
-
-=== Render
-admitted:[Rendering]
-
-When referring to email, the term "render" in this document means the process by which an email (in an original source email format) is converted to one or more PDF pages for visualization. This document does not prescribe any specific conversion processes.
-
-=== XMP
-
-Extensible Metadata Platform. XML-based metadata used with PDF and other formats. Standardized by ISO 16684-1 – see [XMP]. Comprises both various XMP Standard Namespaces and XMP Specialized Namespaces – see https://developer.adobe.com/xmp/docs/XMPNamespaces/. 
 
 == Out of scope
 
@@ -205,25 +59,25 @@ NOTE: Reason: ISO 19005-3 PDF/A-3 mandates the use of XMP extension schemas eith
 
 NOTE: EA-PDF Writer: as discussed in the LWG, PDF/A-3 XMP extension schemas can be very complex while the use of PDF/A-4 allows alternate schema formats to be included.
 
-An EA-PDF file will contain many logical groupings of XMP metadata as illustrated in <<figure_6>> below
+An EA-PDF file will contain many logical groupings of XMP metadata as illustrated in <<figure-06>> below
 
-NOTE: Figure 6: logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via Message-ID/Mail_GUID properties below does not necessarily represent the physical ordering of the document level XMP metadata. XMP Extension Schemas are only required if the EA-PDF file conforms to PDF/A-3. PDF/A-4 files may alternatively optionally embed schemas using Associated Files with an *AFRelationship* value of Schema.
+NOTE: <<figure-06>> below does not necessarily represent the physical ordering of the document level XMP metadata. XMP Extension Schemas are only required if the EA-PDF file conforms to PDF/A-3. PDF/A-4 files may alternatively optionally embed schemas using Associated Files with an *AFRelationship* value of Schema.
 
 [[figure-06]]
 .logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via Message-ID/Mail_GUID properties
 image::figure-06.png[]
 
-Any PDF dictionary or stream object may also contain a *Metadata* entry referencing an XML-based XMP metadata stream allowing metadata to be logically and semantically associated with different objects in an EA-PDF file. Example use-cases of this are discussed below. See [MetadataStreams] and <<ISO_32000_2,clause=14.3.2>>.
+Any PDF dictionary or stream object may also contain a *Metadata* entry referencing an XML-based XMP metadata stream allowing metadata to be logically and semantically associated with different objects in an EA-PDF file. Example use-cases of this are discussed below. See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
 
 All EA-PDF files are required to have a Document Catalog *Metadata* stream that declares the EA-PDF profile [underline]#and# a corresponding PDF/A conformance level [underline]#and# a set of email-related _Core Fields_. Additional metadata in any *Metadata* stream may also be stored, in addition to what EA-PDF and PDF/A explicitly require. EA-PDF Creation Software must also record *dc:Creator*, *pdf:Producer* and *xmp:CreateDate* information in the document-level XMP metadata for all EA-PDF files.
 
 An EA-PDF file may also use [PDF-Declarations] in any *Metadata* XMP stream to specify compliance with other 3^rd^ party specifications or profiles, such as the EAXS specification [<<EAXS>>] or PREMIS [<<PREMIS>>]. It is _strongly recommended_ that all Declarations be publicly recorded at https://pdfa.org/declarations/.
 
-<<PDF_A_3,clause=6.1.5>> permits the use of the Document Information dictionary (<<ISO_32000_2,clause=14.3.3>>, as referenced by the document trailer *Info* entry), however PDF/A-4 prohibits the general use of this dictionary footnote:[ISO 32000-2:2020 deprecated the Document Information dictionary in preference for XMP metadata streams while PDF/A-4 only permits Document Information dictionaries with *ModDate* entries.]. To support the widest range of non-EA-PDF aware legacy software, EA-PDF files that are not required to use any PDF 2.0 features and thus can be PDF/A-3 compatible may wish to use PDF/A-3 in order to include a Document Information dictionary and provide a better experience with non-EA-PDF aware legacy software.
+<<PDF_A_3,clause=6.1.5>> permits the use of the Document Information dictionary (<<ISO_32000_2,clause=14.3.3>>, as referenced by the document trailer *Info* entry), however PDF/A-4 prohibits the general use of this dictionary footnote:[<<ISO_32000_2>> deprecated the Document Information dictionary in preference for XMP metadata streams while PDF/A-4 only permits Document Information dictionaries with *ModDate* entries.]. To support the widest range of non-EA-PDF aware legacy software, EA-PDF files that are not required to use any PDF 2.0 features and thus can be PDF/A-3 compatible may wish to use PDF/A-3 in order to include a Document Information dictionary and provide a better experience with non-EA-PDF aware legacy software.
 
 NOTE: Reason: a lot of legacy software has no functionality to display XMP metadata and can only report strings from the conventional PDF Document Information dictionary. Furthermore, software that can display XMP metadata may not have appropriate user interfaces for large XMP metadata such as required by EA-PDF.
 
-NOTE: EA-PDF Writer: Table 7 in PDF/A-3 (ISO 19005-3) defines a "crosswalk" of how the XMP and Document Information metadata ought to be aligned.
+NOTE: EA-PDF Writer: <<PDF_A_3,table=7>> defines a "crosswalk" of how the XMP and Document Information metadata ought to be aligned.
 
 NOTE: EA-PDF Writer: when choosing between PDF/A-3 and PDF/A-4, it is necessary to appreciate the PDF 2.0 specific features. PDF 2.0 specific features include PDF Unicode strings using UTF-8 (convert to UTF-16BE for compatibility with PDF 1.7). Certain other PDF 2.0 features such as Collection *Folders*, Document Part Metadata and new logical structure features (e.g. namespaces) can be written to PDF 1.7 but will be ignored (treated as unknown private data) by legacy software.
 
@@ -320,7 +174,7 @@ To enable improved reuse and accessibility, EA-PDF additionally defines a set of
 
 NOTE: EA-PDF Writer: different writers may choose to present the Core Field information as spans, paragraphs, lists, or in a tabular format. Having flexibility in the role-map allows EA-PDF writers to most appropriately provide the "approximate equivalents" in the PDF 1.7 standard structure elements for their presentation choice.
 
-The PDF 2.0 feature called Document Part Metadata (<<ISO_3200_2,clause=14.12>> – also referred to as *DPart*/*DPM*) is also used by EA-PDF footnote:[Although Document Part Metadata was formally documented as a part of core PDF 2.0 in ISO 32000-2, its initial use was defined in PDF 1.6 with PDF/VT-2 files (ISO 16612-2:2010). PDF/A does not prohibit the inclusion of private data so long as that private data does not impact rendering – and Document Part Metadata has no influence on rendering and is thus acceptable in all PDF/A files utilized by EA-PDF.]. This is a tree-like data structure using PDF object syntax, like the logical structure tree (but smaller), that can additionally express high-level semantics or associate data about page ranges. For EA-PDF aware software, the Document Part Metadata feature provides an additional rich programmatic (deterministic) understanding of _Content Sets_ and can be used for improved validation capabilities. Only the unique email identifiers (such as Message-ID/Mail_GUID) are stored in the Document Part Metadata allowing EA-PDF aware software to deterministically and reliably map _Content Sets_ back to the definitive XMP metadata.
+The PDF 2.0 feature called Document Part Metadata (<<ISO_32000_2,clause=14.12>> – also referred to as *DPart*/*DPM*) is also used by EA-PDF footnote:[Although Document Part Metadata was formally documented as a part of core PDF 2.0 in ISO 32000-2, its initial use was defined in PDF 1.6 with PDF/VT-2 files (ISO 16612-2:2010). PDF/A does not prohibit the inclusion of private data so long as that private data does not impact rendering – and Document Part Metadata has no influence on rendering and is thus acceptable in all PDF/A files utilized by EA-PDF.]. This is a tree-like data structure using PDF object syntax, like the logical structure tree (but smaller), that can additionally express high-level semantics or associate data about page ranges. For EA-PDF aware software, the Document Part Metadata feature provides an additional rich programmatic (deterministic) understanding of _Content Sets_ and can be used for improved validation capabilities. Only the unique email identifiers (such as Message-ID/Mail_GUID) are stored in the Document Part Metadata allowing EA-PDF aware software to deterministically and reliably map _Content Sets_ back to the definitive XMP metadata.
 
 NOTE: Reason: duplicating email metadata in the DPart tree is unnecessary and makes files larger.
 
@@ -340,7 +194,7 @@ NOTE: some legacy applications only display embedded files associated with File 
 
 Embedded files in a PDF can be utilized by several distinct PDF features relevant to email:
 
-* File attachment annotations (<<ISO_3200_2,clause=12.5.6.15>>), typically represented as paperclip icons on pages that when clicked open the file. In an email context, these are contextually like email attachments. File attachment annotations are always associated with PDF pages and have a visual on-page representation via the annotation appearance stream;
+* File attachment annotations (<<ISO_32000_2,clause=12.5.6.15>>), typically represented as paperclip icons on pages that when clicked open the file. In an email context, these are contextually like email attachments. File attachment annotations are always associated with PDF pages and have a visual on-page representation via the annotation appearance stream;
 
 NOTE: embedded files associated with PDF File attachment annotations do not have to be listed in the *EmbeddedFiles* name tree, however this can mean that some legacy software applications no not detect their presence until the page is viewed.
 
@@ -350,15 +204,15 @@ NOTE: both PDF/A-3 and PDF/A-4 prohibit Sound, Screen, and Movie annotations, wh
 
 NOTE: EA-PDF Writer: if 3D or RichMedia content is required to represent email, then the EA-PDF file will need to conform to PDF/A-4e, which is a superset of PDF/A-4f (and thus allows other embedded files).
 
-* PDF Collections (<<ISO_3200_2,clause=12.3.5>>, also known as "Portable Collections", "Portfolios", "Packages", or "Binders" presents hierarchical folder-like views of sets (collections) of embedded files. In an email context, this is contextually like how typical email client software presents folders and sub-folders of emails for organizing email.
+* PDF Collections (<<ISO_32000_2,clause=12.3.5>>), also known as "Portable Collections", "Portfolios", "Packages", or "Binders" presents hierarchical folder-like views of sets (collections) of embedded files. In an email context, this is contextually like how typical email client software presents folders and sub-folders of emails for organizing email.
 
 NOTE: ISO 32000 PDF Collections require that all files comprising the collection are listed in the *EmbeddedFiles* name tree.
 
-* The PDF feature known as Associated Files allows specific embedded files to have a defined simple semantic relationship with a specific PDF object via the *AFRelationship* entry. For example, a GIF or PNG image used in an email cannot be directly used by PDF and must first be converted to an alternate format such as an Image XObject. The raw GIF/PNG however can still be faithfully preserved by embedding it directly into the PDF as an associated file of the Image XObject with a _Source_ relationship. Associated Files were first added to PDF 1.7 by PDF/A-3 and later adopted into ISO 32000-2 with PDF 2.0 with an increased set of *AFRelationship* key values footnote:[C2PA further extends the set of *AFRelationship* values in ISO 32000-2 with a value of _C2PA_Manifest._ C2PA is not precluded from use in EA-PDF.]. See [AssociatedFiles] and <<ISO_32000_2,clause=14.13>>.
+* The PDF feature known as Associated Files allows specific embedded files to have a defined simple semantic relationship with a specific PDF object via the *AFRelationship* entry. For example, a GIF or PNG image used in an email cannot be directly used by PDF and must first be converted to an alternate format such as an Image XObject. The raw GIF/PNG however can still be faithfully preserved by embedding it directly into the PDF as an associated file of the Image XObject with a _Source_ relationship. Associated Files were first added to PDF 1.7 by PDF/A-3 and later adopted into ISO 32000-2 with PDF 2.0 with an increased set of *AFRelationship* key values footnote:[C2PA further extends the set of *AFRelationship* values in ISO 32000-2 with a value of _C2PA_Manifest._ C2PA is not precluded from use in EA-PDF.]. See <<AssociatedFiles>> and <<ISO_32000_2,clause=14.13>>.
 
 NOTE: Associated Files are not technically required to be listed in the *EmbeddedFiles* name tree, however for interoperability this is strongly recommended as all PDF/A conforming interactive processors must be capable of displaying information from the *EmbeddedFiles* name tree. For PDF/A-4f there must also be an *EmbeddedFiles* name tree present.
 
-PDF/A only permits embedded files in formats other than PDF/A in PDF/A-3 and the PDF/A-4f and PDF/A-4e conformance levels. Thus, specific EA-PDF profiles have limitations on which PDF/A version and conformance levels may be used – see <<table_2>> above.
+PDF/A only permits embedded files in formats other than PDF/A in PDF/A-3 and the PDF/A-4f and PDF/A-4e conformance levels. Thus, specific EA-PDF profiles have limitations on which PDF/A version and conformance levels may be used – see <<table-02>> above.
 
 Note that PDF embedded files in the *EmbeddedFiles* name tree, Associated Files, or via file attachment annotations form a flat list (i.e., there is no folder or inherent hierarchy), and there is no requirement to have unique filenames, so navigation with legacy software of large `PDF/mail-1{m, mi, c, ci}` files may be less than ideal. EA-PDF aware software can additionally utilize other EA-PDF data to provide a far better navigation experience relevant to archival management of email.
 
@@ -407,20 +261,20 @@ There is no requirement that [underline]#_only_# the email that is being preserv
 
 NOTE: EA-PDF Writer: if the source email data format is a multiple-email format (such as MBOX, OST/PST or NSF) and `PDF/mail-1s` files are being created with single email messages, then the EA-PDF Writer may elect to either export each email to a singular format (e.g. EML) and then convert that export to `PDF/mail-1s`, or to embed the full multi-email file as-is (however this may be large). This is a policy decision outside of the EA-PDF file format.
 
-If a source email format requires multiple files to be preserved as a set, then a Related Files array might be used (see <<ISO_3200_2,clause=7.11.4.2>>) or the additional related files can be stored as separate embedded files in the Document Catalog *AF* array with an *AFRelationship* of _Supplement_.
+If a source email format requires multiple files to be preserved as a set, then a Related Files array might be used (see <<ISO_32000_2,clause=7.11.4.2>>) or the additional related files can be stored as separate embedded files in the Document Catalog *AF* array with an *AFRelationship* of _Supplement_.
 
 NOTE: EA-PDF Writer: it is not desirable to use a format such as ZIP to store a set of source email asset(s), as the *Subtype* of the embedded file stream would then be application/zip, and the actual data formats of the original source email assets inside the ZIP is hidden. Instead, use the standard PDF FLATE and LZW compression filters that can losslessly compress the raw original email source data.
 
 The preserved source email asset(s) in `PDF/mail-1{s, m, c}` files must reflect [underline]#at least all# emails that are represented in that EA-PDF file. If only a subset of emails in an MBOX, PST/OST, NSF, etc. are converted to EA-PDF, then the full original raw source email asset (with the additional information) can be embedded. However, it is [underline]#not# valid to store a source email assets with an *AFRelationship* of _Source_ that do not contain [underline]#_all_# the source email content in a `PDF/mail-1{s, m, c}` file (i.e., every email represented in `PDF/mail-1{s, m}` files must be associated with data in the embedded source original email asset(s)) – otherwise the "isolated" profiles must be used (`PDF/mail-1{si, mi}`) to indicate that not all original source email assets are faithfully preserved.
 
-All embedded source email assets need to be listed in the Document Catalog *Names* name-tree *EmbeddedFiles* entry (<<ISO_3200_2,clause=7.7.4>>). All PDF file specification dictionaries in EA-PDF files ought to include meaningful descriptive text.
+All embedded source email assets need to be listed in the Document Catalog *Names* name-tree *EmbeddedFiles* entry (<<ISO_32000_2,clause=7.7.4>>). All PDF file specification dictionaries in EA-PDF files ought to include meaningful descriptive text.
 
 NOTE: Reason: Many legacy software viewers use the Document Catalog Names name-tree *EmbeddedFiles* entry to display and access embedded files. Embedded files not listed in the *EmbeddedFiles* entry may or may not get displayed in some legacy viewers. In some cases, embedded files associated with file attachment annotations may not show at all or may not appear until the associated page is scrolled into view.
 
 [[example-01]]
 .Document Catalog referencing the source email file as an Associated File and also listed in the *EmbeddedFiles* name tree.
 ====
-[source]
+[source,postscript]
 --
 10 0 obj
 << /Type /Catalog
@@ -479,9 +333,9 @@ NOTE: Reason: as discussed in the LWG, the document level XMP metadata is the pr
 
 NOTE: because the rendering of Core Fields in page content may be truncated, cropped, wrapped, localized, etc., the XMP Core Fields are to be considered the definitive "source of truth" for all EA-PDF aware software.
 
-The set of _Core Fields_ defined for each email stored in EA-PDF are listed in <<table_4>> below. _Core Fields_ names usually correspond to the matching email header field name, however EA-PDF Creation Software may add additional email header fields prefixed with "Raw-" to indicate a raw value from the email that would otherwise be an error when using a more rigid or structured XMP data type (see Sent vs. Raw-Sent below). To help minimize XMP Metadata size, most blank fields do not have to be stored:
+The set of _Core Fields_ defined for each email stored in EA-PDF are listed in <<table-04>> below. _Core Fields_ names usually correspond to the matching email header field name, however EA-PDF Creation Software may add additional email header fields prefixed with "Raw-" to indicate a raw value from the email that would otherwise be an error when using a more rigid or structured XMP data type (see Sent vs. Raw-Sent below). To help minimize XMP Metadata size, most blank fields do not have to be stored:
 
-[[table-4]]
+[[table-04]]
 .EA-PDF Core Fields footnote:[Note that some _Core Fields_ in email, such as Message-ID and Subject, are optional according to [RFC-822].]
 [cols="145,109,278"]
 |===
@@ -544,7 +398,7 @@ EA-PDF also defines a custom PDF 2.0 namespace with structure elements to additi
 
 [[example-02]]
 .PDF 2.0 logical structure namespace dictionary for EA-PDF custom structure elements.
-[source]
+[source,postscript]
 --
 110 0 obj  % PDF 1.7 standard structure namespace as per 14.8.6 in ISO 32000-2
 << /Type /Namespace /NS (http://iso.org/pdf/ssn) >>
@@ -592,13 +446,13 @@ NOTE: it is not mandated that EA-PDF files are also PDF/UA compliant (in additio
 
 ===== Referenced assets
 
-Subject to the policy environment, _EA-PDF Creation Software_ may additionally decide to preserve assets referenced by the original raw source email (e.g., images, SVG, rich media, etc.), including fetching and preserving external assets from the internet. When such assets are not natively compatible with PDF, the raw asset may also be saved (preserved) in the EA-PDF file as an Associated File (in an *AF* array) to the most relevant PDF object (e.g., Image XObject, Form XObject, font, etc., but [underline]#not# the Document Catalog footnote:[Associated Files with *AFRelationship*_Source_ in the Document Catalog *AF* array refer to the original raw source email assets for non-isolated `PDF/mail-1{s, m, c}` files.]) with an *AFRelationship* of _Source_. See [AssociatedFiles].
+Subject to the policy environment, _EA-PDF Creation Software_ may additionally decide to preserve assets referenced by the original raw source email (e.g., images, SVG, rich media, etc.), including fetching and preserving external assets from the internet. When such assets are not natively compatible with PDF, the raw asset may also be saved (preserved) in the EA-PDF file as an Associated File (in an *AF* array) to the most relevant PDF object (e.g., Image XObject, Form XObject, font, etc., but [underline]#not# the Document Catalog footnote:[Associated Files with *AFRelationship*_Source_ in the Document Catalog *AF* array refer to the original raw source email assets for non-isolated `PDF/mail-1{s, m, c}` files.]) with an *AFRelationship* of _Source_. See <<AssociatedFiles>>.
 
 Missing or corrupted assets may be visually indicated in EA-PDF output, but this is not mandated.
 
 NOTE: EA-PDF Writer: for example, if an image is not to be included in the PDF page rendering, then a bounding box rectangle might be shown along with other information as to the reason. It is not mandated because it cannot be validated without reference to the original source email asset and policy environment.
 
-Additionally, conversion information or other provenance information about referenced assets (such as set by an archival policy) may also be included in the EA-PDF file ideally as an XMP *Metadata* stream associated to the most relevant PDF object (e.g., Image XObject, Form XObject). See [MetadataStreams] and <<ISO_32000_2,clause=14.3.2>>.
+Additionally, conversion information or other provenance information about referenced assets (such as set by an archival policy) may also be included in the EA-PDF file ideally as an XMP *Metadata* stream associated to the most relevant PDF object (e.g., Image XObject, Form XObject). See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
 
 NOTE: EA-PDF Writer: as illustrated below, an animated GIF image in an email might be converted to a static JPEG (*DCTDecode*) image for inclusion in the rendered representation in PDF. SVG might be converted to a Form XObject or rendered to a canvas and embedded into the EA-PDF as a bitmap (Image XObject). The source asset and XMP metadata would then be associated with those PDF objects.
 
@@ -640,7 +494,7 @@ NOTE: EA-PDF Writer: one approach to try and protect against this behavior is fo
 
 === Email attachments
 
-All email attachments are faithfully preserved in EA-PDF files as file specification dictionaries with an embedded file stream (see <<ISO_3200_2,clause=7.11.4>>) linked to one or more File Attachment annotations (<<ISO_3200_2,clause=12.5.6.15>>). Each file attachment annotation is associated with a page.
+All email attachments are faithfully preserved in EA-PDF files as file specification dictionaries with an embedded file stream (see <<ISO_32000_2,clause=7.11.4>>) linked to one or more File Attachment annotations (<<ISO_32000_2,clause=12.5.6.15>>). Each file attachment annotation is associated with a page.
 
 NOTE: Reason: almost all legacy software viewers provide basic support for PDF file attachment annotations. File attachment annotations are typically visually represented by paperclips on pages which is a similar metaphor used by many email clients. Technically, the embedded file stream associated with file attachment annotations are not required to be listed in the Document Catalog Names name-tree *EmbeddedFiles* entry.
 
@@ -666,11 +520,11 @@ NOTE: Reason: this ensures that the email attachment is faithfully preserved in 
 
 The embedded file parameter dictionary (<<ISO_32000_2,table=45>>) is required to have a *ModDate* entry for all associated files. _EA-PDF Writers_ may also wish to record the MD5 checksum via the *CheckSum* and *Size* entries for all embedded file streams, which can assist correlating with XMP metadata and detecting any issues with file extraction.
 
-The embedded file stream dictionary may also contain an *AF* array with a file specification dictionary having an *AFRelationship* key with a value of _Alternative_ for an alternative representation of the attachment (e.g., conversion of the email attachment to PDF or PDF/A). See [AssociatedFiles].
+The embedded file stream dictionary may also contain an *AF* array with a file specification dictionary having an *AFRelationship* key with a value of _Alternative_ for an alternative representation of the attachment (e.g., conversion of the email attachment to PDF or PDF/A). See <<AssociatedFiles>>.
 
 NOTE: EA-PDF permits renderings of email attachments to be included in an EA-PDF file (e.g. as an embedded PDF/A file or an additional Content Set (set of pages)) even if the attachment itself is not included (zero length). However, these alternate representations are not ambiguous as the actual email attachment itself because of the *AFRelationship* value.
 
-The embedded file stream dictionary may also contain a *Metadata* entry. This may contain metadata that associates the attachment back to an email (i.e., via Mail_GUID), or additional provenance information such as set by the archival policy or captured by the EA-PDF Creation Software. See [MetadataStreams] and <<ISO_32000_2,clause=14.3.2>>.
+The embedded file stream dictionary may also contain a *Metadata* entry. This may contain metadata that associates the attachment back to an email (i.e., via Mail_GUID), or additional provenance information such as set by the archival policy or captured by the EA-PDF Creation Software. See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
 
 NOTE: Reason: email attachments may be malicious, corrupted, or zero bytes in length. EA-PDF desires that a file attachment annotation, file specification dictionary, and embedded file stream are present for every email file attachment but does not require that every attachment must be embedded – the embedded file stream may be zero bytes long. In such cases, a *Metadata* entry might be used to record the reason. See example below. However, this is not mandated as it cannot be machine validated without referencing the original source email asset.
 
@@ -688,7 +542,7 @@ NOTE: Reason: some email clients use additional logic beyond just the attachment
 
 [[example-03]]
 .EA-PDF embedded file stream dictionary with IANA media type including parameters.
-[source]
+[source,postscript]
 --
 2 0 obj                 % see https://www.iana.org/assignments/media-types/text/csv 
 << /Type /EmbeddedFile  % see Table 44 in ISO 32000-2:2020
@@ -739,7 +593,7 @@ The PDF fragment for the file specification dictionary referenced from the file 
 
 [[example-04]]
 .Email attachment and associated file example
-[source]
+[source,postscript]
 --
 9 0 obj % File attachment annotation visualized as a paperclip on a PDF page
  << /Type /Annot
@@ -829,7 +683,7 @@ Several scenarios have been identified by the LWG:
 . Packaging of previously created individual EA-PDF files into a "structured container". The previously created EA-PDF files could be any `PDF/mail` profile, including other `PDF/mail-1c` files recursively. Use cases included packaging of many EA-PDFs reflecting an organizational structure as well as reflecting folders of MBOX (`PDF/mail-1{m, mi}`) or MSG/EML (`PDF/mail-1{s, si}`) files, as illustrated in the right portion of <<figure-11>> below. This scenario also reflects how Mozilla Thunderbird stores emails as multiple MBOX files arranged in a folder hierarchy on a hard disk and where each embedded file in the container has its own embedded original raw source email asset (i.e., the MBOX file). If such embedded PDF files are then extracted from the container `PDF/mail-1c` file then they continue to contain their original raw source email asset and remain as valid preservation assets (although without the context of their folder hierarchy).
 . Packaging of one or more redacted, isolated, or otherwise modified EA-PDF files into a container for further non-preservation distribution uses, such as via FOIA requests or access copies. In this case, the container file will be indicated as `PDF/mail-1ci` as one or more of the original raw source email assets or metadata has been removed or modified. The container `PDF/mail-1ci` otherwise retains all other EA-PDF features, except that provenance back to the original raw source email asset for one or more emails has been lost or compromised.
 
-In an EA-PDF context, the embedded files in the PDF Collection of the right scenario in _Figure 11_ are described as "isolated" as they meet all EA-PDF requirements when extracted from the `PDF/mail-1c` file [underline]#_except_# they do not contain the original raw source email asset. Those in the left scenario remain as valid standalone `PDF/mail-1{s, m}` files because they [underline]#_include_# their original raw source email asset even when extracted.
+In an EA-PDF context, the embedded files in the PDF Collection of the right scenario in <<figure-11>> are described as "isolated" as they meet all EA-PDF requirements when extracted from the `PDF/mail-1c` file [underline]#_except_# they do not contain the original raw source email asset. Those in the left scenario remain as valid standalone `PDF/mail-1{s, m}` files because they [underline]#_include_# their original raw source email asset even when extracted.
 
 NOTE: EA-PDF preserved emails need to have verifiable provenance back to a preserved original raw source email asset, whether this be in the embedded file for `PDF/mail-1{s, m}` or in the container `PDF/mail-1c` file.
 
@@ -866,9 +720,9 @@ The Collection dictionary *View* entry must not be _H_.
 
 NOTE: Reason: This ensures that the collection view is not hidden by default.
 
-A Collection Schema dictionary must be defined containing at least the following fields listed in <<table-5>>. This minimum set of collection schema fields reflects a minimal set of EA-PDF _Core Fields_ most relevant to human understanding of email archives, however _EA-PDF Creation Software_ may add additional fields. See also Example 1 in <<ISO_3200_2,clause=12.3.5.2>> which illustrates the use of a simple *CollectionSchema* dictionary for email.
+A Collection Schema dictionary must be defined containing at least the following fields listed in <<table-05>>. This minimum set of collection schema fields reflects a minimal set of EA-PDF _Core Fields_ most relevant to human understanding of email archives, however _EA-PDF Creation Software_ may add additional fields. See also Example 1 in <<ISO_32000_2,clause=12.3.5.2>> which illustrates the use of a simple *CollectionSchema* dictionary for email.
 
-[[table-5]]
+[[table-05]]
 .Minimum set of Collection Schema entries for `PDF/mail-1{c, ci}`
 [cols="278,155"]
 |===
@@ -903,69 +757,73 @@ NOTE: Reason: this prohibits the addition of miscellaneous embedded files in the
 
 [[example-05]]
 .Collection Schema and Folder example
-[source]
+[source,postscript]
 --
-0 0 *obj* +
- << /Type /Collection +
- /View /D % details view +
- /Schema << +
- /Type /CollectionSchema +
- /To << /Subtype /S /N (To) /O 1 >> +
- /From << /Subtype /S /N (From) /O 2 >> +
- /Sent << /Subtype /D /N (Sent) /O 3 >> +
- /Subject << /Subtype /S /N (Subject) /O 4 >> +
- /Size << /Subtype /Size /N (Size (bytes)) /O 5 >> +
- /Attachments << /Subtype /N /N (No. of attachments) /O 6 >> +
- /Cc << /Subtype /S /N (Cc) /O 7 >> +
- /Bcc << /Subtype /S /N (Bcc) /O 8 >> +
- >> +
- /Folders 11 0 R +
- >> +
-*endobj*
+10 0 obj
+<< /Type /Collection
+   /View /D      % details view
+   /Schema <<
+      /Type /CollectionSchema
+      
+      % /N strings may be localized to reflect the "look & feel" of an email client.
+      /To          << /Subtype /S    /N (To)                 /O  1 >>
+      /From        << /Subtype /S    /N (From)               /O  2 >>
+      /Sent        << /Subtype /D    /N (Sent)               /O  3 >>
+      /Subject     << /Subtype /S    /N (Subject)            /O  4 >>
+      /Size        << /Subtype /Size /N (Size (bytes))       /O  5 >>
+      /Attachments << /Subtype /N    /N (No. of attachments) /O  6 >>
+      /Cc          << /Subtype /S    /N (Cc)                 /O  7 >>
 
-11 0 obj +
- <</Type /Folder +
- /ID 0 % 1st folder at root level +
- /Name (joe@email.org) % name of the folder +
- /Desc (Email folders for joe@email.org …) % Description +
- /CreationDate (D:…) % creation date of folder in email system (_if one exists_) +
- /Child 20 0 R % first sub-folder for this email account +
- /Next 12 0 R % next folder at this root level – maybe a different email account +
->> +
-*endobj*
+      % The key names in the Collection schema are not localized and are fixed for interoperability.
+      % They are also not prefixed with Mail_ as they are an example in ISO 32000.
+      /Bcc         << /Subtype /S    /N (Bcc)                /O  8 >>
+   >>
+   /Folders 11 0 R
+>>
+endobj
 
-20 0 obj +
- <</Type /Folder +
- /ID 2 % 1st folder at level 1 under joe@email.org +
- /Name (Inbox) % name of the folder = joe@email.org/Inbox +
- /Desc (Inbox folder for joe@email.org …) % Description +
- /CreationDate (D:…) % creation date of folder in email system (_if one exists_) +
- /Next 21 0 R % next folder at level 1 – maybe a different standard email folder +
->> +
-*endobj*
+11 0 obj
+<</Type /Folder
+  /ID   0               % 1st folder at root level
+  /Name (joe@email.org) % name of the folder
+  /Desc (Email folders for joe@email.org …) % Description
+  /CreationDate (D:…)   % creation date of folder in email system (if one exists)
+  /Child 20 0 R         % first sub-folder for this email account
+  /Next 12 0 R          % next folder at this root level – maybe a different email account
+>>
+endobj
 
-21 0 obj +
- <</Type /Folder +
- /ID 3 % 2nd folder at level 1 under joe@email.org +
- /Name (Sent) % name of the folder = joe@email.org/Sent +
- /Desc (Sent folder for joe@email.org …) % Description +
- /CreationDate (D:…) % creation date of folder in email system (_if one exists_) +
- /Next 22 0 R % next folder at level 1 (_not shown_) … +
->> +
-*endobj*
+20 0 obj
+<</Type /Folder
+  /ID   2               % 1st folder at level 1 under joe@email.org
+  /Name (Inbox)         % name of the folder = joe@email.org/Inbox
+  /Desc (Inbox folder for joe@email.org …) % Description
+  /CreationDate (D:…)   % creation date of folder in email system (if one exists)
+  /Next 21 0 R          % next folder at level 1 – maybe a different standard email folder
+>>
+endobj
 
+21 0 obj
+<</Type /Folder
+  /ID   3               % 2nd folder at level 1 under joe@email.org
+  /Name (Sent)          % name of the folder = joe@email.org/Sent
+  /Desc (Sent folder for joe@email.org …) % Description
+  /CreationDate (D:…)   % creation date of folder in email system (if one exists)
+  /Next 22 0 R          % next folder at level 1 (not shown) …
+>>
+endobj
 …
 
-11 0 obj +
- <</Type /Folder +
- /ID 1 % 2nd folder at root level +
- /Name (joe@home.net) % name of the folder +
- /Desc (Email folders for joe@home.net …) % Description +
- /CreationDate (D:…) % creation date of folder in email system (_if one exists_) +
- /Child 30 0 R % first sub-folder for this email account (_not shown_) +
- >> +
-*endobj*
-…
+11 0 obj
+<</Type /Folder
+  /ID   1               % 2nd folder at root level
+  /Name (joe@home.net)  % name of the folder
+  /Desc (Email folders for joe@home.net …) % Description
+  /CreationDate (D:…)   % creation date of folder in email system (if one exists)
+  /Child 30 0 R         % first sub-folder for this email account (not shown)
+>>
+endobj
+
 --
 
 Note that if a `PDF/mail-1{c, ci}` file is opened in a non-EA-PDF aware legacy interactive PDF viewer that does not support PDF Portable Collections, all the EA-PDF files listed in the *EmbeddedFiles* name-tree may appear with a preceding "<_xxx_>" before the filename, where _xxx_ is an integer (e.g., <2>Inbox.pdf, <3>Sent.pdf). This is due to the way PDF internally associates filenames with folders in PDF Collections and is unavoidable since it facilities a degree of backward compatibility for software that does not support PDF Collections.
@@ -986,7 +844,7 @@ The Document Catalog *PageMode* entry controls the appearance of interactive PDF
 
 NOTE: Reason: based on the content of each email, the EA-PDF Creation can set the *PageMode* appropriately for each `PDF/mail-1{s, si}` file. Because `PDF/mail-1{m, mi}` files contain many emails (and potentially many attachments with the same filename), navigating by email is the primary use-case. For `PDF/mail-1{c, ci}` containers, the primary use-case is accessing the embedded EA-PDF file attachments, even if PDF Collections are not supported.
 
-Viewer preferences (<<ISO_3200_2,clause=12.2>>) is widely supported by some legacy software and defines aspects of the interactive PDF viewing experience. The Viewer Preferences *NonFullScreenPageMode* key needs to be _UseOutlines_.
+Viewer preferences (<<ISO_32000_2,clause=12.2>>) is widely supported by some legacy software and defines aspects of the interactive PDF viewing experience. The Viewer Preferences *NonFullScreenPageMode* key needs to be _UseOutlines_.
 
 The PDF document information dictionary *Title* or XMP metadata *dc:title* property are strings that might be displayed in the title bar of legacy viewing applications. Thus, these values ought to be set appropriately by EA-PDF Creation software. See also Viewer Preferences *DisplayDocTitle* (<<ISO_32000_2,table=147>>), as a common alternative is the PDF filename which is unlikely to be a good user experience. The *DisplayDocTitle* value is mandated in EA-PDF.
 
@@ -1039,7 +897,7 @@ End users experience EA-PDF files via their software so it is not unsurprising t
 
 Non-interactive EA-PDF aware software (e.g., command line or server-based) may perform similar functions, such as bulk extraction of all embedded files or metadata streams, indexing of content, checking links, etc. Wording is intended to reflect both interactive and non-interactive applications.
 
-All conforming EA-PDF software SHALL provide the following functionality [underline]#_in addition to_# the mandated functionality required by PDF/A viewers (see <<PDF_A_3>> and <<PDF_A_4>>):
+All conforming EA-PDF software SHALL provide the following functionality [underline]#_in addition to_# the mandated functionality required by PDF/A viewers (see <<PDF_A_3>> and <<PDF_A_4f>>):
 
 NOTE: the following requirements and recommendations below are aligned with good, feature-rich compliant PDF/A viewers.
 
@@ -1110,7 +968,7 @@ All EA-PDF files SHALL conform to either PDF/A-3a, PDF/A-3u, PDF/A-4, PDF/A-4f, 
 
 NOTE: the above requirements for PDF/A conformance incorporate a lot of technical requirements.
 
-All EA-PDF files that also conform to PDF/A-3 SHALL have a Document Information dictionary referenced from the trailer *Info* entry. The information in this document information dictionary SHALL be consistent with the document catalog XMP Metadata entry as defined by _Table 7 - Crosswalk between document information dictionary and XMP properties_ in <<PDF/A-3>>.
+All EA-PDF files that also conform to PDF/A-3 SHALL have a Document Information dictionary referenced from the trailer *Info* entry. The information in this document information dictionary SHALL be consistent with the document catalog XMP Metadata entry as defined by <<table-07>> in <<PDF_A_3>>.
 
 NOTE: Reason: because PDF 2.0 has deprecated document information dictionaries, it is an intentional EA-PDF design decision to not extend the document information dictionary with custom keys to express email-specific information. Document-level XMP metadata is where all EA-PDF definitive metadata information is located. However, the prohibition of a document information dictionary in PDF/A-4 files raises compatibility with a wide range of legacy software that do not support XMP.
 
@@ -1228,7 +1086,7 @@ Emails with URLs that are intended to be actionable by users or software SHOULD 
 
 NOTE: Reason: this link requirement cannot be validated without additionally parsing the original source (raw) email assets and understanding the policy environment. This is viewed as onerous for validators and not possible for `PDF/mail-1{c, ci}` so it is stated as a recommendation and not a requirement.
 
-If referenced assets (e.g. file attachments; embedded images) from the source emails needed for page rendering are also being individually preserved (e.g., based on a policy setting), then those referenced assets SHOULD be embedded as Associated Files (*AF* array) with an *AFRelationship* of _Source._ They SHOULD be associated with the most appropriate PDF object (e.g., an Image XObject for images, a Form XObject for SVG vector art, a Font dictionary for font-related data, etc.) Refer to [AssociatedFiles].
+If referenced assets (e.g. file attachments; embedded images) from the source emails needed for page rendering are also being individually preserved (e.g., based on a policy setting), then those referenced assets SHOULD be embedded as Associated Files (*AF* array) with an *AFRelationship* of _Source._ They SHOULD be associated with the most appropriate PDF object (e.g., an Image XObject for images, a Form XObject for SVG vector art, a Font dictionary for font-related data, etc.) Refer to <<AssociatedFiles>>.
 
 NOTE: Reason: these requirements cannot be validated without additionally parsing the original source (raw) email assets. This is viewed as onerous for validators and not possible for isolated EA-PDF files so they are stated as recommendations and not requirements. It is also not possible to enumerate every possibility and every object to make the above a requirement in all cases.
 
@@ -1284,7 +1142,7 @@ All folder and filenames used in `PDF/mail-1{c,ci}` files SHALL conform to the v
 
 All `PDF/mail-1{c, ci}` files SHALL have a *Schema* entry in the Collections dictionary. The following custom fields representing the _Core Fields_ SHALL all exist in the collection schema dictionary – additional custom fields can also be present:
 
-[[table-6]]
+[[table-06]]
 .required Collection custom field names and subtypes for Core Fields (`PDF/mail-1{c, ci}`)
 [cols="a,a"]
 |===
@@ -1325,9 +1183,9 @@ NOTE: some of the same key names introduced for DPM are also used for Logical St
 .DPart hierarchy for example showing PDF object numbers
 image::figure-12.png[]
 
-Intermediate nodes of the Document Part Metadata tree SHALL be used to associate emails with all _Content Sets_ associated with that email, as illustrated by the green nodes (middle column of cells) in _Figure 8: Conceptual illustration of a simplified Document Part Metadata tree._ These intermediate nodes SHALL contain a *DPM* dictionary as specified in _Table 7: Entries in an EA-PDF DPM dictionary for an intermediate node associated with an email_ below.
+Intermediate nodes of the Document Part Metadata tree SHALL be used to associate emails with all _Content Sets_ associated with that email, as illustrated by the green nodes (middle column of cells) in <<figure-08>>. These intermediate nodes SHALL contain a *DPM* dictionary as specified in <<table-07>> below.
 
-[[table-7]]
+[[table-07]]
 .Entries in an EA-PDF *DPM* dictionary for an intermediate node associated with an email
 [cols="a,a,a"]
 |===
@@ -1353,9 +1211,9 @@ If *Mail_MessageID* is also present, then *Mail_GUID* takes precedence in identi
 
 Every *Mail_MessageID* and **Mail_GUID**value SHALL match a corresponding property in the Document Catalog XMP metadata stream.
 
-All leaf nodes of the Document Part Metadata tree SHALL contain a *DPM* dictionary to associate pages derived from a single email message with _Content Sets_ as illustrated by the blue nodes (right most column of boxes) in <<figure_8>> as defined in _Table 8: Entries in an EA-PDF DPM dictionary for a leaf node associated with pages_.
+All leaf nodes of the Document Part Metadata tree SHALL contain a *DPM* dictionary to associate pages derived from a single email message with _Content Sets_ as illustrated by the blue nodes (right most column of boxes) in <<figure-08>> as defined in <<table-08>>.
 
-[[table-8]]
+[[table-08]]
 .Entries in an EA-PDF *DPM* dictionary for a leaf node associated with pages
 [cols="a,a,a"]
 |===
@@ -1383,11 +1241,11 @@ NOTE: this is the same type and definition used by the embedded file stream dict
 
 |===
 
-An example of the DPart objects in the Document Part Metadata tree representing _Figure 8: Conceptual illustration of a simplified Document Part Metadata tree_(note that the page tree is not shown).
+An example of the DPart objects in the Document Part Metadata tree representing <<figure-08>> (note that the page tree is not shown).
 
 [[example-06]]
 .document part metadata example
-[source]
+[source,postscript]
 --
 6 0 obj
  << /Type /DPartRoot
@@ -1536,9 +1394,9 @@ NOTE: Reason: ISO TS 32005 standardizes the set of inclusion rules for the PDF 1
 
 For all `PDF/mail-1` files that contain Logical Structure, the logical structure tree root structure element as defined by the *K* entry of the structure tree root SHALL be a single structure element dictionary of structure type _Document_. If an array type for the *K* entry of the structure tree root is used, it SHALL have a single array element which SHALL be the structure type _Document_.
 
-In all PDF/A-4 files with logical structure, the custom EA-PDF-defined semantics SHALL be included using a PDF 2.0 Namespace dictionary with an *NS* entry of _https://pdfa.org/ns/ea‑pdf/mail‑1_ and including a *RoleMapNS* entry, as shown in Example 2above. The following RoleMap SHALL also be included (additional rolemappings may also be included).
+In all PDF/A-4 files with logical structure, the custom EA-PDF-defined semantics SHALL be included using a PDF 2.0 Namespace dictionary with an *NS* entry of _https://pdfa.org/ns/ea‑pdf/mail‑1_ and including a *RoleMapNS* entry, as shown in <<example-02>> above. The following RoleMap SHALL also be included (additional rolemappings may also be included).
 
-[[table-9]]
+[[table-09]]
 .PDF 2.0 to PDF 1.7 backward compatibility role map
 [cols="155,174"]
 |===
@@ -1593,16 +1451,16 @@ h| Parent h| Occurrence h| Immediate Child footnote:[Other nesting requirements 
 
 .3+| Mail_Message | 0 .. _n_ | Mail_ContentGroup
 | 0 .. _n_ | `Mail_ContentSet`
-| 0 | _All other custom EA-PDF tags as defined in Table 10._
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
 .2+| Mail_ContentGroup | 1 .. _n_ | Mail_ContentSet
-| 0 | _All other custom EA-PDF tags as defined in Table 10._
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
 .2+| Mail_ContentSet | 0 .. _n_ | Mail_ContentField
-| 0 | _All other custom EA-PDF tags as defined in Table 10._
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
 .3+| Mail_Field | 1 .. _n_ | Mail_FieldName
 | 0 .. _n_ | Mail_FieldValue
 
 NOTE: email field values may be blank and thus not present.
-| 0 | _All other custom EA-PDF tags as defined in Table 10._
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
 
 |===
 
@@ -1621,7 +1479,7 @@ NOTE: there are no explicit requirements related to email header fields and the_
 
 NOTE: the ordering of the_ Mail_FieldName _and_ Mail_FieldValue _custom EA-PDF tags is purposely not defined to support right-to-left languages and other layouts. The requirement reflects that an email field needs to be tagged with_ Mail_FieldName _only.
 
-Certain custom EA-PDF tags may optionally also contain specific custom user property structure attributes when the associated attribute object dictionary has a value of _UserProperties_ for the owner (*O*) entry. In this situation, the user property dictionary *N* SHALL be PDF ASCII strings with *V* entries as defined in <<table_12>> below.
+Certain custom EA-PDF tags may optionally also contain specific custom user property structure attributes when the associated attribute object dictionary has a value of _UserProperties_ for the owner (*O*) entry. In this situation, the user property dictionary *N* SHALL be PDF ASCII strings with *V* entries as defined in <<table-12>> below.
 
 [[table-12]]
 .EA-PDF UserProperties custom attributes *N* and *V* entries
@@ -1651,7 +1509,7 @@ h| N entry (_PDF ASCII string_) h| V entry type h| Only with custom EA-PDF tag(s
 
 |===
 
-NOTE: the UserProperties *N* entries match the DPM data (see Table 7 and Table 8 above) and XMP metadata fields (see Table 18 below) when prefixed with "_Mail_" to allow validation. <<ISO_32000_2,table=362>> recommends only to use strings, Booleans and numbers so name values are represented as strings for UserProperties *V* values.
+NOTE: the UserProperties *N* entries match the DPM data (see <<table-07>> and <<table-08>> above) and XMP metadata fields (see <<table-18>> below) when prefixed with "_Mail_" to allow validation. <<ISO_32000_2,table=362>> recommends only to use strings, Booleans and numbers so name values are represented as strings for UserProperties *V* values.
 
 When using custom user property structure attributes, the values (*V* entries) SHOULD NOT be truncated or modified from the original source email, even if the page rendering of the equivalent information is cropped, hidden, obscured, or truncated.
 
@@ -1712,7 +1570,7 @@ image::figure-13.png[]
 
 [[example-07]]
 .simplified custom EA-PDF tagging example
-[source]
+[source,postscript]
 --
 10 0 obj                          % Structure tree root
 << /Type /StructTreeRoot
@@ -1887,7 +1745,7 @@ NOTE: namespace URIs do not need to exist as websites (i.e., clickable URLs).
 
 NOTE: the PDF/A conformance level is determined by EA-PDF Creation Software and can be based on features present in the email messages.
 
-_EA-PDF Creation Software_ SHALL also record the dc:creator[0], pdf:Producerand the date of the EA-PDF file creation date (xmp:CreateDate) in the standard XMP metadata fields as defined in <<PDF/A-3>>, Table 7. The dc:title["x-default"] property SHOULD also be set.
+_EA-PDF Creation Software_ SHALL also record the dc:creator[0], pdf:Producerand the date of the EA-PDF file creation date (xmp:CreateDate) in the standard XMP metadata fields as defined in <<PDF_A_3,table=7>>. The dc:title["x-default"] property SHOULD also be set.
 
 NOTE: Reason: many PDF viewers display Title information at the top of viewing window.
 
@@ -1932,7 +1790,7 @@ NOTE: XMP in PDF is always UTF-8 so the filename can contain Unicode characters.
 | `SizeInBytes` | _Required_ | A non-negative integer that is the size (in bytes) of this source email asset.
 
 | `ContentType` | _Required_
-| Free text string representing the IANA Media Type (including any required parameters) of this email asset.Refer to <<table_17>> below for commonly used source email asset Media Types. Other IANA Media Types are allowed, but non-specific generic Media Types such as application/octet-stream , application/zip, or text/plain SHOULD NOT be used.
+| Free text string representing the IANA Media Type (including any required parameters) of this email asset.Refer to <<table-17>> below for commonly used source email asset Media Types. Other IANA Media Types are allowed, but non-specific generic Media Types such as application/octet-stream , application/zip, or text/plain SHOULD NOT be used.
 
 | `NumberMessages` | _Optional_ | A non-negative integer representing the number of individual email messages in this source email asset that have been successfully rendered into this EA-PDF file.
 

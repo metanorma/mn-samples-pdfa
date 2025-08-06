@@ -5,7 +5,7 @@
 This list of references includes both normative and informative references to aid
 readers.
 
-* [[[PDF_A_3,PDF/A-3]]] "ISO 19005-3, _Document management — Electronic document
+* [[[PDF_A_3,ISO 19005-3:2015]]] "ISO 19005-3, _Document management — Electronic document
 file format for long-term preservation — Part 3: Use of ISO 32000-1 with support
 for embedded files (PDF/A-3)"_ (including any Amendments and errata).
 https://pdfa.org/resource/iso-19005-3-pdf-a-3/
@@ -25,7 +25,7 @@ See https://github.com/pdf-association/pdf-issues/issues/374[PDF Errata #374].
 NOTE: Reason: This PDF/A-3 reference is undated so any future dated revisions or
 amendments to PDF/A-3 can be included as part of EA-PDF.
 
-* [[[PDF_A_4f,PDF/A-4]]] "ISO/DIS 19005-4:2024 _Document management — Electronic
+* [[[PDF_A_4f,ISO/DIS 19005-4:2024]]] "ISO/DIS 19005-4:2024 _Document management — Electronic
 document file format for long-term preservation — Part 4: Use of ISO 32000-2 (PDF/A-4)",_
 https://pdfa.org/resource/iso-19005-4-pdf-a-4/
 
@@ -40,7 +40,7 @@ NOTE: this is a specific dated reference to the 2024 dated revision of PDF/A-4 w
 resolves various issues related to embedded files in PDF/A-4. When ISO/DIS 19005-4:2024
 is completed and published by ISO this reference will be updated.
 
-* [[[ISO_32000_2,ISO 32000-2]]] "ISO 32000-2, _Document management — Portable document
+* [[[ISO_32000_2,ISO 32000-2:2020]]] "ISO 32000-2, _Document management — Portable document
 format — Part 2: PDF 2.0"_ including all Amendments and errata. https://pdfa.org/resource/iso-32000-2/
 
 NOTE: this document only references the PDF 2.0 ISO specification as it has greatly
@@ -74,8 +74,7 @@ Technical Approaches for Email Archives_" Council on Library and Information Res
 (CLIR), CLIR, vol. 1, 1 vols. Washington DC, USA, 2018. https://www.clir.org/pubs/reports/pub175/
 
 * [[[EA_PDF_TR,EA-PDF-TR]]] "_A Specification for Using PDF to Package and Represent
-Email Technical Report_", EA-PDF Working Group, University of Illinois at Urbana-Champaign,
-p. 34, Jan. 2021. https://www.ideals.illinois.edu/handle/2142/109251
+Email Technical Report_", EA-PDF Working Group, University of Illinois at Urbana-Champaign, p. 34, Jan. 2021. https://www.ideals.illinois.edu/handle/2142/109251
 
 * [[[EAXS,EAXS]]] "_Email Account XML Schema (EAXS_)", State Archives of North Carolina
 and the Smithsonian Institution Archives https://github.com/StateArchivesOfNorthCarolina/tomes-eaxs/blob/master/versions/1/eaxs_schema_v1.xsd
@@ -83,7 +82,7 @@ and the Smithsonian Institution Archives https://github.com/StateArchivesOfNorth
 * [[[EAXSPREMISCrosswalk,EAXSPREMISCrosswalk]]] "_Email EAXS/PREMIS Crosswalks for
 collection/account_", https://docs.google.com/spreadsheets/d/1GoLnA0tkslkfYXIDM6k5wM8KU8YhfUMXWgYg7Sz99s0/edit#gid=0
 
-[ePADDMeta] "_EA PDF proposed metadata profile - based on ePADD"_, https://docs.google.com/spreadsheets/d/1bckPBvYEeoBT0x2OeNH-dO6JoyWAolTu/edit#gid=175841588
+* [[[ePADDMeta,ePADDMeta]]] "_EA PDF proposed metadata profile - based on ePADD"_, https://docs.google.com/spreadsheets/d/1bckPBvYEeoBT0x2OeNH-dO6JoyWAolTu/edit#gid=175841588
 
 * [[[FOAF,FOAF]]] "_FOAF Friend Of A Friend Vocabulary Specification"_, http://xmlns.com/foaf/0.1/
 
@@ -105,8 +104,10 @@ metadata streams_", PDF Association, https://www.pdfa.org/resource/pdf-2-0-appli
 https://github.com/UIUCLibrary/ea-pdf
 
 * [[[XMP,XMP]]] "ISO 16684-1, _Extensible metadata platform (XMP) specification —
-Part 1: Data model, serialization and core properties",_ https://pdfa.org/resource/iso-16684-1/.
+Part 1: Data model, serialization and core properties", https://pdfa.org/resource/iso-16684-1/.
 
 * [[[XMPNamespaces,XMPNamespaces]]] https://developer.adobe.com/xmp/docs/XMPNamespaces/
 
 * [[[ISO_32000_1_2008,hidden(ISO 32000-1:2008)]]]
+
+* [[[ISO_16684_1_2019,hidden(ISO 16684-1:2019)]]]
