@@ -111,3 +111,5 @@ Part 1: Data model, serialization and core properties", https://pdfa.org/resourc
 * [[[ISO_32000_1_2008,hidden(ISO 32000-1:2008)]]]
 
 * [[[ISO_16684_1_2019,hidden(ISO 16684-1:2019)]]]
+
+* [[[RFC_4122,hidden(RFC 4122)]]]
