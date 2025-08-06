@@ -21,7 +21,7 @@ The following aspects are not defined by this document, but limited guidance or 
 
 == From an email and end-user perspective
 
-This section provides a description of the `PDF/mail-1` file format from the perspective of readers familiar with email such as [RFC-822] and related RFCs, however it needs to be read by everyone.
+This section provides a description of the `PDF/mail-1` file format from the perspective of readers familiar with email such as <<RFC_822>> and related RFCs, however it needs to be read by everyone.
 
 This section is written and structured from an [underline]#_input_# point of view and contains additional explanation and reasoning, including recommendations that would normally be found in Application Notes or similar supporting publications. In addition, testing of a selection of existing PDF applications was performed to support LWG requests for reasonable support in existing non-EA-PDF aware legacy software.
 
@@ -43,7 +43,7 @@ Metadata is critically important to email preservation and management using EA-P
 
 EA-PDF also additionally supports the representation of metadata or any other information as human readable content on PDF pages to better support non-EA-PDF legacy software that cannot access XMP metadata (generically referred to as "conversion reports" in this document).
 
-Metadata in PDF can be stored in two formats: XML-based XMP in *Metadata* streams, and as PDF string objects in the traditional Document Information PDF dictionary. PDF/A and the other modern PDF ISO subsets all use XMP Metadata to store their conformance level [underline]#and# other information. In accordance with recommendations in the [<<XMP>>] standard and to facilitate interoperability with the broadest range of software, EA-PDF leverages existing XMP schemas such as Dublin Core, XMP Basic Schema, and the Adobe PDF Schema for certain basic information (see [<<XMPNamespaces>>]). XMP supports custom data and, where possible, EA-PDF will extend XMP by utilizing existing XMP or RDF ontologies, such as Dublin Core, Friend Of A Friend [<<FOAF>>], [<<PREMIS>>], [<<EAXS>>], etc.
+Metadata in PDF can be stored in two formats: XML-based XMP in *Metadata* streams, and as PDF string objects in the traditional Document Information PDF dictionary. PDF/A and the other modern PDF ISO subsets all use XMP Metadata to store their conformance level [underline]#and# other information. In accordance with recommendations in the <<XMP>> standard and to facilitate interoperability with the broadest range of software, EA-PDF leverages existing XMP schemas such as Dublin Core, XMP Basic Schema, and the Adobe PDF Schema for certain basic information (see <<XMPNamespaces>>). XMP supports custom data and, where possible, EA-PDF will extend XMP by utilizing existing XMP or RDF ontologies, such as Dublin Core, Friend Of A Friend <<FOAF>>, <<PREMIS>>, <<EAXS>>, etc.
 
 NOTE: leveraging existing specifications for metadata will hopefully make EA-PDF files more compatible with existing document and archival management systems that already support XMP across multiple file formats.
 
@@ -64,14 +64,14 @@ An EA-PDF file will contain many logical groupings of XMP metadata as illustrate
 NOTE: <<figure-06>> below does not necessarily represent the physical ordering of the document level XMP metadata. XMP Extension Schemas are only required if the EA-PDF file conforms to PDF/A-3. PDF/A-4 files may alternatively optionally embed schemas using Associated Files with an *AFRelationship* value of Schema.
 
 [[figure-06]]
-.logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via Message-ID/Mail_GUID properties
+.logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via `Message-ID/Mail_GUID` properties
 image::figure-06.png[]
 
 Any PDF dictionary or stream object may also contain a *Metadata* entry referencing an XML-based XMP metadata stream allowing metadata to be logically and semantically associated with different objects in an EA-PDF file. Example use-cases of this are discussed below. See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
 
 All EA-PDF files are required to have a Document Catalog *Metadata* stream that declares the EA-PDF profile [underline]#and# a corresponding PDF/A conformance level [underline]#and# a set of email-related _Core Fields_. Additional metadata in any *Metadata* stream may also be stored, in addition to what EA-PDF and PDF/A explicitly require. EA-PDF Creation Software must also record *dc:Creator*, *pdf:Producer* and *xmp:CreateDate* information in the document-level XMP metadata for all EA-PDF files.
 
-An EA-PDF file may also use [PDF-Declarations] in any *Metadata* XMP stream to specify compliance with other 3^rd^ party specifications or profiles, such as the EAXS specification [<<EAXS>>] or PREMIS [<<PREMIS>>]. It is _strongly recommended_ that all Declarations be publicly recorded at https://pdfa.org/declarations/.
+An EA-PDF file may also use <<PDF_Declarations>> in any *Metadata* XMP stream to specify compliance with other 3^rd^ party specifications or profiles, such as the EAXS specification <<EAXS>> or PREMIS <<PREMIS>>. It is _strongly recommended_ that all Declarations be publicly recorded at https://pdfa.org/declarations/.
 
 <<PDF_A_3,clause=6.1.5>> permits the use of the Document Information dictionary (<<ISO_32000_2,clause=14.3.3>>, as referenced by the document trailer *Info* entry), however PDF/A-4 prohibits the general use of this dictionary footnote:[<<ISO_32000_2>> deprecated the Document Information dictionary in preference for XMP metadata streams while PDF/A-4 only permits Document Information dictionaries with *ModDate* entries.]. To support the widest range of non-EA-PDF aware legacy software, EA-PDF files that are not required to use any PDF 2.0 features and thus can be PDF/A-3 compatible may wish to use PDF/A-3 in order to include a Document Information dictionary and provide a better experience with non-EA-PDF aware legacy software.
 
@@ -89,7 +89,7 @@ _EA-PDF Creation Software_ is responsible for ensuring that the page content and
 
 EA-PDF files will have multiple "sets" of pages that are related – for example, a set of pages for a text/plain email body, a different set of pages for a text/html body of the same email, front matter, conversion report(s), sets of pages for lists of attachments or embedded files, etc. Although `PDF/mail-1{c, ci}` container files do not directly contain pages from email, they may contain front matter, conversion reports, etc. In EA-PDF each of these sets is referred to as a _Content Set_, where each _Content Set_ is a sequential set of pages that always start on a new page. Each _Content Set_ is always at least 1 page in length resulting in EA-PDF files always having at least one page.
 
-NOTE: Reason: having each Content Set start on a new page makes the page extraction of specific emails (or renderings of emails) easier, simpler and supported by more software, as well as supporting less capable non-EA-PDF aware legacy viewers that do not support all forms of destination and sub-page navigation.
+NOTE: Reason: having each _Content Set_ start on a new page makes the page extraction of specific emails (or renderings of emails) easier, simpler and supported by more software, as well as supporting less capable non-EA-PDF aware legacy viewers that do not support all forms of destination and sub-page navigation.
 
 NOTE: there are no limits to the number of pages that a PDF file may contain, however some legacy software may have restrictions.
 
@@ -174,7 +174,7 @@ To enable improved reuse and accessibility, EA-PDF additionally defines a set of
 
 NOTE: EA-PDF Writer: different writers may choose to present the Core Field information as spans, paragraphs, lists, or in a tabular format. Having flexibility in the role-map allows EA-PDF writers to most appropriately provide the "approximate equivalents" in the PDF 1.7 standard structure elements for their presentation choice.
 
-The PDF 2.0 feature called Document Part Metadata (<<ISO_32000_2,clause=14.12>> – also referred to as *DPart*/*DPM*) is also used by EA-PDF footnote:[Although Document Part Metadata was formally documented as a part of core PDF 2.0 in ISO 32000-2, its initial use was defined in PDF 1.6 with PDF/VT-2 files (ISO 16612-2:2010). PDF/A does not prohibit the inclusion of private data so long as that private data does not impact rendering – and Document Part Metadata has no influence on rendering and is thus acceptable in all PDF/A files utilized by EA-PDF.]. This is a tree-like data structure using PDF object syntax, like the logical structure tree (but smaller), that can additionally express high-level semantics or associate data about page ranges. For EA-PDF aware software, the Document Part Metadata feature provides an additional rich programmatic (deterministic) understanding of _Content Sets_ and can be used for improved validation capabilities. Only the unique email identifiers (such as Message-ID/Mail_GUID) are stored in the Document Part Metadata allowing EA-PDF aware software to deterministically and reliably map _Content Sets_ back to the definitive XMP metadata.
+The PDF 2.0 feature called Document Part Metadata (<<ISO_32000_2,clause=14.12>> – also referred to as *DPart*/*DPM*) is also used by EA-PDF footnote:[Although Document Part Metadata was formally documented as a part of core PDF 2.0 in ISO 32000-2, its initial use was defined in PDF 1.6 with PDF/VT-2 files (ISO 16612-2:2010). PDF/A does not prohibit the inclusion of private data so long as that private data does not impact rendering – and Document Part Metadata has no influence on rendering and is thus acceptable in all PDF/A files utilized by EA-PDF.]. This is a tree-like data structure using PDF object syntax, like the logical structure tree (but smaller), that can additionally express high-level semantics or associate data about page ranges. For EA-PDF aware software, the Document Part Metadata feature provides an additional rich programmatic (deterministic) understanding of _Content Sets_ and can be used for improved validation capabilities. Only the unique email identifiers (such as `Message-ID/Mail_GUID`) are stored in the Document Part Metadata allowing EA-PDF aware software to deterministically and reliably map _Content Sets_ back to the definitive XMP metadata.
 
 NOTE: Reason: duplicating email metadata in the DPart tree is unnecessary and makes files larger.
 
@@ -252,7 +252,7 @@ If multiple emails from different original email assets need to be preserved as 
 
 * create a `PDF/mail-1c` collection with individual EA-PDF files (`PDF/mail-1{s,m}`), each with its own independent trusted original source email asset. This is the preferred approach with the best support across legacy software and ensures the extracted EA-PDF files also retain preservation qualities;
 * combine the email assets into a single new email asset (e.g., concatenating EML or MBOX files or merge all OST/PST files) prior to creating an EA-PDF file (such as a `PDF/mail-1m`);
-* embed all original source email assets, each with an *AFRelationship* value of _Source_, and rely on EA-PDF aware software to use Message-ID/Mail_GUID metadata to map each email to the correct original email source asset; or
+* embed all original source email assets, each with an *AFRelationship* value of _Source_, and rely on EA-PDF aware software to use `Message-ID/Mail_GUID` metadata to map each email to the correct original email source asset; or
 * use an EA-PDF isolated (i) profile.
 
 In all cases, all pre-processing steps ought to be recorded in the provenance metadata.
@@ -336,27 +336,27 @@ NOTE: because the rendering of Core Fields in page content may be truncated, cro
 The set of _Core Fields_ defined for each email stored in EA-PDF are listed in <<table-04>> below. _Core Fields_ names usually correspond to the matching email header field name, however EA-PDF Creation Software may add additional email header fields prefixed with "Raw-" to indicate a raw value from the email that would otherwise be an error when using a more rigid or structured XMP data type (see Sent vs. Raw-Sent below). To help minimize XMP Metadata size, most blank fields do not have to be stored:
 
 [[table-04]]
-.EA-PDF Core Fields footnote:[Note that some _Core Fields_ in email, such as Message-ID and Subject, are optional according to [RFC-822].]
+.EA-PDF Core Fields footnote:[Note that some _Core Fields_ in email, such as `Message-ID` and Subject, are optional according to <<RFC_822>>.]
 [cols="145,109,278"]
 |===
 h| Core Field Property h| Source h| Condition
 
-| To | Email header | If present and not blank/empty.
+| `To` | Email header | If present and not blank/empty.
 
-| From | Email header | If present and not blank/empty.
-| Sent | Conversion from email header | *Required* (even if blank/empty)
-
-NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context. EA-PDF uses the term "Sent".
-| Raw-Sent | Email header | *Conditionally Required* if the email header Sent field date value contains an error that cannot be identically represented as a valid XMP date/time. Optional otherwise.
+| `From` | Email header | If present and not blank/empty.
+| `Sent` | Conversion from email header | *Required* (even if blank/empty)
 
 NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context. EA-PDF uses the term "Sent".
-| Subject | Email header | If present and not blank/empty.
-| Message-ID | Email header | If present and not blank/empty.
-| Cc | Email header | If present and not blank/empty.
-| Bcc | Email header | If present and not blank/empty.
-| In-Reply-To | Email header | If present and not blank/empty.
-| Content-Type | Email header | *Required* (even if blank/empty)
-| Mail_GUID footnote:[GUID = Global Unique Identifier. EA-PDF does not prescribe how GUIDs are generated and does not distinguish between the terms GUID and UUID (Universally Unique Identifier, see also RFC 4122).]
+| `Raw-Sent` | Email header | *Conditionally Required* if the email header Sent field date value contains an error that cannot be identically represented as a valid XMP date/time. Optional otherwise.
+
+NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context. EA-PDF uses the term "Sent".
+| `Subject` | Email header | If present and not blank/empty.
+| `Message-ID` | Email header | If present and not blank/empty.
+| `Cc` | Email header | If present and not blank/empty.
+| `Bcc` | Email header | If present and not blank/empty.
+| `In-Reply-To` | Email header | If present and not blank/empty.
+| `Content-Type` | Email header | *Required* (even if blank/empty)
+| `Mail_GUID` footnote:[GUID = Global Unique Identifier. EA-PDF does not prescribe how GUIDs are generated and does not distinguish between the terms GUID and UUID (Universally Unique Identifier, see also RFC 4122).]
 
 | Created by EA-PDF software | *Required*. Unique for the email and that is generated by the _EA-PDF Creation Software_.
 | Original email message size (_in bytes_) | Directly from email asset | *Required.*
@@ -368,11 +368,11 @@ All non-blank _Core Fields_ are _strongly recommended_ to also be rendered into 
 
 NOTE: Reason: using PDF text objects in PDF/A compliant files such as EA-PDF ensures that non-EA-PDF aware legacy software with text searching or extraction capabilities ought to be able to find Core Fields in page content, even if they do not support XMP.
 
-NOTE: Reason: if rendering of Core Fields into visible page content was mandated by a "SHALL" requirement then to make this validatable by software without human checks requires additional complexity including reading the original source email asset. Otherwise, machine validation would be unreliable as emails containing replies, forwarded emails, or other content with similar text may ambiguously look like certain Core Fields. PDF/A files currently do not contain any content requirements and can be fully machine validated by software without human checks and without reference to any original document - EA-PDF aims for this same level of efficiency.
+NOTE: Reason: if rendering of Core Fields into visible page content was mandated by a "SHALL" requirement then to make this validatable by software without human checks requires additional complexity including reading the original source email asset. Otherwise, machine validation would be unreliable as emails containing replies, forwarded emails, or other content with similar text may ambiguously look like certain Core Fields. PDF/A files currently do not contain any content requirements and can be fully machine validated by software _without_ human checks and _without_ reference to any original document - EA-PDF aims for this same level of efficiency.
 
-Emails are generally considered identifiable by the standard email header Message-ID field, however not all emails in EA-PDF files may have a Message-ID (e.g. draft or unsent emails). When present, the Message-ID will always be present in the definitive XMP metadata to allow easy discovery (even by non-EA-PDF aware software), but for the purposes of defining links or relationships between PDF data in or between EA-PDF files, the __Core Field__Mail_GUID must always be used.
+Emails are generally considered identifiable by the standard email header `Message-ID` field, however not all emails in EA-PDF files may have a `Message-ID` (e.g. draft or unsent emails). When present, the `Message-ID` will always be present in the definitive XMP metadata to allow easy discovery (even by non-EA-PDF aware software), but for the purposes of defining links or relationships between PDF data in or between EA-PDF files, the _Core Field_ `Mail_GUID` must always be used.
 
-NOTE: EA-PDF Writer: XMP is very flexible in its definition of GUID (see <<XMP,clause=8.2.2.3>> – it is just a string) so the email Message-ID field can simply be used when it is present. When not present however, EA-PDF Writer must generate something that is globally/universally unique and this is why Mail_GUID is mandated.
+NOTE: EA-PDF Writer: XMP is very flexible in its definition of GUID (see <<XMP,clause=8.2.2.3>> – it is just a string) so the email `Message-ID` field can simply be used when it is present. When not present however, EA-PDF Writer must generate something that is globally/universally unique and this is why `Mail_GUID` is mandated.
 
 _EA-PDF Creation Software_ is otherwise free to choose how to layout and render the appearance of the _Core Fields_ into page content, including using advanced renderings or layouts that might simulate rich email client user interfaces with additional graphics or images.
 
@@ -420,7 +420,7 @@ endobj
 
 EA-PDF does not prescribe page sizes, page layout, content reflow, wrapping, page breaks, appearance, etc. within _Content Sets_. All textual content in the email must be represented using PDF text objects and, because EA-PDF files also conform to specific PDF/A conformance levels, all such text will have identifiable Unicode codepoints.
 
-NOTE: EA-PDF Writer: EA-PDF Creation Software is free to choose page size (media size), margins, scaling factors, headers, footers, wrapping, etc. However, all textual content in the email body must be represented in EA-PDF files as text objects so that text search is possible across all software, which is also enforced by requiring PDF/A conformance. This does not preclude the rendering of email to images so long as the textual content is also added (like is often done with scan-to-PDF and OCR solutions that then use text rendering mode *Tr* 3 [<<ISO_32000_2,clause=9.3.6>>]). This rendering of email to images is undesirable and inefficient but is not technically prohibited by EA-PDF or PDF/A conformance.
+NOTE: EA-PDF Writer: EA-PDF Creation Software is free to choose page size (media size), margins, scaling factors, headers, footers, wrapping, etc. However, all textual content in the email body must be represented in EA-PDF files as text objects so that text search is possible across all software, which is also enforced by requiring PDF/A conformance. This does not preclude the rendering of email to images so long as the textual content is also added (like is often done with scan-to-PDF and OCR solutions that then use text rendering mode *Tr* 3 <<ISO_32000_2,clause=9.3.6>>). This rendering of email to images is undesirable and inefficient but is not technically prohibited by EA-PDF or PDF/A conformance.
 
 All pages in `PDF/mail-1` files ought to have a visible page number with equivalent page label (see <<ISO_32000_2,clause=12.4.2>>). If Tagged PDF is also used, then these page labels can be tagged as artifacts.
 
@@ -436,7 +436,7 @@ Where the color space of email message body content is not explicitly defined in
 
 NOTE: Reason: PDF/A requires the use of device independent color spaces to ensure a consistent and reliable appearance across devices.
 
-NOTE: EA-PDF Writer: sRGB support in PDF/A is best done via an *ICCBased* color space object, which only ever needs to be embedded once in a PDF file and can be reused as necessary. See also §8.6.5.6 Default colour spaces in [<<ISO_32000_2,ISO 32000-2>>].
+NOTE: EA-PDF Writer: sRGB support in PDF/A is best done via an *ICCBased* color space object, which only ever needs to be embedded once in a PDF file and can be reused as necessary. See also §8.6.5.6 Default colour spaces in <<ISO_32000_2,ISO 32000-2>>.
 
 For `PDF/mail-1{s, si}` and `PDF/mail-1{m, mi}` files that contain pages representing richly formatted email bodies with existing semantic information, PDF logical structure and Tagged PDF is _strongly recommended_.
 
@@ -460,7 +460,7 @@ NOTE: Reason: Fetching and/or storing of external assets referenced from email b
 
 Referenced assets that need conversion and result in an image ought to use Image XObjects and not inline images.
 
-NOTE: avoiding inline images in PDF content streams for converted assets means that Image XObjects must be used (inline images can still be used for other purposes however). This is because a lot of legacy software only supports Image XObjects when looking for metadata, performing image extraction, etc. As per [<<ISO_32000_2,clause=8.9.7>>] inline images are also only appropriate for very small images (4096 bytes or less).
+NOTE: avoiding inline images in PDF content streams for converted assets means that Image XObjects must be used (inline images can still be used for other purposes however). This is because a lot of legacy software only supports Image XObjects when looking for metadata, performing image extraction, etc. As per <<ISO_32000_2,clause=8.9.7>> inline images are also only appropriate for very small images (4096 bytes or less).
 
 [[figure-09]]
 .Example of multiple Associated Files and Metadata streams associated with a converted asset (e.g. animated GIF converted to Image XObject)
@@ -482,7 +482,7 @@ NOTE: some email clients have their own algorithms for special processing of add
 
 ==== URL hyperlinks
 
-Although richly formatted email bodies may contain explicitly marked-up URLs (such as using HTML <a href="…">…</a> tags), many modern email clients also detect and make active (clickable) other URLs found in emails, including plain text email bodies which do not contain any markup. Active URLs in email clients are commonly shown as underlined colored text. This difference in behavior is oftentimes not obvious to users and can mean that the presentation and functionality of email can look different across different email clients (i.e., which URLs are active and which are not).
+Although richly formatted email bodies may contain explicitly marked-up URLs (such as using HTML `<a href="…">…</a>` tags), many modern email clients also detect and make active (clickable) other URLs found in emails, including plain text email bodies which do not contain any markup. Active URLs in email clients are commonly shown as underlined colored text. This difference in behavior is oftentimes not obvious to users and can mean that the presentation and functionality of email can look different across different email clients (i.e., which URLs are active and which are not).
 
 In PDF, active (clickable) URLs are enabled via the use of PDF Link annotations footnote:[PDF page content that [underline]#_looks like_# URL text is not active (clickable) unless a PDF Link annotation is also created. The appearance of the URL text in the PDF page content has no influence on whether a URL is active (e.g. blue underlined text is not active unless a PDF Link annotation is also created).]. _EA-PDF Creation Software_ is free to decide not to create any PDF Link annotations (so URLs only appear as text), only create PDF Link annotations for those explicitly marked-up URLs in richly formatted email bodies, detect URLs in the content of email bodies (including plain text emails that contain no explicit markup) and make some or all those links active via PDF Link annotations, or some other strategy.
 
@@ -524,7 +524,7 @@ The embedded file stream dictionary may also contain an *AF* array with a file s
 
 NOTE: EA-PDF permits renderings of email attachments to be included in an EA-PDF file (e.g. as an embedded PDF/A file or an additional Content Set (set of pages)) even if the attachment itself is not included (zero length). However, these alternate representations are not ambiguous as the actual email attachment itself because of the *AFRelationship* value.
 
-The embedded file stream dictionary may also contain a *Metadata* entry. This may contain metadata that associates the attachment back to an email (i.e., via Mail_GUID), or additional provenance information such as set by the archival policy or captured by the EA-PDF Creation Software. See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
+The embedded file stream dictionary may also contain a *Metadata* entry. This may contain metadata that associates the attachment back to an email (i.e., via `Mail_GUID`), or additional provenance information such as set by the archival policy or captured by the EA-PDF Creation Software. See <<MetadataStreams>> and <<ISO_32000_2,clause=14.3.2>>.
 
 NOTE: Reason: email attachments may be malicious, corrupted, or zero bytes in length. EA-PDF desires that a file attachment annotation, file specification dictionary, and embedded file stream are present for every email file attachment but does not require that every attachment must be embedded – the embedded file stream may be zero bytes long. In such cases, a *Metadata* entry might be used to record the reason. See example below. However, this is not mandated as it cannot be machine validated without referencing the original source email asset.
 
@@ -532,7 +532,10 @@ NOTE: Reason: email attachments may be malicious, corrupted, or zero bytes in le
 .conceptual framework of PDF objects related to email attachments with alternate rendering
 image::figure-10.png[]
 
-NOTE: Reason: the LWG wanted to associate the email attachment filename, Media Type (from email), associated Message-ID (of the email, but this may not always be present hence the need to use Mail_GUID), and to support alternative renderings for non-archival attachment formats. Note that all streams in the above diagram may be losslessly compressed using *FlateDecode*.
+[NOTE,keep-separate=true]
+====
+Reason: the LWG wanted to associate the email attachment filename, Media Type (from email), associated `Message-ID` (of the email, but this may not always be present hence the need to use `Mail_GUID`), and to support alternative renderings for non-archival attachment formats. Note that all streams in the above diagram may be losslessly compressed using *FlateDecode*.
+====
 
 The *Subtype* entry of the embedded file stream dictionary must be present and ought to be set to the IANA Media Type as recorded in the source email (subject to encoding differences), but excluding any parameters that are present in the source email. If required, IANA Media Type parameters can be stored as a PDF string object in the optional *Mail_MediaTypeParameters* entry.
 
@@ -667,7 +670,7 @@ In the example above, if the source email Media Type was the generic "applicatio
 
 NOTE: this cannot be mandated as it cannot be machine validated without referencing the original source email asset.
 
-NOTE: the IANA Media Type application/pdf is used for every kind of PDF file – there is no specific Media Type for PDF, PDF/A or EA-PDF files and there are no parameters defined. See [RFC-8118].
+NOTE: the IANA Media Type application/pdf is used for every kind of PDF file – there is no specific Media Type for PDF, PDF/A or EA-PDF files and there are no parameters defined. See <<RFC_8118>>.
 
 === Structured containers (`PDF/mail-1c`)
 
@@ -688,7 +691,7 @@ In an EA-PDF context, the embedded files in the PDF Collection of the right scen
 NOTE: EA-PDF preserved emails need to have verifiable provenance back to a preserved original raw source email asset, whether this be in the embedded file for `PDF/mail-1{s, m}` or in the container `PDF/mail-1c` file.
 
 [[figure-11]]
-.`PDF/mail-1c` "structured container" containing multiple EA-PDF files arranged in hierarchical folders, each with their original raw source email asset (_left_) and using a shared original raw source email asset in the container (_right_).
+.`PDF/mail-1c` "structured container" containing multiple EA-PDF files arranged in hierarchical folders, each with their original raw source email asset (a) and using a shared original raw source email asset in the container (b).
 ====
 image::figure-11a.png[]
 
@@ -764,7 +767,7 @@ NOTE: Reason: this prohibits the addition of miscellaneous embedded files in the
    /View /D      % details view
    /Schema <<
       /Type /CollectionSchema
-      
+
       % /N strings may be localized to reflect the "look & feel" of an email client.
       /To          << /Subtype /S    /N (To)                 /O  1 >>
       /From        << /Subtype /S    /N (From)               /O  2 >>
@@ -1074,7 +1077,7 @@ NOTE: Reason: sRGB is the de facto color space of the web, but modern HTML/CSS p
 
 NOTE: EA-PDF Writer: many legacy PDF viewers are not "PDF/A conforming processors" and do not support Output Intents (<<ISO_32000_2,clause=14.11.5>>) while others do not appear to support Default color spaces (<<ISO_32000_2,clause=8.6.5.6>>) which are common methods utilized by PDF/A files to ensure device-independent color. By using CIE-Based color spaces directly with content streams, such viewer limitations can be overcome.
 
-NOTE: EA-PDF Writer: A PDF *CalRGB* color space may be used to [underline]#approximate# sRGB, however various "Tiny sRGB" ICC profiles exist which are very small (~0.5 KB). Because of object reuse in PDF, the sRGB definition need only occur once in each `PDF/mail` file.
+NOTE: EA-PDF Writer: A PDF *CalRGB* color space may be used to [underline]#approximate# sRGB, however various "Tiny sRGB" ICC profiles exist which are very small (stem:[~0.5 "unitsml(kbyte_B)"]). Because of object reuse in PDF, the sRGB definition need only occur once in each `PDF/mail` file.
 
 NOTE: it cannot be assumed that email is always RGB-based, or that pure text emails are pure black & white. Many email clients do not display plain text emails as pure black so there is no requirement in EA-PDF that plain text emails must be rendered as pure black in a single channel color space. The use of CIE-based color spaces for plain text emails are all suitable as they are all device independent and meet PDF/A requirements.
 
@@ -1128,7 +1131,7 @@ _EA-PDF Writers_ SHOULD add the MD5 checksum and uncompressed size of all embedd
 
 The Document Catalog dictionary of all `PDF/mail-1{c, ci}` files SHALL have a *Collections* entry. The *Collections* entry SHALL NOT be present in all other `PDF/mail-1{s, si, m, mi}` files.
 
-`PDF/mail-1{c, ci}` files that are PDF version 1.7 SHALL have an Extensions Dictionary indicating Adobe (*ADBE*) Extension Level 5 with entries *BaseVersion* /1.7 (PDF name object) and *ExtensionLevel* 5, as specified in "_Adobe(R) Supplement to ISO 32000-1 BaseVersion: 1.7 ExtensionLevel: 5 (Adobe(R) Acrobat(R) SDK, Version 9.1)_", dated June 2009 [ADBE-Extn-L5].
+`PDF/mail-1{c, ci}` files that are PDF version 1.7 SHALL have an Extensions Dictionary indicating Adobe (*ADBE*) Extension Level 5 with entries *BaseVersion* /1.7 (PDF name object) and *ExtensionLevel* 5, as specified in "_Adobe(R) Supplement to ISO 32000-1 BaseVersion: 1.7 ExtensionLevel: 5 (Adobe(R) Acrobat(R) SDK, Version 9.1)_", dated June 2009 <<ADBE_Extn_L5>>.
 
 The Collection dictionary *D* entry SHALL NOT be present. The Collection dictionary *View* entry SHALL NOT have the value _H_.
 
@@ -1152,7 +1155,7 @@ h| Key name in Collection Schema h| CustomField Subtype
 | From | S (string)
 | Sent | D (date)
 | Subject | S (string)
-| Message-ID footnote:[Note that this is the email's Message-ID (which may not exist) and is not the synthetically generated Mail_GUID used internally.]
+| `Message-ID` footnote:[Note that this is the email's `Message-ID` (which may not exist) and is not the synthetically generated `Mail_GUID` used internally.]
 | S (string)
 | Cc | S (string)
 | Bcc | S (string)
@@ -1191,13 +1194,13 @@ Intermediate nodes of the Document Part Metadata tree SHALL be used to associate
 |===
 h| Key h| Type h| Description 
 
-| *Mail_MessageID* | text string | Optional. The Message-ID from the header of the email and that SHALL match a pdfmailmeta:messageidin the document-level XMP metadata.
+| *Mail_MessageID* | text string | Optional. The `Message-ID` from the header of the email and that SHALL match a pdfmailmeta:messageidin the document-level XMP metadata.
 
-NOTE: the Message-ID email header is optional according to [RFC-822], but is extremely common and widely supported with email aware software.
+NOTE: the `Message-ID` email header is optional according to <<RFC_822>>, but is extremely common and widely supported with email aware software.
 
 | *Mail_GUID* | text string
 
-| *Required*. A GUID that SHALL match a pdfmailmeta:Mail_GUID property in the EA-PDF XMP metadata.
+| *Required*. A GUID that SHALL match a `pdfmailmeta:Mail_GUID` property in the EA-PDF XMP metadata.
 
 If *Mail_MessageID* is also present, then *Mail_GUID* takes precedence in identifying the email. Matching SHALL be performed according to <<ISO_32000_2,annex=J.3.3>>.
 
@@ -1209,7 +1212,7 @@ If *Mail_MessageID* is also present, then *Mail_GUID* takes precedence in identi
 
 `PDF/mail-1{c, ci}` files SHALL have no nodes in the Document Part Metadata tree with *Mail_MessageID* or *Mail_GUID* entries.
 
-Every *Mail_MessageID* and **Mail_GUID**value SHALL match a corresponding property in the Document Catalog XMP metadata stream.
+Every *Mail_MessageID* and *Mail_GUID* value SHALL match a corresponding property in the Document Catalog XMP metadata stream.
 
 All leaf nodes of the Document Part Metadata tree SHALL contain a *DPM* dictionary to associate pages derived from a single email message with _Content Sets_ as illustrated by the blue nodes (right most column of boxes) in <<figure-08>> as defined in <<table-08>>.
 
@@ -1388,7 +1391,7 @@ _EA-PDF Creation Software_ SHOULD create PDF logical structure and use Tagged PD
 
 NOTE: Reason: use of logical structure and Tagged PDF ensures both reuse and accessibility of custom content. 
 
-When PDF 2.0 (PDF/A-4) is used, `PDF/mail-1` files with logical structure SHALL also conform to ISO TS 32005 and SHALL include the PDF Declaration for ISO TS 32005 in the document level XMP metadata (see https://pdfa.org/declarations/#ISO_TS_32005 and [PDF-Declarations]).
+When PDF 2.0 (PDF/A-4) is used, `PDF/mail-1` files with logical structure SHALL also conform to ISO TS 32005 and SHALL include the PDF Declaration for ISO TS 32005 in the document level XMP metadata (see https://pdfa.org/declarations/#ISO_TS_32005 and <<PDF_Declarations>>).
 
 NOTE: Reason: ISO TS 32005 standardizes the set of inclusion rules for the PDF 1.7 tag set, ensuring improved consistent behavior for reuse and accessibility across processors.
 
@@ -1414,7 +1417,10 @@ h| PDF 2.0 unique tags h| Compatible PDF 1.7 tag
 
 |===
 
-NOTE: Reason: this RoleMap will be ignored by all PDF 2.0 processors for structure elements with an explicit namespace (*NS* entry), such as those defined by EA-PDF. However, PDF 1.7 only processors reading a PDF 2.0 EA-PDF file containing this RoleMap will use it to create a standard backward-compatible mapping to PDF 1.7 tags (since PDF 1.7 only processors do not support PDF 2.0 namespaces) providing a more consistent behaviour across processors.
+[NOTE,keep-separate=true]
+====
+Reason: this RoleMap will be ignored by all PDF 2.0 processors for structure elements with an explicit namespace (*NS* entry), such as those defined by EA-PDF. However, PDF 1.7 only processors reading a PDF 2.0 EA-PDF file containing this RoleMap will use it to create a standard backward-compatible mapping to PDF 1.7 tags (since PDF 1.7 only processors do not support PDF 2.0 namespaces) providing a more consistent behaviour across processors.
+====
 
 If an EA-PDF file contains any of the following custom EA-PDF structure elements, then the following rolemap SHALL be included.
 
@@ -1424,14 +1430,13 @@ If an EA-PDF file contains any of the following custom EA-PDF structure elements
 |===
 h| Custom EA-PDF structure element h| Rolemapped PDF 1.7 tag
 
-| Mail_Message | Document
-
-| Mail_ContentGroup | Part
-| Mail_ContentSet | Art
+| `Mail_Message`      | Document
+| `Mail_ContentGroup` | Part
+| `Mail_ContentSet`   | Art
 | Mail_Field
 .3+| _The PDF Writer SHALL choose the most appropriate PDF 1.7 structure element, such as P (paragraph), Span, list, or table tags._
-| Mail_FieldName
-| Mail_FieldValue
+| `Mail_FieldName`
+| `Mail_FieldValue`
 
 |===
 
@@ -1487,25 +1492,25 @@ Certain custom EA-PDF tags may optionally also contain specific custom user prop
 |===
 h| N entry (_PDF ASCII string_) h| V entry type h| Only with custom EA-PDF tag(s)
 
-| *Mail_MessageID*         | string            | Mail_Message
-| *Mail_GUID*              | string            | Mail_Message
-| *Mail_ContentSetType*    | string            | Mail_ContentGroup, Mail_ContentSet
-| *Mail_Subtype*           | string            | Mail_ContentSet
-| *Mail_To*                | string            | Mail_Message, Mail_FieldValue
-| *Mail_Raw_To*            | string            | Mail_Message, Mail_FieldValue
-| *Mail_From*              | string            | Mail_Message, Mail_FieldValue
-| *Mail_Raw_From*          | string            | Mail_Message, Mail_FieldValue
-| *Mail_Sent*              | PDF date (string) | Mail_Message, Mail_FieldValue
-| *Mail_Raw_Sent*          | string            | Mail_Message, Mail_FieldValue
-| *Mail_Subject*           | string            | Mail_Message, Mail_FieldValue
-| *Mail_SizeInBytes*       | integer (≥ 0)     | Mail_Message, Mail_FieldValue
-| *Mail_NumberAttachments* | integer (≥ 0)     | Mail_Message, Mail_FieldValue
-| *Mail_Cc*                | string            | Mail_Message, Mail_FieldValue
-| *Mail_Raw_Cc*            | string            | Mail_Message, Mail_FieldValue
-| *Mail_Bcc*               | string            | Mail_Message, Mail_FieldValue
-| *Mail_Raw_Bcc*           | string            | Mail_Message, Mail_FieldValue
-| *Mail_InReplyTo*         | string            | Mail_Message, Mail_FieldValue
-| *Mail_*... (_other email header fields_) | string, number or Boolean only | Mail_Message, Mail_FieldName, Mail_FieldValue
+| *Mail_MessageID*         | string            | `Mail_Message`
+| *Mail_GUID*              | string            | `Mail_Message`
+| *Mail_ContentSetType*    | string            | `Mail_ContentGroup`, `Mail_ContentSet`
+| *Mail_Subtype*           | string            | `Mail_ContentSet`
+| *Mail_To*                | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_To*            | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_From*              | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_From*          | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Sent*              | PDF date (string) | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Sent*          | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Subject*           | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_SizeInBytes*       | integer (≥ 0)     | `Mail_Message`, `Mail_FieldValue`
+| *Mail_NumberAttachments* | integer (≥ 0)     | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Cc*                | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Cc*            | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Bcc*               | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Bcc*           | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_InReplyTo*         | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_*... (_other email header fields_) | string, number or Boolean only | `Mail_Message`, `Mail_FieldName`, `Mail_FieldValue`
 
 |===
 
@@ -1736,9 +1741,9 @@ All EA-PDF files SHALL contain a Document Catalog *Metadata* XMP stream includin
 |===
 h| URI h| Required Prefix
 
-| http://www.pdfa.org/eapdf/         | pdfmail
-| http://www.pdfa.org/eapdf/ns/id/   | pdfmailid
-| http://www.pdfa.org/eapdf/ns/meta/ | pdfmailmeta
+| http://www.pdfa.org/eapdf/         | `pdfmail`
+| http://www.pdfa.org/eapdf/ns/id/   | `pdfmailid`
+| http://www.pdfa.org/eapdf/ns/meta/ | `pdfmailmeta`
 |===
 
 NOTE: namespace URIs do not need to exist as websites (i.e., clickable URLs).
@@ -1759,7 +1764,7 @@ The EA-PDF Identification schema SHALL use the namespace URI http://www.pdfa.org
 |===
 h| XMP Property h| XMP Value Type h| Value
 
-| pdfmailid:version footnote:[pdfmailid:part is reserved for future ISO standardization.]
+| pdfmailid:version footnote:[`pdfmailid:part` is reserved for future ISO standardization.]
 | Open choice of integer | 1
 | pdfmailid:rev | Open choice of integer | 2024 (representing a year)
 | pdfmailid:conformance | Open choice of text. Always lowercase. | 's', 'si', 'm', 'mi', 'c' or 'ci'The "i" designator SHALL always be last if present.
@@ -1831,19 +1836,19 @@ EA-PDF Creation Software may add additional email header fields using the case-s
 NOTE: these properties cannot be "SHALL" requirements as they cannot be validated without re-processing the original source email. They can however be validated for consistency with_ Content Sets, outlines, DPM, and logical structure (if present) in the EA-PDF file.
 
 [[table-18]]
-.EA-PDF Core Fields footnote:[Note that some Core Fields such as Message-ID and Subject are optional according to <<RFC_822>>. Other field values may also be empty/blank in draft emails.] as structured XMP metadata
+.EA-PDF Core Fields footnote:[Note that some Core Fields such as `Message-ID` and Subject are optional according to <<RFC_822>>. Other field values may also be empty/blank in draft emails.] as structured XMP metadata
 [cols="a,a,a"]
 |===
 h| Core Field h| h| XMP Metadata description
 
-| `To` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers (foaf:Agent entries), each with required foaf:mbox email address and optional foaf:name or other FOAF Agent fields.
+| `To` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers (foaf:Agent entries), each with required `foaf:mbox` email address and optional `foaf:name` or other FOAF Agent fields.
 
-| Raw-To | _Optional_ | Free text string, directly reflecting the email header To: field value. 
+| `Raw-To` | _Optional_ | Free text string, directly reflecting the email header To: field value. 
 
-| `From` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers (foaf:Agent entries), each with required foaf:mbox email address and optional foaf:name or other FOAF Agent fields.
+| `From` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers (foaf:Agent entries), each with required `foaf:mbox` email address and optional `foaf:name` or other FOAF Agent fields.
 
 | `Raw-From` | _Optional_ | Free text string, directly reflecting the email header From: field value. 
-| Sent | _Required_ | Represented as a xsd:dateTime.
+| `Sent` | _Required_ | Represented as a xsd:dateTime.
 
 Due to potential errors in email header Sent: fields, this value may have been normalized to a valid XMP date/time value by _EA-PDF Creation Software_.
 
@@ -1853,21 +1858,21 @@ NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of co
 Represented as a free text string, directly reflecting the email header Sent field value. 
 
 NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context. EA-PDF uses the term "Sent".
-| Subject | _Optional_ | Free text string.
-| Message-ID | _Optional_ | Free text string.
+| `Subject` | _Optional_ | Free text string.
+| `Message-ID` | _Optional_ | Free text string.
 
 NOTE: some Message IDs may include an "@" sign and domain name and appear as an email address, however Message-IDs are never FOAF Agents.
-| Mail_GUID | _Required_ | An XMP GUID (see <<ISO_16684_1_2019,clause=8.2.2.3>>) that uniquely identifies an email represented as a single free text string.
+| `Mail_GUID` | _Required_ | An XMP GUID (see <<ISO_16684_1_2019,clause=8.2.2.3>>) that uniquely identifies an email represented as a single free text string.
 
-NOTE: according to RFC 822 the Message-ID: core field is optional, so this required synthetic unique identifier allows a mapping between XMP metadata and PDF content.
+NOTE: according to RFC 822 the `Message-ID`: core field is optional, so this required synthetic unique identifier allows a mapping between XMP metadata and PDF content.
 
 NOTE: this property name matches the other uses in EA-PDF, including PDF second-class keys.
-| SizeInBytes | _Optional_ | A non-negative integer representing the size (in bytes) of the original source of only this email message.
+| `SizeInBytes` | _Optional_ | A non-negative integer representing the size (in bytes) of the original source of only this email message.
 
 NOTE: this property is only meaningful for certain email formats such as EML, MSG and MBOX.
 
 NOTE: this property includes all headers, all email attachments that may be encoded as Base64, etc. in the original email format.
-| NumberAttachments | _Required if 1 or more attachments_ | A non-negative integer representing the number of email attachments in this email message. Default value is 0.
+| `NumberAttachments` | _Required if 1 or more attachments_ | A non-negative integer representing the number of email attachments in this email message. Default value is 0.
 
 | `Cc` | _Optional_ | Represented as an ordered sequence of FOAF Agent containers (foaf:Agent entries), each with required foaf:mbox email address and optional foaf:name or other FOAF Agent fields.
 
@@ -1885,7 +1890,10 @@ NOTE: although this email field can only occur once, it may contain one or more 
 
 |===
 
-NOTE: by convention with other PDF ISO subset standards such as PDF/A, new XMP fields introduced with EA-PDF generally use "camel case", with capitalization matching the [RFC-822] field names. However, to support existing third party XMP schemas and correspondence with PDF second-class names, this is not always the case and is not mandated.
+[NOTE,keep-separate=true]
+====
+by convention with other PDF ISO subset standards such as PDF/A, new XMP fields introduced with EA-PDF generally use "camel case", with capitalization matching the <<RFC_822>> field names. However, to support existing third party XMP schemas and correspondence with PDF second-class names, this is not always the case and is not mandated.
+====
 
 ==== Email attachments
 
@@ -1901,7 +1909,7 @@ The following structured metadata in the document-level XMP *Metadata* stream us
 |===
 h| Attachment property h| h| XMP Metadata
 
-| Filename | _Required_ | A free text string representing the case-sensistive filename of the email attachment as stored in the original email asset.
+| `Filename` | _Required_ | A free text string representing the case-sensistive filename of the email attachment as stored in the original email asset.
 
 NOTE: XMP in PDF is always UTF-8 so the filename can contain Unicode characters.
 
@@ -1909,22 +1917,22 @@ NOTE: due to limitations with PDF filenames, the corresponding PDF embedded file
 
 NOTE: the filename can come from either the Content-Disposition header 'filename' parameter or the Content-Type header 'name' parameter. Both are optional, so it is possible that an email attachment will not have a filename specified in the email headers. In this case a suitable string will need to be generated by the EA-PDF Creation Software.
 
-| SizeInBytes | _Required_ | A non-negative integer, reflecting the size (in bytes) of this email attachment as stored in the EA-PDF as an embedded file stream.
+| `SizeInBytes` | _Required_ | A non-negative integer, reflecting the size (in bytes) of this email attachment as stored in the EA-PDF as an embedded file stream.
 
 NOTE: email attachments that were removed for policy or cybersecurity reasons may have zero length.
 
 NOTE: this property is expected to match the corresponding embedded file stream parameter dictionary *Size* entry (if present).
-| Message-ID | _Optional_ | Text string reflecting the Message-ID of the original email containing this email attachment.
+| `Message-ID` | _Optional_ | Text string reflecting the `Message-ID` of the original email containing this email attachment.
 
-| Mail_GUID | _Required if Message-ID is not present_ | Text string reflecting the generated GUID of the email containing this email attachment.
+| `Mail_GUID` | _Required if `Message-ID` is not present_ | Text string reflecting the generated GUID of the email containing this email attachment.
 
 NOTE: this property name matches the DPM entry.
-| Content-Type | _Required_ | A free text string, representing the IANA Media Type (including any media type parameters) of this email attachment as specified in the original email asset.
+| `Content-Type` | _Required_ | A free text string, representing the IANA Media Type (including any media type parameters) of this email attachment as specified in the original email asset.
 
 NOTE: because of potential errors in the headers of source emails, this string is not defined as an IANA Media Type and must always reflect the raw field in the original source email.
 
 NOTE: this property is equivalent to the corresponding embedded file stream dictionary *Subtype* and *Mail_MediaTypeParameters* entries when combined according to the algorithm above.
-| CheckSum | _Optional_ | A 32 character ASCII text string, representing the MD5 checksum (as hexadecimal, upper or lower case alphanumerics) of this email attachment when processed as its raw binary data.
+| `CheckSum` | _Optional_ | A 32 character ASCII text string, representing the MD5 checksum (as hexadecimal, upper or lower case alphanumerics) of this email attachment when processed as its raw binary data.
 
 NOTE: this property is equivalent to the corresponding embedded file parameter dictionary *CheckSum* entry (subject to encoding differences, if present).
 

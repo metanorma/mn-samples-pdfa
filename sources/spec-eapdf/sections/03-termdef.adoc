@@ -6,7 +6,7 @@
 === Asset
 admitted:[Original raw source email asset]
 
-An input file needed by _EA-PDF Creation Software_when creating EA-PDF files, such as the original source email file(s) (EML, MSG, MBOX, NSF, PST/OST, etc.), a referenced image, or a file referred to by HTML, etc.
+An input file needed by _EA-PDF Creation Software_ when creating EA-PDF files, such as the original source email file(s) (EML, MSG, MBOX, NSF, PST/OST, etc.), a referenced image, or a file referred to by HTML, etc.
 
 There is no requirement in EA-PDF that the original raw source email asset only represents the email(s) that are rendered into EA-PDF files – additional information, including other emails, may get preserved.
 
@@ -56,7 +56,7 @@ Software that creates EA-PDF files according to this specification by reading an
 
 === EML
 
-A text-based email file format representing a single email message, defined by [RFC-822] and various other RFCs. Most likely an email asset used with `PDF/mail-1{s, si}` files. See alsohttps://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml.
+A text-based email file format representing a single email message, defined by <<RFC_822>> and various other RFCs. Most likely an email asset used with `PDF/mail-1{s, si}` files. See alsohttps://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml.
 
 === FOAF
 

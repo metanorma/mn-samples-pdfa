@@ -3,7 +3,7 @@
 This document defines a specification and best practice for a vendor- and
 platform-neutral archival email format based on PDF/A known as EA-PDF for the
 long-term preservation of email. This file format is compatible with either
-PDF/A-3 (ISO 19005-3, PDF 1.7) or PDF/A-4 (ISO/DIS 19005-4 dated revision, PDF
+PDF/A-3 (<<PDF_A_3>>, PDF 1.7) or PDF/A-4 (<<PDF_A_4f>> dated revision, PDF
 2.0). In all cases, a valid EA-PDF file is always a valid PDF according to ISO
 32000.
 

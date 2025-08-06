@@ -96,9 +96,9 @@ metadata streams_", PDF Association, https://www.pdfa.org/resource/pdf-2-0-appli
 
 * [[[PREMIS,PREMIS]]] "_PREMIS Data Dictionary for Preservation Metadata_", https://www.loc.gov/standards/premis/
 
-* [[[RFC_8118,RFC-8118]]] "_RFC 8118: The application/pdf Media Ty_pe", https://www.rfc-editor.org/rfc/rfc8118.html
+* [[[RFC_8118,RFC 8118]]] "_RFC 8118: The application/pdf Media Ty_pe", https://www.rfc-editor.org/rfc/rfc8118.html
 
-* [[[RFC_822,RFC-822]]] "_RFC 822: Standard for ARPA Internet Text Messages_", https://www.w3.org/Protocols/rfc822/ plus related RFCs (e.g., "RFC 2076: _Common Internet Message Headers"_; "RFC 4021: _Registration of Mail and MIME Header Fields"_; "RFC 6532: _Internationalized Email Headers", etc._)
+* [[[RFC_822,RFC 822]]] "_RFC 822: Standard for ARPA Internet Text Messages_", https://www.w3.org/Protocols/rfc822/ plus related RFCs (e.g., "RFC 2076: _Common Internet Message Headers"_; "RFC 4021: _Registration of Mail and MIME Header Fields"_; "RFC 6532: _Internationalized Email Headers", etc._)
 
 * [[[UIUC_EAPDF,UIUC-EAPDF]]] "_UIUC Library's prototype EA-PDF implementation"_.
 https://github.com/UIUCLibrary/ea-pdf

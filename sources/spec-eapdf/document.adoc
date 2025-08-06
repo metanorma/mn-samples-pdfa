@@ -7,8 +7,7 @@
 :title-main-en: EA-PDF v1.0 Specification
 :title-complementary-en: An archival email format based on PDF/A
 :technical-committee: EA-PDF LWG
-:boilerplate-authority: ../_common/boilerplate.adoc
-:mn-document-class: pdfa
+:mn-document-class: iso
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
 :docstage: 60
@@ -30,6 +29,8 @@ include::sections/03-termdef.adoc[]
 include::sections/04-conventions.adoc[]
 
 include::sections/05-background.adoc[]
+
+include::converted-doc-edited.adoc[]
 
 // include::sections/06-reusable-pdf.adoc[]
 
