@@ -6,8 +6,8 @@ It does not contain the formal PDF technical requirements; however it needs to
 be read by all users of this document as it explains how EA-PDF achieves its
 goals and the agreed decisions made by the LWG.
 
-NOTE: this section is descriptive in nature and there are no “SHALL” or “SHOULD”
-statements. Use of the words “must” or “will” in this section implies something
+NOTE: this section is descriptive in nature and there are no "SHALL" or "SHOULD"
+statements. Use of the words "must" or "will" in this section implies something
 that is mandated without prescribing exactly how the mandate is technically
 achieved.
 
@@ -16,7 +16,7 @@ preservation format for email assets, including a reliable static appearance of
 a static rendition of the email that is technically achieved by utilizing
 PDF/A-3 or PDF/A-4. This requires a reliable and verifiable link between the
 original raw source email asset(s) and the PDF representation of those emails.
-EA-PDF also supports “isolated” use-cases where this linkage between original
+EA-PDF also supports "isolated" use-cases where this linkage between original
 raw source email asset(s) and the PDF content is weakened or broken – for
 example due to the use of non-EA-PDF aware software or because of workflow
 requirements (such as FOIA).
@@ -49,20 +49,20 @@ NOTE: Reason: at the time of writing a lot of current generation PDF software on
 provides limited support for many PDF 2.0 features and for compliant PDF/A
 rendering. This is a major consideration in the technical design of EA-PDF v1.0.
 
-The term “EA-PDF” is used as an all-encompassing term and includes the file
-format, software, use-cases/scenarios, etc. The moniker “`PDF/mail`” represents
+The term "EA-PDF" is used as an all-encompassing term and includes the file
+format, software, use-cases/scenarios, etc. The moniker "`PDF/mail`" represents
 just the file format defined by this industry specification and any later
-editions. The term “`PDF/mail-1`” refers to this first edition of `PDF/mail` -
+editions. The term "`PDF/mail-1`" refers to this first edition of `PDF/mail` -
 future versions may use other versions (such as `PDF/mail-2`, `PDF/mail-3`,
 etc.) in a similar manner to the way that ISO subsets are versioned. If this
-industry specification is ever standardized by ISO, “`PDF/M`” would be the most
+industry specification is ever standardized by ISO, "`PDF/M`" would be the most
 likely equivalent ISO moniker following the current principles of PDF naming
-conventions (cf. “`PDF/raster`” and “`PDF/R`”).
+conventions (cf. "`PDF/raster`" and "`PDF/R`").
 
-NOTE: Reason: “`PDF/E`” cannot be used as the abbreviation for email, as this is
-already used by an existing ISO standard for engineering: “ISO 24517-1:2008
+NOTE: Reason: "`PDF/E`" cannot be used as the abbreviation for email, as this is
+already used by an existing ISO standard for engineering: "ISO 24517-1:2008
 Document management — Engineering document format using PDF — Part 1: Use of PDF
-1.6 (PDF/E-1)”.
+1.6 (PDF/E-1)".
 
 Creation of EA-PDF files from email-specific formats such as EML, MSG, MBOX,
 Lotus Notes (`.nsf`), or Microsoft OST/PST requires specialized _EA-PDF Creation
@@ -79,7 +79,7 @@ will be used).
 
 NOTE: this document does try to provide some informative high-level guidance and
 background explanation for software developers for certain features, even if
-these features are not formally required (“SHALL”) or recommended (“SHOULD”).
+these features are not formally required ("SHALL") or recommended ("SHOULD").
 These are merely guidance, but their use can provide better context and a better
 user experience for users of EA-PDF files.
 
@@ -123,7 +123,7 @@ preservation asset and a reliable rendition of email [underline]#and# free of
 PII. These PDFs will still contain many EA-PDF features (such as email-specific
 semantic tagging or rich email metadata) but because they are modified, they are
 no longer a full and faithful preservation of the original raw source email
-assets and must be specifically indicated as an “isolated” EA-PDF file.
+assets and must be specifically indicated as an "isolated" EA-PDF file.
 
 The provenance metadata information in PDF/A can be used to indicate the
 conversion from one EA-PDF profile to another, or back to PDF/A.  This is an
@@ -137,9 +137,9 @@ emails, without resorting to rendering emails to bitmaps.
 
 === EA-PDF Profile identifiers
 
-This document describes multiple EA-PDF profiles footnote:[The term “_profile_” is
-specifically chosen to avoid confusion or overlap with the existing “conformance
-levels” used by PDF/A and other PDF ISO subset standards.] to meet the various
+This document describes multiple EA-PDF profiles footnote:[The term "_profile_" is
+specifically chosen to avoid confusion or overlap with the existing "conformance
+levels" used by PDF/A and other PDF ISO subset standards.] to meet the various
 requirements discussed in the LWG that reflected specific email archival
 scenarios and use-cases. All profiles are compliant with PDF/A and use one or
 more lowercase letters to indicate conformance:
@@ -164,16 +164,16 @@ missing, and the EA-PDF file is not a verifiable preservation asset.
 
 |===
 
-EA-PDF profiles [underline]#without# the “isolated” profile identifier `i` are
+EA-PDF profiles [underline]#without# the "isolated" profile identifier `i` are
 suitable as verifiable preservation assets as these files contain the original
 raw source email assets as well as PDF/A compliant renderings of the emails and
 related context.
 
-EA-PDF profiles [underline]#with# the “isolated” profile identifier `i` may be
+EA-PDF profiles [underline]#with# the "isolated" profile identifier `i` may be
 unsuitable as preservation assets as these files do [underline]#not# contain all
 the original raw source email assets, or possibly contain modified or redacted
-versions of those original raw source email assets. However, “isolated” EA-PDF
-profiles may be smaller files as a result. Thus, the suitability of “isolated”
+versions of those original raw source email assets. However, "isolated" EA-PDF
+profiles may be smaller files as a result. Thus, the suitability of "isolated"
 EA-PDF profiles for preservation will depend on the precise archival and
 preservation strategies and policies that provide the context for the
 application of EA-PDF as shown in <<figure-01>>.
