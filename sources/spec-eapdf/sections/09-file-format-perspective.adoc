@@ -1,0 +1,1431 @@
+
+== From a PDF file format perspective (normative)
+
+This section provides a technical description of the EA-PDF v1 file format for
+readers familiar with the technical details of PDF and PDF/A. This section contains
+requirements that match those described in the previous sections. However, many
+aspects discussed above do not lead to formal requirements as they are either covered
+by existing PDF/A requirements or recommendations, or are explanations for EA-PDF
+developers or end-users.
+
+All "SHALL" mandatory requirements are worded to ensure that they are entirely
+machine-validatable. It is assumed that EA-PDF validators do [underline]#_not_#
+need to parse any original source raw email assets for validation but can parse
+only PDF data (including content streams) and XMP Metadata to perform all validation
+defined in this document.
+
+Not every PDF feature is listed: if a PDF feature is not mentioned and is not otherwise
+constrained by PDF/A, then it may occur in an EA-PDF file. This applies to many
+PDF features which do not impact the reliable rendering of pages in PDF/A.
+
+Boilerplate and common wording found in PDF ISO subset standards has been intentionally
+omitted from this section so that the focus can be on EA-PDF-specific requirements.
+Requirements from PDF/A are not duplicated here since all EA-PDF files are always
+conforming PDF/A-3 or PDF/A-4 files.
+
+Except for Collection Schema keys, all other PDF key names introduced by EA-PDF
+start with the registered developer prefix "Mail" and followed by an underscore
+to clearly identify them (i.e. "/Mail_…").
+
+NOTE: technically this is unnecessary in certain situations (such as keys inside
+new dictionaries), however it can be helpful if non-EA-PDF aware software modifies
+an EA-PDF file, if pages or content are extracted, etc.
+
+=== EA-PDF file
+
+The PDF header SHALL be either "%PDF-1.7" or "%PDF-2.0" and the declared PDF version
+number of an EA-PDF file SHALL be either PDF 1.7 or PDF 2.0.
+
+NOTE: the above PDF version requirement accounts for the Document catalog *Version*
+key (if present) and file header.
+
+All EA-PDF files SHALL conform to either PDF/A-3a, PDF/A-3u, PDF/A-4, PDF/A-4f,
+or PDF/A-4e.
+
+NOTE: the above requirements for PDF/A conformance incorporate a lot of technical
+requirements.
+
+All EA-PDF files that also conform to PDF/A-3 SHALL have a Document Information
+dictionary referenced from the trailer *Info* entry. The information in this document
+information dictionary SHALL be consistent with the document catalog XMP Metadata
+entry as defined by <<table-07>> in <<PDF_A_3>>.
+
+NOTE: Reason: because PDF 2.0 has deprecated document information dictionaries,
+it is an intentional EA-PDF design decision to not extend the document information
+dictionary with custom keys to express email-specific information. Document-level
+XMP metadata is where all EA-PDF definitive metadata information is located. However,
+the prohibition of a document information dictionary in PDF/A-4 files raises compatibility
+with a wide range of legacy software that do not support XMP.
+
+All EA-PDF files SHALL NOT contain a *PieceInfo* entry in the document catalog
+dictionary.
+
+NOTE: excluding the use of document catalog *PieceInfo* private data is not viewed
+as an issue, since Associated Files, 2^nd^ class keys, or page-based *PieceInfo*
+private data can all be used as alternatives for storing private data. This exclusion
+ensures that a partial document information dictionary (i.e. only containing a
+ModDate) is then never present in PDF/A-4 based EA-PDF files, which may otherwise
+be confusing in legacy viewers that do not understand XMP.
+
+The XMP *pdf:Keywords* property and, for all PDF-A/3-based EA-PDF files, the PDF
+document information dictionary *Keywords* entry SHALL each include "EA-PDF".
+
+NOTE: Reason: standardized inclusion of the term "EA-PDF" in both the Document
+Information dictionary and equivalent XMP ensures that EA-PDF users using non-EA-PDF
+aware legacy software have easy access to see if a PDF file is EA-PDF (since XMP
+data is not always presented). This is machine validatable.
+
+For `PDF/mail-1{s, si}` with no email attachments, the Document Catalog dictionary's
+*PageMode* entry SHALL be _UseOutlines_ and the Viewer Preferences *NonFullScreenPageMode*
+entry SHALL be _UseOutlines_.
+
+For `PDF/mail-1{s, si}` with email attachments, the Document Catalog *PageMode*
+entry SHALL be _UseAttachments_ and the Viewer Preferences *NonFullScreenPageMode*
+entry SHALL be _UseAttachments_ for PDF 2.0 or _UseOutlines_ for PDF 1.7 files.
+
+For `PDF/mail-1{m, mi}`, the Document Catalog *PageMode* entry SHALL be _UseOutlines_
+and the Viewer Preferences *NonFullScreenPageMode* entry SHALL be _UseOutlines_.
+
+For `PDF/mail-1{c, ci}`, the Document Catalog *PageMode* entry SHALL be _UseAttachments_
+and the Viewer Preferences *NonFullScreenPageMode* entry SHALL be _UseAttachments_.
+
+All `PDF/mail-1` files SHALL set the Viewer Preferences *DisplayDocTitle* entry
+to _true_.
+
+NOTE: Reason: this tries to ensure that the PDF title metadata is always used in
+window title bar of viewers.
+
+For non-isolated `PDF/mail-1{s, m, c}`, the Document Catalog dictionary SHALL have
+an *AF* entry as an array with at least one array element. At least one array element
+(file specification dictionary) in this array SHALL have an *AFRelationship* value
+of _Source_, representing the primary original source email asset(s). If the original
+email asset comprises a set of files footnote:[A "set of files" is differentiated
+from multiple original source email assets. A "set" is where several files are
+needed to function.], then either:
+
+. a PDF Related Files (*RF* entry) SHALL be in the file specification dictionary
+of the primary original email asset; or
+. additional Associated Files SHALL be listed in the Document Catalog *AF* entry,
+each with an *AFRelationship* value of _Supplement_.
+
+All `PDF/mail-1` files SHALL have an *Outlines* and *DPartRoot* entries in the
+Document Catalog. As a consequence, all pages in all EA-PDF files will have a *DPart*
+entry.
+
+NOTE: Reason: this ensures both PDF document navigation functionality and structured
+information, which can both be used in validating EA-PDF files.
+
+=== Content sets
+
+For the purposes of EA-PDF validation, a blank PDF page is a page without any visible
+text, visible image, or visible vector as page content or annotations within the
+page *CropBox* that would result in one or more pixels being painted.
+
+NOTE: if *CropBox* is not present, it inherits the value from the *MediaBox*.
+
+NOTE: this technical definition for visible is not infallible – a page that marks
+a single pixel that is white passes this test but will not normally be visible
+in a viewing application. It is assumed that all EA-PDF Creation Software is well
+intentioned.
+
+NOTE: the requirements below are worded such that machine-validation can check
+consistency between XMP metadata, PDF content streams, navigation data, and other
+PDF data structures without referring to the original source email assets. This
+assumes EA-PDF validators can parse both PDF and XMP data, which is not unreasonable
+for PDF/A validators. It is not necessary for a human to perceive the page content
+to perform EA-PDF validation or to parse source email formats.
+
+All `PDF/mail-1` files SHALL contain at least one _Content Set_ of at least 1 page
+each that SHALL NOT be blank footnote:[This requirement is intentionally not narrowed
+to be the rendering of email headers or of an email body as a zero-length source
+email asset or a source email asset with no valid emails may also need preserving.].
+The first page in each _Content Set_ in all `PDF/mail-1` files SHALL be referenced
+from at least one Outline item referenced from the Document Catalog *Outlines*
+entry.
+
+NOTE: Reason: this ensures a basic functional PDF with bookmark (outline) navigation
+even when the email is empty (e.g., an empty draft).
+
+NOTE: the form of the outline destination used is not further defined, while still
+allowing the page to be validated. This is also because logical structure is not
+mandated in EA-PDF.
+
+`PDF/mail-1{s, si}` files SHALL represent only a single email that is the only
+email referenced in the document-level (document catalog) XMP metadata stream.
+
+`PDF/mail-1{m, mi}` files SHALL represent 2 or more emails and SHALL contain a
+_Content Set_ for each email that SHALL NOT be blank. As a result, a
+`PDF/mail-1{m, mi}` file SHALL contain at least 2 pages that are not blank.
+Each email SHALL be included in the document-level (document catalog) XMP metadata
+stream.
+
+NOTE: Reason: a requirement such as "`PDF/mail-1{c,ci}` container PDF files SHALL
+NOT contain any PDF pages that represent the content of an email" is not machine
+validatable and is thus not stated. Validation is thus limited to outlines (bookmarks),
+logical structure, and document part metadata (DPM).
+
+EA-PDF files may also contain additional _Content Sets_ at the discretion of the
+EA-PDF Creation Software and subject to other requirements, such as:
+
+* multiple renderings of the email bodies;
+* a list of email attachments;
+* PDF/A renderings of email attachments;
+* a comprehensive rendering of all email headers;
+* a "raw dump" of the email as a "source code" style text listing of RFC 822 email;
+* conversion reports;
+* additional rendered or embedded information (e.g., policy settings, etc.).
+
+The first page of every _Content Set_ SHALL be referenced by an outline item in
+the same PDF. Other outline items in the PDF to locations within _Content Sets_
+may also be present. As a result, all EA-PDF files will have at least one outline
+item, and the number of outline items will be greater than or equal to the number
+of _Content Sets_.
+
+All pages in all `PDF/mail-1` files SHALL be included in the Document Part Metadata,
+referenced by the Document Catalog *DPartRoot* entry.
+
+NOTE: technically the above requirement is already covered by the previous requirement
+to have a *DPartRoot* entry in the Document Catalog and the existing ISO 32000-2
+requirement to include all pages in DPM.
+
+This document does not otherwise prescribe how _Content Sets_ are organized or
+how emails are rendered to PDF pages.
+
+=== PDF page content
+
+PDF/A standards define requirements for ensuring device independent page content
+streams and rendering of pages in EA-PDF files. The DPM data, outlines and logical
+structure can be used by validation software to check some of these requirements.
+
+Content (including email bodies and all header fields) that is text in the source
+email assets SHOULD use PDF text objects.
+
+NOTE: Reason: this recommends that email content (including headers) that is text
+is retained as text so that software can search the content of emails. Text render
+mode 3 is acceptable. Note that if an email contains an image of text, then there
+is no requirement for that text to be OCR-ed.
+
+NOTE: this cannot be validated without referencing the original source email asset(s)
+and is thus only a recommendation.
+
+All _Core Fields_ and their values (when present) SHALL use text objects.
+
+NOTE: Reason: this ensures that most legacy software will be to search for the
+basic email core field information relevant to humans. Text render mode 3 is acceptable.
+Due to the inclusion of required logical structure (see below) this can also be
+machine validated (a PDF text object is demarcated by the *BT* and *ET* operators).
+
+Each email attachment (as indicated in the document-level XMP metadata) SHALL be
+visibly represented by a File Attachment annotation positioned entirely within
+the *CropBox* of a PDF page in each _Content Set_ that represents an email body
+of the source email that contained that attachment (as determined by DPM – see below).
+
+NOTE: if *CropBox* is not present, it inherits the value from the *MediaBox*.
+
+[example]
+if an email has 1 attachment with 2 bodies (HTML and plain text) then there will
+be at least 2 file attachment annotations – at least one on a page (Content Set)
+associated with HTML rendering and a separate annotation on a different page (Content
+Set) associated with the plain text body. There is no requirement that the file
+attachment annotation is always on the first page of the Content Set, although
+this is conventional. Note that for efficiency both annotations could refer to
+the same file specification dictionary and thus the same embedded file stream.
+Furthermore, both annotations can also share the same appearance stream (e.g.,
+XObject of a paperclip). Additional PDF file attachment annotations may also be
+added by the EA-PDF creation software.
+
+NOTE: this requirement does not constrain how email attachments in other Content
+Sets (such as an index of email attachments) might be represented.
+
+All pages in an EA-PDF file SHOULD have a unique page number or other identifying
+context as part of the page content. Such context SHOULD use PDF text objects.
+
+NOTE: Reason: this tries to ensure that extracted pages retain some basic context
+information. It is not a requirement as it cannot be machine validated – however
+if additional logical structure requirements were mandated then PDF text object
+(*BT*/*ET*) validation might be possible, but this was viewed as onerous.
+
+PDF/A always requires the use of device-independent color such as via CIE-based
+color spaces (<<ISO_32000_2,clause=8.6.5>>). For unspecified color content in email,
+sRGB SHOULD be assumed.
+
+NOTE: Reason: sRGB is the de facto color space of the web, but modern HTML/CSS
+permits more advanced color spaces. It is unknown if these are (or will be) supported
+in emails, hence EA-PDF does not place any constraints. The preservation policy
+may also constrain email conversion to monochrome PDFs (for example).
+
+NOTE: EA-PDF Writer: many legacy PDF viewers are not "PDF/A conforming processors"
+and do not support Output Intents (<<ISO_32000_2,clause=14.11.5>>) while others
+do not appear to support Default color spaces (<<ISO_32000_2,clause=8.6.5.6>>)
+which are common methods utilized by PDF/A files to ensure device-independent color.
+By using CIE-Based color spaces directly with content streams, such viewer limitations
+can be overcome.
+
+NOTE: EA-PDF Writer: A PDF *CalRGB* color space may be used to [underline]#approximate#
+sRGB, however various "Tiny sRGB" ICC profiles exist which are very small
+(stem:[~0.5 "unitsml(kbyte_B)"]). Because of object reuse in PDF, the sRGB definition
+need only occur once in each `PDF/mail` file.
+
+NOTE: it cannot be assumed that email is always RGB-based, or that pure text emails
+are pure black & white. Many email clients do not display plain text emails as
+pure black so there is no requirement in EA-PDF that plain text emails must be
+rendered as pure black in a single channel color space. The use of CIE-based color
+spaces for plain text emails are all suitable as they are all device independent
+and meet PDF/A requirements.
+
+NOTE: EA-PDF Writer: PDF graphic state defaults are black content on an assumed
+white background. EA-PDF Creation Software does not need to unnecessarily paint
+white content as a background.
+
+NOTE: EA-PDF Writer: if page content stream creation cannot be suitably configured,
+device independent color in PDF can be achieved using a default color space resources
+or via PDF output intents at the file level or page-level if PDF 2.0, however several
+legacy viewers do not appear to support output intents.
+
+Emails with URLs that are intended to be actionable by users or software SHOULD
+use PDF Link annotations.
+
+NOTE: Reason: this link requirement cannot be validated without additionally parsing
+the original source (raw) email assets and understanding the policy environment.
+This is viewed as onerous for validators and not possible for `PDF/mail-1{c, ci}`
+so it is stated as a recommendation and not a requirement.
+
+If referenced assets (e.g. file attachments; embedded images) from the source emails
+needed for page rendering are also being individually preserved (e.g., based on
+a policy setting), then those referenced assets SHOULD be embedded as Associated
+Files (*AF* array) with an *AFRelationship* of _Source._ They SHOULD be associated
+with the most appropriate PDF object (e.g., an Image XObject for images, a Form
+XObject for SVG vector art, a Font dictionary for font-related data, etc.) Refer
+to <<AssociatedFiles>>.
+
+NOTE: Reason: these requirements cannot be validated without additionally parsing
+the original source (raw) email assets. This is viewed as onerous for validators
+and not possible for isolated EA-PDF files so they are stated as recommendations
+and not requirements. It is also not possible to enumerate every possibility and
+every object to make the above a requirement in all cases.
+
+=== Embedded files
+
+All embedded file streams included as Associated Files (i.e. referenced from an
+*AF* array entry or AF tag in a marked content sequence) SHALL be listed in the
+Document Catalog *Name* name-tree *EmbeddedFiles* entry.
+
+NOTE: a lot of legacy software relies on the *EmbeddedFiles* name-tree to provide
+basic access to embedded files, while other legacy software may also additionally
+add file attachment annotations and remove duplicate embedded files. This legacy
+experience is further constrained as it provides a simple flat list of embedded
+files using their filename. This can be machine validated.
+
+PDF file specification strings SHALL NOT include absolute or relative path components
+(i.e., REVERSE SOLIDUS and two PERIODs SHALL NOT be present).
+
+All embedded file streams SHALL have a *Subtype* key in their embedded file stream
+dictionary which is the IANA Media (MIME) Type of the file and SHALL match the
+equivalent document-level (document catalog) XMP metadata. This SHALL NOT include
+any SEMI-COLONs or IANA Media Type parameters. Where the embedded file originates
+in a source email asset that also specifies IANA Media Type parameters, the same
+Media Type parameters SHALL be set as the value of the *Mail_MediaTypeParameters*
+key (PDF string object).
+
+To reconstruct an email IANA Media Type including parameters the following algorithm
+SHALL be used:
+
+. convert the *Subtype* entry (PDF name object) to a UTF-8 equivalent string value
+as defined in ISO 32000-2, Annex J.3.4;
+. append a SEMI-COLON;
+. append the *Mail_MediaTypeParameters* entry text string (if present) while accounting
+for any encoding differences (such as UTF-16BE).
+
+Use of generic Media Types (such as text/plain, application/octet-stream, or similar)
+SHOULD be avoided.
+
+NOTE: Reason: these Media Type requirements cannot be validated without additionally
+parsing the original source (raw) email assets. This is viewed as onerous for validators
+and not possible for `PDF/mail-1{c, ci}` so they are stated as recommendations
+and not requirements.
+
+Non-isolated `PDF/mail-1{s, m}` files SHALL embed the original raw source email
+asset (e.g., EML, MSG, MBOX, OST/PST, etc.) in the Document Catalog Associated
+File (*AF*) array with array elements referring to an embedded file specification
+dictionary with an *AFRelationship* entry of _Source_. There SHALL only be at least
+one such entry in this *AF* array.
+
+The document-level (document catalog) XMP metadata for source email asset containers
+SHALL match for file size and IANA Media Type.
+
+NOTE: the XMP Metadata for source email asset container filenames permits the use
+of absolute and relative paths as well as platform specific components, which is
+not supported by PDF file specification dictionaries and thus no requirement is
+specified.
+
+If additional source email assets are required as part of a source email asset
+file set, then those files can either be added to the Document Catalog Associated
+File (*AF*) array with array elements referring to file specification dictionaries
+with an *AFRelationship* value of _Supplement_, or added as a Related Files array
+(*RF* entry) of the primary original raw source email asset embedded file specification
+dictionary (which has an *AFRelationship* value of _Source)_.
+
+NOTE: EA-Writers: PDF lossless compression such as FLATE is recommended for all
+embedded data streams. If the raw data format is already highly compressed, then
+the size may grow very slightly.
+
+NOTE: EA-Readers: for file sets, EA-PDF processors ought to support both the Associated
+Files_ Source _with one or more_ Supplement _form, as well as the Related Files
+array form to ensure that any original source email "file sets" always get extracted
+as a holistic functional set.
+
+_EA-PDF Writers_ SHOULD add the MD5 checksum and uncompressed size of all embedded
+files in the embedded file parameter dictionary *CheckSum* and *Size* entries
+(see <<ISO_32000_2,table=45>>).
+
+=== PDF Collections (`PDF/mail-1{c,ci}`)
+
+The Document Catalog dictionary of all `PDF/mail-1{c, ci}` files SHALL have a
+*Collections* entry. The *Collections* entry SHALL NOT be present in all other
+`PDF/mail-1{s, si, m, mi}` files.
+
+`PDF/mail-1{c, ci}` files that are PDF version 1.7 SHALL have an Extensions Dictionary
+indicating Adobe (*ADBE*) Extension Level 5 with entries *BaseVersion* /1.7
+(PDF name object) and *ExtensionLevel* 5, as specified in "_Adobe(R) Supplement
+to ISO 32000-1 BaseVersion: 1.7 ExtensionLevel: 5 (Adobe(R) Acrobat(R) SDK, Version
+9.1)_", dated June 2009 <<ADBE_Extn_L5>>.
+
+The Collection dictionary *D* entry SHALL NOT be present. The Collection dictionary
+*View* entry SHALL NOT have the value _H_.
+
+NOTE: Reason: these requirements prohibit opening a specified file in the collection
+as the default view. EA-PDF relies on opening the [underline]#container PDF# which
+is what ISO 32000 specifies will happen if the *D* entry is not present.
+
+If the Collection dictionary contains a *Navigator* entry, it SHALL NOT have either
+*SWF* or *APIVersion* entries.
+
+NOTE: Reason: this prohibits vendor-specific support that was not adopted by ISO.
+
+All folder and filenames used in `PDF/mail-1{c,ci}` files SHALL conform to the
+valid file name restrictions and SHALL be unique after case normalization, as described
+below Table 159 in <<ISO_32000_2>>.
+
+All `PDF/mail-1{c, ci}` files SHALL have a *Schema* entry in the Collections dictionary.
+The following custom fields representing the _Core Fields_ SHALL all exist in the
+collection schema dictionary – additional custom fields can also be present:
+
+[[table-06]]
+.required Collection custom field names and subtypes for Core Fields (`PDF/mail-1{c, ci}`)
+[cols="a,a"]
+|===
+h| Key name in Collection Schema h| CustomField Subtype
+
+| To | S (string)
+| From | S (string)
+| Sent | D (date)
+| Subject | S (string)
+| `Message-ID`
+footnote:[Note that this is the email's `Message-ID` (which may not exist) and
+is not the synthetically generated `Mail_GUID` used internally.]
+| S (string)
+| Cc | S (string)
+| Bcc | S (string)
+| Size | Size
+| Attachments | N (number)
+
+|===
+
+If the *E* entry is present in any Collection *CustomField* dictionary it SHALL
+have the value _false_.
+
+NOTE: Reason: this prohibits accidental editing of the CustomField data.
+
+EA-PDF does not further constrain the textual field name presented in the PDF viewer
+(*N* entry), field ordering (*O* entry), or default visibility (*V* entry) in the
+Collection schema, or the use of the Collection Sort or Folder dictionaries.
+
+=== Document part metadata (DPM)
+
+All EA-PDF files SHALL define document part metadata for all pages via the Document
+Catalog *DPartRoot* dictionary entry.
+
+NOTE: consequently, this also requires every page in all EA-PDF files to always
+have a *DPart* entry.
+
+NOTE: Reason: requiring DPM allows additional machine validation of EA-PDF files
+without needing to process original source email asset file formats, as well as
+offering richer presentation options in EA-PDF aware software.
+
+All custom EA-PDF keys used in DPM SHALL use the registered prefix "Mail" followed
+by an underscore: "Mail_".
+
+NOTE: some of the same key names introduced for DPM are also used for Logical Structure.
+
+[[figure-12]]
+.DPart hierarchy for example showing PDF object numbers
+image::figure-12.png[]
+
+Intermediate nodes of the Document Part Metadata tree SHALL be used to associate
+emails with all _Content Sets_ associated with that email, as illustrated by the
+green nodes (middle column of cells) in <<figure-08>>. These intermediate nodes
+SHALL contain a *DPM* dictionary as specified in <<table-07>> below.
+
+[[table-07]]
+.Entries in an EA-PDF *DPM* dictionary for an intermediate node associated with an email
+[cols="a,a,a"]
+|===
+h| Key h| Type h| Description
+
+| *Mail_MessageID* | text string | Optional. The `Message-ID` from the header of
+the email and that SHALL match a pdfmailmeta:messageidin the document-level XMP
+metadata.
+
+NOTE: the `Message-ID` email header is optional according to <<RFC_822>>, but is
+extremely common and widely supported with email aware software.
+
+| *Mail_GUID* | text string
+
+| *Required*. A GUID that SHALL match a `pdfmailmeta:Mail_GUID` property in the
+EA-PDF XMP metadata.
+
+If *Mail_MessageID* is also present, then *Mail_GUID* takes precedence in identifying
+the email. Matching SHALL be performed according to <<ISO_32000_2,annex=J.3.3>>.
+
+|===
+
+`PDF/mail-1{s, si}` files SHALL have exactly one intermediate node in the Document
+Part Metadata tree with *Mail_MessageID* / *Mail_GUID* entries.
+
+`PDF/mail-1{m, mi}` files SHALL have at least 2 intermediate nodes in the Document
+Part Metadata tree with *Mail_MessageID* / *Mail_GUID* entries.
+
+`PDF/mail-1{c, ci}` files SHALL have no nodes in the Document Part Metadata tree
+with *Mail_MessageID* or *Mail_GUID* entries.
+
+Every *Mail_MessageID* and *Mail_GUID* value SHALL match a corresponding property
+in the Document Catalog XMP metadata stream.
+
+All leaf nodes of the Document Part Metadata tree SHALL contain a *DPM* dictionary
+to associate pages derived from a single email message with _Content Sets_ as illustrated
+by the blue nodes (right most column of boxes) in <<figure-08>> as defined in <<table-08>>.
+
+[[table-08]]
+.Entries in an EA-PDF *DPM* dictionary for a leaf node associated with pages
+[cols="a,a,a"]
+|===
+h| Key h| Type h| Description
+
+| *Mail_ContentSetType*
+| name
+| _Required_. The _Content Set_ that all pages in the page range defined between
+*Start* and *End* (inclusive) of the DPart dictionary represent. Supported values
+are as follows (other values may be present):
+
+* _AttachmentList_ – a full list of all email attachments in the EA-PDF file. SHALL
+NOT occur in `PDF/mail-1{c, ci}` files.
+* _AttachmentRendering –_ see also*Subtype* entry, which SHALL be the Media Type
+of the original email attachment. SHALL NOT occur in `PDF/mail-1{c, ci}` files.
+* _BodyRendering_ – an email body. See also *Subtype* entry which SHALL be the
+Media Type of the email body. SHALL NOT occur in `PDF/mail-1{c, ci}` files.
+* _ConversionReport_
+* _EmailHeaderRendering_ – a separate rendering of some or all of the email headers.
+SHALL NOT occur in `PDF/mail-1{c, ci}` files.
+* _FrontMatter_ - SHALL always occur in a `PDF/mail-1{c, ci}` file, optional in
+other profiles.
+* _PolicySettings_
+* _Provenance_
+* _RawEmailRendering_ – the rendering of some or all of the original source "raw"
+email.SHALL NOT occur in `PDF/mail-1{c, ci}` files.
+* _Other_ – unspecified
+
+| *Mail_Subtype* | name | _Required_ if *ContentSetType* is _BodyRendering_ or
+_AttachmentRendering._ Not required otherwise. Indicates the source Media Type
+and any parameters of the rendered _Content Set_.The value of this entry SHALL
+conform to the Media Type names defined in Internet RFC 2046, with the provision
+that characters not permitted in names SHALL use the 2-character hexadecimal code
+format described in <<ISO_32000_2,clause=7.3.5>>.
+
+NOTE: this is the same type and definition used by the embedded file stream dictionary
+*Subtype* entry (see <<ISO_32000_2,table=44>>).
+| *Mail_Desc* | text string | _Required_. A human readable text string that describes
+this _Content Set_ that might be presented in the UI of EA-PDF viewers when using
+DPM.
+
+|===
+
+An example of the DPart objects in the Document Part Metadata tree representing
+<<figure-08>> (note that the page tree is not shown).
+
+[[example-06]]
+.document part metadata example
+[source,postscript]
+--
+6 0 obj
+ << /Type /DPartRoot
+ /DPartRootNode 7 0 R
+ >>
+endobj
+
+7 0 obj
+ << /Type /DPart
+ /Parent 6 0 R
+ /DParts [[ 8 0 R 9 0 R 10 R 11 0 R] ]
+ >>
+endobj
+
+8 0 obj
+ << /Type /DPart
+ /Parent 7 0 R
+ /DParts [[ 104 0 R] ] % the single front matter Content Set
+ >>
+endobj
+
+9 0 obj
+ << /Type /DPart
+ /Parent 7 0 R
+ /DParts [[ 100 0 R 101 0 R] ] % the two Content Sets associated with Email #1
+ /DPM <<
+ /Mail_MessageID (68409d6fde44928ac6cfb79f9c6f23c@email.com)
+ /Mail_GUID (68409d6fde44928ac6cfb79f9c6f23c@email.com) % Could be any form of GUID,
+% including email Message-ID
+ >>
+ >>
+endobj
+
+10 0 obj
+ << /Type /DPart
+ /Parent 7 0 R
+ /DParts [[ 102 0 R] ] % the single Content Set associated with Email #2 (e.g. draft)
+ /DPM << /Mail_GUID (6a8420f7-9f9c6f23-ed474811) >> % generated GUID as no Message-ID
+>>
+endobj
+
+11 0 obj
+ << /Type /DPart
+ /Parent 7 0 R
+ /DParts [[ 103 0 R 104 0 R] ] % the attachment list and conversion report Content Sets
+ >>
+endobj
+
+99 0 obj
+ << /Type /DPart
+ /Parent 8 0 R
+ /Start 82 0 R % First page (page 13) of conversion report for full EA-PDF
+ /End 83 0 R % Last page (page 14) of conversion report for full EA-PDF
+ /DPM <<
+ /Mail_ContentSetType /ConversionReport
+ /Mail_Desc (XML conversion report)
+ >>
+ /AF [200 0 R] % Associated File for Email 1 conversion report (maybe an XML report)
+ >>
+endobj
+
+100 0 obj
+ << /Type /DPart
+ /Parent 9 0 R % common intermediate node for Email 1
+ /Start 90 0 R % First page (page 3) in plain text email body
+ /End 93 0 R % Last page (page 6) in plain text email body
+ /DPM <<
+ /Mail_ContentSetType /BodyRendering
+ /Mail_Subtype /text#2Fplain % encoded according to PDF name rules
+ /Mail_Desc (Plain text email body) % short human-readable description
+ >>
+ /Metadata 201 0 R % metadata concerning Email 1 plain text body only
+ >>
+endobj
+
+101 0 obj
+ << /Type /DPart
+ /Parent 9 0 R % common intermediate node for Email 1
+ /Start 94 0 R % First page (page 7) in HTML email body
+ /End 95 0 R % Last page (page 8) in HTML email body
+ /DPM <<
+ /Mail_ContentSetType /BodyRendering
+ /Mail_Subtype /text#2Fhtml % encoded "/" according to PDF name rules
+ /Mail_Desc (HTML email body) % short human-readable description
+ >>
+ >>
+endobj
+
+102 0 obj
+ << /Type /DPart
+ /Parent 10 0 R % common intermediate node for Email 2
+ /Start 96 0 R % First page (page 9) in HTML email body
+ /End 97 0 R % Last page (page 10) in HTML email body
+ /DPM <<
+ /Mail_ContentSetType /BodyRendering
+ /Mail_Subtype /text#2Fhtml % encoded "/" according to PDF name rules
+ /Mail_Desc (HTML email body) % short human-readable description
+ >>
+ >>
+endobj
+
+103 0 obj
+ << /Type /DPart
+ /Parent 11 0 R
+ /Start 80 0 R % First page (page 11) of attachment list report for full EA-PDF
+ /End 81 0 R % Last page (page 12) of attachment list report for full EA-PDF
+ /DPM <<
+ /Mail_ContentSetType /AttachmentList
+/Mail_Desc (List of all email attachments)
+>>
+ >>
+endobj
+
+104 0 obj
+ << /Type /DPart
+ /Parent 12 0 R
+ /Start 84 0 R % First page (page 1) of front matter
+ /End 85 0 R % Last page (page 2) of front matter
+ /DPM <<
+ /Mail_ContentSetType /FrontMatter
+/Mail_Desc (Front cover - summary)
+ >>
+ >>
+endobj
+--
+
+=== Logical structure
+
+EA-PDF Creation Software may utilize Tagged PDF and Logical Structure to provide
+enhanced semantics with improved accessibility and reuse of extracted content.
+EA-PDF defines an optional custom EA-PDF tag-set with specific rolemapping back
+to the PDF 1.7 standard structure tag set.
+
+NOTE: Reason: very few PDF applications appear to process custom PDF tag sets or
+utilize tagging at all (although adoption is increasing). At the time of writing,
+the burden of creation for tagging and custom-tagging is left as a design choice
+for EA-PDF Creation Software. Future `PDF/mail` specifications may mandate the
+use of a custom EA-PDF tag set.
+
+NOTE: in this section the word "tag" is used as an informal term for "custom structure
+element" although it is somewhat ambiguous with the tag operand of certain marked
+content operators. Where the marked content operators are discussed, the italic
+term "tag" specifically refers to that operand.
+
+_EA-PDF Creation Software_ SHOULD create equivalent PDF logical structure to that
+already present in original source email content (such as encoded in HTML email
+bodies).
+
+NOTE: Reason: many logical structure requirements cannot be validated without additionally
+parsing the original source (raw) email assets. This is viewed as onerous for validators
+and not possible for isolated EA-PDF files, so they are stated as recommendations
+and not requirements.
+
+_EA-PDF Creation Software_ SHOULD create PDF logical structure and use Tagged PDF
+for the content of all pages in custom _Content Sets_ that are included in EA-PDF
+files.
+
+NOTE: Reason: use of logical structure and Tagged PDF ensures both reuse and accessibility
+of custom content.
+
+When PDF 2.0 (PDF/A-4) is used, `PDF/mail-1` files with logical structure SHALL
+also conform to ISO TS 32005 and SHALL include the PDF Declaration for ISO TS 32005
+in the document level XMP metadata (see https://pdfa.org/declarations/#ISO_TS_32005
+and <<PDF_Declarations>>).
+
+NOTE: Reason: ISO TS 32005 standardizes the set of inclusion rules for the
+PDF 1.7 tag set, ensuring improved consistent behavior for reuse and accessibility
+across processors.
+
+For all `PDF/mail-1` files that contain Logical Structure, the logical structure
+tree root structure element as defined by the *K* entry of the structure tree root
+SHALL be a single structure element dictionary of structure type _Document_. If
+an array type for the *K* entry of the structure tree root is used, it SHALL have
+a single array element which SHALL be the structure type _Document_.
+
+In all PDF/A-4 files with logical structure, the custom EA-PDF-defined semantics
+SHALL be included using a PDF 2.0 Namespace dictionary with an *NS* entry of
+_https://pdfa.org/ns/ea‑pdf/mail‑1_ and including a *RoleMapNS* entry, as shown
+in <<example-02>> above. The following RoleMap SHALL also be included (additional
+rolemappings may also be included).
+
+[[table-09]]
+.PDF 2.0 to PDF 1.7 backward compatibility role map
+[cols="155,174"]
+|===
+h| PDF 2.0 unique tags h| Compatible PDF 1.7 tag
+
+| Artifact | Private
+| Aside | Div
+| DocumentFragment | Div
+| Em | Span
+| FENote | Note
+| H_n when stem:[n >= 7] | P
+| Strong | Span
+| Sub | Div
+| Title | H1 _or_ P
+
+|===
+
+[NOTE,keep-separate=true]
+====
+Reason: this RoleMap will be ignored by all PDF 2.0 processors for structure elements
+with an explicit namespace (*NS* entry), such as those defined by EA-PDF. However,
+PDF 1.7 only processors reading a PDF 2.0 EA-PDF file containing this RoleMap will
+use it to create a standard backward-compatible mapping to PDF 1.7 tags 
+(since PDF 1.7 only processors do not support PDF 2.0 namespaces) providing a more
+consistent behaviour across processors.
+====
+
+If an EA-PDF file contains any of the following custom EA-PDF structure elements,
+then the following rolemap SHALL be included.
+
+[[table-10]]
+.custom EA-PDF structure elements and their rolemapping to PDF 1.7
+[cols="249,269"]
+|===
+h| Custom EA-PDF structure element h| Rolemapped PDF 1.7 tag
+
+| `Mail_Message`      | Document
+| `Mail_ContentGroup` | Part
+| `Mail_ContentSet`   | Art
+| Mail_Field
+.3+| _The PDF Writer SHALL choose the most appropriate PDF 1.7 structure element,
+such as P (paragraph), Span, list, or table tags._
+| `Mail_FieldName`
+| `Mail_FieldValue`
+
+|===
+
+NOTE: the use of Mail_ContentGroup is to semantically represent the grouping of
+Content Sets. It does not directly relate to a property of an email message.
+
+Custom EA-PDF tags SHALL only occur on marked content sequences (i.e. they SHALL
+NOT occur as marked content points). The _tag_ operand of marked content sequence
+operators SHALL match the corresponding custom EA-PDF structure element name.
+
+NOTE: Reason: ISO 32000 only has a recommendation for matching operands to structure
+element names.
+
+The parent and immediate child containment rules for the custom EA-PDF tags SHALL
+be as follows.
+
+[[table-11]]
+.custom EA-PDF tag parent and immediate child occurrence requirements
+[cols="a,a,a"]
+|===
+h| Parent h| Occurrence h| Immediate Child footnote:[Other nesting requirements are described below.]
+
+.3+| Mail_Message | 0 .. _n_ | Mail_ContentGroup
+| 0 .. _n_ | `Mail_ContentSet`
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
+.2+| Mail_ContentGroup | 1 .. _n_ | Mail_ContentSet
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
+.2+| Mail_ContentSet | 0 .. _n_ | Mail_ContentField
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
+.3+| Mail_Field | 1 .. _n_ | Mail_FieldName
+| 0 .. _n_ | Mail_FieldValue
+
+NOTE: email field values may be blank and thus not present.
+| 0 | _All other custom EA-PDF tags as defined in <<table-10>>._
+
+|===
+
+In addition, the following requirements also apply if custom EA-PDF tags are used.
+
+* For each Mail_Message custom EA-PDF tag, there SHALL be at least 1 Mail_ContentGroup
+or Mail_ContentSet immediate child.
+
+NOTE: this requirement ensures there are no empty email messages in the logical
+structure without a related_ Content Set.
+
+* Every _Content Set_ shall be tagged with a Mail_ContentSet custom EA-PDF tag.
+* All header fields rendered into page content SHOULD be tagged with a Mail_FieldName
+and Mail_FieldValue custom EA-PDF tag (if present).
+
+NOTE: there are no explicit requirements related to email header fields and the
+`Mail_FieldName` or `Mail_FieldValue` custom EA-PDF tags as validation requires
+processing of the original source email assets.
+
+* A Mail_FieldValue custom EA-PDF tag SHALL NOT occur without a corresponding a
+Mail_FieldName tag inside the immediate containing parent Mail_Field tag.
+
+NOTE: the ordering of the `Mail_FieldName` and `Mail_FieldValue` custom EA-PDF
+tags is purposely not defined to support right-to-left languages and other layouts.
+The requirement reflects that an email field needs to be tagged with `Mail_FieldName`
+only.
+
+Certain custom EA-PDF tags may optionally also contain specific custom user property
+structure attributes when the associated attribute object dictionary has a value
+of _UserProperties_ for the owner (*O*) entry. In this situation, the user property
+dictionary *N* SHALL be PDF ASCII strings with *V* entries as defined in <<table-12>>
+below.
+
+[[table-12]]
+.EA-PDF UserProperties custom attributes *N* and *V* entries
+[cols="202,109,246"]
+|===
+h| N entry (_PDF ASCII string_) h| V entry type h| Only with custom EA-PDF tag(s)
+
+| *Mail_MessageID*         | string            | `Mail_Message`
+| *Mail_GUID*              | string            | `Mail_Message`
+| *Mail_ContentSetType*    | string            | `Mail_ContentGroup`, `Mail_ContentSet`
+| *Mail_Subtype*           | string            | `Mail_ContentSet`
+| *Mail_To*                | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_To*            | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_From*              | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_From*          | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Sent*              | PDF date (string) | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Sent*          | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Subject*           | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_SizeInBytes*       | integer (≥ 0)     | `Mail_Message`, `Mail_FieldValue`
+| *Mail_NumberAttachments* | integer (≥ 0)     | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Cc*                | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Cc*            | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Bcc*               | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_Raw_Bcc*           | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_InReplyTo*         | string            | `Mail_Message`, `Mail_FieldValue`
+| *Mail_*... (_other email header fields_) | string, number or Boolean only | `Mail_Message`, `Mail_FieldName`, `Mail_FieldValue`
+
+|===
+
+NOTE: the UserProperties *N* entries match the DPM data (see <<table-07>> and <<table-08>>
+above) and XMP metadata fields (see <<table-18>> below) when prefixed with "_Mail_"
+to allow validation. <<ISO_32000_2,table=362>> recommends only to use strings,
+Booleans and numbers so name values are represented as strings for UserProperties
+*V* values.
+
+When using custom user property structure attributes, the values (*V* entries)
+SHOULD NOT be truncated or modified from the original source email, even if the
+page rendering of the equivalent information is cropped, hidden, obscured, or truncated.
+
+Implicit or explicit _ Art_ (article, implicit via *Mail_ContentSet*) child structure
+elements SHALL only be used to represent each _Content Set_ in all `PDF/mail-1`
+files.
+
+NOTE: this can be validated for consistency using PDF outlines and the document
+part metadata.
+
+For `PDF/mail-1{m, mi}` files, each email SHALL be represented by an implicit or
+explicit _Document_ structure element (implicitly via *Mail_Message*).
+
+NOTE: this can be validated for consistency using PDF outlines and document part
+metadata.
+
+In `PDF/mail-1{c, ci}` container files the explicit top-level _Document_ structure
+element represents the container PDF and its related _Content Sets_ (_not_ emails,
+as these are in the embedded files in the collection).
+
+[[table-13]]
+.Summary of custom EA-PDF tagging main requirements
+[cols="136,429"]
+|===
+h| Custom EA-PDF tag h| Summary
+
+| *Mail_Message*
+| SHALL occur once in `PDF/mail-1{s, si}` files. +
+SHALL occur 2 or more times in `PDF/mail-1{m, mi}` files. +
+SHALL not occur in `PDF/mail-1{c, ci}` files. +
+SHALL contain at least one *Mail_ContentGroup* or *Mail_ContentSet* child element. +
+SHALL be rolemapped to _Document_. +
+SHALL have attribute *Mail_GUID* that SHALL match a Mail_GUID in the DPM and XMP
+Metadata (if present).
+
+| *Mail_ContentGroup*
+| SHALL be rolemapped to _Part_. +
+Optional, but SHALL always be nested below *Mail_Message*. +
+SHALL contain at least one *Mail_ContentSet* child element. +
+SHOULD have an attribute *Mail_ContentSetType* that SHALL match the DPM and XMP
+Metadata if present.
+
+| *Mail_ContentSet* | SHALL be rolemapped to _Art_. +
+SHALL always occur at least once in all `PDF/mail-1` files. +
+SHALL always be nested below *Mail_Message*. +
+SHOULD have an attribute *Mail_Subtype* that SHALL match the DPM if present.
+
+| *Mail_Field* | SHALL only occur in `PDF/mail-1{s, si,m,mi}` files. +
+SHOULD always be nested below *Mail_ContentSet*. +
+SHALL contain at least one *Mail_FieldName* child element. +
+SHALL be rolemapped appropriately.
+
+| *Mail_FieldName* | SHALL only occur in `PDF/mail-1{s, si,m,mi}` files. +
+SHOULD always be nested below *Mail_Field*. +
+SHALL be rolemapped appropriately.
+
+| *Mail_FieldValue* | SHALL only occur in `PDF/mail-1{s, si,m,mi}` files. +
+SHOULD always be nested below *Mail_Field*. +
+SHALL only occur if *Mail_FieldName* is also nested in the same parent *Mail_Field*. +
+SHALL be rolemapped appropriately.
+
+|===
+
+[[figure-13]]
+.Illustration of custom EA-PDF structure elements and attributes with rolemappings to PDF 1.7
+image::figure-13.png[]
+
+[[example-07]]
+.simplified custom EA-PDF tagging example
+[source,postscript]
+--
+10 0 obj                          % Structure tree root
+<< /Type /StructTreeRoot
+   /K 100 0 R                      % Single child -> Document. NOT ARRAY!
+   /RoleMap <<
+     /Artifact          /Private   % Backward compatibility PDF 2.0  PDF 1.7 rolemappings
+     /Aside             /Div
+     /DocumentFragment  /Div
+     /Em                /Span
+     /FENote            /Note
+     /H7                /P
+     /Strong            /Span
+     /Sub               /Div
+     /Title             /H1
+     /Mail_Message      /Document  % EA-PDF custom rolemappings  PDF 1.7
+     /Mail_ContentGroup /Part
+     /Mail_ContentSet   /Art
+     /Mail_Field        /Span
+     /Mail_FieldName    /Span
+     /Mail_FieldValue   /Span
+     …                             % Any other role mappings as required
+   >>
+   /ClassMap << … >>               % Class map containing attribute classes (if used)
+   /ParentTree …                   % Number tree for parent elements
+   /ParentTreeNextKey …            % Next key to use in parent tree
+   /IDTree …                       % Name tree for element identifiers
+   /Namespaces [ 11 0 R … ]        % Array for all PDF 2.0 Namespaces. Ignored by PDF 1.7.
+>>
+endobj
+11 0 obj                           % see Table 356 in ISO 32000-2:2020 (PDF 2.0)
+<< /Type /Namespace
+   /NS (https://pdfa.org/ns/ea-pdf/mail-1) % URI for EA-PDF namespace for PDF/mail-1
+   /RoleMapNS <<                   % Rolemap back to PDF 1.7 standard structure elements
+     /Mail_Message      /Document
+     /Mail_ContentGroup /Part
+     /Mail_ContentSet   /Art
+     /Mail_Field        /Span
+     /Mail_FieldName    /Span
+     /Mail_FieldValue   /Span
+   >>
+>>
+endobj
+100 0 obj                          % Structure tree root element for EA-PDF Document
+<< /Type /StructElem
+   /S    /Document
+   /ID   (EA-PDF1)                 % Element identifier
+   /T    (EA-PDF for …)            % Human-readable title for the document
+   /P    10 0 R                    % Parent is the structure tree root above
+   /K    [ … 101 0 R … ]           % Child includes Mail_Message
+>>
+endobj
+
+101 0 obj                          % Structure element encapsulating the single email
+<< /Type /StructElem
+   /S    /Mail_Message             % Rolemapped back to Document above
+   /ID   (MessageID1)              % Element identifier
+   /T    (Message-ID: da279asjh37) % Human-readable title
+   /P    100 0 R                   % Parent is the Document for the EA-PDF file
+   /Pg   500 0 R                   % Page containing content (below)
+   /A    <<
+       /O /UserProperties          % Custom attributes
+       /P [ << /N (Mail_GUID)      % Mail_GUID is always needed
+               /V (da279asjh37)    % The GUID that matches DPM and XMP metadata
+            >>
+            <<
+               /N (Mail_SizeInBytes)
+               /V 68738
+            >>
+            <<
+               /N (Mail_NumberAttachments)
+               /V 2
+            >>
+            …
+       ]
+   >>
+   /K    [ 102 0 R ]               % Single child Mail_ContentGroup
+>>
+endobj
+102 0 obj                          % Structure element for Mail_ContentGroup
+<< /Type /StructElem
+   /S    /Mail_ContentGroup
+   /ID   (EmailBodyGroup1)         % Element identifier
+   /T    (Email bodies)            % Human-readable title
+   /P    101 0 R                   % Parent is the Mail_Message
+   /Pg   500 0 R                   % Page containing content (below)
+   /A    <<
+       /O /UserProperties          % Custom attributes
+       /P [ << /N (Mail_ContentSetType)
+               /V (BodyRendering)  % Match DPM usage to identify kind of content set
+            >>
+       ]
+   >>
+   /K    [ … 103 0 R 104 0 R … ]   % 2 children Mail_ContentSets
+>>
+endobj
+103 0 obj                          % Structure element for Mail_ContentGroup
+<< /Type /StructElem
+   /S    /Mail_ContentGroup
+   /ID   (Email1BodyHtml)          % Element identifier
+   /T    (HTML email body)         % Human-readable title
+   /P    102 0 R                   % Parent is the Mail_ContentGroup
+   /Pg   500 0 R                   % Page containing content (below)
+   /A    <<
+       /O /UserProperties          % Custom attributes
+       /P [ << /N (Mail_Subtype)
+               /V (text/html; charset=utf-8) % MIME type, matching DPM and XMP metadata
+            >>
+       ]
+   >>
+   /K    [ … ]                     % children
+>>
+endobj
+
+104 0 obj                          % Structure element for Mail_ContentGroup
+<< /Type /StructElem
+   /S    /Mail_ContentGroup
+   /ID   (Email1BodyText)          % Element identifier
+   /T    (Plain text body)         % Human-readable title
+   /P    102 0 R                   % Parent is the Mail_ ContentGroup
+   /Pg   500 0 R                   % Page containing content (below)
+   /A    <<
+       /O /UserProperties          % Custom attributes
+       /P [ << /N (Mail_Subtype)
+               /V (text/plain)     % MIME type, matching email, DPM and XMP metadata
+            >>
+       ]
+   >>
+   /K    [ … ]                     % children
+>>
+endobj
+…
+500 0 obj
+<< … keys for page content stream for an email body content set … >>
+stream
+  …
+  /Mail_Field BMC
+     …
+     /Mail_FieldName BMC
+        /Span << /Lang (fr) >> BDC % Email rendered using French user interface
+           BT (Objet:) TJ ET       % French for “subject” as text object
+        EMC
+     EMC
+     …
+     /Mail_FieldValue … BDC        % related attributes: /N (Mail_Subject) /V (Hello world)
+        BT 3 Tr (Hello world) TJ ET  % as invisible text object
+     EMC
+     …
+  EMC
+  …
+endstream
+endobj
+--
+
+=== XMP metadata
+
+Like all PDF ISO subsets, EA-PDF files SHALL presumptively declare their full conformance
+using the document catalog XMP *Metadata* stream. This XMP metadata stream provides
+the definitive information about the email messages preserved in the EA-PDF file.
+
+All EA-PDF files SHALL contain a Document Catalog *Metadata* XMP stream including
+the following namespaces and required prefixes, in addition to those required for
+their appropriate PDF/A conformance:
+
+[[table-14]]
+.Custom XMP namespaces and prefixes for EA-PDF
+[cols="274,117"]
+|===
+h| URI h| Required Prefix
+
+| http://www.pdfa.org/eapdf/         | `pdfmail`
+| http://www.pdfa.org/eapdf/ns/id/   | `pdfmailid`
+| http://www.pdfa.org/eapdf/ns/meta/ | `pdfmailmeta`
+|===
+
+NOTE: namespace URIs do not need to exist as websites (i.e., clickable URLs).
+
+NOTE: the PDF/A conformance level is determined by EA-PDF Creation Software and
+can be based on features present in the email messages.
+
+_EA-PDF Creation Software_ SHALL also record the dc:creator[0], pdf:Producerand
+the date of the EA-PDF file creation date (xmp:CreateDate) in the standard XMP
+metadata fields as defined in <<PDF_A_3,table=7>>. The dc:title["x-default"] property
+SHOULD also be set.
+
+NOTE: Reason: many PDF viewers display Title information at the top of viewing
+window.
+
+==== Conformance and identification
+
+The EA-PDF Identification schema SHALL use the namespace URI http://www.pdfa.org/eapdf/ns/id/ and SHALL use the schema namespace prefix pdfmailidas follows:
+
+[[table-15]]
+.EA-PDF identification schema properties
+[cols="a,a,a"]
+|===
+h| XMP Property h| XMP Value Type h| Value
+
+| pdfmailid:version footnote:[`pdfmailid:part` is reserved for future ISO standardization.]
+| Open choice of integer | 1
+| pdfmailid:rev | Open choice of integer | 2024 (representing a year)
+| pdfmailid:conformance | Open choice of text. Always lowercase. | 's', 'si', 'm', 'mi', 'c' or 'ci'The "i" designator SHALL always be last if present.
+
+|===
+
+NOTE: Reason: this is how all PDF ISO subsets declare conformance in XMP, with
+similarly named properties. The use of a new namespace for EA-PDF ensures that
+an EA-PDF file can also be marked as conforming with PDF/A and PDF/UA, and that
+future versions or revisions of EA-PDF can also be supported. This also forces
+PDF files to conform to a single conformance level for such standard, including
+EA-PDF.
+
+As a result of PDF/A-3 requirements, an XMP extension schema for EA-PDF must also
+be included according to PDF/A-3, §6.6.2.3.2 requirements if the EA-PDF conforms
+to PDF/A-3.
+
+==== Source email assets
+
+For non-isolated EA-PDF files that include any source email assets (whether original
+raw (unmodified) source email asset(s) or modified), additional metadata about
+those source email asset(s) SHALL be recorded in the document-level (Document Catalog)
+XMP metadata.
+
+The following structured metadata in the document-level XMP *Metadata* stream using
+the namespace http://www.pdfa.org/eapdf/ns/meta/ SHALL be included as an unordered
+set of one or more source email asset container descriptions using pdfmailmeta:assets
+as follows:
+
+[[table-16]]
+.EA-PDF source email asset structured XMP metadata
+[cols="a,a,a"]
+|===
+h| Source email asset property h| h| XMP Metadata description
+
+| `Filename` | _Required_
+| Text string of the case-sensistive filename of the original email asset.
+
+NOTE: XMP in PDF is always UTF-8 so the filename can contain Unicode characters.
+It may also include absolute or relative path components or platform-specific components
+in the metadata.
+
+| `SizeInBytes` | _Required_ | A non-negative integer that is the size (in bytes)
+of this source email asset.
+
+| `ContentType` | _Required_
+| Free text string representing the IANA Media Type (including any required parameters)
+of this email asset.Refer to <<table-17>> below for commonly used source email
+asset Media Types. Other IANA Media Types are allowed, but non-specific generic
+Media Types such as application/octet-stream , application/zip, or text/plain SHOULD
+NOT be used.
+
+| `NumberMessages` | _Optional_ | A non-negative integer representing the number
+of individual email messages in this source email asset that have been successfully
+rendered into this EA-PDF file.
+
+NOTE: emails with fatal errors and that could not be converted to EA-PDF are not
+included in this count.
+
+NOTE: this value cannot be validated without re-processing the original source
+email assets. However it can be checked for consistency with the Content Sets,
+outlines, DPM, etc.
+
+| `Checksum` | _Required_ | The MD5 checksum of the original email asset, stored
+as a 32 character long hexadecimal ASCII string (upper and lowecase alphanumerics).
+
+NOTE: this checksum is not used for security and is only provided to help detect
+if the embedded data has been modified or corrupted.
+
+|===
+
+NOTE: Reason: an unordered set of source email assets supports sets of files, with
+only a single asset needing to list the number of email messages.
+
+[[table-17]]
+.Common source email asset IANA Media Types. Other Media Types are allowed.
+[cols="a,a,a"]
+|===
+h| Email file format
+h| IANA Media Type footnote:[See https://www.iana.org/assignments/media-types/media-types.xhtml for registered Media Types. Not all media types for email formats are registered.]
+h| Number of emails
+
+| EML
+| message/rfc822 footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml] | 1
+| MSG
+| application/vnd.ms-outlook footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000379.shtml] | 1
+| MBOX
+| application/mbox footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000383.shtml] | _1…N_
+| OST, PST
+| application/vnd.ms-outlook footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000378.shtml] | _1…N_
+| NSF
+| application/vnd.lotus-notes footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000433.shtml] | _1…N_
+
+|===
+
+==== Email headers
+
+All non-empty _Core Fields_ for each email in `PDF/mail-1{s, si, m, mi}` files
+SHALL be recorded as structured metadata in the document-level XMP *Metadata* stream
+using the namespace "http://www.pdfa.org/eapdf/ns/meta/" with the required schema
+namespace prefix pdfmailmeta as an unordered set of email containers as follows.
+
+EA-PDF Creation Software may add additional email header fields using the case-sensitive
+email header field name. EA-PDF Creation Software may also prefix header fields
+with "Raw-" to indicate a raw value from the email that would otherwise be an error
+when using a more rigid or structured XMP data type (e.g. an XMP dateTime).
+
+NOTE: these properties cannot be "SHALL" requirements as they cannot be validated
+without re-processing the original source email. They can however be validated
+for consistency with_ Content Sets, outlines, DPM, and logical structure (if present)
+in the EA-PDF file.
+
+[[table-18]]
+.EA-PDF Core Fields footnote:[Note that some Core Fields such as `Message-ID` and Subject are optional according to <<RFC_822>>. Other field values may also be empty/blank in draft emails.] as structured XMP metadata
+[cols="a,a,a"]
+|===
+h| Core Field h| h| XMP Metadata description
+
+| `To` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers
+(`foaf:Agent` entries), each with required `foaf:mbox` email address and optional
+`foaf:name` or other FOAF Agent fields.
+
+| `Raw-To` | _Optional_ | Free text string, directly reflecting the email header
+To: field value.
+
+| `From` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers
+(`foaf:Agent` entries), each with required `foaf:mbox` email address and optional
+`foaf:name` or other FOAF Agent fields.
+
+| `Raw-From` | _Optional_ | Free text string, directly reflecting the email header
+From: field value.
+| `Sent` | _Required_ | Represented as a xsd:dateTime.
+
+Due to potential errors in email header Sent: fields, this value may have been
+normalized to a valid XMP date/time value by _EA-PDF Creation Software_.
+
+NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context.
+EA-PDF uses the term "Sent".
+| Raw-Sent | _Sometimes required_ | Required when the email header Sent: field
+value has an error that would result in an invalid XMP dateTime. Otherwise SHOULD
+not be present.
+
+Represented as a free text string, directly reflecting the email header Sent field
+value.
+
+NOTE: RFC 822 defines this field as "Date" which can be ambiguous when out of context.
+EA-PDF uses the term "Sent".
+| `Subject` | _Optional_ | Free text string.
+| `Message-ID` | _Optional_ | Free text string.
+
+NOTE: some Message IDs may include an "@" sign and domain name and appear as an
+email address, however Message-IDs are never FOAF Agents.
+| `Mail_GUID` | _Required_ | An XMP GUID (see <<ISO_16684_1_2019,clause=8.2.2.3>>)
+that uniquely identifies an email represented as a single free text string.
+
+NOTE: according to RFC 822 the `Message-ID`: core field is optional, so this required
+synthetic unique identifier allows a mapping between XMP metadata and PDF content.
+
+NOTE: this property name matches the other uses in EA-PDF, including PDF second-class
+keys.
+| `SizeInBytes` | _Optional_ | A non-negative integer representing the size
+(in bytes) of the original source of only this email message.
+
+NOTE: this property is only meaningful for certain email formats such as EML, MSG
+and MBOX.
+
+NOTE: this property includes all headers, all email attachments that may be encoded
+as Base64, etc. in the original email format.
+| `NumberAttachments` | _Required if 1 or more attachments_ | A non-negative integer
+representing the number of email attachments in this email message. Default value
+is 0.
+
+| `Cc` | _Optional_ | Represented as an ordered sequence of FOAF Agent containers
+(`foaf:Agent` entries), each with required `foaf:mbox` email address and optional `foaf:name`
+or other FOAF Agent fields.
+
+| `Raw-Cc` | _Optional_ | Free text string, directly reflecting the email header cc: field value.
+
+| `Bcc` | _Optional_ | Represented as an ordered sequence of FOAF Agent containers
+(`foaf:Agent` entries), each with required `foaf:mbox` email address and optional
+`foaf:name` or other FOAF Agent fields.
+
+| `Raw-Bcc` | _Optional_ | Free text string, directly reflecting the email header bcc: field value.
+
+| `In-Reply-To` | _Optional_ | Unordered sequence of free text strings, directly
+reflecting the email header In-Reply-To: field value(s).
+
+NOTE: some In-Reply-To message IDs may include an "@" sign and domain name and
+appear as an email address. In-Reply-To message IDs are not represented as FOAF
+Agents in XMP metadata.
+
+NOTE: although this email field can only occur once, it may contain one or
+more message IDs separated by whitespace.
+
+|===
+
+[NOTE,keep-separate=true]
+====
+by convention with other PDF ISO subset standards such as PDF/A, new XMP fields
+introduced with EA-PDF generally use "camel case", with capitalization matching
+the <<RFC_822>> field names. However, to support existing third party XMP schemas
+and correspondence with PDF second-class names, this is not always the case and
+is not mandated.
+====
+
+==== Email attachments
+
+For EA-PDF files that include any emails with attachments (whether preserved as
+PDF file annotations or removed for policy reasons), additional metadata about
+all email attachments in the original source email assets SHOULD be recorded in
+the document-level (Document Catalog) XMP metadata.
+
+NOTE: this cannot be a "SHALL" requirement as it cannot be validated without re-processing
+the original source email. It can however be validated for consistency with embedded
+file streams in the EA-PDF file.
+
+The following structured metadata in the document-level XMP *Metadata* stream using
+the namespace http://www.pdfa.org/eapdf/ns/meta/ SHALL be included as an unordered
+set of zero or more source email attachment descriptions pdfmailmeta:attachments
+as follows:
+
+[[table-19]]
+.EA-PDF email attachment structured XMP metadata
+[cols="a,a,a"]
+|===
+h| Attachment property h| h| XMP Metadata
+
+| `Filename` | _Required_ | A free text string representing the case-sensistive
+filename of the email attachment as stored in the original email asset.
+
+NOTE: XMP in PDF is always UTF-8 so the filename can contain Unicode characters.
+
+NOTE: due to limitations with PDF filenames, the corresponding PDF embedded file
+stream filename may not be an exact match._
+
+NOTE: the filename can come from either the Content-Disposition header 'filename'
+parameter or the Content-Type header 'name' parameter. Both are optional, so it
+is possible that an email attachment will not have a filename specified in the
+email headers. In this case a suitable string will need to be generated by the
+EA-PDF Creation Software.
+
+| `SizeInBytes` | _Required_ | A non-negative integer, reflecting the size
+(in bytes) of this email attachment as stored in the EA-PDF as an embedded file
+stream.
+
+NOTE: email attachments that were removed for policy or cybersecurity reasons may
+have zero length.
+
+NOTE: this property is expected to match the corresponding embedded file stream
+parameter dictionary *Size* entry (if present).
+| `Message-ID` | _Optional_ | Text string reflecting the `Message-ID` of the original
+email containing this email attachment.
+
+| `Mail_GUID` | _Required if `Message-ID` is not present_ | Text string reflecting
+the generated GUID of the email containing this email attachment.
+
+NOTE: this property name matches the DPM entry.
+| `Content-Type` | _Required_ | A free text string, representing the IANA Media
+Type (including any media type parameters) of this email attachment as specified
+in the original email asset.
+
+NOTE: because of potential errors in the headers of source emails, this string
+is not defined as an IANA Media Type and must always reflect the raw field in the
+original source email.
+
+NOTE: this property is equivalent to the corresponding embedded file stream dictionary
+*Subtype* and *Mail_MediaTypeParameters* entries when combined according to the
+algorithm above.
+| `CheckSum` | _Optional_ | A 32 character ASCII text string, representing the
+MD5 checksum (as hexadecimal, upper or lower case alphanumerics) of this email
+attachment when processed as its raw binary data.
+
+NOTE: this property is equivalent to the corresponding embedded file parameter
+dictionary *CheckSum* entry (subject to encoding differences, if present).
+
+NOTE: this is not security related.
+
+|===
