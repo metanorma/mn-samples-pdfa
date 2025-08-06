@@ -1,0 +1,110 @@
+
+[bibliography]
+== References
+
+This list of references includes both normative and informative references to aid
+readers.
+
+* [[[PDF_A_3,PDF/A-3]]] "ISO 19005-3, _Document management — Electronic document
+file format for long-term preservation — Part 3: Use of ISO 32000-1 with support
+for embedded files (PDF/A-3)"_ (including any Amendments and errata).
+https://pdfa.org/resource/iso-19005-3-pdf-a-3/
+
+NOTE: all conformance levels of both PDF/A-1 (ISO 19005-1) and PDF/A-2 (ISO 19005-2)
+are unsuitable for EA-PDF because they do not allow arbitrary embedded files which
+are required to preserve email attachments and email asset(s). Conformance level
+PDF/A-3b is explicitly excluded from EA-PDF as it is a reasonable expectation that
+EA-PDF creation software can always create Unicode content from emails, even if logical
+structure is not readily available. Thus EA-PDF files may be PDF/A-3a (preferred)
+or PDF/A-3u compliant.
+
+NOTE: the description of associated files and marked content in Annex E.5 is technically
+incorrect in PDF/A-3 and thus cannot be used.
+See https://github.com/pdf-association/pdf-issues/issues/374[PDF Errata #374].
+
+NOTE: Reason: This PDF/A-3 reference is undated so any future dated revisions or
+amendments to PDF/A-3 can be included as part of EA-PDF.
+
+* [[[PDF_A_4f,PDF/A-4]]] "ISO/DIS 19005-4:2024 _Document management — Electronic
+document file format for long-term preservation — Part 4: Use of ISO 32000-2 (PDF/A-4)",_
+https://pdfa.org/resource/iso-19005-4-pdf-a-4/
+
+NOTE: Reason: conformance level PDF/A-4f is required by most EA-PDF profiles as it
+supports arbitrary embedded files necessary to preserve original raw source email
+assets, email attachments, etc. Only certain PDF/mail files that are isolated and
+need PDF 2.0 features, do not have any email attachments do not need to be PDF/A-4f.
+Note that PDF/A-4 does not define conformance levels A, B, or U like earlier PDF/A
+versions.
+
+NOTE: this is a specific dated reference to the 2024 dated revision of PDF/A-4 which
+resolves various issues related to embedded files in PDF/A-4. When ISO/DIS 19005-4:2024
+is completed and published by ISO this reference will be updated.
+
+* [[[ISO_32000_2,ISO 32000-2]]] "ISO 32000-2, _Document management — Portable document
+format — Part 2: PDF 2.0"_ including all Amendments and errata. https://pdfa.org/resource/iso-32000-2/
+
+NOTE: this document only references the PDF 2.0 ISO specification as it has greatly
+improved wording over ISO 32000-1:2008 (PDF 1.7). All features used in EA-PDF are
+described by their definitions in ISO 32000-2:2020. This is also an undated reference
+so any future dated revisions or amendments can be included as part of EA-PDF, such
+as the forthcoming Amendment 1, as well as all industry-agreed errata resolutions.
+
+* [[[ADBE_Extn_L5,ADBE-Extn-L5]]] "Adobe(R) Supplement to ISO 32000-1 BaseVersion:
+1.7 ExtensionLevel: 5 (Adobe(R) Acrobat(R) SDK, Version 9.1)", dated June 2009. Available
+via https://pdfa.org/resource/pdf-specification-archive/
+
+* [[[PDF_Declarations,PDF-Declarations]]] "_PDF Declarations_", PDF Association,
+https://www.pdfa.org/resource/pdf-declarations/
+
+NOTE: PDF Declarations is an industry standardized way that XMP metadata can be extended
+to declare that a PDF file or object also conforms with 3rd party specifications
+or profiles that are unrelated to PDF technology (e.g., PREMIS or EAXS).
+
+* [[[AssociatedFiles,AssociatedFiles]]] "_PDF 2.0 Application Note 002: Associated
+Files_", PDF Association, https://www.pdfa.org/resource/pdf-2-0-application-note-002-associated-files/
+
+NOTE: this application note is not entirely technically correct with respect to PDF
+2.0 and does not include PDF/A-4. It will be updated soon by the PDF Association.
+
+* [[[C2PA,C2PA]]] "_C2PA Technical Specification"_, Coalition for Content Provenance
+and Authenticity (C2PA), https://c2pa.org/specifications/specifications/2.0/index.html
+
+* [[[CLIR,CLIR]]] "_The Future of Email Archives. A Report from the Task Force on
+Technical Approaches for Email Archives_" Council on Library and Information Resources
+(CLIR), CLIR, vol. 1, 1 vols. Washington DC, USA, 2018. https://www.clir.org/pubs/reports/pub175/
+
+* [[[EA_PDF_TR,EA-PDF-TR]]] "_A Specification for Using PDF to Package and Represent
+Email Technical Report_", EA-PDF Working Group, University of Illinois at Urbana-Champaign,
+p. 34, Jan. 2021. https://www.ideals.illinois.edu/handle/2142/109251
+
+* [[[EAXS,EAXS]]] "_Email Account XML Schema (EAXS_)", State Archives of North Carolina
+and the Smithsonian Institution Archives https://github.com/StateArchivesOfNorthCarolina/tomes-eaxs/blob/master/versions/1/eaxs_schema_v1.xsd
+
+* [[[EAXSPREMISCrosswalk,EAXSPREMISCrosswalk]]] "_Email EAXS/PREMIS Crosswalks for
+collection/account_", https://docs.google.com/spreadsheets/d/1GoLnA0tkslkfYXIDM6k5wM8KU8YhfUMXWgYg7Sz99s0/edit#gid=0
+
+[ePADDMeta] "_EA PDF proposed metadata profile - based on ePADD"_, https://docs.google.com/spreadsheets/d/1bckPBvYEeoBT0x2OeNH-dO6JoyWAolTu/edit#gid=175841588
+
+* [[[FOAF,FOAF]]] "_FOAF Friend Of A Friend Vocabulary Specification"_, http://xmlns.com/foaf/0.1/
+
+* [[[HeaderCharacteristics,HeaderCharacteristics]]] _"Email Header Significant Characteristics"_,
+Kevin De Vorsey, NARA, https://docs.google.com/spreadsheets/d/16uSKduxhS7Z8GJ4AKEQ6hFM7hXhsal8KQ-_jMUcdMWA/edit#gid=0
+
+* [[[MetadataStreams,MetadataStreams]]] "_PDF 2.0 Application Note 003: Use of object
+metadata streams_", PDF Association, https://www.pdfa.org/resource/pdf-2-0-application-note-003-use-of-object-metadata-streams/
+
+* [[[Narrative,Narrative]]] "_EA-PDF Project Narrative_", https://www.pdfa.org/resource/ea-pdf/
+
+* [[[PREMIS,PREMIS]]] "_PREMIS Data Dictionary for Preservation Metadata_", https://www.loc.gov/standards/premis/
+
+* [[[RFC_8118,RFC-8118]]] "_RFC 8118: The application/pdf Media Ty_pe", https://www.rfc-editor.org/rfc/rfc8118.html
+
+* [[[RFC_822,RFC-822]]] "_RFC 822: Standard for ARPA Internet Text Messages_", https://www.w3.org/Protocols/rfc822/ plus related RFCs (e.g., "RFC 2076: _Common Internet Message Headers"_; "RFC 4021: _Registration of Mail and MIME Header Fields"_; "RFC 6532: _Internationalized Email Headers", etc._)
+
+* [[[UIUC_EAPDF,UIUC-EAPDF]]] "_UIUC Library's prototype EA-PDF implementation"_.
+https://github.com/UIUCLibrary/ea-pdf
+
+* [[[XMP,XMP]]] "ISO 16684-1, _Extensible metadata platform (XMP) specification —
+Part 1: Data model, serialization and core properties",_ https://pdfa.org/resource/iso-16684-1/.
+
+* [[[XMPNamespaces,XMPNamespaces]]] https://developer.adobe.com/xmp/docs/XMPNamespaces/
