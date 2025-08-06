@@ -209,9 +209,9 @@ An EA-PDF file will contain many logical groupings of XMP metadata as illustrate
 
 NOTE: Figure 6: logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via Message-ID/Mail_GUID properties below does not necessarily represent the physical ordering of the document level XMP metadata. XMP Extension Schemas are only required if the EA-PDF file conforms to PDF/A-3. PDF/A-4 files may alternatively optionally embed schemas using Associated Files with an *AFRelationship* value of Schema.
 
-[[figure-03]]
+[[figure-06]]
 .logical groupings of different categories of XMP metadata and schemas in EA-PDF, with linkage via Message-ID/Mail_GUID properties
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_f75c0fc7.png[]
+image::figure-06.png[]
 
 Any PDF dictionary or stream object may also contain a *Metadata* entry referencing an XML-based XMP metadata stream allowing metadata to be logically and semantically associated with different objects in an EA-PDF file. Example use-cases of this are discussed below. See [MetadataStreams] and <<ISO_32000_2,clause=14.3.2>>.
 
@@ -314,7 +314,7 @@ NOTE: the structure element sets formally defined in <<ISO_32000_1_2008>> (PDF 1
 
 [[figure-07]]
 .Conceptual illustration of logical structure using the custom EA-PDF tag set
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_1a5dbc74.png[]
+image::figure-07.png[]
 
 To enable improved reuse and accessibility, EA-PDF additionally defines a set of custom tags (structure element types) for optionally semantically marking up PDF page content streams to identify _Core Field_ information using a custom PDF 2.0 namespace. All keys are purposely prefixed with the registered second-class PDF name "Mail" followed by an underscore (i.e. /Mail_… ) so that identifiable semantics remain after content or page extraction or processing by legacy software which may not support or maintain custom logical structure. The role-mapping of some custom EA-PDF structure elements back to approximate standard structure types is [underline]#_not_# defined, allowing flexibility in the way that _Core Field_ information is presented.
 
@@ -326,7 +326,7 @@ NOTE: Reason: duplicating email metadata in the DPart tree is unnecessary and ma
 
 [[figure-08]]
 .Conceptual illustration of a simplified Document Part Metadata tree
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_df5032ed.gif[]
+image::figure-08.png[]
 
 The use of Document Part Metadata allows EA-PDF aware software to easily identify or logically group pages into like sets, since EA-PDF does not (and cannot) prescribe page counts for every possible _Content Set_. The *DPM* dictionaries in Document Part Metadata can also have Associated Files and *Metadata* streams to provide additional data. This is achievable [underline]#_without_# needing to parse page content streams and might be used to improve email-centric navigation in interactive EA-PDF aware software or to batch-process multiple EA-PDF files (e.g., extract all pages that represent a specific kind of _Content Set_, identify EA-PDF files with text/html page renderings, find XMP metadata streams or associated files linked to specific kinds of _Content Sets_, etc.).
 
@@ -420,7 +420,7 @@ NOTE: Reason: Many legacy software viewers use the Document Catalog Names name-t
 [[example-01]]
 .Document Catalog referencing the source email file as an Associated File and also listed in the *EmbeddedFiles* name tree.
 ====
-[sources]
+[source]
 --
 10 0 obj
 << /Type /Catalog
@@ -544,7 +544,7 @@ EA-PDF also defines a custom PDF 2.0 namespace with structure elements to additi
 
 [[example-02]]
 .PDF 2.0 logical structure namespace dictionary for EA-PDF custom structure elements.
-[sources]
+[source]
 --
 110 0 obj  % PDF 1.7 standard structure namespace as per 14.8.6 in ISO 32000-2
 << /Type /Namespace /NS (http://iso.org/pdf/ssn) >>
@@ -610,7 +610,7 @@ NOTE: avoiding inline images in PDF content streams for converted assets means t
 
 [[figure-09]]
 .Example of multiple Associated Files and Metadata streams associated with a converted asset (e.g. animated GIF converted to Image XObject)
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_d166b214.png[]
+image::figure-09.png[]
 
 ==== Plain text emails
 
@@ -676,7 +676,7 @@ NOTE: Reason: email attachments may be malicious, corrupted, or zero bytes in le
 
 [[figure-10]]
 .conceptual framework of PDF objects related to email attachments with alternate rendering
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_5764be5e.png[]
+image::figure-10.png[]
 
 NOTE: Reason: the LWG wanted to associate the email attachment filename, Media Type (from email), associated Message-ID (of the email, but this may not always be present hence the need to use Mail_GUID), and to support alternative renderings for non-archival attachment formats. Note that all streams in the above diagram may be losslessly compressed using *FlateDecode*.
 
@@ -835,7 +835,11 @@ NOTE: EA-PDF preserved emails need to have verifiable provenance back to a prese
 
 [[figure-11]]
 .`PDF/mail-1c` "structured container" containing multiple EA-PDF files arranged in hierarchical folders, each with their original raw source email asset (_left_) and using a shared original raw source email asset in the container (_right_).
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_b12f85ec.png[]image::EA-PDF-v1-Specification-v1.0-FINAL_html_d4c7eb1f.png[]
+====
+image::figure-11a.png[]
+
+image::figure-11b.png[]
+====
 
 There is no requirement that `PDF/mail-1c` files [underline]#_must_# contain hierarchical folders, although it is expected. There are also no specific requirements imposed on any internal folder structure or when/how specific profiles of embedded `PDF/mail` files need to be embedded in `PDF/mail-1c`. Although this provides greater flexibility and supports multiple EA-PDF scenarios and use-cases, some suggestions and guidance may be useful:
 
@@ -1319,7 +1323,7 @@ NOTE: some of the same key names introduced for DPM are also used for Logical St
 
 [[figure-12]]
 .DPart hierarchy for example showing PDF object numbers
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_8a4227a4.gif[]
+image::figure-12.png[]
 
 Intermediate nodes of the Document Part Metadata tree SHALL be used to associate emails with all _Content Sets_ associated with that email, as illustrated by the green nodes (middle column of cells) in _Figure 8: Conceptual illustration of a simplified Document Part Metadata tree._ These intermediate nodes SHALL contain a *DPM* dictionary as specified in _Table 7: Entries in an EA-PDF DPM dictionary for an intermediate node associated with an email_ below.
 
@@ -1704,13 +1708,12 @@ SHALL be rolemapped appropriately.
 
 [[figure-13]]
 .Illustration of custom EA-PDF structure elements and attributes with rolemappings to PDF 1.7
-image::EA-PDF-v1-Specification-v1.0-FINAL_html_716abc96.png[]
+image::figure-13.png[]
 
 [[example-07]]
 .simplified custom EA-PDF tagging example
-[sources]
+[source]
 --
-
 10 0 obj                          % Structure tree root
 << /Type /StructTreeRoot
    /K 100 0 R                      % Single child -> Document. NOT ARRAY!
