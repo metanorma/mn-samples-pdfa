@@ -30,16 +30,11 @@ include::sections/04-conventions.adoc[]
 
 include::sections/05-background.adoc[]
 
-include::converted-doc-edited.adoc[]
+include::sections/06-out-of-scope.adoc[]
 
-// include::sections/06-reusable-pdf.adoc[]
+include::sections/07-end-user-perspective.adoc[]
 
-// include::sections/07-file-format.adoc[]
+include::sections/08-aware-software.adoc[]
 
-// include::sections/a1-annex-a.adoc[]
+include::sections/09-file-format-perspective.adoc[]
 
-// include::sections/a2-annex-b.adoc[]
-
-// include::sections/a3-annex-c.adoc[]
-
-// include::sections/b0-bibliography.adoc[]
