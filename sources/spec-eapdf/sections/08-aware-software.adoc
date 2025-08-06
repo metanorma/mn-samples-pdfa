@@ -1,0 +1,104 @@
+
+== EA-PDF aware software (normative)
+
+End users experience EA-PDF files via their software so it is not unsurprising
+that additional requirements must be met by conforming EA-PDF aware software to
+ensure a consistent, reliable, and trusted user experience.
+
+Non-interactive EA-PDF aware software (e.g., command line or server-based) may
+perform similar functions, such as bulk extraction of all embedded files or metadata
+streams, indexing of content, checking links, etc. Wording is intended to reflect
+both interactive and non-interactive applications.
+
+All conforming EA-PDF software SHALL provide the following functionality
+[underline]#_in addition to_# the mandated functionality required by PDF/A viewers
+(see <<PDF_A_3>> and <<PDF_A_4f>>):
+
+NOTE: the following requirements and recommendations below are aligned with good,
+feature-rich compliant PDF/A viewers.
+
+NOTE: EA-PDF Reader: EA-PDF is specified to fully support foreign languages and
+multi-lingual emails. Care needs to be taken not to codify any assumptions about
+encountering only ASCII (*PDFDocEncoded*) strings including folder or file names,
+outlines (bookmarks), file annotation *Contents* entries, file specification *Desc*
+entries, etc. in EA-PDF aware software.
+
+* All conforming EA-PDF software SHALL render all pages in EA-PDF files according
+to the appropriate PDF/A requirements.
+
+NOTE: due to PDF/A-3 conforming reader requirements, an EA-PDF conforming reader
+must also be able to read all PDF/A files ("Conforming PDF/A-3 readers shall read
+and process appropriately [underline]#all PDF/A-3 files#. In addition, conforming
+PDF/A-3 readers shall read and process appropriately all PDF/A-1 files as defined
+by ISO 19005-1 and PDF/A-2 files as defined by ISO 19005-2." and from PDF/A-4:
+"Conforming PDF/A-4 processors shall read and process appropriately all conforming
+PDF/A-4 files.")". There is no intentional difference between the terms "reader"
+and "processor" used by these PDF/A standards
+
+* All conforming EA-PDF software SHALL display all annotations using their appearance
+streams.
+
+NOTE: making annotations visible may involve a user action.
+
+* All conforming EA-PDF software SHALL visually indicate that a PDF file claims
+conformance as an EA-PDF file.
+
+NOTE: this is [underline]#in addition# to the current industry practice of visually
+indicating PDF/A conformance.
+
+* All conforming EA-PDF software SHALL detect unsupported `PDF/mail` versions and/or
+profiles and suitably inform the user of a potential compatibility issue.
+* For all conforming EA-PDF aware software that supports `PDF/mail-1{c, ci}`, invalid
+filenames of files in a PDF Collection SHALL NOT be supported footnote:[Conforming
+EA-PDF software supporting `PDF/mail-1{c, ci}` needs to always provide a consistent
+and reliable experience by prohibiting this statement from ISO 32000-2:
+"_An interactive PDF processor may choose to support invalid names or not_".].
+* All conforming EA-PDF software SHALL initially open all EA-PDF files in a
+"read only" mode so they cannot be accidentally altered without an additional explicit
+user action.
+
+NOTE: this is fully aligned with current industry best practice for PDF/A.
+
+All conforming EA-PDF software SHALL provide the following functionality without
+allowing the EA-PDF file to be accidentally modified or edited:
+
+* All conforming EA-PDF software SHALL use the initial viewing mode as specified
+in the EA-PDF file.
+* All conforming EA-PDF software SHALL support navigation via outlines.
+* All conforming EA-PDF software SHALL allow extraction of any embedded files in
+the PDF in either the document catalog *EmbeddedFiles* name tree, as a file attachment
+annotation on any page or as an Associated File on any PDF object.
+
+NOTE: in ISO 19005-4 (PDF/A-4) this is also a recommendation: "a conforming interactive
+PDF/A-4f processor should enable the extraction of any embedded file."
+
+* All conforming EA-PDF software SHALL display file specification dictionary *Desc*
+entries as well as filenames.
+* All conforming EA-PDF software SHALL display and allow interaction with file
+attachment annotations on pages to permit to access the referenced embedded file.
+
+NOTE: PDF/A requirements only cover the static page appearance and do not include
+document interaction. In the case of EA-PDF and PDF File Attachment annotations,
+no changes or modifications to the EA-PDF file are required or expected from the
+above requirement – it is simply a means to navigate to the appropriate referenced
+embedded file which might then be extracted. Hence this requirement is not onerous.
+
+* All conforming EA-PDF software SHALL display the value of the *Contents* entry
+of file attachment annotations.
+* All conforming EA-PDF software SHALL interact only with link annotations (URLs)
+explicitly defined in the EA-PDF file.
+* All conforming EA-PDF software supporting `PDF/mail-1{c, ci}` SHALL support PDF
+Collections.
+* All conforming EA-PDF software SHALL access and display all XMP Metadata streams.
+* All conforming EA-PDF software SHALL allow extraction of all Associated Files
+and XMP Metadata streams associated with arbitrary PDF objects.
+
+Conforming EA-PDF software SHALL NOT perform additional automatic URL detection
+that results in an actionable or actioned URL, unless explicitly enabled by a user
+action for each PDF file.
+
+NOTE: Reason: This ensures that the policy setting at the time of the EA-PDF file
+creation is more strictly enforced since actionable URLs that get detected might
+have unknown or undesirable side effects and relying on all users to not follow
+certain URLs is unreliable. Wording is to also avoid persistent application settings
+being used.
