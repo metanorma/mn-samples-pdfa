@@ -412,9 +412,9 @@ collection schema dictionary – additional custom fields can also be present:
 
 [[table-06]]
 .required Collection custom field names and subtypes for Core Fields (`PDF/mail-1{c, ci}`)
-[cols="a,a"]
+[cols="a,a",options="header"]
 |===
-h| Key name in Collection Schema h| CustomField Subtype
+| Key name in Collection Schema | CustomField Subtype
 
 | To | S (string)
 | From | S (string)
@@ -468,9 +468,9 @@ SHALL contain a *DPM* dictionary as specified in <<table-07>> below.
 
 [[table-07]]
 .Entries in an EA-PDF *DPM* dictionary for an intermediate node associated with an email
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Key h| Type h| Description
+| Key | Type | Description
 
 | *Mail_MessageID* | text string | Optional. The `Message-ID` from the header of
 the email and that SHALL match a pdfmailmeta:messageidin the document-level XMP
@@ -507,9 +507,9 @@ by the blue nodes (right most column of boxes) in <<figure-08>> as defined in <<
 
 [[table-08]]
 .Entries in an EA-PDF *DPM* dictionary for a leaf node associated with pages
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Key h| Type h| Description
+| Key | Type | Description
 
 | *Mail_ContentSetType*
 | name
@@ -738,9 +738,9 @@ rolemappings may also be included).
 
 [[table-09]]
 .PDF 2.0 to PDF 1.7 backward compatibility role map
-[cols="155,174"]
+[cols="a,a",options="header"]
 |===
-h| PDF 2.0 unique tags h| Compatible PDF 1.7 tag
+| PDF 2.0 unique tags | Compatible PDF 1.7 tag
 
 | Artifact | Private
 | Aside | Div
@@ -769,9 +769,9 @@ then the following rolemap SHALL be included.
 
 [[table-10]]
 .custom EA-PDF structure elements and their rolemapping to PDF 1.7
-[cols="249,269"]
+[cols="a,a",options="header"]
 |===
-h| Custom EA-PDF structure element h| Rolemapped PDF 1.7 tag
+| Custom EA-PDF structure element | Rolemapped PDF 1.7 tag
 
 | `Mail_Message`      | Document
 | `Mail_ContentGroup` | Part
@@ -799,9 +799,9 @@ be as follows.
 
 [[table-11]]
 .custom EA-PDF tag parent and immediate child occurrence requirements
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Parent h| Occurrence h| Immediate Child footnote:[Other nesting requirements are described below.]
+| Parent | Occurrence | Immediate Child footnote:[Other nesting requirements are described below.]
 
 .3+| Mail_Message | 0 .. _n_ | Mail_ContentGroup
 | 0 .. _n_ | `Mail_ContentSet`
@@ -850,9 +850,9 @@ below.
 
 [[table-12]]
 .EA-PDF UserProperties custom attributes *N* and *V* entries
-[cols="202,109,246"]
+[cols="2a,a,3a",options="header"]
 |===
-h| N entry (_PDF ASCII string_) h| V entry type h| Only with custom EA-PDF tag(s)
+| N entry (_PDF ASCII string_) | V entry type | Only with custom EA-PDF tag(s)
 
 | *Mail_MessageID*         | string            | `Mail_Message`
 | *Mail_GUID*              | string            | `Mail_Message`
@@ -905,9 +905,9 @@ as these are in the embedded files in the collection).
 
 [[table-13]]
 .Summary of custom EA-PDF tagging main requirements
-[cols="136,429"]
+[cols="a,4a",options="header"]
 |===
-h| Custom EA-PDF tag h| Summary
+| Custom EA-PDF tag | Summary
 
 | *Mail_Message*
 | SHALL occur once in `PDF/mail-1{s, si}` files. +
@@ -1118,9 +1118,9 @@ their appropriate PDF/A conformance:
 
 [[table-14]]
 .Custom XMP namespaces and prefixes for EA-PDF
-[cols="274,117"]
+[cols="2a,a",options="header"]
 |===
-h| URI h| Required Prefix
+| URI | Required Prefix
 
 | http://www.pdfa.org/eapdf/         | `pdfmail`
 | http://www.pdfa.org/eapdf/ns/id/   | `pdfmailid`
@@ -1146,9 +1146,9 @@ The EA-PDF Identification schema SHALL use the namespace URI http://www.pdfa.org
 
 [[table-15]]
 .EA-PDF identification schema properties
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| XMP Property h| XMP Value Type h| Value
+| XMP Property | XMP Value Type | Value
 
 | pdfmailid:version footnote:[`pdfmailid:part` is reserved for future ISO standardization.]
 | Open choice of integer | 1
@@ -1182,9 +1182,9 @@ as follows:
 
 [[table-16]]
 .EA-PDF source email asset structured XMP metadata
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Source email asset property h| h| XMP Metadata description
+| Source email asset property | XMP Value Type | XMP Metadata description
 
 | `Filename` | _Required_
 | Text string of the case-sensistive filename of the original email asset.
@@ -1265,9 +1265,9 @@ in the EA-PDF file.
 
 [[table-18]]
 .EA-PDF Core Fields footnote:[Note that some Core Fields such as `Message-ID` and Subject are optional according to <<RFC_822>>. Other field values may also be empty/blank in draft emails.] as structured XMP metadata
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Core Field h| h| XMP Metadata description
+| Core Field | Requirement | XMP Metadata description
 
 | `To` | _Optional_ | Represented as an ordered sequence of FOAF Agents containers
 (`foaf:Agent` entries), each with required `foaf:mbox` email address and optional
@@ -1374,9 +1374,9 @@ as follows:
 
 [[table-19]]
 .EA-PDF email attachment structured XMP metadata
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| Attachment property h| h| XMP Metadata
+| Attachment property | Requirement | XMP Metadata
 
 | `Filename` | _Required_ | A free text string representing the case-sensistive
 filename of the email attachment as stored in the original email asset.

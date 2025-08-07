@@ -147,7 +147,7 @@ scenarios and use-cases. All profiles are compliant with PDF/A and use one or
 more lowercase letters to indicate conformance:
 
 .EA-PDF profile indicators
-[cols="^a,2a"]
+[cols="^a,2a",options="header"]
 |===
 |EA-PDF Profile identifier (lowercase letter)	|Meaning
 
@@ -184,13 +184,13 @@ application of EA-PDF as shown in <<figure-01>>.
 
 [[table-02]]
 .Summary of EA-PDF profiles
-[cols="a,a,a"]
+[cols="a,a,a",options="header"]
 |===
-h| `PDF/mail-1` Profile h| `PDF/A` Conformance Levels h| Description
+| `PDF/mail-1` Profile | `PDF/A` Conformance Levels | Description
 
 | `PDF/mail-1s` +
 *"Single"*
-a| `PDF/A-3a` +
+| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4f` +
 `PDF/A-4e` footnote:[`PDF/A-4e` conformance is only required if 3D or rich media
@@ -210,7 +210,7 @@ information, but all PDF pages in `PDF/mail-1s` reflect only the single email me
 
 | `PDF/mail-1si` +
 *"Single, isolated"*
-a| `PDF/A-3a` +
+| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4` +
 `PDF/A-4f` +
@@ -255,7 +255,7 @@ file. It is required that such files are indicated as `PDF/mail-1s`.
 
 | `PDF/mail-1mi` +
 *"Multiple, isolated"*
-a| `PDF/A-3a` +
+| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4` +
 `PDF/A-4f` +
@@ -275,7 +275,7 @@ NOTE: this is a special EA-PDF profile primarily intended for use in `PDF/mail-1
 
 | `PDF/mail-1c` +
 *"Container"*
-a| `PDF/A-3a` +
+| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4f` footnote:[`PDF/mail-1{c, ci}` files with hierarchical folder structure
 relies on the vendor neutral *Folders* feature of PDF Collections. *Folders* were
@@ -307,7 +307,7 @@ experience and understanding of the content.
 
 | `PDF/mail-1ci` +
 *"Container, isolated"*
-a| `PDF/A-3a` +
+| `PDF/A-3a` +
 `PDF/A-3u` +
 `PDF/A-4f` footnote:[`PDF/mail-1c` files with hierarchical folder structure relies
 on the vendor neutral *Folders* feature of PDF Collections. *Folders* were initially
