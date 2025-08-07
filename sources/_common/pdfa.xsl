@@ -5,6 +5,10 @@
 			<fo:simple-page-master master-name="cover-page" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
 				<fo:region-body margin-top="17.5mm" margin-bottom="17.5mm" margin-left="17.5mm" margin-right="17.5mm"/>
 			</fo:simple-page-master>
+			
+			<fo:simple-page-master master-name="copyright-page" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
+				<fo:region-body margin-top="20mm" margin-bottom="35mm" margin-left="20mm" margin-right="20mm"/>
+			</fo:simple-page-master>
 		</fo:layout-master-set>
 	</xsl:template>
 	
@@ -129,5 +133,18 @@
 			</fo:flow>
 		</fo:page-sequence>
 	</xsl:template> <!-- END cover-page -->
+
+	<xsl:template name="copyright-statement">
+		<fo:page-sequence master-reference="copyright-page" force-page-count="no-force">
+			<fo:flow flow-name="xsl-region-body" line-height="1.36" role="SKIP" font-family="Source Sans Pro" font-size="12pt">
+				<!-- height = pageHeight - page margin top - page margin bottom -->
+				<fo:block-container height="{$pageHeight - 20 - 30}mm" display-align="after" role="SKIP">
+					<fo:block>
+						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
+					</fo:block>
+				</fo:block-container>
+			</fo:flow>
+		</fo:page-sequence>
+	</xsl:template>
 
 </xsl:stylesheet>
