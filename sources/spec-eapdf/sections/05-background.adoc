@@ -73,11 +73,11 @@ innovation from implementers (e.g., how to convert email bodies to PDF content
 streams is not explicitly defined; how to cope with errors in emails; additional
 content sets; etc.).
 
-NOTE: requirements on specific (visual) appearance of EA-PDF files are avoided
+NOTE: Requirements on specific (visual) appearance of EA-PDF files are avoided
 and only restricted via PDF/A (and the assumption that PDF/A conforming software
 will be used).
 
-NOTE: this document does try to provide some informative high-level guidance and
+NOTE: This document does try to provide some informative high-level guidance and
 background explanation for software developers for certain features, even if
 these features are not formally required ("SHALL") or recommended ("SHOULD").
 These are merely guidance, but their use can provide better context and a better
@@ -245,13 +245,13 @@ considered at this time as this would not work with any legacy software.], where
 pages in the PDF are a visual representation of the content or context of the emails.
 The original raw source email assets are always embedded (faithfully preserved).
 
-NOTE: this is a "flat" preservation of multiple emails. Although non-EA-PDF aware
+NOTE: This is a "flat" preservation of multiple emails. Although non-EA-PDF aware
 legacy software will operate with `PDF/mail-1m` files, the level of context available
 may limit the experience (e.g., associating PDF pages with specific emails or email
 attachments, etc.).
 
-NOTE: a `PDF/mail-1m` file with only a single email message is effectively a `PDF/mail-1s`
-file. It is required that such files are indicated as `PDF/mail-1s`. 
+NOTE: A `PDF/mail-1m` file with only a single email message is effectively a `PDF/mail-1s`
+file. It is required that such files are indicated as `PDF/mail-1s`.
 
 | `PDF/mail-1mi` +
 *"Multiple, isolated"*
@@ -270,7 +270,7 @@ NOTE: "isolated" means that this class of EA-PDF file is disassociated from its 
 raw source email asset and thus is not a self-contained preservation with associated
 original raw source email assets.
 
-NOTE: this is a special EA-PDF profile primarily intended for use in `PDF/mail-1{c, ci}`
+NOTE: This is a special EA-PDF profile primarily intended for use in `PDF/mail-1{c, ci}`
 "containers" (see below).
 
 | `PDF/mail-1c` +
