@@ -5,7 +5,7 @@
 This list of references includes both normative and informative references to aid
 readers.
 
-* [[[PDF_A_3,ISO 19005-3:2015]]] "ISO 19005-3, _Document management — Electronic document
+* [[[PDF_A_3,ISO 19005-3:2012]]] "ISO 19005-3, _Document management — Electronic document
 file format for long-term preservation — Part 3: Use of ISO 32000-1 with support
 for embedded files (PDF/A-3)"_ (including any Amendments and errata).
 https://pdfa.org/resource/iso-19005-3-pdf-a-3/
@@ -25,7 +25,7 @@ See https://github.com/pdf-association/pdf-issues/issues/374[PDF Errata #374].
 NOTE: Reason: This PDF/A-3 reference is undated so any future dated revisions or
 amendments to PDF/A-3 can be included as part of EA-PDF.
 
-* [[[PDF_A_4f,ISO/DIS 19005-4:2024]]] "ISO/DIS 19005-4:2024 _Document management — Electronic
+* [[[PDF_A_4f,ISO/DIS 19005-4]]] "ISO/DIS 19005-4:2024 _Document management — Electronic
 document file format for long-term preservation — Part 4: Use of ISO 32000-2 (PDF/A-4)",_
 https://pdfa.org/resource/iso-19005-4-pdf-a-4/
 
