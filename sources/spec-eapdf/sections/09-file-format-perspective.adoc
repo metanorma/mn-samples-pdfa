@@ -1132,9 +1132,9 @@ NOTE: namespace URIs do not need to exist as websites (i.e., clickable URLs).
 NOTE: the PDF/A conformance level is determined by EA-PDF Creation Software and
 can be based on features present in the email messages.
 
-_EA-PDF Creation Software_ SHALL also record the dc:creator[0], pdf:Producerand
-the date of the EA-PDF file creation date (xmp:CreateDate) in the standard XMP
-metadata fields as defined in <<PDF_A_3,table=7>>. The dc:title["x-default"] property
+_EA-PDF Creation Software_ SHALL also record the `dc:creator[0]`, `pdf:Producer` and
+the date of the EA-PDF file creation date (`xmp:CreateDate`) in the standard XMP
+metadata fields as defined in <<PDF_A_3,table=7>>. The `dc:title["x-default"]` property
 SHOULD also be set.
 
 NOTE: Reason: many PDF viewers display Title information at the top of viewing
@@ -1142,7 +1142,9 @@ window.
 
 ==== Conformance and identification
 
-The EA-PDF Identification schema SHALL use the namespace URI http://www.pdfa.org/eapdf/ns/id/ and SHALL use the schema namespace prefix pdfmailidas follows:
+The EA-PDF Identification schema SHALL use the namespace URI
+http://www.pdfa.org/eapdf/ns/id/ and SHALL use the schema namespace prefix
+`pdfmailid` as follows:
 
 [[table-15]]
 .EA-PDF identification schema properties
@@ -1234,15 +1236,15 @@ h| IANA Media Type footnote:[See https://www.iana.org/assignments/media-types/me
 h| Number of emails
 
 | EML
-| message/rfc822 footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml] | 1
+| `message/rfc822` footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000388.shtml] | 1
 | MSG
-| application/vnd.ms-outlook footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000379.shtml] | 1
+| `application/vnd.ms-outlook` footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000379.shtml] | 1
 | MBOX
-| application/mbox footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000383.shtml] | _1…N_
+| `application/mbox` footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000383.shtml] | _1…N_
 | OST, PST
-| application/vnd.ms-outlook footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000378.shtml] | _1…N_
+| `application/vnd.ms-outlook` footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000378.shtml] | _1…N_
 | NSF
-| application/vnd.lotus-notes footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000433.shtml] | _1…N_
+| `application/vnd.lotus-notes` footnote:[https://www.loc.gov/preservation/digital/formats/fdd/fdd000433.shtml] | _1…N_
 
 |===
 
