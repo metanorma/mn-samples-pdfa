@@ -159,7 +159,7 @@ _EA-PDF Creation Software_ is responsible for ensuring that the page content and
 related font information is correct according to PDF/A requirements. EA-PDF does
 not otherwise prescribe how emails are to be rendered.
 
-EA-PDF files will have multiple "sets" of pages that are related – for example, a
+EA-PDF files will have multiple "sets" of pages that are related -- for example, a
 set of pages for a text/plain email body, a different set of pages for a text/html
 body of the same email, front matter, conversion report(s), sets of pages for lists
 of attachments or embedded files, etc. Although `PDF/mail-1{c, ci}` container files
@@ -184,11 +184,11 @@ will be visible. Not all legacy software can display an embedded files list.
 There are three distinct PDF features EA-PDF leverages to support _Content Set_ understanding
 and machine validation of EA-PDF:
 
-. Outlines (also known as "bookmarks") – for user navigation;
+. Outlines (also known as "bookmarks") -- for user navigation;
 . Logical structure and Tagged PDF footnote:[The PDF 1.7 standard structure elements
-are valid in both PDF 1.7 (PDF/A-3) and PDF 2.0 (PDF/A-4) files.] – content semantics
+are valid in both PDF 1.7 (PDF/A-3) and PDF 2.0 (PDF/A-4) files.] -- content semantics
 with limited validation when present;
-. Document Part Metadata (also known as DPart/DPM) – for richer capabilities and
+. Document Part Metadata (also known as DPart/DPM) -- for richer capabilities and
 stronger validation.
 
 The PDF outline feature (commonly known as "bookmarks") must mirror the
@@ -258,15 +258,15 @@ Document -- the EA-PDF file
 Document -- the EA-PDF file
   Part
     Art -- front matter for MBOX
-  Document – 1st email
+  Document -- 1st email
     Art -- email headers for 1st email
     Art -- HTML message body
     Art -- plain text message body
-  Document – 2nd email
+  Document -- 2nd email
     Art -- email headers for 2nd email
     Art -- plain text message body
     Art -- special report for 2nd email
-  Document – 3rd email
+  Document -- 3rd email
     Art -- ...
   Part
     Art -- attachments list for all emails
@@ -314,12 +314,12 @@ as spans, paragraphs, lists, or in a tabular format. Having flexibility in the r
 allows EA-PDF writers to most appropriately provide the "approximate equivalents"
 in the PDF 1.7 standard structure elements for their presentation choice.
 
-The PDF 2.0 feature called Document Part Metadata (<<ISO_32000_2,clause=14.12>> –
+The PDF 2.0 feature called Document Part Metadata (<<ISO_32000_2,clause=14.12>> --
 also referred to as *DPart*/*DPM*) is also used by EA-PDF footnote:[Although Document
 Part Metadata was formally documented as a part of core PDF 2.0 in ISO 32000-2, its
 initial use was defined in PDF 1.6 with PDF/VT-2 files (ISO 16612-2:2010). PDF/A
 does not prohibit the inclusion of private data so long as that private data does
-not impact rendering – and Document Part Metadata has no influence on rendering and
+not impact rendering -- and Document Part Metadata has no influence on rendering and
 is thus acceptable in all PDF/A files utilized by EA-PDF.]. This is a tree-like data
 structure using PDF object syntax, like the logical structure tree (but smaller),
 that can additionally express high-level semantics or associate data about page ranges.
@@ -431,7 +431,7 @@ name tree present.
 
 PDF/A only permits embedded files in formats other than PDF/A in PDF/A-3 and the
 PDF/A-4f and PDF/A-4e conformance levels. Thus, specific EA-PDF profiles have limitations
-on which PDF/A version and conformance levels may be used – see <<table-02>> above.
+on which PDF/A version and conformance levels may be used -- see <<table-02>> above.
 
 Note that PDF embedded files in the *EmbeddedFiles* name tree, Associated Files,
 or via file attachment annotations form a flat list (i.e., there is no folder or
@@ -444,7 +444,7 @@ NOTE: some non-EA-PDF aware legacy software displays additional information such
 as the page or the value of the *AFRelationship* key. Based on experimentation with
 current interactive software, embedded files that have a page number will generally
 relate to file attachment annotations, whereas those without are likely related to
-the entire document – but this is not mandated.
+the entire document -- but this is not mandated.
 
 PDF file specification strings with absolute or relative paths
 (see <<ISO_32000_2,clause=7.11.2>>) must not be used.
@@ -564,7 +564,7 @@ source email asset (with the additional information) can be embedded. However, i
 is [underline]#not# valid to store a source email assets with an *AFRelationship*
 of _Source_ that do not contain [underline]#_all_# the source email content in a
 `PDF/mail-1{s, m, c}` file (i.e., every email represented in `PDF/mail-1{s, m}` files
-must be associated with data in the embedded source original email asset(s)) – otherwise
+must be associated with data in the embedded source original email asset(s)) -- otherwise
 the "isolated" profiles must be used (`PDF/mail-1{si, mi}`) to indicate that not
 all original source email assets are faithfully preserved.
 
@@ -621,7 +621,7 @@ endobj
    >>
    /Filter /FlateDecode % compressed to save space in PDF
    /Length …            % compressed length inside PDF file
-   /DL 342324           % decompressed length – same as Params/Size
+   /DL 342324           % decompressed length -- same as Params/Size
 >>
 stream
 … FLATE compressed .msg data file (binary) …
@@ -647,7 +647,7 @@ most reliable searching across a diverse corpus of EA-PDF files and hence must n
 be localized or vary between EA-PDF Writers. EA-PDF Writers may however localize
 core fields when it renders this same information to PDF page content (e.g., "Subject:"
 might be rendered as "Objet:" for French emails, but in XMP it will always be
-"Subject" – the value of the field in both cases needs to be the same and not localized).
+"Subject" -- the value of the field in both cases needs to be the same and not localized).
 
 NOTE: because the rendering of Core Fields in page content may be truncated, cropped,
 wrapped, localized, etc., the XMP Core Fields are to be considered the definitive
@@ -721,7 +721,7 @@ the purposes of defining links or relationships between PDF data in or between E
 files, the _Core Field_ `Mail_GUID` must always be used.
 
 NOTE: EA-PDF Writer: XMP is very flexible in its definition of GUID (see <<XMP,clause=8.2.2.3>>
-– it is just a string) so the email `Message-ID` field can simply be used when it
+-- it is just a string) so the email `Message-ID` field can simply be used when it
 is present. When not present however, EA-PDF Writer must generate something that
 is globally/universally unique and this is why `Mail_GUID` is mandated.
 
@@ -899,7 +899,7 @@ then be associated with those PDF objects.
 NOTE: Reason: Fetching and/or storing of external assets referenced from email bodies
 into EA-PDF is an archival policy matter (and not a file format requirement) due
 to overhead and potential tracking and privacy issues. Storing of all assets is not
-mandated because of the impact to file size – embedded assets in the source email
+mandated because of the impact to file size -- embedded assets in the source email
 will already be preserved in the source email assets and thus do not have to be embedded
 again. Externally referenced assets might also be fetched to assist with page layout
 algorithms, but not saved into the EA-PDF. In such cases, a proxy graphic or image
@@ -932,7 +932,7 @@ These decisions are not mandated by this specification.
 NOTE: by convention plain text emails are often displayed in email clients using
 monospaced fonts, such as Courier. This document does not mandate this convention
 and thus users and EA-PDF aware software are advised not to assume that a monospace
-appearance implies a plain text email – but other data structures used by EA-PDF
+appearance implies a plain text email -- but other data structures used by EA-PDF
 can ensure that users know if an email rendering is of a text-based email body. PDF/A
 compliance does however require that all referenced fonts are always embedded.
 
@@ -1072,7 +1072,7 @@ by the EA-PDF Creation Software. See <<MetadataStreams>> and <<ISO_32000_2,claus
 NOTE: Reason: email attachments may be malicious, corrupted, or zero bytes in length.
 EA-PDF desires that a file attachment annotation, file specification dictionary,
 and embedded file stream are present for every email file attachment but does not
-require that every attachment must be embedded – the embedded file stream may be
+require that every attachment must be embedded -- the embedded file stream may be
 zero bytes long. In such cases, a *Metadata* entry might be used to record the reason.
 See example below. However, this is not mandated as it cannot be machine validated
 without referencing the original source email asset.
@@ -1250,7 +1250,7 @@ and machine-specific behavior.
 NOTE: this cannot be mandated as it cannot be machine validated without referencing
 the original source email asset.
 
-NOTE: the IANA Media Type application/pdf is used for every kind of PDF file –
+NOTE: the IANA Media Type application/pdf is used for every kind of PDF file --
 there is no specific Media Type for PDF, PDF/A or EA-PDF files and there are no
 parameters defined. See <<RFC_8118>>.
 
@@ -1510,7 +1510,7 @@ endobj
   /Desc (Email folders for joe@email.org …) % Description
   /CreationDate (D:…)   % creation date of folder in email system (if one exists)
   /Child 20 0 R         % first sub-folder for this email account
-  /Next 12 0 R          % next folder at this root level – maybe a different email account
+  /Next 12 0 R          % next folder at this root level -- maybe a different email account
 >>
 endobj
 
@@ -1520,7 +1520,7 @@ endobj
   /Name (Inbox)         % name of the folder = joe@email.org/Inbox
   /Desc (Inbox folder for joe@email.org …) % Description
   /CreationDate (D:…)   % creation date of folder in email system (if one exists)
-  /Next 21 0 R          % next folder at level 1 – maybe a different standard email folder
+  /Next 21 0 R          % next folder at level 1 -- maybe a different standard email folder
 >>
 endobj
 
@@ -1630,7 +1630,7 @@ number of pages, bookmarks provide a very widely supported user navigation capab
 that can link to the first page in each content set and other important destinations
 in EA-PDF files (such as the rendering of Core Fields). It is not required that
 the Core Fields are always at the top of the first page, although this is conventional
-in most email clients – EA-PDF Creation Software is free to choose.
+in most email clients -- EA-PDF Creation Software is free to choose.
 
 NOTE: EA-PDF Writer: EA-PDF Creation Software is free to generate other PDF page
 content sets (such as conversion reports, lists of attachments, a rendering of
@@ -1687,11 +1687,11 @@ file must be indicated as an "isolated" EA-PDF profile as it has lost its proven
 to its original raw source email asset.
 * Although out of scope for EA-PDF, a redacted `PDF/mail` file can no longer be
 considered as a trustworthy EA-PDF preservation artifact as it is no longer a faithful
-rendition of a verifiable preservation of the original raw source email asset –
+rendition of a verifiable preservation of the original raw source email asset --
 but it might still be PDF/A (subject to the PDF redaction software).
 
 NOTE: Reason: redacting only the PDF content but leaving the unredacted embedded
-original raw source email asset makes no sense – or vice-versa. Redaction can involve
+original raw source email asset makes no sense -- or vice-versa. Redaction can involve
 anything, including the need to alter one or more embedded files, so this keeps
 non-isolated EA-PDF files as a clearly demarcated preservation format, while isolated
 EA-PDF files continue to provide email archival context. Redaction of email is

@@ -80,7 +80,7 @@ attachment annotations on pages to permit to access the referenced embedded file
 NOTE: PDF/A requirements only cover the static page appearance and do not include
 document interaction. In the case of EA-PDF and PDF File Attachment annotations,
 no changes or modifications to the EA-PDF file are required or expected from the
-above requirement – it is simply a means to navigate to the appropriate referenced
+above requirement -- it is simply a means to navigate to the appropriate referenced
 embedded file which might then be extracted. Hence this requirement is not onerous.
 
 * All conforming EA-PDF software SHALL display the value of the *Contents* entry

@@ -17,7 +17,7 @@ a static rendition of the email that is technically achieved by utilizing
 PDF/A-3 or PDF/A-4. This requires a reliable and verifiable link between the
 original raw source email asset(s) and the PDF representation of those emails.
 EA-PDF also supports "isolated" use-cases where this linkage between original
-raw source email asset(s) and the PDF content is weakened or broken – for
+raw source email asset(s) and the PDF content is weakened or broken -- for
 example due to the use of non-EA-PDF aware software or because of workflow
 requirements (such as FOIA).
 
@@ -66,7 +66,7 @@ Document management — Engineering document format using PDF — Part 1: Use of
 
 Creation of EA-PDF files from email-specific formats such as EML, MSG, MBOX,
 Lotus Notes (`.nsf`), or Microsoft OST/PST requires specialized _EA-PDF Creation
-Software_, as shown above – current PDF/A creation software is insufficient.
+Software_, as shown above -- current PDF/A creation software is insufficient.
 Many design and implementation choices of EA-PDF software are intentionally
 [underline]#_not_# explicitly defined by this document to allow flexibility and
 innovation from implementers (e.g., how to convert email bodies to PDF content
@@ -96,7 +96,7 @@ users.
 therefore [underline]#always# pass PDF/A validation. The additional requirements
 defined in EA-PDF enable both humans and automated systems (i.e., EA-PDF aware
 software) to share a common understanding of the significant properties of
-faithfully preserved email and their static renderings – and to perform
+faithfully preserved email and their static renderings -- and to perform
 additional validation but without requiring reprocessing of original source
 email assets for that validation. Note that non-EA-PDF aware legacy software
 (including PDF/A conforming software) may not achieve some levels of support due
@@ -155,7 +155,7 @@ more lowercase letters to indicate conformance:
 |A structured container that can include hierarchical folders of emails.
 
 |`i`
-|Isolated – this means that the faithful original raw source email assets are
+|Isolated -- this means that the faithful original raw source email assets are
 missing, and the EA-PDF file is not a verifiable preservation asset.
 
 |`m`
@@ -292,7 +292,7 @@ or 3D content into the container PDF.]
 each of which may be any other `PDF/mail-1` profile. `PDF/mail-1c` files can replicate
 complex folder hierarchies typically found in modern email clients, email formats,
 or file systems. The container that is the `PDF/mail-1c` file does [underline]#_not_#
-contain pages representing content of preserved emails – all PDF representations
+contain pages representing content of preserved emails -- all PDF representations
 of email content are in the [underline]#_embedded_# EA-PDF files stored within the
 container PDF collection. Pages in the container PDF represent the context of the
 collection.
@@ -323,7 +323,7 @@ requirement for including JavaScript or 3D content into the container PDF.]
 EA-PDF files, each of which may be any other `PDF/mail-1` profile. `PDF/mail-1ci`
 files can replicate complex folder hierarchies typically found in modern email clients,
 email formats, or file systems. The container that is the `PDF/mail-1ci` file does
-[underline]#_not_# contain pages representing content of preserved emails – all email
+[underline]#_not_# contain pages representing content of preserved emails -- all email
 content is in the [underline]#_embedded_# EA-PDF files stored within the container
 PDF collection. Pages in the container PDF represent the context of the collection.
 
@@ -369,11 +369,11 @@ source email assets and updating certain PDF data structures, such as logical st
 and metadata, may be difficult for some EA-PDF implementations.
 
 [[figure-02]]
-.`PDF/mail-1s` vs. `PDF/mail-1m` – single email message vs multiple emails in a single PDF with their associated original raw source email assets
+.`PDF/mail-1s` vs. `PDF/mail-1m` -- single email message vs multiple emails in a single PDF with their associated original raw source email assets
 image::figure-02.png[]
 
 [[figure-03]]
-.`PDF/mail-1si` vs. `PDF/mail-1mi` – "isolated" single email message vs multiple emails in a single PDF [underline]#_without_# their associated original raw source email assets
+.`PDF/mail-1si` vs. `PDF/mail-1mi` -- "isolated" single email message vs multiple emails in a single PDF [underline]#_without_# their associated original raw source email assets
 image::figure-03.png[]
 
 [[figure-04]]

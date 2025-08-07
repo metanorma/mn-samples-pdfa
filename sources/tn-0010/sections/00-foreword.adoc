@@ -33,7 +33,7 @@ ISO 19005, it has accepted many of the TWGs proposals as described herein.
 
 A021’s enumeration was mistakenly duplicated in presentation to the ISO WG. A
 correction was applied in this document. Accordingly, the enumeration herein of
-A022 – A028 differs from the enumeration used in the TWG presentations to the
+A022 -- A028 differs from the enumeration used in the TWG presentations to the
 ISO WG.
 
 A011 and A015, originally presented to the ISO WG as separate concerns, have
