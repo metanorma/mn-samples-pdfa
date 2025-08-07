@@ -11,18 +11,29 @@ The following aspects are not defined by this document, but limited guidance or
 suggestions may be given in the form of notes:
 
 * Line wrapping, pagination, layout, and visual appearance of content in EA-PDF files;
+
 * Conversion of email body formats to PDF content streams;
+
 * Handling and recovery of errors in email file formats encountered by _EA-PDF Creation
 Software_ when converting to EA-PDF (beyond the fact that an output EA-PDF file must
 comply with this specification, PDF/A, and ISO 32000);
+
 * Processing and/or display of invalid EA-PDF files;
+
 * Methods to create Tagged PDF and/or PDF Logical Structure;
+
 * The user interface of EA-PDF aware software;
+
 * Cyber-security factors related to email or PDF (e.g., excluding certain kinds of
 attachments, confirming hyperlinks, etc.);
+
 * The policies and procedural frameworks in which EA-PDF is expected to operate;
+
 * Preservation of non-digital emails (e.g., hardcopy prints of emails);
+
 * Protocols and transmission of email, beyond what is recorded in email files;
+
 * Redaction of email;
+
 * Precise software algorithms, user interface choices, and implementation design
 decisions.
