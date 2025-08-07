@@ -8,7 +8,7 @@ admitted:[Original raw source email asset]
 
 An input file needed by _EA-PDF Creation Software_ when creating EA-PDF files, such as the original source email file(s) (EML, MSG, MBOX, NSF, PST/OST, etc.), a referenced image, or a file referred to by HTML, etc.
 
-There is no requirement in EA-PDF that the original raw source email asset only represents the email(s) that are rendered into EA-PDF files – additional information, including other emails, may get preserved.
+There is no requirement in EA-PDF that the original raw source email asset only represents the email(s) that are rendered into EA-PDF files -- additional information, including other emails, may get preserved.
 
 The phrase "original raw source email asset" is used in reference to the preservation of the original email data format (as a bitstream) in its unmodified (raw) state. [underline]#_Any_# change to the original format (for whatever reason) does not meet this definition as it could potentially impact the reliability and trustworthiness (verifiability) of the preservation and its associated renderings (as PDF/A pages).
 
@@ -21,12 +21,12 @@ admitted:[Embedded file]
 
 In the context of email, PDF and common usage, the terms "attachment" and "embedded file" are heavily overloaded and potentially ambiguous or confusing. To avoid ambiguities the follow clarified terms are always used in this document:
 
-* Email attachment – a file attached (embedded) in an email;
-* File attachment annotation – a specific user-visible PDF feature for visually referencing a file (see <<ISO_32000_2,clause=12.5.6.15>>) from PDF pages;
-* Embedded file – the technical PDF objects used to embed the contents of a file within a PDF via a File Specification dictionary and associated Embedded File stream object (see <<ISO_32000_2,clause=7.11.3 and 7.11.4>> );
-* *EmbeddedFiles* name tree – the PDF feature used to list [underline]#_some_# embedded files in a PDF (see <<ISO_32000_2,clause=7.7.4>>);
-* PDF Collection – see PDF Collection/PDF Portable Collection below. All files in a collection are required by ISO 32000-2 to be listed in the *EmbeddedFiles* name tree;
-* Associated File – a PDF feature that associates content in arbitrary formats with an object in a PDF file and to identify a basic semantic relationship between them via the *AFRelationship* key (see <<PDF_A_3>>, <<PDF_A_4f>> and <<ISO_32000_2,clause=14.13>>).
+* Email attachment -- a file attached (embedded) in an email;
+* File attachment annotation -- a specific user-visible PDF feature for visually referencing a file (see <<ISO_32000_2,clause=12.5.6.15>>) from PDF pages;
+* Embedded file -- the technical PDF objects used to embed the contents of a file within a PDF via a File Specification dictionary and associated Embedded File stream object (see <<ISO_32000_2,clause=7.11.3 and 7.11.4>> );
+* *EmbeddedFiles* name tree -- the PDF feature used to list [underline]#_some_# embedded files in a PDF (see <<ISO_32000_2,clause=7.7.4>>);
+* PDF Collection -- see PDF Collection/PDF Portable Collection below. All files in a collection are required by ISO 32000-2 to be listed in the *EmbeddedFiles* name tree;
+* Associated File -- a PDF feature that associates content in arbitrary formats with an object in a PDF file and to identify a basic semantic relationship between them via the *AFRelationship* key (see <<PDF_A_3>>, <<PDF_A_4f>> and <<ISO_32000_2,clause=14.13>>).
 
 === Content Set
 
@@ -38,7 +38,7 @@ A content set will always be at least 1 page in an EA-PDF file, as page boundari
 
 EA-PDF specific term referring to a core set of email headers and related fields agreed by the EA-PDF LWG as highly relevant to the management and long-term reliable preservation of emails. Technically a few core fields are not email headers but calculated or derived from emails (e.g. the number of attachments).
 
-NOTE: Core Fields from email may not all have values – for example in draft, unsent, or corrupted emails. Some EA-PDF Core Fields are also derived (e.g. size of the email file in bytes) or calculated (e.g., number of attachments).
+NOTE: Core Fields from email may not all have values -- for example in draft, unsent, or corrupted emails. Some EA-PDF Core Fields are also derived (e.g. size of the email file in bytes) or calculated (e.g., number of attachments).
 
 === DC
 admitted:[DCMI]
@@ -145,4 +145,4 @@ When referring to email, the term "render" in this document means the process by
 
 === XMP
 
-Extensible Metadata Platform. XML-based metadata used with PDF and other formats. Standardized by ISO 16684-1 – see <<XMP>>. Comprises both various XMP Standard Namespaces and XMP Specialized Namespaces – see https://developer.adobe.com/xmp/docs/XMPNamespaces/.
+Extensible Metadata Platform. XML-based metadata used with PDF and other formats. Standardized by ISO 16684-1 -- see <<XMP>>. Comprises both various XMP Standard Namespaces and XMP Specialized Namespaces -- see https://developer.adobe.com/xmp/docs/XMPNamespaces/.

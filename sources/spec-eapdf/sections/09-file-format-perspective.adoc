@@ -123,7 +123,7 @@ page *CropBox* that would result in one or more pixels being painted.
 
 NOTE: if *CropBox* is not present, it inherits the value from the *MediaBox*.
 
-NOTE: this technical definition for visible is not infallible – a page that marks
+NOTE: this technical definition for visible is not infallible -- a page that marks
 a single pixel that is white passes this test but will not normally be visible
 in a viewing application. It is assumed that all EA-PDF Creation Software is well
 intentioned.
@@ -218,13 +218,13 @@ machine validated (a PDF text object is demarcated by the *BT* and *ET* operator
 Each email attachment (as indicated in the document-level XMP metadata) SHALL be
 visibly represented by a File Attachment annotation positioned entirely within
 the *CropBox* of a PDF page in each _Content Set_ that represents an email body
-of the source email that contained that attachment (as determined by DPM – see below).
+of the source email that contained that attachment (as determined by DPM -- see below).
 
 NOTE: if *CropBox* is not present, it inherits the value from the *MediaBox*.
 
 [example]
 if an email has 1 attachment with 2 bodies (HTML and plain text) then there will
-be at least 2 file attachment annotations – at least one on a page (Content Set)
+be at least 2 file attachment annotations -- at least one on a page (Content Set)
 associated with HTML rendering and a separate annotation on a different page (Content
 Set) associated with the plain text body. There is no requirement that the file
 attachment annotation is always on the first page of the Content Set, although
@@ -241,7 +241,7 @@ All pages in an EA-PDF file SHOULD have a unique page number or other identifyin
 context as part of the page content. Such context SHOULD use PDF text objects.
 
 NOTE: Reason: this tries to ensure that extracted pages retain some basic context
-information. It is not a requirement as it cannot be machine validated – however
+information. It is not a requirement as it cannot be machine validated -- however
 if additional logical structure requirements were mandated then PDF text object
 (*BT*/*ET*) validation might be possible, but this was viewed as onerous.
 
@@ -408,7 +408,7 @@ below Table 159 in <<ISO_32000_2>>.
 
 All `PDF/mail-1{c, ci}` files SHALL have a *Schema* entry in the Collections dictionary.
 The following custom fields representing the _Core Fields_ SHALL all exist in the
-collection schema dictionary – additional custom fields can also be present:
+collection schema dictionary -- additional custom fields can also be present:
 
 [[table-06]]
 .required Collection custom field names and subtypes for Core Fields (`PDF/mail-1{c, ci}`)
@@ -517,22 +517,22 @@ by the blue nodes (right most column of boxes) in <<figure-08>> as defined in <<
 *Start* and *End* (inclusive) of the DPart dictionary represent. Supported values
 are as follows (other values may be present):
 
-* _AttachmentList_ – a full list of all email attachments in the EA-PDF file. SHALL
+* _AttachmentList_ -- a full list of all email attachments in the EA-PDF file. SHALL
 NOT occur in `PDF/mail-1{c, ci}` files.
-* _AttachmentRendering –_ see also*Subtype* entry, which SHALL be the Media Type
+* _AttachmentRendering --_ see also*Subtype* entry, which SHALL be the Media Type
 of the original email attachment. SHALL NOT occur in `PDF/mail-1{c, ci}` files.
-* _BodyRendering_ – an email body. See also *Subtype* entry which SHALL be the
+* _BodyRendering_ -- an email body. See also *Subtype* entry which SHALL be the
 Media Type of the email body. SHALL NOT occur in `PDF/mail-1{c, ci}` files.
 * _ConversionReport_
-* _EmailHeaderRendering_ – a separate rendering of some or all of the email headers.
+* _EmailHeaderRendering_ -- a separate rendering of some or all of the email headers.
 SHALL NOT occur in `PDF/mail-1{c, ci}` files.
 * _FrontMatter_ - SHALL always occur in a `PDF/mail-1{c, ci}` file, optional in
 other profiles.
 * _PolicySettings_
 * _Provenance_
-* _RawEmailRendering_ – the rendering of some or all of the original source "raw"
+* _RawEmailRendering_ -- the rendering of some or all of the original source "raw"
 email.SHALL NOT occur in `PDF/mail-1{c, ci}` files.
-* _Other_ – unspecified
+* _Other_ -- unspecified
 
 | *Mail_Subtype* | name | _Required_ if *ContentSetType* is _BodyRendering_ or
 _AttachmentRendering._ Not required otherwise. Indicates the source Media Type

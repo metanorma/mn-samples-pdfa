@@ -117,7 +117,7 @@ requirements.
 
 ==== Pertaining
 
-PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 -- ISO 19005-2, 6.1.13 and PDF/A-3 -- ISO
 19005-3, 6.1.13
 
 ==== Background
@@ -162,7 +162,7 @@ ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
 
 ==== Pertaining
 
-PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 -- ISO 19005-2, 6.1.13 and PDF/A-3 -- ISO
 19005-3, 6.1.13
 
 ==== Background
@@ -225,7 +225,7 @@ ISO 19005-1, ISO 19005-2 and ISO 19005-3 should be read as if the Proposal
 
 ==== Pertaining
 
-PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 – ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+PDF/A-1 - ISO 19005-1, 6.1.12, PDF/A-2 -- ISO 19005-2, 6.1.13 and PDF/A-3 -- ISO 19005-3, 6.1.13
 
 ==== Background
 
@@ -255,7 +255,7 @@ stream can be parsed.
 
 ==== Pertaining
 
-PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 -- ISO 19005-3, 6.1.13
 
 
 
@@ -302,7 +302,7 @@ in ISO 19005-2 and ISO 19005-3 since this is clearly defined in these standards.
 
 ==== Pertaining
 
-PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 – ISO 19005-3, 6.1.13
+PDF/A-2 - ISO 19005-2, 6.1.13 and PDF/A-3 -- ISO 19005-3, 6.1.13
 
 ==== Background
 
@@ -492,7 +492,7 @@ And, ISO 32000-1, Table 30:
 
 [quote]
 ____
-Resources – dictionary – (Required, inheritable)
+Resources -- dictionary -- (Required, inheritable)
 ____
 
 ==== Precise formulation of the problem
@@ -583,7 +583,7 @@ NOTE: This proposal was accepted in principle for PDF/A-next.
 
 ==== Pertaining
 
-PDF/A-1 - ISO 19005-1, 6.3.6, PDF/A-2 – ISO 19005-2, 6.2.11.5, and PDF/A-3 – ISO
+PDF/A-1 - ISO 19005-1, 6.3.6, PDF/A-2 -- ISO 19005-2, 6.2.11.5, and PDF/A-3 -- ISO
 19005-3, 6.2.11.5
 
 
@@ -1250,11 +1250,11 @@ font to be present in the PDF document:
 
 [quote]
 ____
-Key – *FontFile3*
+Key -- *FontFile3*
 
-Subtype – otherName
+Subtype -- otherName
 
-Description – Font or CIDFont program represented in some future format, identified by
+Description -- Font or CIDFont program represented in some future format, identified by
 otherName as the font file subtype.
 ____
 
@@ -1284,7 +1284,7 @@ unsupported font file format.
 
 ==== Pertaining
 
-PDF/A-2 - ISO 19005-2, 6.2.11.4.2 and PDF/A-3 – 19005-3, 6.2.11.4.2
+PDF/A-2 - ISO 19005-2, 6.2.11.4.2 and PDF/A-3 -- 19005-3, 6.2.11.4.2
 
 ==== Background
 
@@ -1496,12 +1496,12 @@ shall be disregarded.
 ISO 19005-1, -2 and -3 validators shall only validate XMP values based on their
 type. The exact validation rules for basic types are as follows:
 
-* Boolean – as defined in the XMP Specification
-* Integer – as defined in the XMP Specification
-* Real – as defined in the XMP specification
-* Text, ProperName, URI, URL, AgentName, Rational, RenditionClass, XPath – any string
-* MimeType – as defined in RFC 2046
-* Date – as defined by ISO 8601
+* Boolean -- as defined in the XMP Specification
+* Integer -- as defined in the XMP Specification
+* Real -- as defined in the XMP specification
+* Text, ProperName, URI, URL, AgentName, Rational, RenditionClass, XPath -- any string
+* MimeType -- as defined in RFC 2046
+* Date -- as defined by ISO 8601
 
 ==== ISO WG Resolution
 
