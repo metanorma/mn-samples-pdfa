@@ -233,9 +233,9 @@ custom EA-PDF tag which is always rolemapped to _Document_.
 
 [[table-03]]
 .Example logical structuring of `PDF/mail-1{s, si, m, mi}` files
-[cols="a,a"]
+[cols="a,a",options="header"]
 |===
-h| `PDF/mail-1{s, si}` h| `PDF/mail-1{m, mi}`
+| `PDF/mail-1{s, si}` | `PDF/mail-1{m, mi}`
 
 |
 [pseudocode%unnumbered]
@@ -662,9 +662,9 @@ To help minimize XMP Metadata size, most blank fields do not have to be stored:
 
 [[table-04]]
 .EA-PDF Core Fields footnote:[Note that some _Core Fields_ in email, such as `Message-ID` and Subject, are optional according to <<RFC_822>>.]
-[cols="145,109,278"]
+[cols="a,a,2a",options="header"]
 |===
-h| Core Field Property h| Source h| Condition
+| Core Field Property | Source | Condition
 
 | `To` | Email header | If present and not blank/empty.
 
@@ -1421,9 +1421,9 @@ of a simple *CollectionSchema* dictionary for email.
 
 [[table-05]]
 .Minimum set of Collection Schema entries for `PDF/mail-1{c, ci}`
-[cols="278,155"]
+[cols="a,a",options="header"]
 |===
-h| Core Field h| Collection Schema key (_case sensitive_)
+| Core Field | Collection Schema key (_case sensitive_)
 
 | To      | To
 | From    | From
