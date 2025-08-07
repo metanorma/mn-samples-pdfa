@@ -759,7 +759,7 @@ rolemappings may also be included).
 Reason: this RoleMap will be ignored by all PDF 2.0 processors for structure elements
 with an explicit namespace (*NS* entry), such as those defined by EA-PDF. However,
 PDF 1.7 only processors reading a PDF 2.0 EA-PDF file containing this RoleMap will
-use it to create a standard backward-compatible mapping to PDF 1.7 tags 
+use it to create a standard backward-compatible mapping to PDF 1.7 tags
 (since PDF 1.7 only processors do not support PDF 2.0 namespaces) providing a more
 consistent behaviour across processors.
 ====

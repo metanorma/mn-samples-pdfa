@@ -267,7 +267,7 @@ Document -- the EA-PDF file
     Art -- plain text message body
     Art -- special report for 2nd email
   Document – 3rd email
-    Art -- …
+    Art -- ...
   Part
     Art -- attachments list for all emails
 ====
