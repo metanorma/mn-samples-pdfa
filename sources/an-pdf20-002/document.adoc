@@ -17,6 +17,7 @@
 :imagesdir: images
 :coverpage-image: images/coverpage.png
 :pdf-stylesheet-override: ../_common/pdfa.xsl
+:fonts: Source Sans 3;Source Sans Pro
 :document-scheme: 2024
 :local-cache-only:
 
