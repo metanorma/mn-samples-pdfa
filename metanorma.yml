@@ -9,6 +9,7 @@ metanorma:
       - sources/an-ppm/document.adoc
       - sources/bpg-pdfua-conform/document.adoc
       - sources/bpg-tagged-pdf-syntax/document.adoc
+      - sources/spec-eapdf/document.adoc
       - sources/spec-pdf-declarations/document.adoc
       - sources/spec-wtpdf/document.adoc
       - sources/tn-0010/document.adoc
