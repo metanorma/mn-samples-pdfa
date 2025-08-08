@@ -7,7 +7,7 @@
 			</fo:simple-page-master>
 			
 			<fo:simple-page-master master-name="copyright-page" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
-				<fo:region-body margin-top="20mm" margin-bottom="35mm" margin-left="20mm" margin-right="20mm"/>
+				<fo:region-body margin-top="20mm" margin-bottom="35mm" margin-left="18mm" margin-right="18mm"/>
 			</fo:simple-page-master>
 		</fo:layout-master-set>
 	</xsl:template>
@@ -134,17 +134,41 @@
 		</fo:page-sequence>
 	</xsl:template> <!-- END cover-page -->
 
+	<xsl:attribute-set name="copyright-statement-style">
+		<xsl:attribute name="line-height">1.36</xsl:attribute>
+		<xsl:attribute name="font-family">Source Sans Pro</xsl:attribute>
+		<xsl:attribute name="font-size">12pt</xsl:attribute>
+	</xsl:attribute-set>
+
 	<xsl:template name="copyright-statement">
 		<fo:page-sequence master-reference="copyright-page" force-page-count="no-force">
-			<fo:flow flow-name="xsl-region-body" line-height="1.36" role="SKIP" font-family="Source Sans Pro" font-size="12pt">
+			<fo:flow flow-name="xsl-region-body" role="SKIP">
 				<!-- height = pageHeight - page margin top - page margin bottom -->
 				<fo:block-container height="{$pageHeight - 20 - 30}mm" display-align="after" role="SKIP">
-					<fo:block>
+					<fo:block role="SKIP"> <!-- block prevents from empty block-container -->
 						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
 					</fo:block>
 				</fo:block-container>
 			</fo:flow>
 		</fo:page-sequence>
 	</xsl:template>
+
+	<xsl:attribute-set name="copyright-statement-p-style">
+		<xsl:attribute name="space-after">9.9pt</xsl:attribute>
+	</xsl:attribute-set>
+	
+	<xsl:template match="mn:copyright-statement//mn:p" priority="2">
+		<fo:block xsl:use-attribute-sets="copyright-statement-p-style">
+			
+			<xsl:call-template name="setBlockAttributes"/>
+			
+			<xsl:apply-templates />
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:attribute-set name="link-style">
+		<xsl:attribute name="color">rgb(14,85,117)</xsl:attribute>
+		<xsl:attribute name="text-decoration">underline</xsl:attribute>
+	</xsl:attribute-set>
 
 </xsl:stylesheet>
