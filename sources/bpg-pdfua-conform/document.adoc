@@ -25,7 +25,7 @@ who want to create PDF files that conform to more than one ISO-standardized
 subset of PDF, specifically PDF/A (ISO 19005) and PDF/UA (ISO 14289). This
 guidance applies to developers using either PDF 1.7 or PDF 2.0.
 
-This document is informative – it does not change the meaning of ISO standards.
+This document is informative -- it does not change the meaning of ISO standards.
 When in doubt, consult the text of the respective ISO standard(s).
 
 == Scope
@@ -35,7 +35,7 @@ who want to create PDF files that conform to more than one ISO-standardized
 subset of PDF, specifically PDF/A (ISO 19005) and PDF/UA (ISO 14289). This
 guidance applies to developers using either PDF 1.7 or PDF 2.0.
 
-This document is informative – it does not change the meaning of ISO standards.
+This document is informative -- it does not change the meaning of ISO standards.
 When in doubt, consult the text of the respective ISO standard(s).
 
 

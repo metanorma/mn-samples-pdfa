@@ -84,6 +84,10 @@ Best Practice Guide: Conforming to both PDF/A & PDF/UA
 (PDFa BPG tagged-pdf-syntax:2023 (1.1.0))
 Best Practice Guide: Tagged PDF Best Practice Guide: Syntax
 
+`sources/spec-eapdf/`::
+(PDFa eapdf:2024 (1.0.0))
+Specification: EA-PDF v1.0 Specification: An archival email format based on PDF/A
+
 `sources/spec-wtpdf/`::
 (PDFa wtpdf:2024 (1.0.0))
 Specification: Well-Tagged PDF (WTPDF) 1.0

@@ -1,0 +1,412 @@
+== Background
+
+This section provides a brief discussion on the background and context of the
+EA-PDF v1.0 file format as solicited via the EA-PDF Liaison Working Group (LWG).
+It does not contain the formal PDF technical requirements; however it needs to
+be read by all users of this document as it explains how EA-PDF achieves its
+goals and the agreed decisions made by the LWG.
+
+NOTE: this section is descriptive in nature and there are no "SHALL" or "SHOULD"
+statements. Use of the words "must" or "will" in this section implies something
+that is mandated without prescribing exactly how the mandate is technically
+achieved.
+
+The foremost goal of EA-PDF is as a faithful and verifiable long-term
+preservation format for email assets, including a reliable static appearance of
+a static rendition of the email that is technically achieved by utilizing
+PDF/A-3 or PDF/A-4. This requires a reliable and verifiable link between the
+original raw source email asset(s) and the PDF representation of those emails.
+EA-PDF also supports "isolated" use-cases where this linkage between original
+raw source email asset(s) and the PDF content is weakened or broken -- for
+example due to the use of non-EA-PDF aware software or because of workflow
+requirements (such as FOIA).
+
+Because EA-PDF is a flexible format, it is fully expected that the application
+of EA-PDF in each organization is supported in context by archival policies and
+procedures and will evolve as EA-PDF aware software becomes available.
+
+[[figure-01]]
+.Context of EA-PDF
+image::figure-01.png[]
+
+The EA-PDF v1.0 file format has been defined such that it supports two main
+usage contexts, as shown in <<figure-01>>: Context of EA-PDF above:
+
+. An *Optimal experience* when using EA-PDF aware software, regardless of whether
+this software is interactive (e.g., viewer GUI) or non-interactive (e.g., batch
+processing, web server);
+
+. A *Functional Experience* with the potential for a limited or less-than-optimal
+experience when using non-EA-PDF aware legacy software. Software not written to
+support EA-PDF or PDF/A will work but may result in restrictions on viewing,
+search, semantics, and/or navigation due to lack of specific EA-PDF knowledge.
+Although this experience will vary across implementations, various EA-PDF v1.0
+file format design choices have been made by the LWG to try and ensure the
+widest possible support with current non-EA-PDF aware legacy software (such as
+non-PDF/A conformant software).
+
+NOTE: Reason: at the time of writing a lot of current generation PDF software only
+provides limited support for many PDF 2.0 features and for compliant PDF/A
+rendering. This is a major consideration in the technical design of EA-PDF v1.0.
+
+The term "EA-PDF" is used as an all-encompassing term and includes the file
+format, software, use-cases/scenarios, etc. The moniker "`PDF/mail`" represents
+just the file format defined by this industry specification and any later
+editions. The term "`PDF/mail-1`" refers to this first edition of `PDF/mail` -
+future versions may use other versions (such as `PDF/mail-2`, `PDF/mail-3`,
+etc.) in a similar manner to the way that ISO subsets are versioned. If this
+industry specification is ever standardized by ISO, "`PDF/M`" would be the most
+likely equivalent ISO moniker following the current principles of PDF naming
+conventions (cf. "`PDF/raster`" and "`PDF/R`").
+
+NOTE: Reason: "`PDF/E`" cannot be used as the abbreviation for email, as this is
+already used by an existing ISO standard for engineering: "ISO 24517-1:2008
+Document management — Engineering document format using PDF — Part 1: Use of PDF
+1.6 (PDF/E-1)".
+
+Creation of EA-PDF files from email-specific formats such as EML, MSG, MBOX,
+Lotus Notes (`.nsf`), or Microsoft OST/PST requires specialized _EA-PDF Creation
+Software_, as shown above -- current PDF/A creation software is insufficient.
+Many design and implementation choices of EA-PDF software are intentionally
+[underline]#_not_# explicitly defined by this document to allow flexibility and
+innovation from implementers (e.g., how to convert email bodies to PDF content
+streams is not explicitly defined; how to cope with errors in emails; additional
+content sets; etc.).
+
+NOTE: Requirements on specific (visual) appearance of EA-PDF files are avoided
+and only restricted via PDF/A (and the assumption that PDF/A conforming software
+will be used).
+
+NOTE: This document does try to provide some informative high-level guidance and
+background explanation for software developers for certain features, even if
+these features are not formally required ("SHALL") or recommended ("SHOULD").
+These are merely guidance, but their use can provide better context and a better
+user experience for users of EA-PDF files.
+
+Additional user interface requirements for EA-PDF aware software (beyond those
+already required by PDF/A) are also not explicitly prescribed but stated only in
+terms of high-level functional requirements (for example, providing access to
+all the embedded files in `PDF/mail` files). This is identical to the way ISO
+19005 PDF/A conforming processor requirements are defined. EA-PDF does not have
+any [underline]#_interactive_# processor specific requirements as it is assumed
+that headless server-based ingestion systems have similar needs to individual
+users.
+
+`PDF/mail` files are [underline]#always# conforming PDF/A files and will
+therefore [underline]#always# pass PDF/A validation. The additional requirements
+defined in EA-PDF enable both humans and automated systems (i.e., EA-PDF aware
+software) to share a common understanding of the significant properties of
+faithfully preserved email and their static renderings -- and to perform
+additional validation but without requiring reprocessing of original source
+email assets for that validation. Note that non-EA-PDF aware legacy software
+(including PDF/A conforming software) may not achieve some levels of support due
+to the lack of specific EA-PDF feature awareness.
+
+This document uses notes in addition to requirements or recommendations for EA-PDF
+developers to guide them on practices that may assist with improved user experience
+with non-EA-PDF aware legacy software.
+
+EA-PDF is designed to support many differing preservation-oriented workflows.
+EA-PDF files created to support Freedom of Information (FOIA) and similar access
+requests may not be suitable for long-term preservation due to either the
+absence of the source email asset(s), redaction of original text, or metadata
+scrubbing conducted to support dissemination footnote:[A modification use-case
+discussed in the EA-PDF LWG is the extraction of selected pages from an EA-PDF
+file while retaining some limited (possibly semi-redacted) context (e.g. the
+username portion of an email address is redacted, but not the email provider:
+`fred@email.com` becomes `xxxx@email.com`). The resultant PDF/A file is no
+longer a full and faithful preservation of the original raw source email and
+thus must be identified differently.].
+As described later in this document (see section 7.2 Preserving source email
+assets), EA-PDF compliant files can include the original raw source email
+assets, along with extensive metadata, and other necessary information which
+would need to be redacted resulting in a PDF that is no longer a verifiable
+preservation asset and a reliable rendition of email [underline]#and# free of
+PII. These PDFs will still contain many EA-PDF features (such as email-specific
+semantic tagging or rich email metadata) but because they are modified, they are
+no longer a full and faithful preservation of the original raw source email
+assets and must be specifically indicated as an "isolated" EA-PDF file.
+
+The provenance metadata information in PDF/A can be used to indicate the
+conversion from one EA-PDF profile to another, or back to PDF/A.  This is an
+intentional design decision to ensure that EA-PDF files that are a faithful and
+verifiable preservation of the original raw source email assets are cleared
+distinguishable and identifiable as such.
+
+Although the PDF and PDF/A specifications, this document, and related examples
+all use English content, EA-PDF fully supports non-English and multi-lingual
+emails, without resorting to rendering emails to bitmaps.
+
+=== EA-PDF Profile identifiers
+
+This document describes multiple EA-PDF profiles footnote:[The term "_profile_" is
+specifically chosen to avoid confusion or overlap with the existing "conformance
+levels" used by PDF/A and other PDF ISO subset standards.] to meet the various
+requirements discussed in the LWG that reflected specific email archival
+scenarios and use-cases. All profiles are compliant with PDF/A and use one or
+more lowercase letters to indicate conformance:
+
+.EA-PDF profile indicators
+[cols="^a,2a",options="header"]
+|===
+|EA-PDF Profile identifier (lowercase letter)	|Meaning
+
+|`c`
+|A structured container that can include hierarchical folders of emails.
+
+|`i`
+|Isolated -- this means that the faithful original raw source email assets are
+missing, and the EA-PDF file is not a verifiable preservation asset.
+
+|`m`
+|Multiple emails without folders
+
+|`s`
+|Single email message (without a folder)
+
+|===
+
+EA-PDF profiles [underline]#_without_# the "isolated" profile identifier `i` are
+suitable as verifiable preservation assets as these files contain the original
+raw source email assets as well as PDF/A compliant renderings of the emails and
+related context.
+
+EA-PDF profiles [underline]#_with_# the "isolated" profile identifier `i` may be
+unsuitable as preservation assets as these files do [underline]#_not_# contain all
+the original raw source email assets, or possibly contain modified or redacted
+versions of those original raw source email assets. However, "isolated" EA-PDF
+profiles may be smaller files as a result. Thus, the suitability of "isolated"
+EA-PDF profiles for preservation will depend on the precise archival and
+preservation strategies and policies that provide the context for the
+application of EA-PDF as shown in <<figure-01>>.
+
+=== EA-PDF Profiles
+
+[[table-02]]
+.Summary of EA-PDF profiles
+[cols="a,a,a",options="header"]
+|===
+| `PDF/mail-1` Profile | `PDF/A` Conformance Levels | Description
+
+| `PDF/mail-1s` +
+*"Single"*
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4f` +
+`PDF/A-4e` footnote:[`PDF/A-4e` conformance is only required if 3D or rich media
+content is required to represent email which is highly unlikely. In ISO/DIS 19005-4,
+`PDF/A-4e` is formalized as an extension of `PDFA-4f`.]
+| *Single*: A single email message preserved as a single EA-PDF file, where pages
+in the PDF are a visual representation of only that email's content or context. The
+original raw source email asset(s) are always embedded and other files, such as email
+attachments, are also embedded (if present).
+
+NOTE: this is the basic 1-to-1 verifiable preservation of an email message as EA-PDF
+(PDF/A) that non-EA-PDF aware legacy software can very reasonably be expected to
+support.
+
+NOTE: the embedded original raw email asset may contain additional emails or other
+information, but all PDF pages in `PDF/mail-1s` reflect only the single email message.
+
+| `PDF/mail-1si` +
+*"Single, isolated"*
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4` +
+`PDF/A-4f` +
+`PDF/A-4e`
+
+| *Single, isolated*: A single email message preserved as a single EA-PDF file, where
+pages in the PDF are a visual representation of the email's content or context, but
+the original raw source email asset(s) are [underline]#_not_# embedded (i.e., are not
+faithfully preserved). Other files may be embedded (e.g. email attachments).
+
+NOTE: this is a special EA-PDF profile primarily intended for use in `PDF/mail-1{c,
+ci}` "containers" (see below) or FOIA.
+
+NOTE: "isolated" means that this class of EA-PDF file is isolated from its original
+raw source email asset and thus is not a self-contained preservation with the
+associated original raw source email assets.
+
+| `PDF/mail-1m` +
+*"Multiple"*
+
+NOTE: this is unrelated to the email term "multipart".
+
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4f` +
+`PDF/A-4fe`
+
+| *Multiple*: Multiple emails preserved as a single EA-PDF file [underline]#_without_#
+folder structure footnote:[A future version of EA-PDF might consider how to add
+folder-like structure to `PDF/mail-1m` files via new PDF capabilities. This was not
+considered at this time as this would not work with any legacy software.], where
+pages in the PDF are a visual representation of the content or context of the emails.
+The original raw source email assets are always embedded (faithfully preserved).
+
+NOTE: This is a "flat" preservation of multiple emails. Although non-EA-PDF aware
+legacy software will operate with `PDF/mail-1m` files, the level of context available
+may limit the experience (e.g., associating PDF pages with specific emails or email
+attachments, etc.).
+
+NOTE: A `PDF/mail-1m` file with only a single email message is effectively a `PDF/mail-1s`
+file. It is required that such files are indicated as `PDF/mail-1s`.
+
+| `PDF/mail-1mi` +
+*"Multiple, isolated"*
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4` +
+`PDF/A-4f` +
+`PDF/A-4e`
+
+| *Multiple, isolated*: Multiple emails preserved as a single EA-PDF file [underline]#_without_#
+folder structure, where pages in the PDF are a visual representation of the content
+or context of the emails. The original raw source email assets are [underline]#_not_#
+embedded, however other files may be embedded (e.g. email attachments).
+
+NOTE: "isolated" means that this class of EA-PDF file is disassociated from its original
+raw source email asset and thus is not a self-contained preservation with associated
+original raw source email assets.
+
+NOTE: This is a special EA-PDF profile primarily intended for use in `PDF/mail-1{c, ci}`
+"containers" (see below).
+
+| `PDF/mail-1c` +
+*"Container"*
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4f` footnote:[`PDF/mail-1{c, ci}` files with hierarchical folder structure
+relies on the vendor neutral *Folders* feature of PDF Collections. *Folders* were
+initially defined as part of Adobe Extension Level 3 to <<ISO_32000_1_2008>> (PDF 1.7)
+and thus can validly exist in `PDF/A-3` as they do not impact static rendering of
+PDF page content. They were later adopted into PDF 2.0 with ISO 32000-2
+(see <<ISO_32000_2,clause=12.3.5>>). `PDF/A` standards do not define dynamic features
+such as interaction with PDF collections. `PDF/mail-1{c, ci}` files are not required
+to always use *Folders*, in which case `PDF/mail-1{m, mi}` may be a better choice.
+`PDF/A-4e` is not listed as there is no identified requirement for including JavaScript
+or 3D content into the container PDF.]
+
+| *Container*: An EA-PDF "structured container" for one or more embedded EA-PDF files,
+each of which may be any other `PDF/mail-1` profile. `PDF/mail-1c` files can replicate
+complex folder hierarchies typically found in modern email clients, email formats,
+or file systems. The container that is the `PDF/mail-1c` file does [underline]#_not_#
+contain pages representing content of preserved emails -- all PDF representations
+of email content are in the [underline]#_embedded_# EA-PDF files stored within the
+container PDF collection. Pages in the container PDF represent the context of the
+collection.
+
+NOTE: there is no requirement that hierarchical folders must be used, in which case
+a `PDF/mail-1c` file is like `PDF/mail-1m`, except that the rendition of emails are
+stored as separate embedded EA-PDF files.
+
+NOTE: non-EA-PDF aware legacy software needs to support PDF Collections (PDF 1.7)
+as otherwise the level of context and semantics available will severely limit the
+experience and understanding of the content.
+
+| `PDF/mail-1ci` +
+*"Container, isolated"*
+| `PDF/A-3a` +
+`PDF/A-3u` +
+`PDF/A-4f` footnote:[`PDF/mail-1c` files with hierarchical folder structure relies
+on the vendor neutral *Folders* feature of PDF Collections. *Folders* were initially
+defined as part of "Adobe Extension Level 3 to ISO 32000-1:2008 (PDF 1.7)" and thus
+can validly exist in `PDF/A-3` as they do not impact static rendering of the containers'
+page content. They were later adopted into PDF 2.0 with ISO 32000-2
+(see <<ISO_32000_2,clause=12.3.5>>). `PDF/A` standards do [underline]#_not_# define
+dynamic features such as interaction with PDF Collections. `PDF/mail-1c` files are
+not required to always use *Folders*. `PDF/A-4e` is not listed as there is no identified
+requirement for including JavaScript or 3D content into the container PDF.]
+
+| *Container, isolated*: An EA-PDF "structured container" for one or more embedded
+EA-PDF files, each of which may be any other `PDF/mail-1` profile. `PDF/mail-1ci`
+files can replicate complex folder hierarchies typically found in modern email clients,
+email formats, or file systems. The container that is the `PDF/mail-1ci` file does
+[underline]#_not_# contain pages representing content of preserved emails -- all email
+content is in the [underline]#_embedded_# EA-PDF files stored within the container
+PDF collection. Pages in the container PDF represent the context of the collection.
+
+This isolated profile indicates that this EA-PDF does [underline]#_not_# contain
+a [underline]#_full_# set of preserved original raw source email assets for all emails
+in the collection and is thus not a full preservation format. This may be because
+a `PDF/mail-1{si, mi}` is included, or that the `PDF/mail-1ci` container itself does
+not contain the original raw source email assets.
+
+NOTE: there is no requirement that hierarchical folders must be used, in which case
+a `PDF/mail-1ci` file is like `PDF/mail-1mi`, except that the rendition of emails
+are stored as separate embedded EA-PDF files.
+
+NOTE: non-EA-PDF aware legacy software needs to support PDF Collections (PDF 1.7)
+as otherwise the level of context and semantics available will severely limit the
+experience and understanding of the content.
+
+|===
+
+As illustrated in <<figure-02>> and <<figure-03>> below, the primary difference between
+`PDF/mail-1{s, si}` and `PDF/mail-1{m, mi}` is the _1-to-1_ and _M-to-1_ relationship
+between emails and PDF respectively. As a result of containing multiple emails,
+`PDF/mail-1{m, mi}` will likely be much larger in size, have much larger document
+XMP metadata, and contain more pages that need to be logically grouped so it is clear
+which email is being represented. However, `PDF/mail-1{m, mi}` allows resources such
+as fonts or images to be efficiently shared and reused across multiple emails and
+thus a single `PDF/mail-1{m, mi}` file will most likely be significantly smaller
+than the equivalent emails as multiple `PDF/mail-1{s, si}` files. `PDF/mail-1{si, mi}`
+files may also be smaller in size again, as the original raw source email assets
+may not be preserved.
+
+None of `PDF/mail-1{s`, si, m, mi} files support emails in folder hierarchies (`PDF/mail-1{c, ci}`
+is described in more detail below).
+
+NOTE: EA-PDF Writer: it may be possible to convert (split) `PDF/mail-1{m, mi}` files
+into multiple standalone `PDF/mail-1{s, si}` files, or for multiple `PDF/mail-1si`
+files to be combined (merged) into a single `PDF/mail-1mi` file, without loss of
+any information or functionality. It may also be possible to add emails to `PDF/mail-1mi`
+files at some later time. Creating container `PDF/mail-1{c, ci}` files from one or
+more existing `PDF/mail-1{s, si, m, mi, c, ci}` files is also possible. Such functionality
+is not mandated as maintaining trustworthiness (verifiability) of the original raw
+source email assets and updating certain PDF data structures, such as logical structure
+and metadata, may be difficult for some EA-PDF implementations.
+
+[[figure-02]]
+.`PDF/mail-1s` vs. `PDF/mail-1m` -- single email message vs multiple emails in a single PDF with their associated original raw source email assets
+image::figure-02.png[]
+
+[[figure-03]]
+.`PDF/mail-1si` vs. `PDF/mail-1mi` -- "isolated" single email message vs multiple emails in a single PDF [underline]#_without_# their associated original raw source email assets
+image::figure-03.png[]
+
+[[figure-04]]
+.Comparison of `PDF/mail-1s` vs. `PDF/mail-1si` (isolated), where the isolated EA-PDF file is missing the original email asset(s).
+image::figure-04.png[]
+
+EA-PDF aware software is [underline]#_not_# required to support all EA-PDF profiles.
+For example, simple _EA-PDF Creation Software_ might only create `PDF/mail-1{s, si}`
+files on a 1-for-1 basis with email or be limited to processing certain simple email
+formats. EA-PDF aware consumption software (such as EA-PDF viewers or web servers)
+however must be able to [underline]#_detect_# all `PDF/mail` profiles
+footnote:[Note this says "PDF/mail", not "PDF/mail-1": EA-PDF aware consumption software
+developed to support `PDF/mail-1` files defined by this specification must also be
+able to detect any future versions of this specification (e.g., `PDF/mail-2`, `PDF/mail-3`)
+and any newer profiles (e.g., `PDF/mail-2z`) and warn users appropriately. This is
+so users are clearly informed of potential limitations. This ensures preservationists
+are aware when using outdated software with future EA-PDF files.]. If a detected
+`PDF/mail` profile is not implemented or fully supported, then the EA-PDF aware consumption
+software must inform the user.
+
+This document uses the following terminology in relation to email, regardless of
+the physical storage format (see <<figure-05>> below):
+
+[[figure-05]]
+.Email terminology
+image::figure-05.png[]
+
+The _Message Header_ includes both structured and unstructured header fields. A single
+email message may have zero or more _Message Body_ sections. A draft email is an
+example where a _Message Body_ may not exist, and when many email headers may also
+be blank (empty). In addition, EA-PDF defines some additional fields which are calculated
+based on email content (e.g., number of attachments).
+
+NOTE: this document is not concerned with the transmission of email between systems
+beyond what gets recorded in email message header fields by email systems.
+
