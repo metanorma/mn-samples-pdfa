@@ -103,8 +103,12 @@
 								<fo:table-cell display-align="after" padding-left="0.5mm" padding-right="0.5mm" padding-top="-0.5mm" padding-bottom="-0.5mm">
 									<fo:block-container width="100%" height="{$block_height}" border="{$border_width} solid rgb(208,63,78)">
 										<!-- the group that authored the doc -->
-										<fo:block>TEMP FIXED TEXT</fo:block>
-										<fo:block margin-left="5mm" margin-right="5mm" margin-bottom="3mm">EA-PDF LWG</fo:block>
+										<!-- Example: EA-PDF LWG -->
+										<fo:block margin-left="5mm" margin-right="5mm" margin-bottom="3mm">
+											<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:contributor[mn:role[@type = 'author' and 
+											(mn:description[normalize-space(@language) = ''] = 'Technical committee' or mn:description[normalize-space(@language) = ''] = 'Committee')]]/
+											mn:organization/mn:subdivision[@type = 'Technical committee' or @type = 'Committee']/mn:name"/>
+										</fo:block>
 									</fo:block-container>
 								</fo:table-cell>
 								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
@@ -150,7 +154,7 @@
 		<fo:page-sequence master-reference="copyright-page" force-page-count="no-force">
 			<fo:flow flow-name="xsl-region-body" role="SKIP">
 				<!-- height = pageHeight - page margin top - page margin bottom -->
-				<fo:block-container height="{$pageHeight - 20 - 30}mm" display-align="after" role="SKIP">
+				<fo:block-container height="{$pageHeight - 20 - 35}mm" display-align="after" role="SKIP">
 					<fo:block role="SKIP"> <!-- block prevents from empty block-container -->
 						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
 					</fo:block>
