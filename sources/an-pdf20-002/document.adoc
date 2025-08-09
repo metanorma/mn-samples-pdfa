@@ -7,7 +7,8 @@
 :title-intro-en: PDF 2.0 Application Note 002
 :title-main-en: Associated Files
 :technical-committee: PDF Technical Working Group (TWG)
-:boilerplate-authority: ../_common/boilerplate.adoc
+//:boilerplate-authority: ../_common/boilerplate.adoc
+:boilerplate-authority: boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
@@ -15,6 +16,9 @@
 :docsubstage: 60
 :docidentifier: PDFa AN 002:2018 (1.0.0)
 :imagesdir: images
+:coverpage-image: images/coverpage.png
+:pdf-stylesheet-override: ../_common/pdfa.xsl
+:fonts: Source Sans 3;Source Sans Pro
 :document-scheme: 2024
 :local-cache-only:
 
