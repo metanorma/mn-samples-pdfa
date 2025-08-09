@@ -18,6 +18,9 @@
 		</fo:layout-master-set>
 	</xsl:template>
 	
+	<!-- the back page is 'even' (example: 10), then main sections last page is 9 -->
+	<xsl:variable name="force-page-count-main_sections">end-on-odd</xsl:variable>
+		
 	<xsl:variable name="cover_page_color_box1">rgb(202,152,49)</xsl:variable>
 	<xsl:variable name="cover_page_color_box2">rgb(139,152,91)</xsl:variable>
 	<xsl:variable name="cover_page_color_box3">rgb(208,63,78)</xsl:variable>
