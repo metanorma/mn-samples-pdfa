@@ -17,9 +17,6 @@
 			</fo:simple-page-master>
 		</fo:layout-master-set>
 	</xsl:template>
-	
-	<!-- the back page is 'even' (example: 10), then main sections last page is 9 -->
-	<xsl:variable name="force-page-count-main_sections">end-on-odd</xsl:variable>
 		
 	<xsl:variable name="cover_page_color_box1">rgb(202,152,49)</xsl:variable>
 	<xsl:variable name="cover_page_color_box2">rgb(139,152,91)</xsl:variable>
@@ -39,7 +36,15 @@
 		<fo:page-sequence master-reference="cover-page" force-page-count="no-force">
 			<fo:flow flow-name="xsl-region-body" font-family="Source Sans 3">
 				
-				<xsl:call-template name="insertLogo"/>
+				<fo:block margin-top="-3mm" role="SKIP"> <!-- -3mm because there is a space before image in the source SVG -->
+					<fo:inline-container width="47mm" role="SKIP">
+						<fo:block font-size="0pt">
+							<xsl:for-each select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization">
+								<xsl:apply-templates select="mn:logo/mn:image"/>
+							</xsl:for-each>
+						</fo:block>
+					</fo:inline-container>
+				</fo:block>
 				
 				<!-- Type of document:
 					Specification, Best Practice Guide, Application Note, Technical Note, Extension -->
@@ -121,7 +126,28 @@
 								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
 								<fo:table-cell display-align="after" xsl:use-attribute-sets="cover_page_box">
 									<fo:block-container width="100%" height="{$cover_page_color_box_height}" border="{$cover_page_color_box_border_width} solid {$cover_page_color_box4}">
-										<xsl:call-template name="insertCoverPageCopyright"/>
+										<fo:block margin-left="2mm">
+											<!-- Example: © 2025 PDF Association – pdfa.org -->
+											<fo:block font-size="9.9pt" margin-bottom="1mm">
+												<xsl:text>© </xsl:text>
+												<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:from"/>
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name"/>
+												<xsl:text> – </xsl:text>
+												<fo:inline text-decoration="underline">
+													<fo:basic-link fox:alt-text="PDF association" external-destination="https://pdfa.org/">pdfa.org</fo:basic-link>
+												</fo:inline>
+											</fo:block>
+											<fo:block font-size="8pt" margin-bottom="3mm">
+												<xsl:text>This work is licensed under CC-BY-4.0 </xsl:text>
+												<!-- Note: the error occurs [Fatal Error] :1621:113: Character reference "&#55356" is an invalid XML character. -->
+												<!-- Circled CC -->
+												<fo:inline font-size="10pt"><xsl:call-template name="getCharByCodePoint"><xsl:with-param name="codepoint">1f16d</xsl:with-param></xsl:call-template></fo:inline>
+												<xsl:text> </xsl:text>
+												<!-- Circled Human Figure -->
+												<fo:inline font-size="10pt"><xsl:call-template name="getCharByCodePoint"><xsl:with-param name="codepoint">1f16f</xsl:with-param></xsl:call-template></fo:inline>
+											</fo:block>
+										</fo:block>
 									</fo:block-container>
 								</fo:table-cell>
 							</fo:table-row>
@@ -132,99 +158,8 @@
 		</fo:page-sequence>
 	</xsl:template> <!-- END cover-page -->
 
-	<xsl:template name="back-page">
-		<fo:page-sequence master-reference="cover-page" force-page-count="no-force">
-			<fo:flow flow-name="xsl-region-body" font-family="Source Sans 3">
-				
-				<xsl:call-template name="insertLogo">
-					<xsl:with-param name="align">right</xsl:with-param>
-				</xsl:call-template>
-				
-				<fo:block-container absolute-position="fixed" top="95mm" left="17.5mm" font-size="20pt">
-					
-					<fo:table table-layout="fixed" width="174mm">
-						<fo:table-column column-width="proportional-column-width(1)"/>
-						<fo:table-column column-width="proportional-column-width(1)"/>
-						<fo:table-column column-width="proportional-column-width(1)"/>
-						<fo:table-body>
-							<fo:table-row>
-								<fo:table-cell text-align="right" display-align="after" xsl:use-attribute-sets="cover_page_box"> <!-- padding-left="5mm" padding-right="5mm" -->
-									<fo:block-container width="100%" height="{$cover_page_color_box_height}" border="{$cover_page_color_box_border_width} solid {$cover_page_color_box1}">
-										<fo:block>&#xa0;</fo:block>
-									</fo:block-container>
-								</fo:table-cell>
-								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
-								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
-							</fo:table-row>
-							<fo:table-row>
-								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
-								<fo:table-cell text-align="center" display-align="center" xsl:use-attribute-sets="cover_page_box">
-									<fo:block-container width="100%" height="{$cover_page_color_box_height}" border="{$cover_page_color_box_border_width} solid {$cover_page_color_box2}">
-										<fo:block>&#xa0;</fo:block>
-									</fo:block-container>
-								</fo:table-cell>
-								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
-							</fo:table-row>
-							<fo:table-row>
-								<fo:table-cell display-align="after" xsl:use-attribute-sets="cover_page_box">
-									<fo:block-container width="100%" height="{$cover_page_color_box_height}" border="{$cover_page_color_box_border_width} solid {$cover_page_color_box4}">
-										<xsl:call-template name="insertCoverPageCopyright"/>
-									</fo:block-container>
-								</fo:table-cell>
-								<fo:table-cell><fo:block>&#xa0;</fo:block></fo:table-cell>
-								<fo:table-cell display-align="after" xsl:use-attribute-sets="cover_page_box">
-									<fo:block-container width="100%" height="{$cover_page_color_box_height}" border="{$cover_page_color_box_border_width} solid {$cover_page_color_box3}">
-										<fo:block>&#xa0;</fo:block>
-									</fo:block-container>
-								</fo:table-cell>
-							</fo:table-row>
-						</fo:table-body>
-					</fo:table>
-				</fo:block-container>
-			</fo:flow>
-		</fo:page-sequence>
-	</xsl:template> <!-- END back-page -->
-
-	<xsl:template name="insertLogo">
-		<xsl:param name="align"/>
-		<fo:block margin-top="-3mm" role="SKIP"> <!-- -3mm because there is a space before image in the source SVG -->
-			<xsl:if test="normalize-space($align) != ''">
-				<xsl:attribute name="text-align"><xsl:value-of select="$align"/></xsl:attribute>
-			</xsl:if>
-			<fo:inline-container width="47mm" role="SKIP">
-				<fo:block font-size="0pt">
-					<xsl:for-each select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization">
-						<xsl:apply-templates select="mn:logo/mn:image"/>
-					</xsl:for-each>
-				</fo:block>
-			</fo:inline-container>
-		</fo:block>
-	</xsl:template>
-	
-	<xsl:template name="insertCoverPageCopyright">
-		<fo:block margin-left="2mm">
-			<!-- Example: © 2025 PDF Association – pdfa.org -->
-			<fo:block font-size="9.9pt" margin-bottom="1mm">
-				<xsl:text>© </xsl:text>
-				<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:from"/>
-				<xsl:text> </xsl:text>
-				<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name"/>
-				<xsl:text> – </xsl:text>
-				<fo:inline text-decoration="underline">
-					<fo:basic-link fox:alt-text="PDF association" external-destination="https://pdfa.org/">pdfa.org</fo:basic-link>
-				</fo:inline>
-			</fo:block>
-			<fo:block font-size="8pt" margin-bottom="3mm">
-				<xsl:text>This work is licensed under CC-BY-4.0 </xsl:text>
-				<!-- Note: the error occurs [Fatal Error] :1621:113: Character reference "&#55356" is an invalid XML character. -->
-				<!-- Circled CC -->
-				<fo:inline font-size="10pt"><xsl:call-template name="getCharByCodePoint"><xsl:with-param name="codepoint">1f16d</xsl:with-param></xsl:call-template></fo:inline>
-				<xsl:text> </xsl:text>
-				<!-- Circled Human Figure -->
-				<fo:inline font-size="10pt"><xsl:call-template name="getCharByCodePoint"><xsl:with-param name="codepoint">1f16f</xsl:with-param></xsl:call-template></fo:inline>
-			</fo:block>
-		</fo:block>
-	</xsl:template>
+	<!-- empty back-page to omit back cover -->
+	<xsl:template name="back-page"/>
 
 	<xsl:attribute-set name="copyright-statement-style">
 		<xsl:attribute name="line-height">1.36</xsl:attribute>
