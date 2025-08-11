@@ -118,7 +118,7 @@
 										<!-- Example: EA-PDF LWG -->
 										<fo:block margin-left="5mm" margin-right="5mm" margin-bottom="3mm">
 											<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:contributor[mn:role[@type = 'author' and 
-											(mn:description[normalize-space(@language) = ''] = 'Technical committee' or mn:description[normalize-space(@language) = ''] = 'Committee')]]/
+											(mn:description[normalize-space(@language) = ''] = 'Technical committee' or mn:description[normalize-space(@language) = ''] = 'committee')]]/
 											mn:organization/mn:subdivision[@type = 'Technical committee' or @type = 'Committee']/mn:name"/>
 										</fo:block>
 									</fo:block-container>
