@@ -15,7 +15,7 @@
 :docidentifier: PDFa AN 002:2018 (1.0.0)
 :imagesdir: images
 :coverpage-image: images/coverpage.png
-:fonts: Source Sans 3;Source Sans Pro
+//:fonts: Source Sans 3;Source Sans Pro
 :local-cache-only:
 
 include::sections/00-foreword.adoc[]
