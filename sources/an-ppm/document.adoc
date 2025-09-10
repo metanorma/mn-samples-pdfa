@@ -5,16 +5,15 @@
 :copyright-year: 2024
 :language: en
 :title-main-en: Use of standard Print Product Metadata (PPM) with PDF
-:technical-committee: Print Product Metadata LWG
+:committee: Print Product Metadata LWG
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa AN ppm:2024 (1.0.0)
 :imagesdir: images
-:document-scheme: 2024
 :local-cache-only:
 
 include::sections/00-foreword.adoc[]

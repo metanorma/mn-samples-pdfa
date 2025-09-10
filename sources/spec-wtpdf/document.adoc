@@ -6,13 +6,13 @@
 :language: en
 :title-intro-en: Well-Tagged PDF (WTPDF)
 :title-main-en: Using Tagged PDF for Accessibility and Reuse in PDF 2.0
-:technical-committee: PDF Reuse TWG & PDF/UA TWG
+:committee: PDF Reuse TWG & PDF/UA TWG
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa wtpdf:2024 (1.0.0)
 :imagesdir: images
 :local-cache-only:
