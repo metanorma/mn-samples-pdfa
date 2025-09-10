@@ -8,16 +8,15 @@
 :created-date: 2024
 :language: en
 :title-main-en: PDF Declarations: A use of ISO 32000
-:technical-committee: PDF Technical Working Group (TWG)
+:committee: PDF Technical Working Group (TWG)
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa pdf-declarations:2024 (1.2.0)
 :imagesdir: images
-:document-scheme: 2024
 :plantuml-image-format: svg
 :local-cache-only:
 

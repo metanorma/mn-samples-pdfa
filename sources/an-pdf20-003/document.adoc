@@ -6,16 +6,15 @@
 :language: en
 :title-intro-en: PDF 2.0 Application Note 003
 :title-main-en: Clarification on locations for object metadata streams
-:technical-committee: PDF Technical Working Group (TWG)
+:committee: PDF Technical Working Group (TWG)
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa AN 003:2021 (1.0.0)
 :imagesdir: images
-:document-scheme: 2024
 :local-cache-only:
 
 include::sections/00-foreword.adoc[]

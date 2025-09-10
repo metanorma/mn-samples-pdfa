@@ -5,16 +5,15 @@
 :copyright-year: 2025
 :language: en
 :title-main-en: Conforming to both PDF/A & PDF/UA
-:technical-committee: PDF/A TWG and PDF/UA TWG
+:committee: PDF/A TWG and PDF/UA TWG
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa BPG pdfa-ua:2025 (1.0.0)
 :imagesdir: images
-:document-scheme: 2024
 :local-cache-only:
 
 

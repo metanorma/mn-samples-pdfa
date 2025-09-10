@@ -6,16 +6,15 @@
 :language: en
 :title-main-en: Tagged PDF Best Practice Guide: Syntax
 :title-complementary-en: For developers implementing ISO 14289-1 (PDF/UA)
-:technical-committee: PDF/UA TWG
+:committee: PDF/UA TWG
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa BPG tagged-pdf-syntax:2023 (1.1.0)
 :imagesdir: images
-:document-scheme: 2024
 :plantuml-image-format: svg
 :icons: font
 :local-cache-only:

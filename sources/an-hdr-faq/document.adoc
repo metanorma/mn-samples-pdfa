@@ -5,16 +5,15 @@
 :copyright-year: 2025
 :language: en
 :title-main-en: FAQ on HDR in PDF: Focus on PDF/A and PDF/X
-:technical-committee: PDF Imaging Model TWG
+:committee: PDF Imaging Model TWG
+:committee-type: technical
 :boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
-:docstage: 60
-:docsubstage: 60
+:status: published
 :docidentifier: PDFa AN hdr-faq:2025 (1.0.0)
 :imagesdir: images
-:document-scheme: 2024
 :local-cache-only:
 
 
