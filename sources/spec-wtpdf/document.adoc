@@ -8,7 +8,6 @@
 :title-main-en: Using Tagged PDF for Accessibility and Reuse in PDF 2.0
 :committee: PDF Reuse TWG & PDF/UA TWG
 :committee-type: technical
-:boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification

@@ -7,7 +7,6 @@
 :title-main-en: FAQ on HDR in PDF: Focus on PDF/A and PDF/X
 :committee: PDF Imaging Model TWG
 :committee-type: technical
-:boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note

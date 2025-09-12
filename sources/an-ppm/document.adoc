@@ -7,7 +7,6 @@
 :title-main-en: Use of standard Print Product Metadata (PPM) with PDF
 :committee: Print Product Metadata LWG
 :committee-type: technical
-:boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
