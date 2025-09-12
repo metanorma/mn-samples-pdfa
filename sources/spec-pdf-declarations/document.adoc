@@ -10,7 +10,6 @@
 :title-main-en: PDF Declarations: A use of ISO 32000
 :committee: PDF Technical Working Group (TWG)
 :committee-type: technical
-:boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification

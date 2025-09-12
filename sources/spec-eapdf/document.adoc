@@ -8,7 +8,6 @@
 :title-complementary-en: An archival email format based on PDF/A
 :committee: EA-PDF LWG
 :committee-type: technical
-:boilerplate-authority: ../_common/boilerplate.adoc
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
