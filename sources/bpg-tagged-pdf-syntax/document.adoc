@@ -4,8 +4,8 @@
 :revdate: 2023-07-06
 :copyright-year: 2023
 :language: en
-:title-main-en: Tagged PDF Best Practice Guide: Syntax
-:title-complementary-en: For developers implementing ISO 14289-1 (PDF/UA)
+:title-intro-en: Tagged PDF Best Practice Guide: Syntax
+:title-main-en: For developers implementing ISO 14289-1 (PDF/UA)
 :committee: PDF/UA TWG
 :committee-type: technical
 :mn-document-class: pdfa

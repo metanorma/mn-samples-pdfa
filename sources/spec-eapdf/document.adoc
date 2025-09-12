@@ -4,8 +4,8 @@
 :revdate: 2024-10-10
 :copyright-year: 2024
 :language: en
-:title-main-en: EA-PDF v1.0 Specification
-:title-complementary-en: An archival email format based on PDF/A
+:title-intro-en: EA-PDF v1.0 Specification
+:title-main-en: An archival email format based on PDF/A
 :committee: EA-PDF LWG
 :committee-type: technical
 :mn-document-class: pdfa
