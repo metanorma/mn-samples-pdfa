@@ -147,7 +147,7 @@ Any ILSE; BLSEs containing ILSEs or containing direct or nested content items
 
 |BaselineShift
 |To allow the LATEX logo to be used in reflow applications,
-the *BaselineShift* for the “a” and “e” is specified.
+the *BaselineShift* for the "a" and "e" is specified.
 
 |LineHeight
 |(No semantic intent identified)
@@ -183,9 +183,9 @@ top to bottom or bottom to top.
 |The preferred orientation of alphabetic (non-ideographic)
 text within a vertically typeset Japanese document content
 can depend on what that text represents. In this context,
-initialisms like “PDF” are usually set with an orientation
-angle of 0, while the expanded form “Portable Document
-Format” is rotated 90 degrees.
+initialisms like "PDF" are usually set with an orientation
+angle of 0, while the expanded form "Portable Document
+Format" is rotated 90 degrees.
 
 |===
 

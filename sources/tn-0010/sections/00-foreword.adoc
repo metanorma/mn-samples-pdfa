@@ -2,7 +2,7 @@
 
 === Preface
 
-This Technical Note was produced by the PDF Association’s PDF Validation
+This Technical Note was produced by the PDF Association's PDF Validation
 Technical Working Group (TWG).
 
 The TWG developed this content in the context of an in-depth review of existing
@@ -24,14 +24,14 @@ https://github.com/veraPDF/veraPDF-corpus.
 The current document provides interpretation of the existing specifications, and
 does not change the text of those specifications.
 
-In addition to the PDF Validation TWG’s review, each ambiguity identified by the
+In addition to the PDF Validation TWG's review, each ambiguity identified by the
 TWG was reviewed by the ISO Working Group (WG) responsible for ISO 19005.
 Although the ISO WG has, at this time, decided not to update existing parts of
 ISO 19005, it has accepted many of the TWGs proposals as described herein.
 
 === Enumeration
 
-A021’s enumeration was mistakenly duplicated in presentation to the ISO WG. A
+A021's enumeration was mistakenly duplicated in presentation to the ISO WG. A
 correction was applied in this document. Accordingly, the enumeration herein of
 A022 -- A028 differs from the enumeration used in the TWG presentations to the
 ISO WG.

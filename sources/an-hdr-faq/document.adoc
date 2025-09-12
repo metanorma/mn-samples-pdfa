@@ -35,8 +35,8 @@ files, including the ISO- standardized subsets for archival and production-print
 applications, PDF/A and PDF/X, respectively.
 
 To ensure a consistent visual experience, the PDF/A (ISO 19005) and PDF/X (ISO
-15930) series of standards both define a “conforming processor” -- software that
-follows the respective standards’ rules for displaying PDF files. While HDR
+15930) series of standards both define a "conforming processor" -- software that
+follows the respective standards' rules for displaying PDF files. While HDR
 technology continues to evolve, it is important to understand the acceptable
 uses of HDR images and color data in terms of existing PDF/A and PDF/X
 standards.
@@ -61,8 +61,8 @@ High Dynamic Range
 
 === ICC.1
 
-The International Color Consortium’s color profile format (ISO 15076-1) used by
-PDF’s ICCBased color space.
+The International Color Consortium's color profile format (ISO 15076-1) used by
+PDF's ICCBased color space.
 
 NOTE: https://color.org/icc_specs2.xalter[ICC.1 v4.4 color profiles] can include
 HDR information.
@@ -106,11 +106,11 @@ Standard Dynamic Range
 
 Yes -- however, the HDR data in such images and profiles is considered private,
 and is therefore ignored by viewing software that conforms to the respective
-standard (a.k.a. “conforming processors”). See our publication
-https://pdfa.org/resource/understanding-private-data-in-pdf-a/[“Understanding Private Data in PDF/A”].
+standard (a.k.a. "conforming processors"). See our publication
+https://pdfa.org/resource/understanding-private-data-in-pdf-a/["Understanding Private Data in PDF/A"].
 
 
-=== Will PDF/A or PDF/X files that include HDR data display as HDR by “conforming processor” software?
+=== Will PDF/A or PDF/X files that include HDR data display as HDR by "conforming processor" software?
 
 No. The underlying core PDF specifications do not define rules for rendering HDR
 data. Therefore, all current-generation PDF/A and PDF/X standards likewise do
@@ -178,13 +178,13 @@ is compatible with the DCTDecode filter).
 
 Not today. PDF allows HDR information to be present as private data in JPEG 1
 images, JPEG 2000 images, ICC.1 v4.4 color profiles, or in other ways. However,
-today’s PDF specifications and standards don’t define interoperable (portable)
+today's PDF specifications and standards don't define interoperable (portable)
 HDR rendering. Any current HDR rendering of PDF content is entirely
 implementation-dependent; such renderings may not match future specifications.
 
 === Will PDF support HDR in the future?
 
-Yes. Through the PDF Association’s Imaging Model Technical Working Group,
+Yes. Through the PDF Association's Imaging Model Technical Working Group,
 industry stakeholders are actively developing new PDF specifications for
 interoperable (portable) HDR rendering and related capabilities (including
 adding support for additional image formats, such as JPEG XL). However, as of

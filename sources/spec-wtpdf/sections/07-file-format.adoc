@@ -112,8 +112,8 @@ ISO 32000-2:2020, 14.8.2.5 shall be semantically correct.
 
 NOTE: This requirement is equivalent to WCAG 2.2, Success Criterion 1.3.2.[5]
 
-NOTE: This document does not impose any understanding of what “semantically
-correct” logical content order means to any given author. Two common example
+NOTE: This document does not impose any understanding of what "semantically
+correct" logical content order means to any given author. Two common example
 approaches to ordering real content are to follow the order of the geographical
 page layout appropriate to the language or script (e.g. top-down, left-right in
 some languages), or to order the most important real content first. The author
@@ -338,7 +338,7 @@ Leaders shall be identified as artifacts using one of the methods described in
 <<file-format-artifacts>>.
 
 [example]
-Leaders are commonly represented by a series of dots (e.g. “…..”) separating the
+Leaders are commonly represented by a series of dots (e.g. "…..") separating the
 item and corresponding page number.
 
 If using an *Artifact* structure element to enclose leaders, the location of
@@ -432,7 +432,7 @@ but instead focuses on ensuring that correct semantics are provided for a given
 document's content.
 
 [example]
-A heading with the real content “4.5.6 Foobar” is evidently at heading level 3.
+A heading with the real content "4.5.6 Foobar" is evidently at heading level 3.
 
 
 ===== Title
@@ -689,7 +689,7 @@ replacement restoring all omitted characters.
 
 [example]
 ====
-A document contains the Japanese word “文書”, annotated with “ぶんしょ” as a
+A document contains the Japanese word "文書", annotated with "ぶんしょ" as a
 phonetic gloss in ruby. The ruby assembly is tagged as:
 
 [source,xml]
@@ -697,13 +697,13 @@ phonetic gloss in ruby. The ruby assembly is tagged as:
 <Ruby><RB>文書</RB><RT>ぶんしょ</RT></Ruby>
 ----
 
-even though the readings of the individual characters “文” and “書” are “ぶん”
-and “しょ”, respectively.
+even though the readings of the individual characters "文" and "書" are "ぶん"
+and "しょ", respectively.
 ====
 
 [example]
 ====
-A document contains the Japanese word “今日”, annotated with “きょう” as a ruby
+A document contains the Japanese word "今日", annotated with "きょう" as a ruby
 phonetic gloss. This ruby pair cannot be subdivided any further, and as such is
 tagged as:
 
@@ -715,8 +715,8 @@ tagged as:
 
 [example]
 ====
-When annotating the word “振り仮名” with its reading “ふりがな”, one would
-ordinarily put “ふ” adjacent to “振”, and “がな” adjacent to “仮名”. The “り” is
+When annotating the word "振り仮名" with its reading "ふりがな", one would
+ordinarily put "ふ" adjacent to "振", and "がな" adjacent to "仮名". The "り" is
 typically not duplicated in the ruby text. When tagging this pair in a single
 Ruby structure element (e.g. to meet an accessibility need), it is rendered as:
 
@@ -728,8 +728,8 @@ Ruby structure element (e.g. to meet an accessibility need), it is rendered as:
 
 [example]
 ====
-A Japanese-language document contains the English name “International
-Organization for Standardization” annotated with “国際標準化 機構” as a native
+A Japanese-language document contains the English name "International
+Organization for Standardization" annotated with "国際標準化 機構" as a native
 ruby gloss. Since the base text forms a single semantic unit, this ruby pair is
 tagged as:
 
@@ -757,8 +757,8 @@ text.
 
 [example]
 ====
-Word-processing software without ruby support can annotate the word “振り仮名” as
-“振り仮名(ふりがな)”. This is tagged as:
+Word-processing software without ruby support can annotate the word "振り仮名" as
+"振り仮名(ふりがな)". This is tagged as:
 
 [source,xml]
 ----
@@ -1449,7 +1449,7 @@ or those in the font program.
 For all non-symbolic TrueType fonts used for rendering, the embedded TrueType
 font program shall contain at least the Microsoft Unicode (3, 1 - Platform ID =
 3, Encoding ID = 1), or the Macintosh Roman (1, 0 - Platform ID = 1, Encoding ID
-= 0) “cmap” subtable.
+= 0) "cmap" subtable.
 
 NOTE: Conformance with this requirement ensures that all necessary glyph lookups
 can be carried out.
@@ -1462,11 +1462,11 @@ the Encoding key in the Font dictionary.
 In addition, all non-symbolic TrueType fonts shall not define a *Differences*
 array unless all the glyph names in the *Differences* array are listed in the
 Adobe Glyph List and the embedded font program contains at least the Microsoft
-Unicode (3, 1 - Platform ID = 3, Encoding ID = 1) encoding in the “cmap”
+Unicode (3, 1 - Platform ID = 3, Encoding ID = 1) encoding in the "cmap"
 subtable.
 
 Symbolic TrueType fonts shall not contain an *Encoding* entry in the font
-dictionary. The “cmap” subtable in the embedded font program shall either
+dictionary. The "cmap" subtable in the embedded font program shall either
 contain the Microsoft Symbol (3, 0 - Platform ID = 3, Encoding ID = 0) or the
 Mac Roman (1, 0 - Platform ID = 1, Encoding ID = 1) encoding.
 
@@ -1802,7 +1802,7 @@ particularly valuable in the context of link targets that are not intended to be
 human-readable.
 
 [example]
-A link over the text “click here” is improved by a *Contents* entry to advise
+A link over the text "click here" is improved by a *Contents* entry to advise
 the user regarding the link's target.
 
 See <<file-format-annotations-link-ref>> for requirements specific to the *Link*
@@ -1885,7 +1885,7 @@ author's intent shall be provided.
 
 NOTE: As Ink annotations are freeform, descriptive information is necessary for
 accessibility. For example, a handwritten signature for John Doe can be
-described as “the signature of John Doe”.
+described as "the signature of John Doe".
 ====
 
 
@@ -2151,14 +2151,14 @@ information to understand an interactive form field and any associated widget
 annotations.
 
 [example]
-A set of radio buttons to choose ice-cream flavours labelled “Vanilla”,
-“Strawberry”, and “Chocolate” that can be fully described by their respective
+A set of radio buttons to choose ice-cream flavours labelled "Vanilla",
+"Strawberry", and "Chocolate" that can be fully described by their respective
 labels together with the *TU* entry on the associated field, would not require a
 *Contents* entry.
 
 [example]
 Each radio button in a survey form in which the column headers of a table
-contain the labels “Agree” and “Disagree” for the widgets in their respective
+contain the labels "Agree" and "Disagree" for the widgets in their respective
 columns, would require a *Contents* entry.
 
 Where field types provide additional mechanisms for context, those mechanisms shall be
@@ -2407,7 +2407,7 @@ NOTE: A document outline contains items that are often referred to as bookmarks.
 Outline items can refer to destinations or invoke actions.
 
 NOTE: This document deliberately avoids defining any specific length as
-“longer”.
+"longer".
 
 
 ==== Page labels

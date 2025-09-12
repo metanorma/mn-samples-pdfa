@@ -15,7 +15,6 @@
 :docidentifier: PDFa AN 002:2018 (1.0.0)
 :imagesdir: images
 :coverpage-image: images/coverpage.png
-//:fonts: Source Sans 3;Source Sans Pro
 :local-cache-only:
 
 include::sections/00-foreword.adoc[]
@@ -35,18 +34,18 @@ specifications, and does not change the text of those specifications.
 
 == Introduction
 
-Today, “attachments” are a widely used concept in the world of email and text
+Today, "attachments" are a widely used concept in the world of email and text
 messages. Every email client supports the ability to attach a file; everyone who
 uses a computer or smartphone learns how to use this feature. The use of
 attachments in email has, however, some limitations. For example, there is no
 interoperable way to link an attachment to a certain part of the text in the
 email body. Nor is it possible to specify in an interoperable way the
-relationship between the ‘container’ email and its attachment(s). This
+relationship between the 'container' email and its attachment(s). This
 information -- the nature (beyond MIME-type) and purpose of the attachment -- can
 only be described in the email body.
 
 Associated Files (<<ISO_32000-2,clause=14.13>>) leverage the ubiquity of PDF to
-build on the commonplace concept of “attachments” in electronic communications.
+build on the commonplace concept of "attachments" in electronic communications.
 The Associated Files model is exceptionally open, and can address a wide variety
 of use cases. Using the Associated Files feature, PDF writers can provide
 additional information about files related to a PDF file in a standardized and
@@ -60,11 +59,11 @@ object with the related object itself.
 PDF introduced attachments (embedded file streams) in PDF 1.3, in the late
 1990s. PDF 1.6 introduced the optional *Desc* entry that allows for adding
 descriptions to any embedded file. Derived from PDF/A-3, PDF 2.0 introduces
-“Associated Files” to enhance interoperability by specifying the nature of the
+"Associated Files" to enhance interoperability by specifying the nature of the
 relationship between a PDF document and embedded files, as well as (optionally)
 the object in a container PDF file (e.g., a page, an image, or a structure
 element) to which an embedded file relates. PDF 1.7 introduced the concept of
-“Collections” defining presentational aspects of how embedded files might be
+"Collections" defining presentational aspects of how embedded files might be
 made available to users. This concept is orthogonal to the Associated Files
 feature.
 
@@ -104,19 +103,19 @@ A file stream that is embedded into a container PDF file.
 
 An external file referenced from a PDF file. An Associated File may be either embedded or
 referenced (external to the PDF). Note 1 in <<ISO_32000-2,clause=14.13.2>> states:
-“A file specification dictionary allows for both embedded data and referenced/external data. Both
-types are allowed for associated files but the embedded form is recommended.”
+"A file specification dictionary allows for both embedded data and referenced/external data. Both
+types are allowed for associated files but the embedded form is recommended."
 
 === Packaged document
 
-Typically, a “packaged document” includes several embedded and/or associated
+Typically, a "packaged document" includes several embedded and/or associated
 files.
 
 
 == What are Associated Files?
 
 Associated Files (<<ISO_32000-2,clause=14.13>>) enhance the concept of embedded or
-referenced files by standardizing a means of defining “relationships” between
+referenced files by standardizing a means of defining "relationships" between
 such files (regardless of format) and the PDF objects with which they are
 associated.
 
@@ -165,7 +164,7 @@ Referenced Associated Files are permitted, but in almost all contexts, only
 embedded files make sense.
 
 
-=== PDF/A-3’s restrictions
+=== PDF/A-3's restrictions
 
 PDF/A-3, which introduced Associated Files to PDF in 2012, imposes some
 additional requirements that are not present in PDF 2.0:
@@ -173,7 +172,7 @@ additional requirements that are not present in PDF 2.0:
 * PDF/A-3 excludes external file references, so associations can be specified
 only for embedded files
 
-* Since PDF/A-3 requires the *AF* entry for all embedded files, each file’s
+* Since PDF/A-3 requires the *AF* entry for all embedded files, each file's
 MIME-type is always required
 
 * PDF/A-3 requires every embedded file to be an Associated File and thus
@@ -194,7 +193,7 @@ defined in PDF/VT when PDF/A-3 was developed).
 
 Most current and interoperable implementations using Associated files relate the
 embedded or referenced file with the PDF as a whole; thus their *AF* entry
-appears in the document’s catalog dictionary. Clause 5 describes (in general
+appears in the document's catalog dictionary. Clause 5 describes (in general
 terms) a few such use cases.
 
 Implementations can also take advantage of *AF* mechanisms to associate embedded
@@ -213,7 +212,7 @@ enable the desired degree of interoperability. Examples include:
 * European standards for hybrid electronic invoices (Factur-X in France and
 ZUGFeRD in Germany) build on PDF/A-3.
 
-* The “Drawing-free Product Documentation” specification (DFP) of the German
+* The "Drawing-free Product Documentation" specification (DFP) of the German
 automotive industry specifies how product documentation in PDF can be combined
 with a geometry representation (e.g., using the JT graphics format) in a PDF/A-3
 container. Such DFP containers can be sent to suppliers as requirements
@@ -232,13 +231,13 @@ drafting, e.g. for an agreement exchanged between parties, or for a spreadsheet,
 to provide access to the formulas used to calculate cells.
 
 End-user applications such as Open Office already use this feature to some
-extent, and can create such “PDF packages” that consist of the as-intended
+extent, and can create such "PDF packages" that consist of the as-intended
 rendered document in an open format and the editable file as a (potentially
 proprietary) embedded (or referenced) file. Some office applications allow users
 to create a PDF file with embedded original with a single mouse click, for
 example, in the context of exporting to PDF/A-3 files. In this use case the
 *AFRelationship* entry will be _Source_ and the *AF* entry will be in the
-document’s catalog dictionary.
+document's catalog dictionary.
 
 
 ==== Associating machine readable data
@@ -246,7 +245,7 @@ document’s catalog dictionary.
 In many important use cases -- electronic invoices being the classic example -
 data must be readable by both humans and machines. Since invoices typically
 cross organizational borders, sender and receiver must agree on the format and
-representation of the data. A “hybrid” invoice embeds a machine-readable
+representation of the data. A "hybrid" invoice embeds a machine-readable
 structure (usually XML) into a PDF (or PDF/A- 3) representation of the data.
 Both human and machine can expect and receive useful results.
 
@@ -257,7 +256,7 @@ or printed by the human from the PDF while an embedded data structure can be
 read by the software, and used to activate it.
 
 In all cases where the containing PDF and the associated file are different
-“renderings” of the same data, the process for its creation would typically
+"renderings" of the same data, the process for its creation would typically
 either create the two elements (PDF and machine-readable content) in one
 process, or derive the PDF rendering from the structured data in the embedded or
 referenced file. The *AFRelationship* entry will be _Alternative_ and the *AF*
@@ -272,9 +271,9 @@ and the *AFRelationship* entry will have the value _Data_.
 
 ==== Creating packaged documents
 
-PDF’s model for packaged documents is an immensely powerful feature facilitating
+PDF's model for packaged documents is an immensely powerful feature facilitating
 exchange of content collections while maintaining their structure. In this use
-case the “container” PDF will commonly have several embedded files.
+case the "container" PDF will commonly have several embedded files.
 
 Today, such file structures are usually managed in project, document or content
 management systems. This works well if:
@@ -290,7 +289,7 @@ is a viable solution.
 
 The typical alternative to a PDF file with embedded files is a ZIP container or
 an XML structure with embedded file streams. Neither of these approaches offers
-features resembling PDF’s set of capabilities. A ZIP container will lose its
+features resembling PDF's set of capabilities. A ZIP container will lose its
 relationship to the embedded files when unzipped; a workflow must be established
 in order to keep that structure intact. An XML structure uses ASCII-7bit with a
 negative impact on file size, and requires specialized software to access
@@ -402,7 +401,7 @@ PDF technology includes a variety of options to encrypt both PDF document and
 its embedded files with either symmetric or public-key encryption.
 Alternatively, one can encrypt only the document, but keep Associated Files
 unencrypted (this can be achieved using the _Crypt_ filter with _Identity_
-decode parameter), see 5.5, “Encrypted payloads”.
+decode parameter), see 5.5, "Encrypted payloads".
 
 
 ==== Digital signatures
@@ -471,7 +470,7 @@ there are any *AF* entries for embedded or referenced files.
 
 For example in an open environment such as the exchange of hybrid invoices, the
 processing application for an invoice is in most cases not a full PDF application but could
-be an ERP system or accounting software. To make things easier for processors that aren’t
+be an ERP system or accounting software. To make things easier for processors that aren't
 capable of interpreting the PDF per se, it is important that the PDF writer makes it as easy
 as possible to identify and extract the embedded XML structure. An entry in
 *EmbeddedFiles* names tree is the most commonly-supported way for even a minimal PDF

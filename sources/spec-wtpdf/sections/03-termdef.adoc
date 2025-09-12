@@ -37,7 +37,7 @@ graphics objects, annotations and form fields representing material
 intentionally introduced by a document's author and necessary for an {{assistive
 technology}} user to understand that document's content
 
-NOTE: Text, images and paths are all examples of “graphics objects” in PDF
+NOTE: Text, images and paths are all examples of "graphics objects" in PDF
 files.
 
 NOTE: The purpose of distinguishing between real and other content is to

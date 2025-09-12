@@ -21,7 +21,7 @@ include::sections/00-foreword.adoc[]
 
 == Introduction
 
-This Application Note was produced by the PDF Association’s PDF Technical
+This Application Note was produced by the PDF Association's PDF Technical
 Working Group (TWG) to explain the use of the *UseBlackPtComp* flag, a new feature
 in PDF 2.0. It provides interpretation of the existing specifications; it does
 not change the text of those specifications. The principal authors of this
@@ -57,7 +57,7 @@ adjusts the colour transformation that will be applied, especially towards the
 shadow end of the tone scale, by aligning the darkest colour that could be
 described by the colour space of the data to be displayed with the darkest
 colour that the output profile for the display device (screen or print) can
-produce. It’s therefore very similar to what switching between absolute and
+produce. It's therefore very similar to what switching between absolute and
 relative colorimetric rendering intents does at the highlight end of the tone
 scale. That aligns the lightest colour in the colour space in the PDF file to
 the lightest colour that the output device can produce, on a printing device
@@ -87,7 +87,7 @@ be turned on or off is up to the PDF processor.
 
 Turning on BPC will often increase the perceived quality of graphical elements
 such as natural photographic images because they may achieve a higher contrast
-and more ‘punch’.
+and more 'punch'.
 
 But if turned on for the whole of a print job it may also be applied to
 graphical elements in colours that should be reproduced as accurately as

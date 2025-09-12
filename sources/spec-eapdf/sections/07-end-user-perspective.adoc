@@ -612,7 +612,7 @@ endobj
 
 12 0 obj
 << /Type    /EmbeddedFile
-   /Subtype /application#2Fvnd.ms-outlook % IANA Media Type for “.msg”. No parameters
+   /Subtype /application#2Fvnd.ms-outlook % IANA Media Type for ".msg". No parameters
    /Params << % required for embedded files used as Associated Files
       /ModDate  (D:20000901104905) % required for embedded files used as Associated Files
       /CheckSum <f1e884313db0d133ea409b7043c35288>  % 16 byte MD5 as PDF hex string
@@ -1112,7 +1112,7 @@ original source email asset.
 --
 2 0 obj                 % see https://www.iana.org/assignments/media-types/text/csv
 << /Type /EmbeddedFile  % see Table 44 in ISO 32000-2:2020
-   /Subtype /text#2Fcsv % IANA Media Type “text/csv” as a PDF name object
+   /Subtype /text#2Fcsv % IANA Media Type "text/csv" as a PDF name object
    /Mail_MediaTypeParameters (charset=utf-8, headers=present) % EA-PDF optional key
                         % supporting defined parameters for text/csv. PDF string.
    /Params <<           % see Table 45 in ISO 32000-2:2020

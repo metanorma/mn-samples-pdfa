@@ -55,18 +55,18 @@ Modern regulations increasingly specify requirements for accessible documents.
 Consequently, many applications add PDF/UA support to existing PDF/A output
 capabilities. These existing capabilities may have been implemented many years
 ago based on references to old PDF specifications that lack guidance on modern
-features. For example, PDF/A-1 doesn’t allow transparency, a basic feature of
+features. For example, PDF/A-1 doesn't allow transparency, a basic feature of
 modern documents. This, and other limitations, prompted the development of
 PDF/A-2 and PDF/A-3, which are based on the ISO standard for PDF 1.7 (
 <<ISO_32000-1_2008>>).
 
-The advent of PDF 2.0 (<<ISO_32000-2_2020>>) and its “companion” subsets, PDF/A-4
+The advent of PDF 2.0 (<<ISO_32000-2_2020>>) and its "companion" subsets, PDF/A-4
 (archival) and PDF/UA-2 (accessibility), has raised the need for industry
 guidance on using PDF/A and PDF/UA together.
 
 == Compatibility guide
 
-The following table summarises the PDF Association’s compatibility
+The following table summarises the PDF Association's compatibility
 recommendations for the various editions of PDF/A and PDF/UA. The rest of the
 document provides technical details and additional guidance.
 
@@ -122,7 +122,7 @@ assistive technology (AT) might incorrectly process a document because of a
 newer PDF version or feature mismatch.
 
 The only defined mechanism by which all PDF files indicate conformance to PDF/A
-and PDF/UA is via the document catalog’s XMP Metadata key.
+and PDF/UA is via the document catalog's XMP Metadata key.
 
 * DETAIL: A single PDF may declare conformance to multiple ISO PDF subset
 standards; however, some combinations are invalid. Even for valid combinations,
@@ -140,7 +140,7 @@ requirement.
 
 Combining PDF/A-1 and PDF/UA-1 is NOT RECOMMENDED.
 
-* WHY: PDF/A-1 (ISO 19005-1:2005) is based on an older specification (Adobe’s
+* WHY: PDF/A-1 (ISO 19005-1:2005) is based on an older specification (Adobe's
 PDF 1.4), which significantly predates ISO 32000-1:2008, the ISO-standardized
 PDF 1.7, which is the basis for PDF/UA-1 (ISO 14289-1:2014).
 
@@ -185,7 +185,7 @@ conformance to PDF 1.x based standards,
 * DETAIL: PDF 2.0 documents may use the PDF 1.7 standard structure tag set when
 conforming to PDF/UA-2.
 
-* DETAIL: Due to PDF/A-4’s relaxed provisions regarding XMP metadata, if a
+* DETAIL: Due to PDF/A-4's relaxed provisions regarding XMP metadata, if a
 PDF/UA-2 document also conforms to PDF/A-4, an XMP extension schema for PDF/UA-2
 is not required. Instead, PDF/A-4 documents may include RELAX-NG schema (see
 https://pdfa.org/resource/iso-16684-2/[ISO 16684-2]) as an Associated File of
@@ -194,8 +194,8 @@ metadata streams.
 PDF 2.0 documents must only use PDF/UA-2 and / or PDF/A-4
 
 NOTE: For guidance on how to ensure PDF/UA-2 conformance while also ensuring
-optimal content reuse in PDF 2.0, refer to the PDF Association’s
-“https://pdfa.org/wtpdf[Well-Tagged PDF Specification]”.
+optimal content reuse in PDF 2.0, refer to the PDF Association's
+"https://pdfa.org/wtpdf[Well-Tagged PDF Specification]".
 
 Ensure that the PDF version is appropriate to the features included in the PDF
 file.
@@ -217,15 +217,15 @@ can verify PDF versions and feature sets in detail. Always use up-to-date PDF
 validation software.
 
 * WHY: Out-of-date validation software lacks the latest industry-agreed
-clarifications arising from discussions within the PDF Association’s technical
+clarifications arising from discussions within the PDF Association's technical
 working groups.
 
 * WHY: Some validators may only check a single ISO-standardized subset of PDF at
 a time, so be sure that all declared conformance statements are individually
 validated.
 
-PDF/A (all parts) and PDF/UA-1 define the concept of a “conforming viewer” or
-“conforming processor”. Thus, each standard defines its own requirements for
+PDF/A (all parts) and PDF/UA-1 define the concept of a "conforming viewer" or
+"conforming processor". Thus, each standard defines its own requirements for
 software needed to support these ISO-standardized subsets of PDF.
 
 NOTE: Use the appropriate conforming software for the use case to ensure a
@@ -239,7 +239,7 @@ need to be manually configured or run multiple times to validate each
 conformance claim.
 
 * WHY: Conforming PDF files can always be used with generic (non-conforming) PDF
-software, but the user’s experience may not include complete and correct support
+software, but the user's experience may not include complete and correct support
 for all features required of a conforming viewer by the applicable ISO
 standard(s).
 
@@ -247,10 +247,10 @@ Use appropriate software for assurance of appropriate performance.
 
 * WHY: For PDF/A documents, using generic non-conforming PDF/A software may
 result in pages that look (render) differently and do not accurately reflect the
-document’s content.
+document's content.
 
 * WHY: For PDF/UA documents, using generic PDF software may result in a partial
-or complete failure to deliver the document’s content in an accessible manner
+or complete failure to deliver the document's content in an accessible manner
 (e.g., text being read in an incorrect order).
 
 Some PDF viewers and application software may not inform the user when
@@ -266,12 +266,12 @@ implementations and do not impact the document's conformance. Contact your
 vendor for more information.
 
 Some PDF viewers and application software may not correctly process or report
-the PDF file’s version number.
+the PDF file's version number.
 
 * DETAIL: The version of a PDF file is determined by examining *_both_* the file
 header (ISO 32000, §7.5.2) *_and_* the *Version* entry (if any) in the document
 catalog (ISO 32000, §7.7.2). However, outdated or unmaintained software may
-incorrectly ignore the *Version* entry, which was added to Adobe’s PDF Reference
+incorrectly ignore the *Version* entry, which was added to Adobe's PDF Reference
 1.4 in 2001.
 
 Some PDF viewers and application software may not yet support PDF 2.0 and thus cannot

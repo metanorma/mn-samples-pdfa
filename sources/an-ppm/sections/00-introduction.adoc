@@ -47,12 +47,12 @@ level technical details of the ISO PPM standard. This document is not intended
 as a substitute for the ISO PPM standard
 
 PDF is commonly used today for specifying final form page content for print
-applications and products. The format’s ability to represent pages from simple
+applications and products. The format's ability to represent pages from simple
 black and white graphical content to fully color-managed page designs is well
 known and supported by most page design and layout applications, prepress
 workflow and production printing systems available today
 
-The expressiveness, flexibility and reliability of PDF, especially ISO’s PDF/X,
+The expressiveness, flexibility and reliability of PDF, especially ISO's PDF/X,
 has led to its use as the preferred and universal file format for communicating
 graphical page content independent of proprietary formats supported by page
 layout applications
@@ -67,15 +67,15 @@ XJDF, or some proprietary and application-specific method. ISO 32000-2 (PDF 2.0)
 introduced a standard way to specify structured relationships among the pages of
 a PDF file as well as a way to embed specialized metadata within that structure.
 
-Based on CIP4’s XJDF the PPM standard, defines a set of machine readable
+Based on CIP4's XJDF the PPM standard, defines a set of machine readable
 metadata definitions that can be embedded within a PDF 2.0, (including PDF/X-6)
 or PDF/VT file to specify the details of the finished print product(s) in
 relation to its PDF pages.
 
-Prior to PPM’s introduction, the common way to communicate finished print
+Prior to PPM's introduction, the common way to communicate finished print
 product requirements was either through ad-hoc methods such as a written
 description within an email, a Customer Service Representative (CSR), or perhaps
-through the use of an online portal’s print product catalog or order entry form.
+through the use of an online portal's print product catalog or order entry form.
 
 The use of PPM in PDF creates an opportunity for the print industry to modernize
 and improve communication of finished print product details among participants

@@ -116,9 +116,9 @@ not cover all pages in a PDF file.
 
 == Implicit mention of Metadata in PDF 2.0
 
-As noted in Table 1, an optional “Metadata” entry is defined for several
+As noted in Table 1, an optional "Metadata" entry is defined for several
 dictionaries apart from the document catalog dictionary. Indeed, the
-specification actually goes much further; ISO 32000-2, 14.3.2 “Metadata streams”
+specification actually goes much further; ISO 32000-2, 14.3.2 "Metadata streams"
 states that:
 
 [quote]
@@ -131,7 +131,7 @@ Accordingly, PDF 2.0 processors must be prepared to encounter metadata almost
 anywhere in PDF files.
 
 In order for metadata to be useful a common understanding between creator and
-processor regarding the metadata’s location is required. However, since some
+processor regarding the metadata's location is required. However, since some
 objects in PDF distribute related information over several interlinked entries
 the appropriate location is not always clear. ISO 32000-2, 14.3.2 provides some
 guidance for these cases:
@@ -145,26 +145,26 @@ ____
 
 In alignment with this advice PDF 2.0 identifies objects that may be expected to
 include embedded metadata streams even while their PDF 2.0 definitions lack the
-optional “Metadata” entry noted in <<table-1>>. These objects are:
+optional "Metadata" entry noted in <<table-1>>. These objects are:
 
-* Embedded fonts (14.3.2 “Metadata streams”, see Note 1)
+* Embedded fonts (14.3.2 "Metadata streams", see Note 1)
 
-* Tiling patterns (14.3.2 “Metadata streams”, see Note 1)
+* Tiling patterns (14.3.2 "Metadata streams", see Note 1)
 
-* Shading patterns (14.3.2 “Metadata streams”, see Note 1)
+* Shading patterns (14.3.2 "Metadata streams", see Note 1)
 
-* Marked content (14.3.2 “Metadata streams”, see paragraph 5)
+* Marked content (14.3.2 "Metadata streams", see paragraph 5)
 
-* Structure elements (14.8.4.3 “Document level structure types”, see paragraph 5)
+* Structure elements (14.8.4.3 "Document level structure types", see paragraph 5)
 
-The following clauses clarify what “the metadata shall be attached as closely as
-possible to the object that actually stores the data resource” means as applied
+The following clauses clarify what "the metadata shall be attached as closely as
+possible to the object that actually stores the data resource" means as applied
 to each of these object types.
 
 === Embedded fonts
 
 For embedded font streams PDF 2.0 is pretty clear in the (non-normative) Note 1
-in 14.3.2 “Metadata streams”:
+in 14.3.2 "Metadata streams":
 
 [quote]
 ____
@@ -188,20 +188,20 @@ may be understood as having an additional row as indicated in <<table-2>>.
 | *Metadata*
 | stream
 | (Optional; shall be an indirect reference) A metadata stream that
-shall contain metadata for the font program (see 14.3.2, “Metadata
-streams”).
+shall contain metadata for the font program (see 14.3.2, "Metadata
+streams").
 
 |===
 
 === Tiling patterns (Type 1 pattern dictionaries)
 
 For tiling patterns PDF 2.0 is pretty clear in the (non-normative) Note 1 in
-14.3.2 “Metadata streams”:
+14.3.2 "Metadata streams":
 
 [quote]
 ____
 …metadata describing a tiling pattern needs to be attached to the pattern
-stream’s dictionary.
+stream's dictionary.
 ____
 
 Since a tiling pattern only uses a single stream object as defined in ISO
@@ -216,15 +216,15 @@ indicated in <<table-3>>.
 | *Metadata*
 | stream
 | (Optional; shall be an indirect reference) A metadata stream that
-shall contain metadata for the tiling pattern (see 14.3.2, “Metadata
-streams”).
+shall contain metadata for the tiling pattern (see 14.3.2, "Metadata
+streams").
 
 |===
 
 === Shading patterns (Type 2 pattern dictionaries)
 
 For shading patterns PDF 2.0 is pretty clear in the (non-normative) Note 1 in
-ISO 32000-2, 14.3.2 “Metadata streams”:
+ISO 32000-2, 14.3.2 "Metadata streams":
 
 [quote]
 ____
@@ -244,15 +244,15 @@ as indicated in <<table-4>>.
 | *Metadata*
 | stream
 | (Optional; shall be an indirect reference) A metadata stream that shall
-contain metadata for the shading pattern (see 14.3.2, “Metadata
-streams”).
+contain metadata for the shading pattern (see 14.3.2, "Metadata
+streams").
 
 |===
 
 
 === Marked content
 
-PDF 2.0 specifies in ISO 32000-2, 14.3.2. “Metadata streams” as follows:
+PDF 2.0 specifies in ISO 32000-2, 14.3.2. "Metadata streams" as follows:
 
 [quote]
 ____
@@ -261,7 +261,7 @@ content stream, by including a metadata stream in the property list dictionary
 for this marked content. Because a stream dictionary is always an indirect
 object, a property list containing a metadata stream cannot be encoded
 inline in the content stream, but needs to be encoded as a named resource
-(see 14.6.2, “Property lists”).
+(see 14.6.2, "Property lists").
 ____
 
 According to the Note in ISO 32000-2, 14.6.2, property lists in marked content
@@ -273,9 +273,9 @@ used by several PDF features, including optional content … , tagged PDF …
 and Associated Files...
 ____
 
-Applying PDF 2.0’s general requirement for object level metadata; that it “shall
+Applying PDF 2.0's general requirement for object level metadata; that it "shall
 be attached as closely as possible to the object that actually stores the data
-resource” (as cited above from 14.3.2), the Note should be understood as meaning
+resource" (as cited above from 14.3.2), the Note should be understood as meaning
 that:
 
 
@@ -294,7 +294,7 @@ Remaining use cases for object level metadata in the context of marked content
 are association with content sequences that are either not tagged at all or
 include portions of content that are not included in the tagging structure. For
 this use case the content must be marked as described in ISO 32000-2, 14.6
-“Marked content” using DP or BDC operators:
+"Marked content" using DP or BDC operators:
 
 [source]
 ----
@@ -327,19 +327,19 @@ endobj
 [[structure-elements]]
 === Structure elements
 
-In ISO 32000-2, 14.8.4.3 “Document level structure types” PDF 2.0 clearly
+In ISO 32000-2, 14.8.4.3 "Document level structure types" PDF 2.0 clearly
 highlights the use of metadata for certain structure element types:
 
 [quote]
 ____
-An XMP metadata stream (see 14.3.2, “Metadata streams”) in a Document or
+An XMP metadata stream (see 14.3.2, "Metadata streams") in a Document or
 DocumentFragment structure element may be used to include document metadata for
 a logical document nested inside a tagged PDF.
 ____
 
 Due to the very open concept of PDF to allow metadata in every stream or
-dictionary “as long as the stream or dictionary represents an actual information
-resource” the fact that the specification only highlights document-level
+dictionary "as long as the stream or dictionary represents an actual information
+resource" the fact that the specification only highlights document-level
 semantics for this purpose should not be understood as limiting metadata usage
 to document level structure types.
 
@@ -359,9 +359,9 @@ understood as to have an additional row as indicated in <<table-5>>.
 | *Metadata*
 | stream
 | (Optional usually only used for document level structure elements, see
-14.8.4.3 “Document level structure types”; shall be an indirect reference)
+14.8.4.3 "Document level structure types"; shall be an indirect reference)
 A metadata stream that shall contain metadata for the structure
-element (see 14.3.2, “Metadata streams”).
+element (see 14.3.2, "Metadata streams").
 
 |===
 
@@ -403,7 +403,7 @@ Any optional content group may include associated metadata. In this case the
 corresponding XMP metadata stream shall be referenced by the *Metadata* entry in
 the Optional Content Group dictionary (ISO 32000-2, Table 96).
 
-An example of such *Metadata* - albeit not in XMP - is ISO 19593 “Processing Steps” that
+An example of such *Metadata* - albeit not in XMP - is ISO 19593 "Processing Steps" that
 defines metadata for OCGs specifying post print production steps such as diecut lines. Such
 metadata structures are likewise located in the Optional Content Group dictionary.
 
@@ -415,12 +415,12 @@ this annotation are referenced by the Assets entry in the RichMediaContent
 dictionary (ISO 32000-2, Table 341) and form the tree of the embedded file
 specifications. In this case each asset metadata shall be referenced by the
 *Metadata* entry in the corresponding file specification dictionary. See
-“Embedded files” case discussed above.
+"Embedded files" case discussed above.
 
 === 3D artwork
 
 3D artwork can be embedded into a PDF document as an Annotation of type 3D. In
-this case the actual data stream of the 3D model (see 13.6.3 “3D Streams”) is
+this case the actual data stream of the 3D model (see 13.6.3 "3D Streams") is
 located under the key 3DD in the annotation dictionary (see ISO 320000-2, Table
 309). The associated metadata for this 3D artwork must be referenced by the
 *Metadata* entry in the corresponding 3D stream dictionary (ISO 32000-2, Table
