@@ -9,11 +9,11 @@ span:edition[Release 2.0]
 span:date.release[2018]
 span:uri[https://www.CIP4.org]
 
-* [[[ISO 21812-1,ISO 21812-1]]],
+* [[[ISO_21812-1,ISO 21812-1]]],
 Graphic technology — Print product metadata for PDF files — Part 1:
 Architecture and core requirements for metadata
 
-* [[[ISO 16612-2,ISO 16612-2]]],
+* [[[ISO_16612-2,ISO 16612-2]]],
 Graphic technology — Variable data exchange —
 Part 2: Using PDF/X-4 and PDF/X-5 (PDF/VT-1 and PDF/VT-2)
 

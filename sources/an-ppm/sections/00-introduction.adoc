@@ -4,7 +4,7 @@
 === Overview
 
 This document provides an overview and technical introduction to the Print
-Product Metadata (PPM) ISO Standard (ISO 21812-1) which makes use of PDF
+Product Metadata (PPM) ISO Standard (<<ISO_21812-1>>) which makes use of PDF
 features introduced in ISO PDF/VT and natively supported in PDF 2.0
 
 PPM is structured machine readable information stored within a PDF file that is
