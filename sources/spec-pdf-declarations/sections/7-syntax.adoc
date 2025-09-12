@@ -34,7 +34,7 @@ A document for which an author or other responsible entity wishes to declare tha
   <rdf:Description rdf:about="" xmlns:pdfd="http://pdfa.org/declarations/">
     <pdfd:declarations>
       <rdf:Bag>
-        <!-- Declaration for conformance with standard “hipaa” -->
+        <!-- Declaration for conformance with standard "hipaa" -->
         <rdf:li rdf:parseType="Resource">
           <pdfd:conformsTo>http://pdfa.org/declarations#hipaa</pdfd:conformsTo>
           <!-- Optional entries permitted by the Declaration mechanism -->

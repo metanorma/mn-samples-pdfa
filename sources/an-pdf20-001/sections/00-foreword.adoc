@@ -1,6 +1,6 @@
 .Foreword
 
-This Application Note was produced by the PDF Association’s PDF Technical
+This Application Note was produced by the PDF Association's PDF Technical
 Working Group (TWG) to explain the use of the *UseBlackPtComp* flag, a new
 feature in PDF 2.0.
 

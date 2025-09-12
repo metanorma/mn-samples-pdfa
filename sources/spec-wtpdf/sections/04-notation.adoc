@@ -12,11 +12,11 @@ according to convention defined in <<ISO_32000-2,clause=4>> and in subclauses
 This specification uses terminology consistently throughout the document to to
 avoid confusion and ambiguity. These terms are defined as follows:
 
-* *this document* -- reference to this specification, “Usage of Tagged PDF in
-PDF 2.0”;
+* *this document* -- reference to this specification, "Usage of Tagged PDF in
+PDF 2.0";
 
 * *document* -- describes a semantic document, along with its content, sometimes
-preceded by an “a” or “the”;
+preceded by an "a" or "the";
 
 * *file* -- indicates a file containing or representing a semantic document or
 content as a distinct entity;

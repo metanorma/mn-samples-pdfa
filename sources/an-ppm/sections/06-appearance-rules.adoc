@@ -145,7 +145,7 @@ image::figure-02.png[]
 
 A part with a product type that implies a limit on the number of finished pages
 (e.g. _FrontCover_, _BackCover_, _WrapAroundCover_) that references logical
-pages that imply more finished pages than the part’s limit will lead to an
+pages that imply more finished pages than the part's limit will lead to an
 undefined result.
 
 For a part with *CIP4_ProductType* with a value of _Envelope_ the *CIP4_LayoutIntent* determines
@@ -193,9 +193,9 @@ have been applied. The thickness of the specified finished dimensions (Z
 dimension) is set to _0_ if the exact thickness is unknown.
 
 If *CIP4_FinishedDimensions* is not explicitly specified then the finished
-dimensions for a part is the aggregate of the finished dimensions of the part’s
+dimensions for a part is the aggregate of the finished dimensions of the part's
 finished pages taking into account the relative alignment of those finished
-pages. If the part’s *CIP4_FinishedDimensions* are smaller than the calculated
+pages. If the part's *CIP4_FinishedDimensions* are smaller than the calculated
 finished dimensions then trimming of the part to the specified size is implied.
 
 The definition of layout intent requires a specification of the finished
@@ -207,7 +207,7 @@ imaged onto that finished page. As the *TrimBox* only specifies width and
 height, the thickness (Z dimension) of the finished dimensions is left
 unspecified, and is therefore set to _0_.
 
-If the PDF page’s *TrimBox* and the specified finished dimensions are not the
+If the PDF page's *TrimBox* and the specified finished dimensions are not the
 same then the *TrimBox* defines the dimensions of the finished page prior to
 folding. The specified finished dimensions for a finished page should match the
 finished page size after folding. For spreads, it is necessary to explicitly
@@ -298,7 +298,7 @@ of the part are first gathered/collected and then folded rather than each
 finished page being folded and then gathered.
 
 The *CIP4_FoldCatalog* key defines the folding pattern as a sequence of folds.
-The key’s value is a name from the folding catalog as defined in the XJDF
+The key's value is a name from the folding catalog as defined in the XJDF
 specification. Only a subset of folds are included, see section 7.6.6 of the PPM
 standard.
 
@@ -363,7 +363,7 @@ If both binding and folding intent applies then the binding edge refers to the
 corresponding edge of the folded part after folding. The results are undefined
 for certain folding types when saddle or side stitching is requested due to the
 binding edge being physically connected to another finished page to form a
-single sheet where the folding would require a “flap” to be somehow attached.
+single sheet where the folding would require a "flap" to be somehow attached.
 Similarly, the results are undefined when requesting folding on an axis
 perpendicular to the binding edge (e.g. binding edge left and using _Rotate90_,
 _Rotate270_, _Flip90_, _Flip270_).
@@ -462,7 +462,7 @@ orientation. The resulting part is the specified container.
 
 If the finished dimensions of the part to be inserted into the container are
 equal to or exceed the finished dimensions of the container it is inserted into
-(i.e. doesn’t fit) then the results are undefined.
+(i.e. doesn't fit) then the results are undefined.
 
 NOTE: Some clearance on the inside will generally be necessary to allow the
 insertion process to succeed.
@@ -527,10 +527,10 @@ https://github.com/adobe/pdf-names-list).
 Before using a private extension in PPM, vendors should check whether the XJDF
 specification already has a method of specifying the desired attributes of the
 print product. In such cases the encoding rules of section 6.2 to map XJDF to
-PDF must be applied and should use the second class name prefix “CIP4_”. In
+PDF must be applied and should use the second class name prefix "CIP4_". In
 situations where the XJDF specification does not have a way to express an
 equivalent intent property, it is recommended that a new intent be defined and
-proposed as an addition to the XJDF specification using CIP4’s registration
+proposed as an addition to the XJDF specification using CIP4's registration
 process.
 
 

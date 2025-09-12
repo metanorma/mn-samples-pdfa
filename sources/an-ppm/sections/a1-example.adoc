@@ -23,7 +23,7 @@ image::figure-13.png[]
 
 | image::figure-14.png[]
 | Book cover: A single page representing the
-imposed back, spine, and front of the book’s
+imposed back, spine, and front of the book's
 cover as a spread to be printed on book cover
 cloth material.
 

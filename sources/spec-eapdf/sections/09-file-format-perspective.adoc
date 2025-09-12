@@ -1092,7 +1092,7 @@ stream
      …
      /Mail_FieldName BMC
         /Span << /Lang (fr) >> BDC % Email rendered using French user interface
-           BT (Objet:) TJ ET       % French for “subject” as text object
+           BT (Objet:) TJ ET       % French for "subject" as text object
         EMC
      EMC
      …

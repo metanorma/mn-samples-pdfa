@@ -64,7 +64,7 @@ the PPM standard:
 
 NOTE: The list of product types defined by the PPM standard should be used where
 possible even if this implies using a more generic product type (e.g. use
-“Letter” even when producing an “invoice”).
+"Letter" even when producing an "invoice").
 
 Although specifying the product type is optional, including this information in
 the PPM definition is strongly recommended.
@@ -214,7 +214,7 @@ Production oriented folds used with impositioning and trimming are not included
 as they do not influence the definition of the intended final product.
 
 The fold illustrations shown in Table 17 of the PPM standard depict single
-product folds and do not necessarily represent that part’s orientation when
+product folds and do not necessarily represent that part's orientation when
 combined with other parts, e.g. as a fold out page bound into a book. To achieve
 the folded sheet orientation as depicted in the illustrations in Table 17, the
 *CIP4_Orientation* property requires a non-default setting. See section
@@ -230,9 +230,9 @@ specify coatings to be applied to identified finished pages.
 NOTE: The spectral properties of the coating may require the colour management
 process to compensate for unwanted colour shifts.
 
-NOTE: As stated in the PPM standard, “Information about printing colour printing
+NOTE: As stated in the PPM standard, "Information about printing colour printing
 conditions is out of scope of the PPM standard. This information shall be
-provided using the standard methods defined for PDF, e.g. output profiles.”
+provided using the standard methods defined for PDF, e.g. output profiles."
 Accordingly, PPM cannot be used to specify the colour space in which PDF page
 content is defined. Everything related to color management can only be specified
 in the PDF data, not in the PPM.

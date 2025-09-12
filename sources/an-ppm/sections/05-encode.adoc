@@ -30,8 +30,9 @@ that corresponds to the pages for an individual recipient.
 Each DPart dictionary represents a node in the document part node hierarchy and
 includes the following keys:
 
-* *Parent* — an indirect reference to the dictionary that references this DPart dictionary. For
-the root node this is an indirect reference for the DPartRoot dictionary.
+* *Parent* — an indirect reference to the dictionary that references this DPart
+dictionary. For the root node this is an indirect reference for the DPartRoot
+dictionary.
 
 * *DPM* — a dictionary value with metadata that applies to the pages covered by
 this node.
@@ -79,7 +80,7 @@ metadata relevant to a particular specification can be easily identified.
 === Encoding PPM within DPM
 
 PPM is encoded as the values of metadata keys present in the DPM using the
-“CIP4_” prefix. The PPM that applies to a particular DPart is encoded as a
+"CIP4_" prefix. The PPM that applies to a particular DPart is encoded as a
 dictionary under the *CIP4_Root* metadata key within the *DPM* dictionary of
 that DPart.
 
@@ -93,7 +94,7 @@ element name of the product intent prefixed with the CIP4 second class name. For
 example, the XJDF product intent element named BindingIntent is encoded in PPM
 as CIP4_BindingIntent. The value of a PPM product intent metadata key is a PDF
 dictionary encoding of the XJDF attributes of the product intent. Each attribute
-is encoded using a key with the attribute name prefixed with the “CIP4_" second
+is encoded using a key with the attribute name prefixed with the "CIP4_" second
 class name prefix. The attribute value is represented as a PDF value based on
 the XJDF schema type of the attribute value. Detailed encoding rules are
 described in section 6 of the PPM specification. The following rules apply:
@@ -102,7 +103,7 @@ described in section 6 of the PPM specification. The following rules apply:
 corresponding PDF primitive object values.
 
 * Enumeration values, NMTOKEN and ID are encoded as a PDF name beginning with a
-slash ‘/’ character.
+slash `/` character.
 
 * List type values (anything encoded in XJDF as a whitespace separated array)
 are encoded as an array of values.
@@ -225,10 +226,10 @@ method that may be used to communicate with the contact.
 * *CIP4_Person* — a dictionary representing information regarding the person
 (such as name) to contact.
 
-* *CIP4_Company* — a dictionary representing information regarding the contact’s
+* *CIP4_Company* — a dictionary representing information regarding the contact's
 organization.
 
-* *CIP4_Address* — a dictionary representing the contact’s address.
+* *CIP4_Address* — a dictionary representing the contact's address.
 
 The following keys are available in a *CIP4_ComChannel* dictionary:
 
@@ -247,24 +248,24 @@ _Business_, _Private_, _DayTime_, _NightTime_, or _Weekend_.
 
 The following keys can be used in a *CIP4_Person* dictionary:
 
-* *CIP4_FirstName* — a string representing the person’s first name.
+* *CIP4_FirstName* — a string representing the person's first name.
 
-* *CIP4_FamilyName* — a string representing the person’s family name.
+* *CIP4_FamilyName* — a string representing the person's family name.
 
-* *CIP4_AdditionalNames* — a string representing the person’s middle names if
+* *CIP4_AdditionalNames* — a string representing the person's middle names if
 any.
 
-* *CIP4_FullName* — a string representing the person’s full name.
+* *CIP4_FullName* — a string representing the person's full name.
 
 * *CIP4_DescriptiveName* — a human readable string representing additional
 information about the person that is not already covered by the other keys.
 
-* *CIP4_JobTitle* — a string representing the person’s organizational role.
+* *CIP4_JobTitle* — a string representing the person's organizational role.
 
-* *CIP4_NamePrefix* — a string representing a prefix to the person’s name such
+* *CIP4_NamePrefix* — a string representing a prefix to the person's name such
 as Mr., Ms., Dr., etc.
 
-* *CIP4_NameSuffix* — a string representing a suffix to the person’s name such
+* *CIP4_NameSuffix* — a string representing a suffix to the person's name such
 as Jr., Sr., etc.
 
 Where possible the above information about a person should be provided in the
@@ -277,7 +278,7 @@ The following keys can be used in a *CIP4_Company* dictionary:
 * *CIP4_OrganizationName* — a string representing the name of the organization
 to which a contact belongs.
 
-* *CIP4_DescriptiveName* — a human readable string representing the contact’s
+* *CIP4_DescriptiveName* — a human readable string representing the contact's
 organization.
 
 * *CIP4_OrganizationalUnit* — an array of strings representing the name(s) of

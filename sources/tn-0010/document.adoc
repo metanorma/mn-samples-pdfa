@@ -59,10 +59,10 @@ PDF/A-1 - ISO 19005-1, 6.1.12
 
 The implementation limits for ISO 19005-1 files are specified in the PDF 1.4
 Reference, Appendix C.1. The limits for integers are given as from
--2,147,483,648 to +2,147,483,648, and for reals; from - 32,767 to +32,767
+-2,147,483,648 to +2,147,483,648, and for reals; from -32,767 to +32,767
 (approximate).
 
-However, PDF 1.4 allows specifying the object type as “number” meaning it can be
+However, PDF 1.4 allows specifying the object type as "number" meaning it can be
 either integer or real (see PDF 1.4 Reference, 3.2.2). It is thus unclear which
 implementation limits shall be effective.
 
@@ -71,7 +71,7 @@ implementation limits shall be effective.
 
 Tz operator arguments (and at least 30 other operators as well as 6 keys in the
 graphics state parameter dictionary, all keys in CalGray and CalRGB colour space
-dictionaries and so on) in the content stream are specified as “number
+dictionaries and so on) in the content stream are specified as "number"
 throughout PDF 1.4. It is not clear whether the argument value 40,000 would
 violate the implementation limits of PDF 1.4, and, thus, the requirements of ISO
 19005-1.
@@ -184,7 +184,7 @@ the Name object length:
 [quote]
 ____
 The length of a name is subject to an implementation limit; see Appendix C. The
-limit applies to the number of characters in the name’s internal representation.
+limit applies to the number of characters in the name's internal representation.
 For example, the name /A#20B has four characters (/, A, space, B), not six.
 ____
 
@@ -279,7 +279,7 @@ are automatically converted to 0.
 ____
 
 In other words, the clause should be interpreted as a precision recommendation
-in comparison of real values, rather than a ‘shall’ requirement. Converting real
+in comparison of real values, rather than a 'shall' requirement. Converting real
 values that are too close to zero, to 0.0, does not normally lead to any
 ambiguities noticeable by a human eye. It is also a standard practice to use a
 certain precision in any implementation using real-valued arithmetic.
@@ -289,7 +289,7 @@ certain precision in any implementation using real-valued arithmetic.
 
 The specification of a minimal possible non-zero absolute value of a real number
 is a specification of an acceptable precision in real value arithmetic rather
-than a ‘shall’ requirement.
+than a 'shall' requirement.
 
 
 ==== ISO WG Resolution
@@ -496,16 +496,16 @@ ____
 
 ==== Precise formulation of the problem
 
-The term “explicitly associated Resources dictionary” in ISO 19005-2 and ISO
+The term "explicitly associated Resources dictionary" in ISO 19005-2 and ISO
 19005-3, clause 6.2.2 is not defined in either PDF/A or PDF specifications. In
 particular, it is not clear whether the Resources dictionaries inherited via a
-Pages tree are considered “explicitly associated”, or not.
+Pages tree are considered "explicitly associated", or not.
 
 
 ==== ISO WG Resolution
 
-ISO 19005-2 and 19005-3 use the term “explicitly associated Resources
-dictionary” exclusively for *Resources* entry in a Page dictionary, a Tiling
+ISO 19005-2 and 19005-3 use the term "explicitly associated Resources
+dictionary" exclusively for *Resources* entry in a Page dictionary, a Tiling
 Pattern dictionary, a Form XObject dictionary (including Annotation appearance
 streams), or a Type3 font dictionary.
 
@@ -535,8 +535,8 @@ width information in the font dictionary and in the embedded font program shall
 be consistent.
 ____
 
-The meaning of the term “used for rendering” is implicitly defined in subclause
-6.3.4 “Embedded font programs”, and includes fonts used in page content streams,
+The meaning of the term "used for rendering" is implicitly defined in subclause
+6.3.4 "Embedded font programs", and includes fonts used in page content streams,
 Form XObject streams, appearance streams of annotations including forms, content
 streams of Type3 font glyphs and streams of tiling patterns. This subclause also
 explicitly states that if a font is used only in rendering mode 3, it may not be
@@ -589,7 +589,7 @@ PDF/A-1 - ISO 19005-1, 6.3.6, PDF/A-2 -- ISO 19005-2, 6.2.11.5, and PDF/A-3 -- I
 
 ==== Background
 
-Although ISO 19005-1, 6.3.6 is called “Font metrics” it covers only glyph
+Although ISO 19005-1, 6.3.6 is called "Font metrics" it covers only glyph
 widths, which are horizontal metrics. However, vertical metrics may also be
 present in the embedded TrueType/OpenType programs, and their consistency with
 the information present in the font descriptor dictionary is equally important.
@@ -598,7 +598,7 @@ the information present in the font descriptor dictionary is equally important.
 ==== Precise formulation of the problem
 
 The requirement for consistency of vertical metrics between font dictionary and
-the “fhea” and “fmtx” tables of embedded TrueType font program is not covered by
+the "fhea" and "fmtx" tables of embedded TrueType font program is not covered by
 ISO 19005-1, but is critical to ensuring predictability of font rendering in
 vertical mode.
 
@@ -640,10 +640,10 @@ ISO 19005-1 documents may store private information under custom keys not
 specified by the PDF 1.4 Reference. Such data is for private use by specific
 applications and shall not be used for PDF rendering. However, as private data
 is still based on PDF object structures, it is subject to low-level syntax
-requirements described in ISO 19005-1, 6.1 “File structure”.
+requirements described in ISO 19005-1, 6.1 "File structure".
 
 In addition, all custom keys used to define private data should follow the
-requirements of PDF 1.4 Reference, Annex E “PDF Name Registry”. However, as
+requirements of PDF 1.4 Reference, Annex E "PDF Name Registry". However, as
 these requirements are irrelevant for the visual appearance of PDF documents,
 they are outside of the scope of ISO 19005.
 
@@ -662,7 +662,7 @@ is subject to the requirements of clause 6.1.
 ==== Precise formulation of the problem
 
 It is not clear whether objects referenced in the cross-reference table, but not
-reached from the document’s root dictionary via the first-class names defined in
+reached from the document's root dictionary via the first-class names defined in
 PDF 1.4 Reference are subject to the requirements of ISO 19005-1, 6.1.
 
 
@@ -805,7 +805,7 @@ actually used for rendering. For example, in a sequence of commands
 /CS2 cs %reset it to a different resource /CS2
 ----
 
-the named colour space “CS1” is not actually used for rendering. Similarly,
+the named colour space "CS1" is not actually used for rendering. Similarly,
 device colors can be set, but never used for rendering. For example, in a
 sequence of commands such as:
 
@@ -883,7 +883,7 @@ state, the original text was corrected in ISO 19005-1/Corr. 2, 6.5.3:
 ____
 For all annotation dictionaries containing an *AP* key, the appearance
 dictionary that it defines as its value shall contain only the *N* key. If an
-annotation dictionary’s *Subtype* key has a value of Widget and its *FT* key has a
+annotation dictionary's *Subtype* key has a value of Widget and its *FT* key has a
 value of Btn, the value of the *N* key shall be an appearance subdictionary;
 otherwise the value of the *N* key shall be an appearance stream.
 ____
@@ -928,7 +928,7 @@ The PDF 1.4 Reference, 8.4.5 says that:
 
 [quote]
 ____
-Interactive forms (see Section 8.6, “Interactive Forms”) use widget annotations
+Interactive forms (see Section 8.6, "Interactive Forms") use widget annotations
 (PDF 1.2) to represent the appearance of fields and to manage user interactions.
 ____
 
@@ -994,7 +994,7 @@ ISO 19005-3 as follows:
 ____
 For all annotation dictionaries containing an *AP* key, the appearance
 dictionary that it defines as its value shall contain only the *N* key. If an
-annotation dictionary’s Subtype key has a value of Widget and its *FT* key has a
+annotation dictionary's Subtype key has a value of Widget and its *FT* key has a
 value of Btn, the value of the *N* key shall be an appearance subdictionary,
 otherwise the value of the *N* key shall be an appearance stream.
 ____
@@ -1002,7 +1002,7 @@ ____
 This formulation does not address cases in which a form (such as a radio button)
 has both multiple widgets associated with it and is defined in the *Kids* array.
 In this case, the Widget dictionary and the Form field dictionary are not
-merged, and it doesn’t make sense to refer to the *FT* key of the annotation
+merged, and it doesn't make sense to refer to the *FT* key of the annotation
 dictionary.
 
 
@@ -1020,7 +1020,7 @@ The paragraph in question should be read as if it stated:
 ____
 For all annotation dictionaries containing an *AP* key, the appearance
 dictionary that it defines as its value shall contain only the *N* key. If an
-annotation dictionary’s Subtype key has a value of Widget and its parent form
+annotation dictionary's Subtype key has a value of Widget and its parent form
 field dictionary has the *FT* key value equal to Btn, the value of the *N* key
 shall be an appearance subdictionary, otherwise the value of the *N* key shall
 be an appearance stream.
@@ -1063,8 +1063,8 @@ ____
 All ICCBased colour spaces shall be embedded as ICC profile streams as described
 in PDF Reference 4.5.
 
-NOTE: the reference to “PDF Reference 4.5” in ISO 19005-1 is a typo; “PDF
-Reference 1.4” is intended.
+NOTE: the reference to "PDF Reference 4.5" in ISO 19005-1 is a typo; "PDF
+Reference 1.4" is intended.
 ____
 
 In its turn, the PDF 1.4 Reference, 4.5.4 restricts the versions of ICC profiles
@@ -1079,10 +1079,10 @@ ICC.1A:1999-04.
 ____
 
 These ICC specifications are also identified by their so-called internal
-version, placed in the ICC profile header. This internal version is “2.1” for
-ICC specification version 3.3, “2.2” for ICC.1:1998- 09 and “2.3” for its
+version, placed in the ICC profile header. This internal version is "2.1" for
+ICC specification version 3.3, "2.2" for ICC.1:1998- 09 and "2.3" for its
 addendum ICC.1A:1999-04. In 2001 ICC published also another standard
-ICC.1:2001-04, which has an internal version “2.4” and which is backward
+ICC.1:2001-04, which has an internal version "2.4" and which is backward
 compatible with all earlier ICC specifications with major version 2.
 
 
@@ -1187,7 +1187,7 @@ PDF/A-2 - ISO 19005-2, 6.2.4.3 and PDF/A-3 - ISO 19005-3, 6.2.4.3
 
 All parts of ISO 19005 prohibit the use of Device colour spaces without a
 well-defined mapping to a device-independent colour model, either via the use of
-default colour spaces or by specifying the document’s output intents, as
+default colour spaces or by specifying the document's output intents, as
 specified in ISO 3200-1, 14.11.6.
 
 Soft mask image dictionaries are required to have DeviceGray as a value of the
@@ -1244,7 +1244,7 @@ PDF/A-1 - ISO 19005-1, 6.3.4
 
 Although OpenType fonts are not specified in the PDF 1.4 Reference, and are not
 permitted in documents conforming to ISO 19005-1 (see ISO 19005-1, 5.1
-“General”), the PDF 1.4 Reference, 5.8, Table 5.22 formally permits any type of
+"General"), the PDF 1.4 Reference, 5.8, Table 5.22 formally permits any type of
 font to be present in the PDF document:
 
 [quote]
@@ -1261,7 +1261,7 @@ ____
 ==== Precise formulation of the problem
 
 A literal reading of ISO 19005-1 and the PDF 1.4 Reference does not forbid the
-use of OpenType fonts. Moreover, the use of “otherName” as a font type creates
+use of OpenType fonts. Moreover, the use of "otherName" as a font type creates
 an ambiguity in specifying font types that are permitted in ISO 19005-1
 documents.
 
@@ -1327,7 +1327,7 @@ PDF/A-2 - ISO 19005-2, 6.2.11.3.3 and PDF/A-3 - ISO 19005-3, 6.2.11.3.3
 ==== Background
 
 As specified in ISO 32000-1, CMap streams may reference other CMaps, either
-predefined or embedded via the “usecmap” operator in the embedded CMap file. In
+predefined or embedded via the "usecmap" operator in the embedded CMap file. In
 this case this referenced CMap should be also specified as a value of the
 /UseCMap entry in the CMap dictionary.
 
@@ -1341,7 +1341,7 @@ All CMaps used within a PDF/A-2 file, except those listed in ISO 32000-1:2008,
 32000-1:2008, 9.7.5.
 ____
 
-However, ISO 19005-2 doesn’t seem to allow referencing one embedded CMap from
+However, ISO 19005-2 doesn't seem to allow referencing one embedded CMap from
 another:
 
 [quote]
@@ -1354,13 +1354,13 @@ ____
 ==== Precise formulation of the problem
 
 The current wording in ISO 19005-2 and ISO 19005-3 does not allow referencing an
-embedded custom CMap from another CMap. It’s not clear if this is permitted or
+embedded custom CMap from another CMap. It's not clear if this is permitted or
 not.
 
 
 ==== ISO WG Resolution
 
-The “usecmap” operator inside the embedded CMap shall only refer to the
+The "usecmap" operator inside the embedded CMap shall only refer to the
 predefined CMaps.
 
 Referring to other embedded CMaps might cause ambiguities, and shall be avoided.
@@ -1378,8 +1378,8 @@ PDF/A-1 - ISO 19005-1, 6.7.2
 ==== Background
 
 All requirements in ISO 19005-1 pertaining to XMP metadata address only the
-document level XMP package (the *Metadata* entry in the document’s catalog), and
-font metadata. In addition, font metadata requirements contain only ‘should’
+document level XMP package (the *Metadata* entry in the document's catalog), and
+font metadata. In addition, font metadata requirements contain only 'should'
 clauses.
 
 However, the following sentence in ISO 19005-1, 6.7.2 seems to apply to all XMP
@@ -1464,7 +1464,7 @@ ____
 
 There are several issues:
 
-It is not clear what the term “shall use predefined schemas” means. Should only
+It is not clear what the term "shall use predefined schemas" means. Should only
 the type of the properties be correct? Or is it that any additional restrictions
 on the values of such properties shall also be honored? It should also be noted
 that all conditions imposed on values of predefined properties are given in
@@ -1478,7 +1478,7 @@ correctly.
 
 ==== Precise formulation of the problem
 
-The “shall” requirement for any metadata property to comply with either
+The "shall" requirement for any metadata property to comply with either
 predefined schemas from XMP specifications or with an extension schema, is
 itself ambiguous and causes substantial technical difficulties and questions in
 implementations.
@@ -1518,11 +1518,11 @@ PDF/A-2 - ISO 19005-2, 6.6.6 and PDF/A-3 - ISO 19005-3, 6.6.6
 
 ==== Background
 
-ISO 19005-2 and ISO 19005-3 include a “should” requirement for file provenance
+ISO 19005-2 and ISO 19005-3 include a "should" requirement for file provenance
 information as a sequence of user actions recorded in the xmpMM:History
 property.
 
-This “should” requirement, however, contains a “shall” requirement,
+This "should" requirement, however, contains a "shall" requirement,
 specifically, that if such list of user actions is present, it shall specify
 action, parameters and when fields.
 
@@ -1532,7 +1532,7 @@ this field is always required.
 
 ==== Precise formulation of the problem
 
-The “shall” requirement for any user actions recorded in xmpMM:History property
+The "shall" requirement for any user actions recorded in xmpMM:History property
 to have the properties field seems to be both too restrictive and inherently
 confusing, as many user actions do not have any additional parameters.
 
@@ -1606,20 +1606,20 @@ second paragraph in ISO 19005-1, 6.7.8:
 [quote]
 ____
 If an Extension Schema does not define any custom value types, the field
-"pdfaSchema:valueType" in any instance of "PDF/A Schema value type” shall be
+"pdfaSchema:valueType" in any instance of "PDF/A Schema value type" shall be
 either missing or empty, and no instance of "PDF/A ValueType value type" and/or
-"PDF/A Field value type” shall be present.
+"PDF/A Field value type" shall be present.
 
 If "pdfaSchema:valueType" is present and not empty, for each entry an instance
-of "PDF/A ValueType value type” with all fields shall be present and not empty
-with the exception of "pdfaType:field”, which may be present.
+of "PDF/A ValueType value type" with all fields shall be present and not empty
+with the exception of "pdfaType:field", which may be present.
 
 If an Extension Schema does not define any custom fields, the field
-"pdfaType:field" in any instance of "PDF/A ValueType value type” shall be either
-missing or empty and no instance of "PDF/A Field value type” shall be present.
+"pdfaType:field" in any instance of "PDF/A ValueType value type" shall be either
+missing or empty and no instance of "PDF/A Field value type" shall be present.
 
 If "pdfaType:field" is present and not empty, for each entry an instance of
-"PDF/A Field value type” with all fields shall be present and not empty.
+"PDF/A Field value type" with all fields shall be present and not empty.
 ____
 
 ==== ISO 19005-1, -2 and -3 validators

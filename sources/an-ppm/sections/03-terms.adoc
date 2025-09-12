@@ -3,12 +3,12 @@
 
 === Logical page
 
-individual page definition of the PDF file (not to be confused with “logical
-order” as used in Tagged PDF).
+individual page definition of the PDF file (not to be confused with "logical
+order" as used in Tagged PDF).
 
 === Finished page
 
-physical page of the print product (from the print product user’s perspective)
+physical page of the print product (from the print product user's perspective)
 that is a trimmed sheet of paper or print substrate that has two sides.
 
 === Spread
@@ -31,7 +31,7 @@ subdivided into a sequence of one or more parts.
 
 === Product Intent
 
-specifies the creator’s view of a finished print product.
+specifies the creator's view of a finished print product.
 
 === Product Assembly
 
