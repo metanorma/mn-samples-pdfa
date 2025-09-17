@@ -293,19 +293,19 @@ PDF/UA-2.
 * [[[pdf-archival,1]]],
 span:organization[PDF Association]
 span:title[PDF/A information]
-span:citation:uri[https://pdfa.org/archival-pdf/]
+span:citation.uri[https://pdfa.org/archival-pdf/]
 
 * [[[pdf-accessibility,2]]],
 span:organization[PDF Association]
 span:title[PDF/UA information]
-span:citation:uri[https://pdfa.org/accessibility/]
+span:citation.uri[https://pdfa.org/accessibility/]
 
 * [[[pdf-cheat-sheets,3]]],
 span:organization[PDF Association]
 span:title[PDF Cheat Sheets]
-span:citation:uri[https://pdfa.org/resource/pdf-cheat-sheets/]
+span:citation.uri[https://pdfa.org/resource/pdf-cheat-sheets/]
 
 * [[[xmp-templates,4]]],
 span:organization[PDF Association]
 span:title[XMP Extension Schema Templates]
-span:citation:uri[https://pdfa.org/resource/xmp-extension-schema-templates/]
+span:citation.uri[https://pdfa.org/resource/xmp-extension-schema-templates/]
