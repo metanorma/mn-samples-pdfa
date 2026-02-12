@@ -1,5 +1,6 @@
 = FAQ on HDR in PDF: Focus on PDF/A and PDF/X
-:docnumber: 5
+:docnumber: hdr-faq
+:docnumberx: 5
 :edition: 1
 :revdate: 2025-07-18
 :copyright-year: 2025
@@ -11,7 +12,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
 :status: published
-:docidentifier: PDFa AN hdr-faq:2025 (1.0.0)
+:docidentifierx: PDFa AN hdr-faq:2025 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

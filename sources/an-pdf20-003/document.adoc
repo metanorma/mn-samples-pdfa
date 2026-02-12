@@ -1,5 +1,6 @@
 = PDF Association PDF 2.0 Application Note 003
-:docnumber: 3
+:docnumberx: 3
+:docnumber: 003
 :edition: 1
 :revdate: 2021-03-17
 :copyright-year: 2021
@@ -12,7 +13,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
 :status: published
-:docidentifier: PDFa AN 003:2021 (1.0.0)
+:docidentifierx: PDFa AN 003:2021 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

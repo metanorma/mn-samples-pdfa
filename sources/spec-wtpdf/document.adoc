@@ -1,5 +1,6 @@
 = Well-Tagged PDF (WTPDF): Using Tagged PDF for Accessibility and Reuse in PDF 2.0
-:docnumber: 1
+:docnumberx: 1
+:docnumber: wtpdf
 :edition: 1
 :revdate: 2024-02-01
 :copyright-year: 2024
@@ -12,7 +13,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
 :status: published
-:docidentifier: PDFa wtpdf:2024 (1.0.0)
+:docidentifierx: PDFa wtpdf:2024 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

@@ -1,5 +1,6 @@
 = Tagged PDF Best Practice Guide: Syntax
-:docnumber: 11
+:docnumberx: 11
+:docnumber: tagged-pdf-syntax
 :edition: 1.1
 :revdate: 2023-07-06
 :copyright-year: 2023
@@ -12,7 +13,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
 :status: published
-:docidentifier: PDFa BPG tagged-pdf-syntax:2023 (1.1.0)
+:docidentifierx: PDFa BPG tagged-pdf-syntax:2023 (1.1.0)
 :imagesdir: images
 :plantuml-image-format: svg
 :icons: font

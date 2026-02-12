@@ -1,5 +1,6 @@
 = Conforming to both PDF/A & PDF/UA
-:docnumber: 4
+:docnumberx: 4
+:docnumber: pdfa-ua
 :edition: 1
 :revdate: 2025-06-10
 :copyright-year: 2025
@@ -11,7 +12,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: best-practice-guide
 :status: published
-:docidentifier: PDFa BPG pdfa-ua:2025 (1.0.0)
+:docidentifierx: PDFa BPG pdfa-ua:2025 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

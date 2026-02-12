@@ -1,5 +1,6 @@
 = PDF Association PDF 2.0 Application Note 001
-:docnumber: 1
+:docnumber: 001
+:docnumberx: 1
 :edition: 1
 :revdate: 2018-09-17
 :copyright-year: 2018
@@ -12,7 +13,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: application-note
 :status: published
-:docidentifier: PDFa AN 001:2018 (1.0.0)
+:docidentifierx: PDFa AN 001:2018 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

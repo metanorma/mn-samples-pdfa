@@ -1,5 +1,6 @@
 = Use of standard Print Product Metadata (PPM) with PDF
-:docnumber: 5
+:docnumberx: 5
+:docnumber: ppm
 :edition: 1
 :revdate: 2024-05-23
 :copyright-year: 2024
@@ -9,9 +10,10 @@
 :committee-type: technical
 :mn-document-class: pdfa
 :mn-output-extensions: xml,html,doc,pdf,rxl
-:doctype: best-practice-guide
+:doctypex: best-practice-guide # no, AN is application-note
+:doctype: application-note
 :status: published
-:docidentifier: PDFa AN ppm:2024 (1.0.0)
+:docidentifierx: PDFa AN ppm:2024 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 

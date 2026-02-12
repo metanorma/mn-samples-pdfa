@@ -1,5 +1,6 @@
 = EA-PDF v1.0 Specification: An archival email format based on PDF/A
-:docnumber: 1
+:docnumberx: 1
+:docnumber: spec-eapdf
 :edition: 1
 :revdate: 2024-10-10
 :copyright-year: 2024
@@ -12,7 +13,7 @@
 :mn-output-extensions: xml,html,doc,pdf,rxl
 :doctype: specification
 :status: published
-:docidentifier: PDFa eapdf:2024 (1.0.0)
+:docidentifierx: PDFa eapdf:2024 (1.0.0)
 :imagesdir: images
 :local-cache-only:
 
