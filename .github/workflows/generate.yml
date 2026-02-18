@@ -1,4 +1,4 @@
-name: docker
+name: generate
 
 on:
   push:
@@ -8,10 +8,6 @@ on:
 
 permissions:
   contents: read
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -24,8 +20,12 @@ jobs:
         with:
           submodules: true
 
+      - name: Setup Metanorma
+        uses: actions-mn/setup@v3
+
       - name: Metanorma generate site
         uses: actions-mn/build-and-publish@v2
         with:
           agree-to-terms: true
           destination: artifact
+          artifact-name: ${{ github.event.repository.name }}-${{ runner.os }}
