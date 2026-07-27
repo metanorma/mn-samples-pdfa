@@ -1,0 +1,12 @@
+---
+# Subset used by the metanorma-cli release smoke gate (metanorma-cli#391):
+# two documents covering both doctype families, small enough for CI.
+metanorma:
+  source:
+    files:
+      - sources/an-ppm/document.adoc
+      - sources/spec-pdf-declarations/document.adoc
+
+  collection:
+    organization: "PDF Association"
+    name: "PDF Association sample documents (CI smoke subset)"
